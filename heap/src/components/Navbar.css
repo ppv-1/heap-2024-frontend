@@ -1,0 +1,83 @@
+.background {
+  background: rgb(255, 255, 255);
+  background-blend-mode: darken;
+  background-size: cover;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  cursor: pointer;
+}
+
+.nav-list, .right-nav-list {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 30%;
+  flex: 1;
+}
+
+.right-nav-list {
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  flex: 0;
+}
+
+.nav-list li {
+  list-style: none;
+  padding: 26px 30px;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  color: #000;
+}
+
+.nav-list li a:hover {
+  color: grey;
+}
+
+.right-nav-list li {
+  list-style: none;
+  padding: 26px 30px;
+}
+
+.right-nav-list li a {
+  text-decoration: none;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  color: #000;
+}
+
+.right-nav-list li a:hover {
+  color: grey;
+}
+
+.rightnav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+}
