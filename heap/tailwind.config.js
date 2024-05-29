@@ -3,6 +3,7 @@ module.exports = {
   content: [
     './src/App.js',
     './src/pages/profile.jsx',
+    './src/pages/login.jsx', 
   ],
   theme: {
     extend: {

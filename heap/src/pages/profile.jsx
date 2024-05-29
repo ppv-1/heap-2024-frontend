@@ -1,5 +1,5 @@
 import React from "react";
-import "./Profile.css";
+import "../components/Profile.css";
 import pfp from "../pfp.jpg";
 
 const Profile = () => {
@@ -15,6 +15,9 @@ const Profile = () => {
           <h1>John Lee</h1>
           <p>johnlee@gmail.com</p>
         </section>
+      </section>
+      <section className="profile-details">
+        
       </section>
     </>
   );
