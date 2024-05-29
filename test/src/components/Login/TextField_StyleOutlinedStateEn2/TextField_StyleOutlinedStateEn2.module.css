@@ -1,0 +1,87 @@
+.root {
+  width: 210px;
+  height: 56px;
+  flex-direction: column;
+  border-radius: 4px 4px 0 0;
+}
+.textField {
+  height: min-content;
+  align-self: stretch;
+  flex-direction: column;
+  outline: solid 1px #79747e;
+  outline-offset: -1px;
+  border-radius: 4px;
+  background-color: #fff;
+}
+.stateLayer {
+  z-index: 0;
+  height: min-content;
+  align-self: stretch;
+  align-items: center;
+  padding: 4px 0 4px 16px;
+  border-radius: 4px 4px 0 0;
+}
+.content {
+  position: relative;
+  height: 40px;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.inputText {
+  position: relative;
+  width: min-content;
+  height: min-content;
+}
+.inputText2 {
+  color: #1c1b1f;
+  font-size: 16px;
+  font-family: Montserrat, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  width: min-content;
+  height: min-content;
+  white-space: nowrap;
+  flex-direction: column;
+}
+.labelText {
+  position: absolute;
+  left: -4px;
+  top: -16px;
+  width: min-content;
+  height: min-content;
+  padding: 0 4px;
+  background-color: #fff;
+}
+.labelText2 {
+  color: #121;
+  font-size: 14px;
+  font-family: Montserrat, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  width: min-content;
+  height: min-content;
+  white-space: nowrap;
+  flex-direction: column;
+}
+.trailingIcon {
+  width: 48px;
+  height: 48px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+.supportingText {
+  height: min-content;
+  align-self: stretch;
+  padding: 4px 16px 0;
+}
+.supportingText2 {
+  color: #1c1b1f;
+  font-size: 14px;
+  font-family: Montserrat, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  height: min-content;
+  flex: 1;
+  flex-direction: column;
+}

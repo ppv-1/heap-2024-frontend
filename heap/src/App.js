@@ -26,35 +26,3 @@ export default function App() {
 const rootElement = document.getElementById("root");
 const root = ReactDOM.createRoot(rootElement);
 root.render(<App />);
-
-// function App() {
-//   return (
-//     // <nav className="navbar">
-//     //   <ul className="nav-list">
-//     //     <li>
-//     //       <a href="opps">
-//     //         <p>Discover</p>
-//     //         <p>Opportunities</p>
-//     //       </a>
-//     //     </li>
-//     //     <li>
-//     //       <a href="orgs">Organisations</a>
-//     //     </li>
-//     //   </ul>
-//     //   <div className="spacer"></div>
-//     //   <div className="logo">
-//     //     <img src={logo} alt="logo" />
-//     //   </div>
-//     //   <div className="spacer"></div>
-//     //   <div className="rightnav">
-//     //     <ul className="right-nav-list">
-//     //       <li>
-//     //         <a href="profile">Profile</a>
-//     //       </li>
-//     //     </ul>
-//     //   </div>
-//     // </nav>
-//   );
-// }
-
-// export default App;
