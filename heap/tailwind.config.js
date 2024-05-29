@@ -2,8 +2,9 @@
 module.exports = {
   content: [
     './src/App.js',
-    './src/pages/profile.jsx',
-    './src/pages/login.jsx', 
+    './src/components/profile.jsx',
+    './src/components/login.jsx', 
+    './src/components/Navbar.jsx',
   ],
   theme: {
     extend: {

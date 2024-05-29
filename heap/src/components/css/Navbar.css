@@ -1,5 +1,5 @@
 .background {
-  background: rgb(255, 255, 255);
+  background: rgb(255, 255, 255, 1);
   background-blend-mode: darken;
   background-size: cover;
 }
@@ -11,6 +11,8 @@
   position: sticky;
   top: 0;
   cursor: pointer;
+  height: max-content;
+  z-index: 10;
 }
 
 .nav-list, .right-nav-list {
@@ -34,6 +36,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .logo img {

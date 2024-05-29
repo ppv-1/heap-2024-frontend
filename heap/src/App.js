@@ -2,29 +2,38 @@ import React from "react";
 import "./App.css";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./pages/layout";
-import Home from "./pages/home";
-import Opps from "./pages/opps";
-import Orgs from "./pages/orgs";
-import Profile  from "./pages/profile";
-import Login from "./pages/login";
+import Layout from "./components/layout";
+import HomeComponent from "./components/home";
+import OpportunitiesComponent from "./components/opps";
+import OrganizationsComponent from "./components/orgs";
+import ProfileComponent from "./components/profile";
+import Login from "./components/login";
+import SignUp from "./components/signup";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout/>}>
-          <Route index element={<Home/>}/>
-          <Route path="opps" element={<Opps/>}/>
-          <Route path="orgs" element={<Orgs/>}/>
-          <Route path="login" element={<Login/>}/>
-          <Route path="profile" element={<Profile/>}/>
+        <Route element={<Layout />}>
+          <Route index element={<HomeComponent />} />
+          <Route path="/opportunities" element={<OpportunitiesComponent />} />
+          <Route path="/organizations" element={<OrganizationsComponent />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/profile" element={<ProfileComponent />} />
         </Route>
       </Routes>
     </BrowserRouter>
   );
 }
 
-const rootElement = document.getElementById("root");
-const root = ReactDOM.createRoot(rootElement);
-root.render(<App />);
+// const rootElement = document.getElementById("root");
+// const root = ReactDOM.createRoot(rootElement);
+// root.render(<App />);
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
