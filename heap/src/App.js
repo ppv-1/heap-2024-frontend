@@ -9,6 +9,8 @@ import OrganizationsComponent from "./components/orgs";
 import ProfileComponent from "./components/profile";
 import Login from "./components/login";
 import Signup from "./components/signup";
+import ResetPassword from "./components/resetPassword";
+import ChangePassword from "./components/changePassword";
 
 export default function App() {
   return (
@@ -21,6 +23,8 @@ export default function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/sign-up" element={<Signup />} />
           <Route exact path="/profile" element={<ProfileComponent />} />
+          <Route exact path="/reset-password" element={<ResetPassword />} />
+          <Route exact path="/change-password" element={<ChangePassword />} />
         </Route>
       </Routes>
     </BrowserRouter>
