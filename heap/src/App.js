@@ -8,7 +8,7 @@ import OpportunitiesComponent from "./components/opps";
 import OrganizationsComponent from "./components/orgs";
 import ProfileComponent from "./components/profile";
 import Login from "./components/login";
-import SignUp from "./components/signup";
+import Signup from "./components/signup";
 
 export default function App() {
   return (
@@ -19,7 +19,7 @@ export default function App() {
           <Route path="/opportunities" element={<OpportunitiesComponent />} />
           <Route path="/organizations" element={<OrganizationsComponent />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-up" element={<Signup />} />
           <Route path="/profile" element={<ProfileComponent />} />
         </Route>
       </Routes>

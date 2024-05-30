@@ -5,6 +5,7 @@ module.exports = {
     './src/components/profile.jsx',
     './src/components/login.jsx', 
     './src/components/Navbar.jsx',
+      './src/components/signup.jsx',
   ],
   theme: {
     extend: {

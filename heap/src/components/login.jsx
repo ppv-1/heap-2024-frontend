@@ -6,6 +6,11 @@ class Login extends Component {
     super(props);
 
     this.state = {};
+    // this.loginSubmit = this.loginSubmit.bind(this);
+  }
+
+  componentDidMount() {
+
   }
 
   render() {
