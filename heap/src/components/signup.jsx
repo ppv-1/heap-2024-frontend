@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-// import "./css/Signup.css";
+import UserService from '../services/UserService';
+import withNavigate from './withNavigate';
+import "./css/Signup.css";
 
 class Signup extends Component {
     constructor(props) {
@@ -16,12 +18,17 @@ class Signup extends Component {
         this.changeContactNoHandler = this.changeContactNoHandler.bind(this);
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
         this.changePasswordHandler = this.changePasswordHandler.bind(this);
+        this.createUser = this.createUser.bind(this);
     }
 
     createUser = (e) => {
         e.preventDefault();
         let user = {name: this.state.name, contactNo: this.state.contactNo, email: this.state.email, password: this.state.password};
         console.log('user => ' + JSON.stringify(user));
+
+        UserService.createUser(user).then(res => {
+            this.props.navigate('/');
+        });
     }
 
     changeNameHandler= (event) => {
@@ -57,14 +64,14 @@ class Signup extends Component {
                     </label>
                     <label>
                         <p>Email Address</p>
-                        <input type="email" value={this.state.email} onChange={this.changeEmailHandler} />
+                        <input type="email" required value={this.state.email} onChange={this.changeEmailHandler} />
                     </label>
                     <label>
                         <p>Password</p>
                         <input type="password" value={this.state.password} onChange={this.changePasswordHandler} />
                     </label>
                     <div className="button-container">
-                        <button className="btn btn-wide">Sign Up</button>
+                        <button className="btn btn-wide" onClick={this.createUser}>Sign Up</button>
                     </div>
                 </form>
                 </div>
@@ -73,4 +80,4 @@ class Signup extends Component {
     }
 }
 
-export default Signup;
+export default withNavigate(Signup);

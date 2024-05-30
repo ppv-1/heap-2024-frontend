@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./css/Login.css";
 import UserService from "../services/UserService";
+import { Link } from "react-router-dom";
+import withNavigate from './withNavigate';
 
 class Login extends Component {
   constructor(props) {
@@ -13,17 +15,23 @@ class Login extends Component {
     this.changeUsernameHandler = this.changeUsernameHandler.bind(this);
     this.changePasswordHandler = this.changePasswordHandler.bind(this);
     this.loginSubmit = this.loginSubmit.bind(this);
-  }
-
-  componentDidMount() {
 
   }
 
   loginSubmit = (event) => {
     event.preventDefault();
-    let credentials = {username: this.state.username, password: this.state.password};
+    let credentials = {email: this.state.username, password: this.state.password};
+    console.log(credentials);
     UserService.loginUser(credentials).then(res=>{
-      this.props.history.push('/profile')
+      if (res.data) {
+        console.log('success');
+        // navigate('/organizations');
+        // return redirect('/organizations');
+        this.props.navigate('/organizations');
+      } else {
+        console.log('failure');
+      }
+      // console.log(res.data);
     })
   }
 
@@ -35,10 +43,6 @@ class Login extends Component {
     this.setState({password: event.target.value});
   }
 
-  register() {
-    this.props.history.push('/signup')
-  }
-
   render() {
     return (
       <>
@@ -47,14 +51,18 @@ class Login extends Component {
           <form>
             <label>
               <p>Username</p>
-              <input type="text" value={this.state.username} onChange={this.changeUsernameHandler}/>
+              <input required type="email" value={this.state.username} onChange={this.changeUsernameHandler}/>
             </label>
             <label>
               <p>Password</p>
-              <input type="password" value={this.state.password} onChange={this.changePasswordHandler}/>
+              <input required type="password" value={this.state.password} onChange={this.changePasswordHandler}/>
             </label>
             <div className="button-container">
               <button className="btn btn-wide" onClick={this.loginSubmit}>Login</button>
+            </div>
+            <p>Don't have an account?</p>
+            <div className="button-container">
+              <Link to="/sign-up"><button className="btn btn-wide">Sign up here</button></Link>
             </div>
           </form>
 
@@ -64,27 +72,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
-
-// export default function Login() {
-//   return (
-//     <div className="login-wrapper">
-//       <h1 className="title">LOGIN</h1>
-//       <form>
-//         <label>
-//           <p>Username</p>
-//           <input type="text" />
-//         </label>
-//         <label>
-//           <p>Password</p>
-//           <input type="password" />
-//         </label>
-//         <div className="button-container">
-//           <button className="btn btn-wide">
-//             Login
-//           </button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// }
+export default withNavigate(Login);

@@ -15,12 +15,12 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route index element={<HomeComponent />} />
-          <Route path="/opportunities" element={<OpportunitiesComponent />} />
-          <Route path="/organizations" element={<OrganizationsComponent />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<Signup />} />
-          <Route path="/profile" element={<ProfileComponent />} />
+          <Route exact index element={<HomeComponent />} />
+          <Route exact path="/opportunities" element={<OpportunitiesComponent />} />
+          <Route exact path="/organizations" element={<OrganizationsComponent />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/sign-up" element={<Signup />} />
+          <Route exact path="/profile" element={<ProfileComponent />} />
         </Route>
       </Routes>
     </BrowserRouter>

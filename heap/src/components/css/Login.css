@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 5%;
   margin-left: 30%;
+  width: 60%;
 }
 
 .title {
@@ -16,6 +16,10 @@
   font-weight: 700;
   font-size: 40px;
   text-decoration: none;
+}
+
+form {
+  width: 50%;
 }
 
 input[type="text"],
