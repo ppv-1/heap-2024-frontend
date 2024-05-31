@@ -18,13 +18,13 @@ class Navbar extends Component {
         <nav className="navbar bg-base-100">
           <ul className="nav-list">
             <li>
-              <Link to="/opps">
+              <Link to="/opportunities">
                 <p>Discover</p>
                 <p>Opportunities</p>
               </Link>
             </li>
             <li>
-              <Link to="/orgs">
+              <Link to="/organisations">
                 <p>Our</p>
                 <p>Organisations</p>
               </Link>

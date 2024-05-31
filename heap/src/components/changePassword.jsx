@@ -78,7 +78,6 @@ class ChangePassword extends Component {
         console.log('fail');
       }
     })
-    // this.props.navigate("/profile");
   };
 
   changePasswordHandler = (event) => {

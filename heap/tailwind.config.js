@@ -1,20 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/App.js',
-    './src/components/profile.jsx',
-    './src/components/login.jsx', 
-    './src/components/Navbar.jsx',
-      './src/components/signup.jsx',
+    "./src/App.js",
+    "./src/components/profile.jsx",
+    "./src/components/login.jsx",
+    "./src/components/Navbar.jsx",
+    "./src/components/signup.jsx",
+    "./src/components/oppDetails.jsx",
+    "./src/components/home.jsx",
   ],
   theme: {
-    extend: {
-    },
+    extend: {},
   },
 
-  plugins: [
-    require('daisyui'),
-  ],
+  plugins: [require("daisyui")],
 
   daisyui: {
     themes: false, // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
@@ -26,5 +25,4 @@ module.exports = {
     logs: true, // Shows info about daisyUI version and used config in the console when building your CSS
     themeRoot: ":root", // The element that receives theme color CSS variables
   },
-}
-
+};

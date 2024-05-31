@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import "./css/Opportunities.css"
+import "./css/Opportunities.css";
+import withNavigateandLocation from "./withNavigateandLocation";
 
 class OpportunitiesComponent extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class OpportunitiesComponent extends Component {
 
     volunteerSubmit = (event) => {
         event.preventDefault();
-        this.props.navigate("/");
+        this.props.navigate("/opportunity");
     }
 
   render() {
@@ -23,7 +24,7 @@ class OpportunitiesComponent extends Component {
               </li>
             </ul>
           </div>
-          <h1 className="title">Opportunities</h1>
+          <h1 className="title">Volunteer</h1>
           <p>Here you can find various opportunities.</p>
           <br/>
           <div className="card card-compact w-30 bg-base-100 shadow-xl">
@@ -46,7 +47,7 @@ class OpportunitiesComponent extends Component {
   }
 }
 
-export default OpportunitiesComponent;
+export default withNavigateandLocation(OpportunitiesComponent);
 
 // const Opps = () => {
 //   return (

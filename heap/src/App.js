@@ -12,6 +12,7 @@ import Login from "./components/login";
 import Signup from "./components/signup";
 import ResetPassword from "./components/resetPassword";
 import ChangePassword from "./components/changePassword";
+import OpportunityComponent from "./components/oppDetails";
 
 export default function App() {
   return (
@@ -20,13 +21,14 @@ export default function App() {
         <Route element={<Layout />}>
           <Route exact index element={<HomeComponent />} />
           <Route exact path="/opportunities" element={<OpportunitiesComponent />} />
-          <Route exact path="/organizations" element={<OrganizationsComponent />} />
+          <Route exact path="/organisations" element={<OrganizationsComponent />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/sign-up" element={<Signup />} />
           <Route exact path="/user-profile" element={<UserProfileComponent />} />
           <Route exact path="/org-profile" element={<OrganisationProfileComponent />} />
           <Route exact path="/reset-password" element={<ResetPassword />} />
           <Route exact path="/change-password" element={<ChangePassword />} />
+          <Route exact path="/opportunity" element={<OpportunityComponent />} />
         </Route>
       </Routes>
     </BrowserRouter>
