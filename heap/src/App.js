@@ -6,7 +6,8 @@ import Layout from "./components/layout";
 import HomeComponent from "./components/home";
 import OpportunitiesComponent from "./components/opps";
 import OrganizationsComponent from "./components/orgs";
-import ProfileComponent from "./components/profile";
+import UserProfileComponent from "./components/profile";
+import OrganisationProfileComponent from "./components/orgProfile";
 import Login from "./components/login";
 import Signup from "./components/signup";
 import ResetPassword from "./components/resetPassword";
@@ -22,7 +23,8 @@ export default function App() {
           <Route exact path="/organizations" element={<OrganizationsComponent />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/sign-up" element={<Signup />} />
-          <Route exact path="/profile" element={<ProfileComponent />} />
+          <Route exact path="/user-profile" element={<UserProfileComponent />} />
+          <Route exact path="/org-profile" element={<OrganisationProfileComponent />} />
           <Route exact path="/reset-password" element={<ResetPassword />} />
           <Route exact path="/change-password" element={<ChangePassword />} />
         </Route>

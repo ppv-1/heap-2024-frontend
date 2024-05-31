@@ -11,7 +11,9 @@ class UserService {
         return axios.post(USER_API_BASE_URL+'/register-volunteer', user);
     }
 
-
+    changePassword(credentials) {
+        return axios.post(USER_API_BASE_URL+'/change-password', credentials);
+    }
 }
 
 export default new UserService()

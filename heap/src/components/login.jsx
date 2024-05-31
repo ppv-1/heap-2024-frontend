@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./css/Login.css";
 import UserService from "../services/UserService";
 import { Link } from "react-router-dom";
-import withNavigate from "./withNavigate";
+import withNavigateandLocation from "./withNavigateandLocation";
 
 class Login extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class Login extends Component {
         console.log("success");
         // navigate('/organizations');
         // return redirect('/organizations');
-        this.props.navigate("/");
+        this.props.navigate("/user-profile", {state: res.data});
       } else {
         console.log("failure");
       }
@@ -91,4 +91,4 @@ class Login extends Component {
   }
 }
 
-export default withNavigate(Login);
+export default withNavigateandLocation(Login);

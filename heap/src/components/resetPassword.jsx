@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./css/ResetPassword.css";
 // import UserService from "../services/UserService";
 import { Link } from "react-router-dom";
-import withNavigate from "./withNavigate";
+import withNavigate from "./withNavigateandLocation";
 import validator from "validator";
 
 class ResetPassword extends Component {
@@ -86,7 +86,7 @@ class ResetPassword extends Component {
               />
             </label>
             <label>
-              <p>Re-enter password</p>
+              <p>Confirm password</p>
               <input
                 required
                 type="password"

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import "./css/ResetPassword.css";
-// import UserService from "../services/UserService";
 import { Link } from "react-router-dom";
-import withNavigate from "./withNavigate";
+import withNavigateandLocation from "./withNavigateandLocation";
 import validator from "validator";
+import withLocation from "./withLocation";
+import UserService from "../services/UserService";
 
 class ChangePassword extends Component {
   constructor(props) {
@@ -65,36 +66,53 @@ class ChangePassword extends Component {
     
   };
 
-  handleChangePasswordClick = () => {
-    this.props.navigate("/profile");
+  handleChangePasswordClick = (event) => {
+    event.preventDefault();
+    const { state } = this.props.location;
+    let data = {email: state.email, currentPassword: this.state.currentPassword, newPassword: this.state.password};
+    UserService.changePassword(data).then((res) => {
+      if (res.data) {
+        console.log(res.data);
+        this.props.navigate("/user-profile", {state: res.data});
+      } else {
+        console.log('fail');
+      }
+    })
+    // this.props.navigate("/profile");
+  };
+
+  changePasswordHandler = (event) => {
+    this.setState({ currentPassword: event.target.value });
   };
 
   render() {
+    // const { state } = this.props.location;
+    // console.log(state);
     const { password, confirmPassword, errorMessage } = this.state;
     return (
       <>
         <div className="change-wrapper">
-          <h1 className="title">Reset Password</h1>
+          <h1 className="title">Change Password</h1>
           <form>
             <label>
               <p>Enter current password</p>
-              <input required type="password" value={password} />
+              <input required type="password" value={this.state.currentPassword} onChange={this.changePasswordHandler} />
             </label>
             <label>
               <p>Enter new password</p>
               <input
                 required
                 type="password"
-                value={password}
+                value={this.state.password}
                 onChange={this.handleChangePassword}
               />
             </label>
             <label>
-              <p>Re-enter new password</p>
+              <p>Confirm new password</p>
               <input
                 required
                 type="password"
-                value={confirmPassword}
+                value={this.state.confirmPassword}
                 onChange={this.handleChangeConfirmPassword}
               />
             </label>
@@ -102,7 +120,7 @@ class ChangePassword extends Component {
             <div className="button-container">
               <button
                 className="btn btn-wide"
-                disabled={errorMessage !== "Strong Password"}
+                disabled={errorMessage !== "Is Strong Password" || this.state.confirmPassword === ""}
                 onClick={this.handleChangePasswordClick}
               >
                 Change Password
@@ -115,4 +133,4 @@ class ChangePassword extends Component {
   }
 }
 
-export default withNavigate(ChangePassword);
+export default withNavigateandLocation(ChangePassword);

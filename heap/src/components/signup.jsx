@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import UserService from '../services/UserService';
-import withNavigate from './withNavigate';
+import withNavigateandLocation from './withNavigateandLocation';
 import "./css/Signup.css";
 
 class Signup extends Component {
@@ -23,11 +23,11 @@ class Signup extends Component {
 
     createUser = (e) => {
         e.preventDefault();
-        let user = {name: this.state.name, contactNo: this.state.contactNo, email: this.state.email, password: this.state.password};
+        let user = {fullName: this.state.name, contactNo: this.state.contactNo, email: this.state.email, password: this.state.password};
         console.log('user => ' + JSON.stringify(user));
 
         UserService.createUser(user).then(res => {
-            this.props.navigate('/');
+            this.props.navigate('/login');
         });
     }
 
@@ -80,4 +80,4 @@ class Signup extends Component {
     }
 }
 
-export default withNavigate(Signup);
+export default withNavigateandLocation(Signup);
