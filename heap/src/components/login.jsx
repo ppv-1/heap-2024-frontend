@@ -29,6 +29,7 @@ class Login extends Component {
         console.log("success");
         // navigate('/organizations');
         // return redirect('/organizations');
+        // if (res.data.userType == )
         this.props.navigate("/user-profile", {state: res.data});
       } else {
         console.log("failure");

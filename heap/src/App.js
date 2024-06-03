@@ -13,6 +13,7 @@ import Signup from "./components/signup";
 import ResetPassword from "./components/resetPassword";
 import ChangePassword from "./components/changePassword";
 import OpportunityComponent from "./components/oppDetails";
+import CreateOppComponent from "./components/createOpp"
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
           <Route exact path="/reset-password" element={<ResetPassword />} />
           <Route exact path="/change-password" element={<ChangePassword />} />
           <Route exact path="/opportunity" element={<OpportunityComponent />} />
+          <Route exact path="/create-opportunity" element={<CreateOppComponent />} />
         </Route>
       </Routes>
     </BrowserRouter>
