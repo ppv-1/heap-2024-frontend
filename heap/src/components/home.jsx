@@ -39,6 +39,7 @@ class HomeComponent extends Component {
                     Filters
                   </label>
                 </div>
+
                 <div className="drawer-side">
                   <label
                     htmlFor="my-drawer-4"

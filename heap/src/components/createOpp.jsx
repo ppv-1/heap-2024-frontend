@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import withNavigateandLocation from './withNavigateandLocation';
-import "./css/Signup.css";
+import "./css/Create.css";
 import OppService from "../services/OppService";
 
 class CreateOppComponent extends Component {
@@ -78,13 +78,13 @@ class CreateOppComponent extends Component {
     render() {
         return (
             <>
-                <div className="signup-wrapper">
+                <div className="wrapper">
                     <h1 className="title">Create Event</h1>
 
                     <form>
                         <label>
                             <p>Name</p>
-                            <input type="text" value={this.state.name} onChange={this.changeNameHandler}/>
+                            <input type="text" required value={this.state.name} onChange={this.changeNameHandler}/>
                         </label>
                         <label>
                             <p>Date</p>

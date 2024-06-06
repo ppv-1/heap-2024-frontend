@@ -13,11 +13,12 @@
 .left-wrapper {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 60%;
 }
 
 .right-wrapper {
     width: 20%;
+    margin: 0;
 }
 
 .searchbar-container {
@@ -36,6 +37,11 @@
 
 .input {
     max-width: 500px;
+}
+
+.drawer-button {
+    margin: 0;
+    margin-top: 35px;
 }
 
 .drawer-side {

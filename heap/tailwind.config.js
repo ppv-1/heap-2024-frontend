@@ -8,6 +8,7 @@ module.exports = {
     "./src/components/signup.jsx",
     "./src/components/oppDetails.jsx",
     "./src/components/home.jsx",
+    "./src/components/createOpp.jsx",
   ],
   theme: {
     extend: {},
