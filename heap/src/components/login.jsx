@@ -30,8 +30,14 @@ class Login extends Component {
         console.log(res.data);
         // navigate('/organizations');
         // return redirect('/organizations');
-        // if (res.data.userType == )
-        this.props.navigate("/user-profile", {state: res.data});
+        if (res.data.userType === 'V') {
+          console.log(res.data.userType);
+          this.props.navigate("/user-profile", {state: res.data});
+        } else if (res.data.userType === 'O') {
+          console.log(res.data.userType);
+          this.props.navigate("/create-opportunity", {state: res.data});
+        }
+        // this.props.navigate("/user-profile", {state: res.data});
       } else {
         console.log("failure");
         console.log(res.data);

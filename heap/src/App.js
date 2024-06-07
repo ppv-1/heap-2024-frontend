@@ -9,11 +9,12 @@ import OrganizationsComponent from "./components/orgs";
 import UserProfileComponent from "./components/profile";
 import OrganisationProfileComponent from "./components/orgProfile";
 import Login from "./components/login";
-import Signup from "./components/signup";
 import ResetPassword from "./components/resetPassword";
 import ChangePassword from "./components/changePassword";
 import OpportunityComponent from "./components/oppDetails";
 import CreateOppComponent from "./components/createOpp"
+import RegisterVolunteer from "./components/registerVolunteer";
+import RegisterOrganisation from "./components/registerOrganisation";
 
 export default function App() {
   return (
@@ -24,7 +25,8 @@ export default function App() {
           <Route exact path="/opportunities" element={<OpportunitiesComponent />} />
           <Route exact path="/organisations" element={<OrganizationsComponent />} />
           <Route exact path="/login" element={<Login />} />
-          <Route exact path="/sign-up" element={<Signup />} />
+          <Route exact path="/register-volunteer" element={<RegisterVolunteer />} />
+          <Route exact path="/register-organisation" element={<RegisterOrganisation />} />
           <Route exact path="/user-profile" element={<UserProfileComponent />} />
           <Route exact path="/org-profile" element={<OrganisationProfileComponent />} />
           <Route exact path="/reset-password" element={<ResetPassword />} />

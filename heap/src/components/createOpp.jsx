@@ -33,8 +33,8 @@ class CreateOppComponent extends Component {
         e.preventDefault();
         const { state } = this.props.location;
         console.log(state);
-        let opp = {name: this.state.name, startTime: this.state.startTime, endTime: this.state.endTime, location: this.state.location,
-                        manpowerCount: this.state.manpowerCount, description: this.state.description, type: this.state.type, organization: state};
+        let opp = {name: this.state.name, date: this.state.date, startTime: this.state.startTime, endTime: this.state.endTime, location: this.state.location,
+                        manpowerCount: this.state.manpowerCount, description: this.state.description, type: this.state.type, organizationEmail: state.user.email};
         // let user = {fullName: this.state.name, contactNo: this.state.contactNo, email: this.state.email, password: this.state.password};
         console.log('opp => ' + JSON.stringify(opp));
 
@@ -76,6 +76,9 @@ class CreateOppComponent extends Component {
     }
 
     render() {
+        const { state } = this.props.location;
+        console.log(state);
+        console.log(state.user);
         return (
             <>
                 <div className="wrapper">
@@ -102,20 +105,20 @@ class CreateOppComponent extends Component {
                         </label>
                         <label>
                             <p>Location</p>
-                            <input type="text" value={this.state.location} onChange={this.changeLocationHandler}/>
+                            <input required type="text" value={this.state.location} onChange={this.changeLocationHandler}/>
                         </label>
                         <label>
                             <p>Manpower Count</p>
-                            <input type="number" value={this.state.manpowerCount}
+                            <input required type="number" value={this.state.manpowerCount}
                                    onChange={this.changeManpowerCountHandler}/>
                         </label>
                         <label>
                             <p>Type</p>
-                            <input type="text" value={this.state.type} onChange={this.changeTypeHandler}/>
+                            <input required type="text" value={this.state.type} onChange={this.changeTypeHandler}/>
                         </label>
                         <label>
                             <p>Description</p>
-                            <textarea value={this.state.description} onChange={this.changeDescriptionHandler}/>
+                            <textarea required value={this.state.description} onChange={this.changeDescriptionHandler}/>
                         </label>
                         <div className="button-container">
                             <button className="btn btn-wide" onClick={this.createOpp}>Create</button>

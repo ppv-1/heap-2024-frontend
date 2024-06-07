@@ -7,8 +7,11 @@ class UserService {
         return axios.post(USER_API_BASE_URL+'/login', credentials);
     }
 
-    createUser(user){
+    createVolunteer(user){
         return axios.post(USER_API_BASE_URL+'/register-volunteer', user);
+    }
+    createOrganisation(user){
+        return axios.post(USER_API_BASE_URL+'/register-organisation', user);
     }
 
     changePassword(credentials) {

@@ -3,7 +3,7 @@ import UserService from '../services/UserService';
 import withNavigateandLocation from './withNavigateandLocation';
 import "./css/Signup.css";
 
-class Signup extends Component {
+class RegisterVolunteer extends Component {
     constructor(props) {
         super(props);
 
@@ -26,7 +26,7 @@ class Signup extends Component {
         let user = {fullName: this.state.name, contactNo: this.state.contactNo, email: this.state.email, password: this.state.password};
         console.log('user => ' + JSON.stringify(user));
 
-        UserService.createUser(user).then(res => {
+        UserService.createVolunteer(user).then(res => {
             this.props.navigate('/login');
         });
     }
@@ -80,4 +80,4 @@ class Signup extends Component {
     }
 }
 
-export default withNavigateandLocation(Signup);
+export default withNavigateandLocation(RegisterVolunteer);
