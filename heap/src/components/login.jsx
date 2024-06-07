@@ -27,12 +27,14 @@ class Login extends Component {
     UserService.loginUser(credentials).then((res) => {
       if (res.data) {
         console.log("success");
+        console.log(res.data);
         // navigate('/organizations');
         // return redirect('/organizations');
         // if (res.data.userType == )
         this.props.navigate("/user-profile", {state: res.data});
       } else {
         console.log("failure");
+        console.log(res.data);
       }
       // console.log(res.data);
     });
