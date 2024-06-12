@@ -2,20 +2,23 @@ import axios from "axios";
 
 const USER_API_BASE_URL = "http://localhost:8080/api/v1/user"
 
+const api = axios.create({
+    baseURL: "http://localhost:8080/api/v1/user",
+    headers: {
+        'Authorization': `Bearer ${localStorage.getItem("token")}`
+    },
+});
+
 class UserService {
-    loginUser(credentials) {
-        return axios.post(USER_API_BASE_URL+'/login', credentials);
+    changePassword(token) {
+        return axios.post(USER_API_BASE_URL+'/change-password', token);
     }
 
-    createVolunteer(user){
-        return axios.post(USER_API_BASE_URL+'/register-volunteer', user);
-    }
-    createOrganisation(user){
-        return axios.post(USER_API_BASE_URL+'/register-organisation', user);
-    }
+    getProfile() {
+        // var token = localStorage.getItem("token");
+        // return axios.get(USER_API_BASE_URL+'/profile', { headers : {Authorization : `Bearer ${token}`, "Content-Type":"text/plain"}})
+        return api.get("/profile");
 
-    changePassword(credentials) {
-        return axios.post(USER_API_BASE_URL+'/change-password', credentials);
     }
 }
 

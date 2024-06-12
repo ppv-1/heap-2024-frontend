@@ -3,18 +3,28 @@ import "./css/Profile.css";
 import pfp from "../pfp.jpg";
 import withNavigateandLocation from "./withNavigateandLocation";
 import {Link, useLocation} from 'react-router-dom';
+import UserService from "../services/UserService";
 
 class UserProfileComponent extends Component {
   constructor(props) {
     super(props);
 
     this.state = {};
+    UserService.getProfile().then((res) => {
+      this.state = {
+        fullName: res.fullName,
+        contactNo: res.contactNo,
+        email: res.email,
+        gender: res.gender
+      }
+    });
 
   }
 
   render() {
-    const { state } = this.props.location;
-    console.log(state);
+    // const { state } = this.props.location;
+    // console.log(state);
+    // console.log(localStorage.getItem("token"));
     return (
       <>
         <div className="banner h-screen flex justify-center items-center">
@@ -24,7 +34,7 @@ class UserProfileComponent extends Component {
                 <img src={pfp} alt="avatar" />
               </div>
             </div>
-            <h1>{state.fullName}</h1>
+            <h1>{this.state.fullName}</h1>
           </div>
         </div>
         <div className="divider"></div>
@@ -35,25 +45,25 @@ class UserProfileComponent extends Component {
             <br/>
             <div>
               <h2>Name</h2>
-              <p>{state.fullName}</p>
+              <p>{this.state.fullName}</p>
             </div>
             <div>
               <h2>Phone Number</h2>
-              <p>{state.contactNo}</p>
+              <p>{this.state.contactNo}</p>
             </div>
             <div>
               <h2>Gender</h2>
-              <p>{state.gender}</p>
+              <p>{this.state.gender}</p>
             </div>
             <div>
               <h2>Email Address</h2>
-              <p>{state.email}</p>
+              <p>{this.state.email}</p>
             </div>
             <div>
               <h2>Password</h2>
-              <p>{state.password}</p>
+              <p>{this.state.password}</p>
               <div className="change-password-container">
-                <Link to='/change-password' state={state}>
+                <Link to='/change-password'>
                   <button className="btn">Change password</button>
                 </Link>
               </div>

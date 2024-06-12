@@ -3,6 +3,7 @@ import "./css/Login.css";
 import UserService from "../services/UserService";
 import { Link } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
+import AuthService from "../services/AuthService";
 
 class Login extends Component {
   constructor(props) {
@@ -24,19 +25,22 @@ class Login extends Component {
       password: this.state.password,
     };
     console.log(credentials);
-    UserService.loginUser(credentials).then((res) => {
+    AuthService.loginUser(credentials).then((res) => {
       if (res.data) {
         console.log("success");
         console.log(res.data);
+        localStorage.setItem("token", res.data.token);
         // navigate('/organizations');
         // return redirect('/organizations');
-        if (res.data.userType === 'V') {
-          console.log(res.data.userType);
-          this.props.navigate("/user-profile", {state: res.data});
-        } else if (res.data.userType === 'O') {
-          console.log(res.data.userType);
-          this.props.navigate("/create-opportunity", {state: res.data});
-        }
+        console.log(res.data.userType);
+        this.props.navigate("/user-profile");
+        // if (res.data.userType === 'V') {
+        //   console.log(res.data.userType);
+        //   this.props.navigate("/user-profile", {state: res.data});
+        // } else if (res.data.userType === 'O') {
+        //   console.log(res.data.userType);
+        //   this.props.navigate("/create-opportunity", {state: res.data});
+        // }
         // this.props.navigate("/user-profile", {state: res.data});
       } else {
         console.log("failure");

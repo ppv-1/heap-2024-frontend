@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import UserService from '../services/UserService';
 import withNavigateandLocation from './withNavigateandLocation';
 import "./css/Signup.css";
+import AuthService from "../services/AuthService";
 
 class RegisterVolunteer extends Component {
     constructor(props) {
@@ -26,7 +27,7 @@ class RegisterVolunteer extends Component {
         let user = {fullName: this.state.name, contactNo: this.state.contactNo, email: this.state.email, password: this.state.password};
         console.log('user => ' + JSON.stringify(user));
 
-        UserService.createVolunteer(user).then(res => {
+        AuthService.createVolunteer(user).then(res => {
             this.props.navigate('/login');
         });
     }

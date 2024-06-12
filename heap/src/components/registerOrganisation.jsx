@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import UserService from '../services/UserService';
 import withNavigateandLocation from './withNavigateandLocation';
 import "./css/Signup.css";
+import AuthService from "../services/AuthService";
 
 class RegisterOrganisation extends Component {
     constructor(props) {
@@ -32,7 +33,7 @@ class RegisterOrganisation extends Component {
         let user = {email: this.state.email, fullName: this.state.name, password: this.state.password, contactNo: this.state.contactNo, location: this.state.location, website: this.state.website, description: this.state.description};
         console.log('user => ' + JSON.stringify(user));
 
-        UserService.createOrganisation(user).then(res => {
+        AuthService.createOrganisation(user).then(res => {
             this.props.navigate('/login');
         });
     }
