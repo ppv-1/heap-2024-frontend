@@ -9,14 +9,15 @@ class UserProfileComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {fullName: '',
+      contactNo: '',
+      email: '',
+      gender: ''};
     UserService.getProfile().then((res) => {
-      this.state = {
-        fullName: res.data.fullName,
+      this.setState({fullName: res.data.fullName,
         contactNo: res.data.contactNo,
         email: res.data.email,
-        gender: res.data.gender
-      }
+        gender: res.data.gender})
     });
 
   }
@@ -61,7 +62,6 @@ class UserProfileComponent extends Component {
             </div>
             <div>
               <h2>Password</h2>
-              <p>{this.state.password}</p>
               <div className="change-password-container">
                 <Link to='/change-password'>
                   <button className="btn">Change password</button>
