@@ -12,10 +12,10 @@ class UserProfileComponent extends Component {
     this.state = {};
     UserService.getProfile().then((res) => {
       this.state = {
-        fullName: res.fullName,
-        contactNo: res.contactNo,
-        email: res.email,
-        gender: res.gender
+        fullName: res.data.fullName,
+        contactNo: res.data.contactNo,
+        email: res.data.email,
+        gender: res.data.gender
       }
     });
 

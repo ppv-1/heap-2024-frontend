@@ -1,11 +1,12 @@
 import axios from "axios";
 
 const USER_API_BASE_URL = "http://localhost:8080/api/v1/user"
-
+console.log("token: "+localStorage.getItem("token"));
 const api = axios.create({
     baseURL: "http://localhost:8080/api/v1/user",
     headers: {
-        'Authorization': `Bearer ${localStorage.getItem("token")}`
+        'Authorization': `Bearer ${localStorage.getItem("token")}`,
+        'Access-Control-Allow-Origin': 'http://localhost:3000"'
     },
 });
 
