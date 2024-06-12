@@ -4,23 +4,73 @@ import pfp from "../pfp.jpg";
 import withNavigateandLocation from "./withNavigateandLocation";
 import {Link, useLocation} from 'react-router-dom';
 import UserService from "../services/UserService";
+import {api} from "../services/UserService";
 
 class UserProfileComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {fullName: '',
+    this.state = {code: '',
+      fullName: '',
       contactNo: '',
       email: '',
       gender: ''};
-    UserService.getProfile().then((res) => {
-      this.setState({fullName: res.data.fullName,
-        contactNo: res.data.contactNo,
-        email: res.data.email,
-        gender: res.data.gender})
-    });
+    // UserService.getProfile().then((res) => {
+    // // api.get("/profile").then((res) => {
+    //   console.log(res.data)
+    //   this.setState({fullName: res.data.fullName,
+    //     contactNo: res.data.contactNo,
+    //     email: res.data.email,
+    //     gender: res.data.gender});
+    //   // if (res.data.code === 200) {
+    //   //   this.setState({fullName: res.data.fullName,
+    //   //     contactNo: res.data.contactNo,
+    //   //     email: res.data.email,
+    //   //     gender: res.data.gender});
+    //   // } else {
+    //   //   localStorage.removeItem("token");
+    //   //   this.props.navigate("/login");
+    //   // }
+    //
+    // });
 
   }
+
+  componentDidMount() {
+    this.fetchData();
+    // if (this.state.code !== 200) {
+    //   localStorage.removeItem("token");
+    //   this.props.navigate("/login");
+    // }
+    // UserService.getProfile().then((res) => {
+    //   this.setState({fullName: res.data.fullName,
+    //     contactNo: res.data.contactNo,
+    //     email: res.data.email,
+    //     gender: res.data.gender});
+    //     console.log(res.data)
+    //     // if (res.data.code === 200) {
+    //     //   this.setState({
+    //     //     fullName: res.data.fullName,
+    //     //     contactNo: res.data.contactNo,
+    //     //     email: res.data.email,
+    //     //     gender: res.data.gender
+    //     //   });
+    //     // } else {
+    //     //   localStorage.removeItem("token");
+    //     //   this.props.navigate("/login");
+    //     // }
+    //   });
+  }
+  //
+  fetchData = async () => {
+    const res = await UserService.getProfile();
+    this.setState({
+      fullName: res.data.fullName,
+      contactNo: res.data.contactNo,
+      email: res.data.email,
+      gender: res.data.gender});
+  }
+
 
   render() {
     // const { state } = this.props.location;

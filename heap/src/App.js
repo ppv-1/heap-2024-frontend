@@ -15,6 +15,8 @@ import OpportunityComponent from "./components/oppDetails";
 import CreateOppComponent from "./components/createOpp"
 import RegisterVolunteer from "./components/registerVolunteer";
 import RegisterOrganisation from "./components/registerOrganisation";
+import Logout from "./components/logout";
+import LogoutComponent from "./components/logout";
 
 export default function App() {
   return (
@@ -33,6 +35,7 @@ export default function App() {
           <Route exact path="/change-password" element={<ChangePassword />} />
           <Route exact path="/opportunity" element={<OpportunityComponent />} />
           <Route exact path="/create-opportunity" element={<CreateOppComponent />} />
+          <Route exact path="/logout" element={<LogoutComponent />} />
         </Route>
       </Routes>
     </BrowserRouter>

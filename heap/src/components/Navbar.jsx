@@ -41,13 +41,19 @@ class Navbar extends Component {
           <div className="rightnav">
             <ul className="right-nav-list">
               {isLoggedIn ? (
-                <li>
-                  <Link to="/profile">Profile</Link>
-                </li>
+                  <>
+                    <li>
+                      <Link to="/profile">Profile</Link>
+                    </li>
+                    <li>
+                      <Link to="/logout">Logout</Link>
+                    </li>
+                  </>
+
               ) : (
                   <>
                     <li>
-                      <Link to="/login">Login</Link>
+                    <Link to="/login">Login</Link>
                     </li>
                     <li>
                       <Link to="/register-volunteer">Volunteer</Link>
@@ -55,6 +61,7 @@ class Navbar extends Component {
                     <li>
                       <Link to="/register-organisation">Organisation</Link>
                     </li>
+
                   </>
               )}
             </ul>

@@ -11,16 +11,18 @@ const api = axios.create({
 });
 
 class UserService {
-    changePassword(token) {
-        return axios.post(USER_API_BASE_URL+'/change-password', token);
+    async changePassword(token) {
+        return await axios.post(USER_API_BASE_URL+'/change-password', token);
     }
 
-    getProfile() {
+    async getProfile() {
         // var token = localStorage.getItem("token");
         // return axios.get(USER_API_BASE_URL+'/profile', { headers : {Authorization : `Bearer ${token}`, "Content-Type":"text/plain"}})
-        return api.get("/profile");
+        console.log("token: "+localStorage.getItem("token"));
+        return await api.get("/profile");
 
     }
 }
 
-export default new UserService()
+export {api};
+export default new UserService();
