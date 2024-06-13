@@ -36,6 +36,15 @@ class UserProfileComponent extends Component {
 
   }
 
+  fetchData = async () => {
+    const res = await UserService.getProfile();
+    this.setState({
+      fullName: res.data.fullName,
+      contactNo: res.data.contactNo,
+      email: res.data.email,
+      gender: res.data.gender});
+  }
+
   componentDidMount() {
     this.fetchData();
     // if (this.state.code !== 200) {
@@ -62,14 +71,6 @@ class UserProfileComponent extends Component {
     //   });
   }
   //
-  fetchData = async () => {
-    const res = await UserService.getProfile();
-    this.setState({
-      fullName: res.data.fullName,
-      contactNo: res.data.contactNo,
-      email: res.data.email,
-      gender: res.data.gender});
-  }
 
 
   render() {

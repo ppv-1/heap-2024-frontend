@@ -15,6 +15,7 @@ class LogoutComponent extends Component {
     componentDidMount() {
         // Navigate to login page when component mounts
         localStorage.removeItem("token");
+        // this.props.navigate("/register-volunteer");
         this.props.navigate("/login");
     }
 

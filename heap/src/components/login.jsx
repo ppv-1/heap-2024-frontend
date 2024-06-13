@@ -18,6 +18,9 @@ class Login extends Component {
     this.loginSubmit = this.loginSubmit.bind(this);
   }
 
+  componentDidMount() {
+  }
+
   loginSubmit = (event) => {
     event.preventDefault();
     let credentials = {
@@ -32,16 +35,16 @@ class Login extends Component {
         localStorage.setItem("token", res.data.token);
         // navigate('/organizations');
         // return redirect('/organizations');
-        console.log(res.data.userType);
+        // console.log(res.data.userType);
+        // this.props.navigate("/user-profile");
+        if (res.data.userType === 'V') {
+          console.log(res.data.userType);
+          this.props.navigate("/user-profile");
+        } else if (res.data.userType === 'O') {
+          console.log(res.data.userType);
+          this.props.navigate("/create-opportunity");
+        }
         this.props.navigate("/user-profile");
-        // if (res.data.userType === 'V') {
-        //   console.log(res.data.userType);
-        //   this.props.navigate("/user-profile", {state: res.data});
-        // } else if (res.data.userType === 'O') {
-        //   console.log(res.data.userType);
-        //   this.props.navigate("/create-opportunity", {state: res.data});
-        // }
-        // this.props.navigate("/user-profile", {state: res.data});
       } else {
         console.log("failure");
         console.log(res.data);
