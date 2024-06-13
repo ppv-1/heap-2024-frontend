@@ -15,6 +15,9 @@ class UserProfileComponent extends Component {
       contactNo: '',
       email: '',
       gender: ''};
+    
+
+
     // UserService.getProfile().then((res) => {
     // // api.get("/profile").then((res) => {
     //   console.log(res.data)
@@ -38,6 +41,10 @@ class UserProfileComponent extends Component {
 
   fetchData = async () => {
     const res = await UserService.getProfile();
+    if (res.data.code !== 200) {
+      this.props.navigate("/login");
+      window.location.reload()
+    }
     this.setState({
       fullName: res.data.fullName,
       contactNo: res.data.contactNo,
@@ -46,7 +53,13 @@ class UserProfileComponent extends Component {
   }
 
   componentDidMount() {
-    this.fetchData();
+    if (localStorage.getItem("token") === null) {
+      this.props.navigate("/login");
+      window.location.reload()
+    } else {
+      this.fetchData();
+    }
+
     // if (this.state.code !== 200) {
     //   localStorage.removeItem("token");
     //   this.props.navigate("/login");
