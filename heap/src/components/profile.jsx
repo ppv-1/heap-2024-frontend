@@ -90,6 +90,9 @@ class UserProfileComponent extends Component {
     // const { state } = this.props.location;
     // console.log(state);
     // console.log(localStorage.getItem("token"));
+    if (!localStorage.getItem('token')){
+      return;
+    }
     return (
       <>
         <div className="banner h-screen flex justify-center items-center">

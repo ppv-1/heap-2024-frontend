@@ -14,6 +14,9 @@ class Opportunity extends Component {
   }
 
   render() {
+    // if (!localStorage.getItem('token')){
+    //   return;
+    // }
     return (
       <div className="wrapper">
         <div className="breadcrumbs-container">
@@ -49,9 +52,9 @@ class Opportunity extends Component {
               <p>start time</p>
               <p>end time</p>
               <div className="button-container">
-              <Link to="/">
+              {/* <Link to="/"> */}
                 <button className="btn btn-wide" onClick={this.handleButtonConfirm}>I want to volunteer</button>
-              </Link>
+              {/* </Link> */}
             </div>
             </div>
           </div>
