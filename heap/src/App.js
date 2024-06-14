@@ -17,6 +17,8 @@ import RegisterVolunteer from "./components/registerVolunteer";
 import RegisterOrganisation from "./components/registerOrganisation";
 import Logout from "./components/logout";
 import LogoutComponent from "./components/logout";
+import UserService from "./services/UserService";
+import ProtectedRoute from './services/ProtectedRoute';
 
 export default function App() {
   return (
@@ -29,7 +31,12 @@ export default function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register-volunteer" element={<RegisterVolunteer />} />
           <Route exact path="/register-organisation" element={<RegisterOrganisation />} />
-          <Route exact path="/user-profile" element={<UserProfileComponent />} />
+
+          <Route element={<ProtectedRoute/>}>
+            <Route exact path="/user-profile" element={<UserProfileComponent />} />
+          </Route>
+
+          
           <Route exact path="/org-profile" element={<OrganisationProfileComponent />} />
           <Route exact path="/reset-password" element={<ResetPassword />} />
           <Route exact path="/change-password" element={<ChangePassword />} />

@@ -41,10 +41,10 @@ class UserProfileComponent extends Component {
 
   fetchData = async () => {
     const res = await UserService.getProfile();
-    if (res.data.code !== 200) {
-      this.props.navigate("/login");
-      window.location.reload()
-    }
+    // if (res.data.code !== 200) {
+    //   this.props.navigate("/login");
+    //   window.location.reload()
+    // }
     this.setState({
       fullName: res.data.fullName,
       contactNo: res.data.contactNo,
@@ -53,12 +53,12 @@ class UserProfileComponent extends Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem("token") === null) {
-      this.props.navigate("/login");
-      window.location.reload()
-    } else {
+    // if (localStorage.getItem("token") === null) {
+    //   this.props.navigate("/login");
+    //   window.location.reload()
+    // } else {
       this.fetchData();
-    }
+    // }
 
     // if (this.state.code !== 200) {
     //   localStorage.removeItem("token");
@@ -90,9 +90,9 @@ class UserProfileComponent extends Component {
     // const { state } = this.props.location;
     // console.log(state);
     // console.log(localStorage.getItem("token"));
-    if (!localStorage.getItem('token')){
-      return;
-    }
+    // if (!localStorage.getItem('token')){
+    //   return;
+    // }
     return (
       <>
         <div className="banner h-screen flex justify-center items-center">
