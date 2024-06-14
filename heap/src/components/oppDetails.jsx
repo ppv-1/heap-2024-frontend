@@ -9,6 +9,9 @@ class Opportunity extends Component {
 
     this.state = {};
   }
+  handleButtonConfirm(){
+    alert("You have successfully registered for this opportunity");
+  }
 
   render() {
     return (
@@ -47,7 +50,7 @@ class Opportunity extends Component {
               <p>end time</p>
               <div className="button-container">
               <Link to="/">
-                <button className="btn btn-wide">I want to volunteer</button>
+                <button className="btn btn-wide" onClick={this.handleButtonConfirm}>I want to volunteer</button>
               </Link>
             </div>
             </div>

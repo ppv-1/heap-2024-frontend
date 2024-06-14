@@ -76,9 +76,9 @@ class CreateOppComponent extends Component {
     }
 
     render() {
-        const { state } = this.props.location;
-        console.log(state);
-        console.log(state.user);
+        // const { state } = this.props.location;
+        console.log(this.state);
+        console.log(this.state.user);
         return (
             <>
                 <div className="wrapper">

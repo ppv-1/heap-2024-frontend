@@ -44,7 +44,7 @@ class Login extends Component {
           console.log(res.data.userType);
           this.props.navigate("/create-opportunity");
         }
-        this.props.navigate("/user-profile");
+        // this.props.navigate("/user-profile");
       } else {
         console.log("failure");
         console.log(res.data);
@@ -70,19 +70,19 @@ class Login extends Component {
             <label>
               <p>Username</p>
               <input
-                required
-                type="email"
-                value={this.state.username}
-                onChange={this.changeUsernameHandler}
+                  required
+                  type="email"
+                  value={this.state.username}
+                  onChange={this.changeUsernameHandler}
               />
             </label>
             <label>
               <p>Password</p>
               <input
-                required
-                type="password"
-                value={this.state.password}
-                onChange={this.changePasswordHandler}
+                  required
+                  type="password"
+                  value={this.state.password}
+                  onChange={this.changePasswordHandler}
               />
             </label>
             <div className="forgot-password">
@@ -93,11 +93,16 @@ class Login extends Component {
                 Login
               </button>
             </div>
-            <br />
+            <br/>
             <p>Don't have an account?</p>
             <div className="button-container">
-              <Link to="/sign-up">
-                <button className="btn btn-wide">Sign up here</button>
+              <Link to="/register-volunteer">
+                <button className="btn btn-wide">Sign up here (Volunteer)</button>
+              </Link>
+            </div>
+            <div className="button-container">
+              <Link to="/register-organisation">
+                <button className="btn btn-wide">Sign up here (Organisation)</button>
               </Link>
             </div>
           </form>
