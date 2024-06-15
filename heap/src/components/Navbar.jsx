@@ -11,38 +11,36 @@ class Navbar extends Component {
 
     this.state = {
       isLoggedIn: false,
-      userType: ''
+
     };
   }
 
-  fetchData = async () => {
-    const res = await UserService.getProfile();
-    console.log(res.data.userType + "hi" + typeof res.data.userType);
+  // fetchData = async () => {
+  //   const res = await UserService.getProfile();
+  //   console.log(res.data.userType + "hi" + typeof res.data.userType);
 
-    this.setState({
-      isLoggedIn: true,
-      userType: res.data.userType
-      
-      });
-    console.log(this.state.userType +" the user type");
-  }
+  //   this.setState({
+  //     isLoggedIn: true,
+  //     });
+  //   console.log(this.state.userType +" the user type");
+  // }
 
   componentDidMount() {
-    this.fetchData();
+    // this.fetchData();
     const token = localStorage.getItem("token");
     if (token) {
-      this.setState({ isLoggedIn: true, userType: this.state.userType });
+      this.setState({ isLoggedIn: true});
     }
     console.log(this.state.isLoggedIn + "the state");
   }
 
   render() {
 
-    const { isLoggedIn } = this.state.isLoggedIn;
-    const { userType } = this.state.userType;
+    const { isLoggedIn } = this.state;
+    // const { userType } = this.state.userType;
     
     console.log(isLoggedIn + "---hello");
-    console.log(userType +"user");
+    // console.log(userType + "user");
 
     return (
       <>
