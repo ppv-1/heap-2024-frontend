@@ -19,6 +19,8 @@ import Logout from "./components/logout";
 import LogoutComponent from "./components/logout";
 import UserService from "./services/UserService";
 import ProtectedRoute from './services/ProtectedRoute';
+import RegisteredEvent from "./components/registeredEvent";
+import PostedEvent from "./components/postedEvent";
 
 export default function App() {
   return (
@@ -35,7 +37,8 @@ export default function App() {
           <Route element={<ProtectedRoute/>}>
             <Route exact path="/user-profile" element={<UserProfileComponent />} />
           </Route>
-
+          <Route exact path="/register-event" element={<RegisteredEvent />} />
+          <Route exact path="/posted-event" element={<PostedEvent />} />
           
           <Route exact path="/org-profile" element={<OrganisationProfileComponent />} />
           <Route exact path="/reset-password" element={<ResetPassword />} />

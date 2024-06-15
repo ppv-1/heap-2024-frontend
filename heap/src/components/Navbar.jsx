@@ -83,7 +83,13 @@ class Navbar extends Component {
                   </li>
                 )}  */}
                   <li>
-                    <Link to="/profile">Profile</Link>
+                    <Link to="/posted-event">view posted events</Link>
+                  </li>
+                  <li>
+                    <Link to="/register-event">view registered events</Link>
+                  </li>
+                  <li>
+                    <Link to="/user-profile">Profile</Link>
                   </li>
                   <li>
                     <Link to="/logout">Logout</Link>
