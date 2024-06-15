@@ -2,17 +2,47 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import logo from "../logo.png";
 import "./css/Navbar.css";
+import UserService from "../services/UserService";
+
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      isLoggedIn: false,
+      userType: ''
+    };
+  }
+
+  fetchData = async () => {
+    const res = await UserService.getProfile();
+    console.log(res.data.userType + "hi" + typeof res.data.userType);
+
+    this.setState({
+      isLoggedIn: true,
+      userType: res.data.userType
+      
+      });
+    console.log(this.state.userType +" the user type");
+  }
+
+  componentDidMount() {
+    this.fetchData();
+    const token = localStorage.getItem("token");
+    if (token) {
+      this.setState({ isLoggedIn: true, userType: this.state.userType });
+    }
+    console.log(this.state.isLoggedIn + "the state");
   }
 
   render() {
-    const { isLoggedIn } = this.props;
-    console.log(isLoggedIn + "logged in");
+
+    const { isLoggedIn } = this.state.isLoggedIn;
+    const { userType } = this.state.userType;
+    
+    console.log(isLoggedIn + "---hello");
+    console.log(userType +"user");
 
     return (
       <>
@@ -42,28 +72,37 @@ class Navbar extends Component {
           <div className="rightnav">
             <ul className="right-nav-list">
               {isLoggedIn ? (
-                  <>
-                    <li>
-                      <Link to="/profile">Profile</Link>
-                    </li>
-                    <li>
-                      <Link to="/logout">Logout</Link>
-                    </li>
-                  </>
 
+                
+                <>
+                {/* {userType === 'O' ? (
+                  <li>
+                    <Link to="/create-opportunity">Create Event</Link>
+                  </li>
+                ) : (
+                  <li>
+                    <Link to="/organisations">View Events</Link>
+                  </li>
+                )}  */}
+                  <li>
+                    <Link to="/profile">Profile</Link>
+                  </li>
+                  <li>
+                    <Link to="/logout">Logout</Link>
+                  </li>
+                </>
               ) : (
-                  <>
-                    <li>
+                <>
+                  <li>
                     <Link to="/login">Login</Link>
-                    </li>
-                    <li>
-                      <Link to="/register-volunteer">Volunteer</Link>
-                    </li>
-                    <li>
-                      <Link to="/register-organisation">Organisation</Link>
-                    </li>
-
-                  </>
+                  </li>
+                  <li>
+                    <Link to="/register-volunteer">Volunteer</Link>
+                  </li>
+                  <li>
+                    <Link to="/register-organisation">Organisation</Link>
+                  </li>
+                </>
               )}
             </ul>
           </div>
@@ -74,47 +113,3 @@ class Navbar extends Component {
 }
 
 export default Navbar;
-
-// const Navbar = ({ isLoggedIn }) => {
-
-//   return (
-//     <nav className="navbar bg-base-100">
-//       <ul className="nav-list">
-//         <li>
-//           <Link to="/opps">
-//             <p>Discover</p>
-//             <p>Opportunities</p>
-//           </Link>
-//         </li>
-//         <li>
-//           <Link to="/orgs">
-//             <p>Our</p>
-//             <p>Organisations</p>
-//           </Link>
-//         </li>
-//       </ul>
-//       <div className="spacer"></div>
-//       <Link to="/">
-//         <div className="logo">
-//           <img src={logo} alt="logo" />
-//         </div>
-//       </Link>
-//       <div className="spacer"></div>
-
-//       <div className="rightnav">
-//         <ul className="right-nav-list">
-//           {isLoggedIn ? (
-//             <li>
-//               <Link to="/profile">Profile</Link>
-//             </li>
-//           ) : (
-//             <li>
-//               <Link to="/login">Login</Link>
-//             </li>
-//           )}
-//         </ul>
-//       </div>
-//     </nav>
-//   );
-// };
-// export default Navbar;
