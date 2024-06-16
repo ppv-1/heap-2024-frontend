@@ -13,7 +13,9 @@ class OppService {
         return await api.post('/create', opp);
     }
 
-    // async getOpp()
+    async getOpp(eventId){
+        return await api.get(OPP_API_BASE_URL + "/get/" + eventId);
+    }
 
     async getAllOpps() {
         // var token = localStorage.getItem("token");
