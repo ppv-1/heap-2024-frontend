@@ -12,7 +12,7 @@ class PostedEvent extends Component {
     };
   }
 
-    volunteerSubmit = (event) => {
+    editOpp = (event) => {
         event.preventDefault();
         this.props.navigate("/opportunity");
     }
@@ -64,7 +64,8 @@ class PostedEvent extends Component {
                   <h2 className="card-title">{item.name}</h2>
                   <p>Volunteer opportunity</p>
                   <div className="card-actions justify-end">
-                    <button className="btn btn-primary" onClick={this.volunteerSubmit}>Volunteer Now</button>
+                    <button className="btn btn-primary" onClick={this.editOpp}>Edit</button> 
+                    <button className="btn btn-primary" onClick={this.editOpp}>Delete</button>
                   </div>
                 </div>
               </div>

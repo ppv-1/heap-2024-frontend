@@ -1,14 +1,17 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 
 const Layout = ({ children }) => {
+  const location = useLocation();
+
   return (
     <>
-      <Navbar />
+      <Navbar key={location.pathname} />
       <div className="content">{children}</div>
       <Outlet />
     </>
   );
 };
+
 export default Layout;

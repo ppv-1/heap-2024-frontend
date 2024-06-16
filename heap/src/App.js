@@ -37,7 +37,7 @@ export default function App() {
           <Route element={<ProtectedRoute/>}>
             <Route exact path="/user-profile" element={<UserProfileComponent />} />
           </Route>
-          <Route exact path="/register-event" element={<RegisteredEvent />} />
+          <Route exact path="/registered-event" element={<RegisteredEvent />} />
           <Route exact path="/posted-event" element={<PostedEvent />} />
           
           <Route exact path="/org-profile" element={<OrganisationProfileComponent />} />

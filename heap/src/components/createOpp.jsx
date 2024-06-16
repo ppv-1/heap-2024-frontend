@@ -35,7 +35,6 @@ class CreateOppComponent extends Component {
         console.log(state);
         let opp = {name: this.state.name, date: this.state.date, startTime: this.state.startTime, endTime: this.state.endTime, location: this.state.location,
                         manpowerCount: this.state.manpowerCount, description: this.state.description, type: this.state.type, organization: localStorage.getItem("token")};
-        // let user = {fullName: this.state.name, contactNo: this.state.contactNo, email: this.state.email, password: this.state.password};
         console.log('opp => ' + JSON.stringify(opp));
 
         OppService.createOpp(opp).then(res => {
