@@ -21,6 +21,7 @@ import UserService from "./services/UserService";
 import ProtectedRoute from './services/ProtectedRoute';
 import RegisteredEvent from "./components/registeredEvent";
 import PostedEvent from "./components/postedEvent";
+import SignUp from "./components/signUp";
 
 export default function App() {
   return (
@@ -33,19 +34,19 @@ export default function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register-volunteer" element={<RegisterVolunteer />} />
           <Route exact path="/register-organisation" element={<RegisterOrganisation />} />
-
-          <Route element={<ProtectedRoute/>}>
-            <Route exact path="/user-profile" element={<UserProfileComponent />} />
-          </Route>
-          <Route exact path="/registered-event" element={<RegisteredEvent />} />
-          <Route exact path="/posted-event" element={<PostedEvent />} />
-          
-          <Route exact path="/org-profile" element={<OrganisationProfileComponent />} />
+          <Route exact path="/sign-up" element={<SignUp />} />
           <Route exact path="/reset-password" element={<ResetPassword />} />
           <Route exact path="/change-password" element={<ChangePassword />} />
           <Route exact path="/opportunity" element={<OpportunityComponent />} />
-          <Route exact path="/create-opportunity" element={<CreateOppComponent />} />
           <Route exact path="/logout" element={<LogoutComponent />} />
+          <Route element={<ProtectedRoute/>}>
+            <Route exact path="/user-profile" element={<UserProfileComponent />} />
+            <Route exact path="/org-profile" element={<OrganisationProfileComponent />} />
+            <Route exact path="/create-opportunity" element={<CreateOppComponent />} />
+            <Route exact path="/registered-event" element={<RegisteredEvent />} />
+            <Route exact path="/posted-event" element={<PostedEvent />} />
+          </Route>
+          
         </Route>
       </Routes>
     </BrowserRouter>

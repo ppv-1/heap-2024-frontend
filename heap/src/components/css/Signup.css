@@ -22,6 +22,18 @@ form {
     text-decoration: none;
 }
 
+.sub-title {
+    height: min-content;
+    align-self: stretch;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    font-size: 25px;
+    text-decoration: none;
+}
+
 input[type="text"],
 input[type="tel"],
 input[type="email"],

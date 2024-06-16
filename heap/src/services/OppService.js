@@ -13,6 +13,8 @@ class OppService {
         return await api.post('/create', opp);
     }
 
+    // async getOpp()
+
     async getAllOpps() {
         // var token = localStorage.getItem("token");
         // return axios.get(USER_API_BASE_URL+'/profile', { headers : {Authorization : `Bearer ${token}`, "Content-Type":"text/plain"}})

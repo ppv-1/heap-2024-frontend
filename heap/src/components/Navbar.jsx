@@ -44,7 +44,7 @@ const Navbar = () => {
                 <Link to="/posted-event">View Posted Events</Link>
               </li>
               <li>
-                <Link to="/profile">Profile</Link>
+                <Link to="/org-profile">Profile</Link>
               </li>
               <li>
                 <Link to="/logout">Logout</Link>
@@ -56,7 +56,7 @@ const Navbar = () => {
                 <Link to="/registered-event">View Registered Events</Link>
               </li>
               <li>
-                <Link to="/profile">Profile</Link>
+                <Link to="/user-profile">Profile</Link>
               </li>
               <li>
                 <Link to="/logout">Logout</Link>
@@ -65,7 +65,7 @@ const Navbar = () => {
             ) : (
               <>
                 <li>
-                  <Link to="/profile">Profile</Link>
+                  <Link to="/user-profile">Profile</Link>
                 </li>
                 <li>
                   <Link to="/logout">Logout</Link>
@@ -78,11 +78,9 @@ const Navbar = () => {
                 <Link to="/login">Login</Link>
               </li>
               <li>
-                <Link to="/register-volunteer">Volunteer</Link>
+                <Link to="/sign-up">Sign Up</Link>
               </li>
-              <li>
-                <Link to="/register-organisation">Organisation</Link>
-              </li>
+              
             </>
           )}
         </ul>
