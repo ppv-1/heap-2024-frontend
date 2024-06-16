@@ -6,6 +6,7 @@ import "./css/Navbar.css";
 const Navbar = () => {
   const location = useLocation();
   const isLoggedIn = !!localStorage.getItem("token");
+  const userType = localStorage.getItem("userType");
 
   return (
     <nav className="navbar bg-base-100">
@@ -33,7 +34,15 @@ const Navbar = () => {
       <div className="rightnav">
         <ul className="right-nav-list">
           {isLoggedIn ? (
+
+            userType === "O" ? (
             <>
+              <li>
+                <Link to="/create-opportunity">Create Event</Link>
+              </li>
+              <li>
+                <Link to="/posted-event">View Posted Events</Link>
+              </li>
               <li>
                 <Link to="/profile">Profile</Link>
               </li>
@@ -41,6 +50,28 @@ const Navbar = () => {
                 <Link to="/logout">Logout</Link>
               </li>
             </>
+            ) : userType === "V" ? (
+              <>
+              <li>
+                <Link to="/registered-event">View Registered Events</Link>
+              </li>
+              <li>
+                <Link to="/profile">Profile</Link>
+              </li>
+              <li>
+                <Link to="/logout">Logout</Link>
+              </li>
+            </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/profile">Profile</Link>
+                </li>
+                <li>
+                  <Link to="/logout">Logout</Link>
+                </li>
+              </>
+            )
           ) : (
             <>
               <li>

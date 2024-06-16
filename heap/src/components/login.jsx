@@ -33,6 +33,7 @@ class Login extends Component {
         console.log("success");
         console.log(res.data);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userType", res.data.userType);
         // navigate('/organizations');
         // return redirect('/organizations');
         // console.log(res.data.userType);
