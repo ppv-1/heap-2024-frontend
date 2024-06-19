@@ -3,6 +3,7 @@ import "./css/OpportunityDetails.css";
 import { useParams } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
 import OppService from "../services/OppService";
+import UserService from "../services/UserService";
 
 class Opportunity extends Component {
   constructor(props) {
@@ -12,11 +13,13 @@ class Opportunity extends Component {
       opportunity: null,
       loading: true,
     };
+
+    this.registerEvent = this.registerEvent.bind(this);
   }
 
-  async componentDidMount() {
+  fetchData = async () => {
     const { id } = this.props.params;
-    
+
     try {
       const res = await OppService.getOpp(id);
       console.log(res.status);
@@ -27,8 +30,19 @@ class Opportunity extends Component {
     }
   }
 
-  handleButtonConfirm() {
-    alert("You have successfully registered for this opportunity");
+  async componentDidMount() {
+    await this.fetchData();
+  }
+
+  registerEvent = async (event) =>{
+    const eventId = this.props.params.id;
+    console.log(eventId);
+    const res = await UserService.getProfile();
+    console.log(res.data);
+    const userId = res.data.email;
+    console.log(userId);
+    await UserService.registerEvent(eventId, userId);
+    alert("You have successfully registered for this event");
   }
 
   render() {
@@ -63,10 +77,9 @@ class Opportunity extends Component {
             <div className="left-details">
               <h1 className="title">{opportunity.name} @ {opportunity.organization}</h1>
               <br />
-              <p>{opportunity.description}</p>
-              <p>{opportunity.hours}</p>
-              <p>{opportunity.manpowerCount}</p>
-              <p>{opportunity.type}</p>
+              <p>Description: {opportunity.description}</p>
+              <p>Manpower needed: {opportunity.neededManpowerCount}</p>
+              <p>Type: {opportunity.type}</p>
             </div>
           </div>
           <div className="right-container">
@@ -74,11 +87,11 @@ class Opportunity extends Component {
               <h1 className="title">Location</h1>
               <p>{opportunity.location}</p>
               <h1 className="title">Date and time</h1>
-              <p>{opportunity.date}</p>
-              <p>{opportunity.startTime}</p>
-              <p>{opportunity.endTime}</p>
+              <p>Date: {opportunity.date}</p>
+              <p>Start: {opportunity.startTime}</p>
+              <p>End: {opportunity.endTime}</p>
               <div className="button-container">
-                <button className="btn btn-wide" onClick={this.handleButtonConfirm}>
+                <button className="btn btn-wide" onClick={this.registerEvent}>
                   I want to volunteer
                 </button>
               </div>

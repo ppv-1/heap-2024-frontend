@@ -36,5 +36,12 @@ class UserService {
         return await axios.get(USER_API_BASE_URL+"/profile");
 
     }
+
+    async registerEvent(eventId, userId) {
+        console.log(localStorage.getItem("token"));
+        return await axios.post(USER_API_BASE_URL+ "/register/event/" + eventId, userId,{headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }});
+    }
 }
 export default new UserService();

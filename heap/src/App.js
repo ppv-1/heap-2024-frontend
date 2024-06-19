@@ -18,7 +18,7 @@ import RegisterOrganisation from "./components/registerOrganisation";
 import Logout from "./components/logout";
 import LogoutComponent from "./components/logout";
 import UserService from "./services/UserService";
-import ProtectedRoute from './services/ProtectedRoute';
+import ProtectedRoute from './components/ProtectedRoute';
 import RegisteredEvent from "./components/registeredEvent";
 import PostedEvent from "./components/postedEvent";
 import SignUp from "./components/signUp";
@@ -47,7 +47,7 @@ export default function App() {
             <Route exact path="/create-opportunity" element={<CreateOppComponent />} />
             <Route exact path="/registered-event" element={<RegisteredEvent />} />
             <Route exact path="/posted-event" element={<PostedEvent />} />
-            <Route exact path="/edit-event" element={<EditOpp />} />
+            <Route exact path="/edit-event/:id" element={<EditOpp />} />
           </Route>
           
         </Route>

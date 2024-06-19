@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import OppService from "../services/OppService";
 import withNavigateandLocation from "./withNavigateandLocation";
+import UserService from "../services/UserService";
 
 class PostedEvent extends Component {
   constructor(props) {
@@ -11,9 +12,17 @@ class PostedEvent extends Component {
     };
   }
 
-    editOpp = (event) => {
+    editOpp = (event, id) => {
         event.preventDefault();
-        this.props.navigate("/edit-event");
+        this.props.navigate(`/edit-event/${id}`);
+    }
+
+    deleteOpp = async (event, id)=>{
+      event.preventDefault();
+      await OppService.deleteOpp(id);
+      window.location.reload();
+      alert("Event successfully deleted");
+
     }
 
     fetchData = async () => {
@@ -23,8 +32,8 @@ class PostedEvent extends Component {
       this.setState( {items : res.data.events});
     }
 
-    componentDidMount() {
-        this.fetchData();
+    async componentDidMount() {
+        await this.fetchData();
     }
 
   render() {
@@ -59,8 +68,8 @@ class PostedEvent extends Component {
                   <h2 className="card-title">{item.name}</h2>
                   <p>Volunteer opportunity</p>
                   <div className="card-actions justify-end">
-                    <button className="btn btn-primary" onClick={this.editOpp}>Edit</button> 
-                    <button className="btn btn-primary" onClick={this.editOpp}>Delete</button>
+                    <button className="btn btn-primary" onClick={(event) => this.editOpp(event, item.id)}>Edit</button> 
+                    <button className="btn btn-primary" onClick={(event) =>this.deleteOpp(event, item.id)}>Delete</button>
                   </div>
                 </div>
               </div>

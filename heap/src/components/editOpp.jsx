@@ -1,150 +1,162 @@
-// import React, { Component } from "react";
-// import withNavigateandLocation from './withNavigateandLocation';
-// import "./css/Create.css";
-// import OppService from "../services/OppService";
+import React, { Component } from "react";
+import { useParams } from "react-router-dom";
+import withNavigateandLocation from './withNavigateandLocation';
+import "./css/Create.css";
+import OppService from "../services/OppService";
 
-// class EditOpp extends Component {
-//     constructor(props) {
-//         super(props);
+class EditOpp extends Component {
+    constructor(props) {
+        super(props);
 
-//         this.state = {
-//             name: '',
-//             date: '',
-//             startTime: '',
-//             endTime: '',
-//             location: '',
-//             manpowerCount: '',
-//             description: '',
-//             type: ''
-//         };
+        this.state = {
+            id: '',
+            name: '',
+            date: '',
+            startTime: '',
+            endTime: '',
+            location: '',
+            manpowerCount: '',
+            description: '',
+            type: ''
+        };
 
-//         this.changeNameHandler = this.changeNameHandler.bind(this);
-//         this.changeDateHandler = this.changeDateHandler.bind(this);
-//         this.changeStartTimeHandler = this.changeStartTimeHandler.bind(this);
-//         this.changeEndTimeHandler = this.changeEndTimeHandler.bind(this);
-//         this.changeLocationHandler = this.changeLocationHandler.bind(this);
-//         this.changeManpowerCountHandler = this.changeManpowerCountHandler.bind(this);
-//         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
-//         this.changeTypeHandler = this.changeTypeHandler.bind(this);
-//         this.createOpp = this.createOpp.bind(this);
-//     }
+        this.changeNameHandler = this.changeNameHandler.bind(this);
+        this.changeDateHandler = this.changeDateHandler.bind(this);
+        this.changeStartTimeHandler = this.changeStartTimeHandler.bind(this);
+        this.changeEndTimeHandler = this.changeEndTimeHandler.bind(this);
+        this.changeLocationHandler = this.changeLocationHandler.bind(this);
+        this.changeManpowerCountHandler = this.changeManpowerCountHandler.bind(this);
+        this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
+        this.changeTypeHandler = this.changeTypeHandler.bind(this);
+        this.editOpp = this.editOpp.bind(this);
+    }
 
-//     // async componentDidMount() {
-//     //     const { eventId } = this.props.location.state;
-//     //     this.setState({ eventId });
-//     //     const response = await OppService.getOpp(eventId);
-//     //     const opp = response.data;
+    async componentDidMount() {
+        const { id } = this.props.params;
+        
+        try {
+          const res = await OppService.getOpp(id);
+          console.log(res.status);
+          console.log(res.data);
+          console.log(res.data.manpowerCount + typeof res.data.manpowerCount)
+          this.setState({ 
+            id: res.data.id,
+            name: res.data.name, 
+            date: res.data.date,
+            startTime: res.data.startTime,
+            endTime: res.data.endTime,
+            location: res.data.location,
+            manpowerCount: res.data.neededManpowerCount,
+            description: res.data.description,
+            type: res.data.type });
+        } catch (error) {
+          console.error("Failed to fetch opportunity", error);
+        }
+      }
 
-//     //     this.setState({
-//     //         name: opp.name,
-//     //         date: opp.date,
-//     //         startTime: opp.startTime,
-//     //         endTime: opp.endTime,
-//     //         location: opp.location,
-//     //         manpowerCount: opp.manpowerCount,
-//     //         description: opp.description,
-//     //         type: opp.type
-//     //     });
-//     // }
 
-//     createOpp = (e) => {
-//         e.preventDefault();
-//         const { state } = this.props.location;
-//         console.log(state);
-//         let opp = {name: this.state.name, date: this.state.date, startTime: this.state.startTime, endTime: this.state.endTime, location: this.state.location,
-//                         manpowerCount: this.state.manpowerCount, description: this.state.description, type: this.state.type, organization: localStorage.getItem("token")};
-//         console.log('opp => ' + JSON.stringify(opp));
+    changeNameHandler= (event) => {
+        this.setState({name: event.target.value});
+    }
 
-//         OppService.createOpp(opp).then(res => {
-//             this.props.navigate('/');
-//         });
-//     }
+    changeDateHandler= (event) => {
+        this.setState({date: event.target.value});
+    }
 
-//     changeNameHandler= (event) => {
-//         this.setState({name: event.target.value});
-//     }
+    changeStartTimeHandler= (event) => {
+        this.setState({startTime: event.target.value});
+    }
 
-//     changeDateHandler= (event) => {
-//         this.setState({date: event.target.value});
-//     }
+    changeEndTimeHandler= (event) => {
+        this.setState({endTime: event.target.value});
+    }
 
-//     changeStartTimeHandler= (event) => {
-//         this.setState({startTime: event.target.value});
-//     }
+    changeLocationHandler= (event) => {
+        this.setState({location: event.target.value});
+    }
 
-//     changeEndTimeHandler= (event) => {
-//         this.setState({endTime: event.target.value});
-//     }
+    changeManpowerCountHandler= (event) => {
+        this.setState({manpowerCount: event.target.value});
+    }
 
-//     changeLocationHandler= (event) => {
-//         this.setState({location: event.target.value});
-//     }
+    changeDescriptionHandler= (event) => {
+        this.setState({description: event.target.value});
+    }
 
-//     changeManpowerCountHandler= (event) => {
-//         this.setState({manpowerCount: event.target.value});
-//     }
+    changeTypeHandler= (event) => {
+        this.setState({type: event.target.value});
+    }
 
-//     changeDescriptionHandler= (event) => {
-//         this.setState({description: event.target.value});
-//     }
+    editOpp = (e) => {
+        e.preventDefault();
+        const { state } = this.props.location;
+        console.log(state);
+        let opp = {name: this.state.name, date: this.state.date, startTime: this.state.startTime, endTime: this.state.endTime, location: this.state.location,
+                        manpowerCount: this.state.manpowerCount, description: this.state.description, type: this.state.type, organization: localStorage.getItem("token")};
+        console.log('opp => ' + JSON.stringify(opp));
 
-//     changeTypeHandler= (event) => {
-//         this.setState({type: event.target.value});
-//     }
+        OppService.updateOpp(this.state.id, opp).then(res => {
+            this.props.navigate('/');
+            console.log(res.status);
+        });
+        
+    }
 
-//     render() {
-//         // const { state } = this.props.location;
-//         console.log(this.state);
-//         console.log(this.state.user);
-//         return (
-//             <>
-//                 <div className="wrapper">
-//                     <h1 className="title">Create Event</h1>
 
-//                     <form>
-//                         <label>
-//                             <p>Name</p>
-//                             <input type="text" required value={this.state.name} onChange={this.changeNameHandler}/>
-//                         </label>
-//                         <label>
-//                             <p>Date</p>
-//                             <input type="date" required value={this.state.date} onChange={this.changeDateHandler}/>
-//                         </label>
-//                         <label>
-//                             <p>Start Time</p>
-//                             <input type="time" required value={this.state.startTime}
-//                                    onChange={this.changeStartTimeHandler}/>
-//                         </label>
-//                         <label>
-//                             <p>End Time</p>
-//                             <input type="time" required value={this.state.endTime}
-//                                    onChange={this.changeEndTimeHandler}/>
-//                         </label>
-//                         <label>
-//                             <p>Location</p>
-//                             <input required type="text" value={this.state.location} onChange={this.changeLocationHandler}/>
-//                         </label>
-//                         <label>
-//                             <p>Manpower Count</p>
-//                             <input required type="number" value={this.state.manpowerCount}
-//                                    onChange={this.changeManpowerCountHandler}/>
-//                         </label>
-//                         <label>
-//                             <p>Type</p>
-//                             <input required type="text" value={this.state.type} onChange={this.changeTypeHandler}/>
-//                         </label>
-//                         <label>
-//                             <p>Description</p>
-//                             <textarea required value={this.state.description} onChange={this.changeDescriptionHandler}/>
-//                         </label>
-//                         <div className="button-container">
-//                             <button className="btn btn-wide" onClick={this.createOpp}>Create</button>
-//                         </div>
-//                     </form>
-//                 </div>
-//             </>
-//         );
-//     }
-// }
 
-// export default withNavigateandLocation(EditOpp);
+    render() {
+        // const { state } = this.props.location;
+        console.log(this.state);
+        console.log(this.state.user);
+        return (
+            <>
+                <div className="wrapper">
+                    <h1 className="title">Edit Event</h1>
+
+                    <form>
+                        <label>
+                            <p>Name</p>
+                            <input type="text" required value={this.state.name} onChange={this.changeNameHandler}/>
+                        </label>
+                        <label>
+                            <p>Date</p>
+                            <input type="date" required value={this.state.date} onChange={this.changeDateHandler}/>
+                        </label>
+                        <label>
+                            <p>Start Time</p>
+                            <input type="time" required value={this.state.startTime}
+                                   onChange={this.changeStartTimeHandler}/>
+                        </label>
+                        <label>
+                            <p>End Time</p>
+                            <input type="time" required value={this.state.endTime}
+                                   onChange={this.changeEndTimeHandler}/>
+                        </label>
+                        <label>
+                            <p>Location</p>
+                            <input required type="text" value={this.state.location} onChange={this.changeLocationHandler}/>
+                        </label>
+                        <label>
+                            <p>Manpower Count</p>
+                            <input required type="number" value={this.state.manpowerCount}
+                                   onChange={this.changeManpowerCountHandler}/>
+                        </label>
+                        <label>
+                            <p>Type</p>
+                            <input required type="text" value={this.state.type} onChange={this.changeTypeHandler}/>
+                        </label>
+                        <label>
+                            <p>Description</p>
+                            <textarea required value={this.state.description} onChange={this.changeDescriptionHandler}/>
+                        </label>
+                        <div className="button-container">
+                            <button className="btn btn-wide" onClick={this.editOpp}>Edit</button>
+                        </div>
+                    </form>
+                </div>
+            </>
+        );
+    }
+}
+
+export default withNavigateandLocation((props) => <EditOpp {...props} params={useParams()} />);
