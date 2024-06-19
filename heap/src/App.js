@@ -30,7 +30,8 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route exact index element={<HomeComponent />} />
-          <Route exact path="/opportunities" element={<OpportunitiesComponent />} />
+          <Route exact path="/opportunities/" element={<OpportunitiesComponent />} />
+          {/* <Route exact path="/opportunities" element={<OpportunitiesComponent />} /> */}
           <Route exact path="/organisations" element={<OrganizationsComponent />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register-volunteer" element={<RegisterVolunteer />} />
@@ -38,7 +39,7 @@ export default function App() {
           <Route exact path="/sign-up" element={<SignUp />} />
           <Route exact path="/reset-password" element={<ResetPassword />} />
           <Route exact path="/change-password" element={<ChangePassword />} />
-          <Route exact path="/opportunity" element={<OpportunityComponent />} />
+          <Route exact path="/opportunities/:id" element={<OpportunityComponent />} />
           <Route exact path="/logout" element={<LogoutComponent />} />
           <Route element={<ProtectedRoute/>}>
             <Route exact path="/user-profile" element={<UserProfileComponent />} />

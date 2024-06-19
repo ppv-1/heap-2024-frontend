@@ -88,6 +88,7 @@ class ChangePassword extends Component {
     // const { state } = this.props.location;
     // console.log(state);
     const { password, confirmPassword, errorMessage } = this.state;
+    console.log(this.state);
     return (
       <>
         <div className="change-wrapper">

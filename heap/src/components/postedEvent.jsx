@@ -30,7 +30,6 @@ class PostedEvent extends Component {
   render() {
 
     let items = this.state.items;
-    items.forEach((item) => {localStorage.setItem(item.id, item.id);});
 
     return (
         <div className="wrapper">

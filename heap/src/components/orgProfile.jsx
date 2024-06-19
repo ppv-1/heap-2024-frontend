@@ -54,9 +54,9 @@ class OrganisationProfileComponent extends Component {
                         <div>
                             <h2>Password</h2>
                             <p>password</p>
-                            <div className="change-password-container">
+                            <Link to='/change-password'>
                                 <button className="btn">Change password</button>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -39,7 +39,9 @@ class CreateOppComponent extends Component {
 
         OppService.createOpp(opp).then(res => {
             this.props.navigate('/');
+            console.log(res.status);
         });
+        
     }
 
     changeNameHandler= (event) => {

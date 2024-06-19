@@ -39,6 +39,7 @@ class UserProfileComponent extends Component {
 
   }
 
+
   fetchData = async () => {
     const res = await UserService.getProfile();
     // if (res.data.code !== 200) {
@@ -51,6 +52,11 @@ class UserProfileComponent extends Component {
       email: res.data.email,
       gender: res.data.gender});
   }
+
+  changePasswordHandler = (event) => {
+    event.preventDefault();
+    this.props.navigate("/change-password");
+}
 
   componentDidMount() {
     // if (localStorage.getItem("token") === null) {

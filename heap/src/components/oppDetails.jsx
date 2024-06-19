@@ -1,22 +1,48 @@
 import React, { Component } from "react";
 import "./css/OpportunityDetails.css";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
+import OppService from "../services/OppService";
 
 class Opportunity extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      opportunity: null,
+      loading: true,
+    };
   }
-  handleButtonConfirm(){
+
+  async componentDidMount() {
+    const { id } = this.props.params;
+    
+    try {
+      const res = await OppService.getOpp(id);
+      console.log(res.status);
+      console.log(res.data);
+      this.setState({ opportunity: res.data, loading: false });
+    } catch (error) {
+      console.error("Failed to fetch opportunity", error);
+    }
+  }
+
+  handleButtonConfirm() {
     alert("You have successfully registered for this opportunity");
   }
 
   render() {
-    // if (!localStorage.getItem('token')){
-    //   return;
-    // }
+    const { opportunity, loading } = this.state;
+    console.log(this.state);
+
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+
+    if (!opportunity) {
+      return <div>Opportunity not found</div>;
+    }
+
     return (
       <div className="wrapper">
         <div className="breadcrumbs-container">
@@ -28,34 +54,34 @@ class Opportunity extends Component {
               <li>
                 <a href="/opportunities">Volunteer</a>
               </li>
-              <li>Opp</li>
+              <li>{opportunity.name}</li>
             </ul>
           </div>
         </div>
         <div className="details-container">
           <div className="left-container">
             <div className="left-details">
-              <h1 className="title">Opportunity Name + Organisation</h1>
+              <h1 className="title">{opportunity.name} @ {opportunity.organization}</h1>
               <br />
-              <p>description</p>
-              <p>hours</p>
-              <p>manpower</p>
-              <p>type</p>
+              <p>{opportunity.description}</p>
+              <p>{opportunity.hours}</p>
+              <p>{opportunity.manpowerCount}</p>
+              <p>{opportunity.type}</p>
             </div>
           </div>
           <div className="right-container">
             <div className="right-details">
               <h1 className="title">Location</h1>
-              <p>address</p>
+              <p>{opportunity.location}</p>
               <h1 className="title">Date and time</h1>
-              <p>date and time</p>
-              <p>start time</p>
-              <p>end time</p>
+              <p>{opportunity.date}</p>
+              <p>{opportunity.startTime}</p>
+              <p>{opportunity.endTime}</p>
               <div className="button-container">
-              {/* <Link to="/"> */}
-                <button className="btn btn-wide" onClick={this.handleButtonConfirm}>I want to volunteer</button>
-              {/* </Link> */}
-            </div>
+                <button className="btn btn-wide" onClick={this.handleButtonConfirm}>
+                  I want to volunteer
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -64,4 +90,5 @@ class Opportunity extends Component {
   }
 }
 
-export default Opportunity;
+// Wrap Opportunity with withNavigateandLocation to pass params to class component
+export default withNavigateandLocation((props) => <Opportunity {...props} params={useParams()} />);
