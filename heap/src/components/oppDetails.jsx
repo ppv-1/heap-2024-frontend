@@ -25,7 +25,7 @@ class Opportunity extends Component {
 
     try {
       const res = await OppService.getOpp(id);
-      const org = await OrgService.getOrg(res.data.organization);
+      const org = await OrgService.getOrg(res.data.organisation);
       console.log(res.status);
       console.log(res.data);
       this.setState({ opportunity: res.data, loading: false ,orgName: org.data.fullName});

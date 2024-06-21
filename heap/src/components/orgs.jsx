@@ -3,7 +3,7 @@ import "./css/Organisations.css";
 import withNavigateandLocation from "./withNavigateandLocation";
 import OrgService from "../services/OrgService";
 
-class OrganizationsComponent extends Component {
+class OrganisationsComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -85,13 +85,13 @@ class OrganizationsComponent extends Component {
   }
 }
 
-export default withNavigateandLocation(OrganizationsComponent);
+export default withNavigateandLocation(OrganisationsComponent);
 
 // const Orgs = () => {
 //   return (
 //     <div>
-//       <h1>Organizations</h1>
-//       <p>Here you can find information about different organizations.</p>
+//       <h1>Organisations</h1>
+//       <p>Here you can find information about different organisations.</p>
 //     </div>
 //   );
 // };

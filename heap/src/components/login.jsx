@@ -34,8 +34,8 @@ class Login extends Component {
         console.log(res.data);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userType", res.data.userType);
-        // navigate('/organizations');
-        // return redirect('/organizations');
+        // navigate('/organisations');
+        // return redirect('/organisations');
         // console.log(res.data.userType);
         // this.props.navigate("/user-profile");
         if (res.data.userType === 'V') {

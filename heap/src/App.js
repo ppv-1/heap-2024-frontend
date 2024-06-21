@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/layout";
 import HomeComponent from "./components/home";
 import OpportunitiesComponent from "./components/opps";
-import OrganizationsComponent from "./components/orgs";
+import OrganisationsComponent from "./components/orgs";
 import UserProfileComponent from "./components/profile";
 import OrganisationProfileComponent from "./components/orgProfile";
 import Login from "./components/login";
@@ -32,7 +32,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route exact index element={<HomeComponent />} />
           <Route exact path="/opportunities" element={<OpportunitiesComponent />} />
-          <Route exact path="/organisations" element={<OrganizationsComponent />} />
+          <Route exact path="/organisations" element={<OrganisationsComponent />} />
           <Route exact path="/organisations/:id" element={<OrgDetails />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register-volunteer" element={<RegisterVolunteer />} />

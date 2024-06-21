@@ -34,7 +34,7 @@ class CreateOppComponent extends Component {
         const { state } = this.props.location;
         console.log(state);
         let opp = {name: this.state.name, date: this.state.date, startTime: this.state.startTime, endTime: this.state.endTime, location: this.state.location,
-                        manpowerCount: this.state.manpowerCount, description: this.state.description, type: this.state.type, organization: localStorage.getItem("token")};
+                        manpowerCount: this.state.manpowerCount, description: this.state.description, type: this.state.type, organisation: localStorage.getItem("token")};
         console.log('opp => ' + JSON.stringify(opp));
 
         OppService.createOpp(opp).then(res => {

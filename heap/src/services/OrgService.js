@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ORG_API_BASE_URL = "http://localhost:8080/api/v1/organization"
+const ORG_API_BASE_URL = "http://localhost:8080/api/v1/organisation"
 
 class OrganisationService{
     async getAllOrgs(){
