@@ -34,6 +34,21 @@ form {
     text-decoration: none;
 }
 
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+}
+
+.card {
+    margin: 2%;
+}
+
+div > figure > img {
+    height: 130px;
+    width: 350px;
+}
+
 input[type="text"],
 input[type="tel"],
 input[type="email"],
@@ -86,3 +101,4 @@ button.btn {
 .button-container {
     width: 100%;
 }
+
