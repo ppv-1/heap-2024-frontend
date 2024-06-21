@@ -28,8 +28,8 @@ class OpportunitiesComponent extends Component {
     this.setState({ items: res.data.events });
   }
 
-  componentDidMount() {
-    this.fetchData();
+  async componentDidMount() {
+    await this.fetchData();
   }
 
   render() {
@@ -46,7 +46,7 @@ class OpportunitiesComponent extends Component {
           </ul>
         </div>
 
-        <h1 className="title">Volunteer</h1>
+        <h1 className="title">Events</h1>
         <p>Here you can find various opportunities.</p>
         <br />
 

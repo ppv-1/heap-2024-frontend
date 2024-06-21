@@ -1,5 +1,5 @@
 .wrapper {
-    width: 100%;
+    width: fit-content;
     margin-top: 100px;
 }
 
@@ -7,13 +7,12 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-
 }
 
 .left-wrapper {
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 50%;
 }
 
 .right-wrapper {
@@ -22,17 +21,22 @@
 }
 
 .searchbar-container {
-    width: 90%;
+    width: 100%;
     background: white;
-    margin: 0 auto; 
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
 .searchbar-container > h1 {
+    margin-top: 5%;
     font-size: 20px;
     font-weight: 700;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 40px;
+    gap: 16px;
+    text-decoration: none;
 }
 
 .input {
@@ -41,9 +45,29 @@
 
 .drawer-button {
     margin: 0;
-    margin-top: 35px;
+    margin-top: 60px;
 }
 
 .drawer-side {
     margin-top: 100px;
+}
+
+.drawer-content > p {
+    font-size: 20px;
+    color: black;
+}
+
+.drawer-content > li > h2 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.dropdown > summary {
+    width: max-content;
+    margin-left: 0;
+}
+
+.divider {
+    width: 100%;
+    margin-left: 0;
 }

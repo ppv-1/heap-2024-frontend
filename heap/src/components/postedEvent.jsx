@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import OppService from "../services/OppService";
 import withNavigateandLocation from "./withNavigateandLocation";
 import UserService from "../services/UserService";
+import "./css/Opportunities.css";
 
 class PostedEvent extends Component {
   constructor(props) {
@@ -55,7 +56,7 @@ class PostedEvent extends Component {
           <p>These are the volunteer opportunities you have posted.</p>
           <br/>
 
-          <div>
+          <div className="content-wrapper">
             {items.map((item) => (
               <div className="card card-compact w-30 bg-base-100 shadow-xl" style={{ filter: "drop-shadow(0px 0px 5px #555)", borderRadius: 10 }}>
                 <figure>

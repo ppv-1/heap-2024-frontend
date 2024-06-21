@@ -31,7 +31,7 @@
 }
 
 .details-container {
-  width: 80%;
+  width: 80% !important;
   height: 30%;
   padding: 16px;
   background: rgb(255, 255, 255);

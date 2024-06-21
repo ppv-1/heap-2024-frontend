@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
 import OppService from "../services/OppService";
 import UserService from "../services/UserService";
+import VolunteerService from "../services/VolunteerService";
+import OrgService from "../services/OrgService";
 
 class Opportunity extends Component {
   constructor(props) {
@@ -12,6 +14,7 @@ class Opportunity extends Component {
     this.state = {
       opportunity: null,
       loading: true,
+      orgName: null
     };
 
     this.registerEvent = this.registerEvent.bind(this);
@@ -22,9 +25,10 @@ class Opportunity extends Component {
 
     try {
       const res = await OppService.getOpp(id);
+      const org = await OrgService.getOrg(res.data.organization);
       console.log(res.status);
       console.log(res.data);
-      this.setState({ opportunity: res.data, loading: false });
+      this.setState({ opportunity: res.data, loading: false ,orgName: org.data.fullName});
     } catch (error) {
       console.error("Failed to fetch opportunity", error);
     }
@@ -41,12 +45,14 @@ class Opportunity extends Component {
     console.log(res.data);
     const userId = res.data.email;
     console.log(userId);
-    await UserService.registerEvent(eventId, userId);
+    // let userId = {userId: res.data.email};
+    // console.log(userId);
+    await VolunteerService.registerEvent(eventId, userId);
     alert("You have successfully registered for this event");
   }
 
   render() {
-    const { opportunity, loading } = this.state;
+    const { opportunity, loading, orgName} = this.state;
     console.log(this.state);
 
     if (loading) {
@@ -75,7 +81,7 @@ class Opportunity extends Component {
         <div className="details-container">
           <div className="left-container">
             <div className="left-details">
-              <h1 className="title">{opportunity.name} @ {opportunity.organization}</h1>
+              <h1 className="title">{opportunity.name} @ {orgName}</h1>
               <br />
               <p>Description: {opportunity.description}</p>
               <p>Manpower needed: {opportunity.neededManpowerCount}</p>

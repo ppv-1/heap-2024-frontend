@@ -23,3 +23,7 @@
     
     
 }
+
+.content-wrapper {
+    display: flex;
+}

@@ -11,7 +11,11 @@ module.exports = {
     "./src/components/createOpp.jsx",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'gray': "#d1d5db",
+      },
+    },
   },
 
   plugins: [require("daisyui")],

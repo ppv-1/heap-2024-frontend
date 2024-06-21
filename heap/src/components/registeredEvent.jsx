@@ -51,7 +51,7 @@ class RegisteredEvent extends Component {
           <p>These are the volunteer opportunities you are signed up for.</p>
           <br/>
 
-          <div>
+          <div className="content-wrapper">
             {items.map((item) => (
               <div className="card card-compact w-30 bg-base-100 shadow-xl" style={{ filter: "drop-shadow(0px 0px 5px #555)", borderRadius: 10 }}>
                 <figure>
