@@ -20,9 +20,13 @@ class PostedEvent extends Component {
 
     deleteOpp = async (event, id)=>{
       event.preventDefault();
-      await OppService.deleteOpp(id);
-      window.location.reload();
-      alert("Event successfully deleted");
+      let result = window.confirm("Are you sure you want to delete this event?");
+      if (result){
+        await OppService.deleteOpp(id);
+        window.location.reload();
+        alert("Event successfully deleted");
+      }
+      
 
     }
 
@@ -52,7 +56,7 @@ class PostedEvent extends Component {
           </div>
 
 
-          <h1 className="title">Volunteer</h1>
+          <h1 className="title">Posted Events</h1>
           <p>These are the volunteer opportunities you have posted.</p>
           <br/>
 

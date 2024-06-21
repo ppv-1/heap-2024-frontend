@@ -27,9 +27,9 @@ class OrganizationsComponent extends Component {
     await this.fetchData();
   }
 
-  organisationSubmit = (event) => {
+  organisationSubmit = (event, id) => {
     event.preventDefault();
-    this.props.navigate("/");
+    this.props.navigate(`/organisations/${id}`);
 }
 
   render() {
@@ -55,7 +55,7 @@ class OrganizationsComponent extends Component {
                       <p>Organisation</p>
                       <button
                           className="btn btn-primary"
-                          onClick={this.organisationSubmit}
+                          onClick={(event) => this.organisationSubmit(event, item.email)}
                       >
                         More info
                       </button>
@@ -74,10 +74,7 @@ class OrganizationsComponent extends Component {
             <div className="card-body">
               <h2 className="card-title">SICS</h2>
               <div className="card-actions justify-end">
-                <button
-                    className="btn btn-primary"
-                    onClick={this.organisationSubmit}
-                >
+                <button className="btn btn-primary">
                   More info
                 </button>
               </div>

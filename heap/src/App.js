@@ -23,6 +23,7 @@ import RegisteredEvent from "./components/registeredEvent";
 import PostedEvent from "./components/postedEvent";
 import SignUp from "./components/signUp";
 import EditOpp from "./components/editOpp";
+import OrgDetails from "./components/orgDetails"
 
 export default function App() {
   return (
@@ -30,9 +31,9 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route exact index element={<HomeComponent />} />
-          <Route exact path="/opportunities/" element={<OpportunitiesComponent />} />
-          {/* <Route exact path="/opportunities" element={<OpportunitiesComponent />} /> */}
+          <Route exact path="/opportunities" element={<OpportunitiesComponent />} />
           <Route exact path="/organisations" element={<OrganizationsComponent />} />
+          <Route exact path="/organisations/:id" element={<OrgDetails />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register-volunteer" element={<RegisterVolunteer />} />
           <Route exact path="/register-organisation" element={<RegisterOrganisation />} />
