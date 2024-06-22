@@ -3,6 +3,7 @@ import OppService from "../services/OppService";
 import withNavigateandLocation from "./withNavigateandLocation";
 import UserService from "../services/UserService";
 import "./css/Opportunities.css";
+import OrgService from "../services/OrgService";
 
 class PostedEvent extends Component {
   constructor(props) {
@@ -31,7 +32,11 @@ class PostedEvent extends Component {
     }
 
     fetchData = async () => {
-      const res = await OppService.getAllOpps();
+      const user = await UserService.getProfile();
+      console.log(user);
+      console.log(user.data.email + typeof user.data.email);
+
+      const res = await OrgService.getOrgEvents(user.data.email);
       console.log(JSON.stringify(res.data));
       console.log(res.data + typeof res.data);
       this.setState( {items : res.data.events});

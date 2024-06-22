@@ -13,6 +13,9 @@ class AuthService {
     createOrganisation(user){
         return axios.post(AUTH_API_BASE_URL+'/register-organisation', user);
     }
+    createAdmin(user){
+        return axios.post(AUTH_API_BASE_URL+'register-admin', user);
+    }
 
 }
 

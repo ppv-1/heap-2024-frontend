@@ -38,6 +38,9 @@ const Navbar = () => {
             userType === "O" ? (
             <>
               <li>
+                <Link to="/create-reward">Create Reward (test)</Link>
+              </li>
+              <li>
                 <Link to="/create-opportunity">Create Event</Link>
               </li>
               <li>

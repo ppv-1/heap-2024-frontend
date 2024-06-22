@@ -29,8 +29,8 @@ class CreateOppComponent extends Component {
         this.createOpp = this.createOpp.bind(this);
     }
 
-    createOpp = (e) => {
-        e.preventDefault();
+    createOpp = (event) => {
+        event.preventDefault();
         const { state } = this.props.location;
         console.log(state);
         let opp = {name: this.state.name, date: this.state.date, startTime: this.state.startTime, endTime: this.state.endTime, location: this.state.location,

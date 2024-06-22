@@ -11,6 +11,10 @@ class OrganisationService{
         return await axios.get(ORG_API_BASE_URL + "/get/" + orgId);
     }
 
+    async getOrgEvents(orgId){
+        return await axios.get(ORG_API_BASE_URL + "/events/" + orgId);
+    }
+
     // async getOrgEvents(orgId){
     //     return await axios.get(ORG_API_BASE_URL + "/" + orgId + "/events");
     // }
