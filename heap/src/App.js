@@ -24,6 +24,7 @@ import PostedEvent from "./components/postedEvent";
 import SignUp from "./components/signUp";
 import EditOpp from "./components/editOpp";
 import OrgDetails from "./components/orgDetails"
+import CreateReward from "./components/createReward";
 
 export default function App() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
           <Route exact path="/opportunities/:id" element={<OpportunityComponent />} />
           <Route exact path="/logout" element={<LogoutComponent />} />
           <Route element={<ProtectedRoute/>}>
+            <Route exact path="/create-reward" element={<CreateReward />} />
             <Route exact path="/user-profile" element={<UserProfileComponent />} />
             <Route exact path="/org-profile" element={<OrganisationProfileComponent />} />
             <Route exact path="/create-opportunity" element={<CreateOppComponent />} />
