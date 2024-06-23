@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import "./css/Organisations.css";
 import withNavigateandLocation from "./withNavigateandLocation";
 import OrgService from "../services/OrgService";
+import RewardService from "../services/RewardService";
 
-class OrganisationsComponent extends Component {
+class Rewards extends Component {
   constructor(props) {
     super(props);
 
@@ -12,31 +13,31 @@ class OrganisationsComponent extends Component {
     };
   }
   fetchData = async () => {
-    const res = await OrgService.getAllOrgs();
+    const res = await RewardService.getAllRewards();
     // if (res.data.code !== 200) {
     //   this.props.navigate("/login");
     //   window.location.reload()
     // }
     console.log(JSON.stringify(res.data));
     console.log(res.data + typeof res.data);
-    console.log(res.data.orgs);
-    this.setState({ items: res.data.orgs });
+    console.log(res.data.rewards);
+    this.setState({ items: res.data.rewards });
   }
   async componentDidMount() {
     await this.fetchData();
   }
 
-  organisationSubmit = (event, id) => {
+  rewardSubmit = (event, id) => {
     event.preventDefault();
-    this.props.navigate(`/organisations/${id}`);
+    this.props.navigate(`/rewards/${id}`);
 }
 
   render() {
     let items = this.state.items;
     return (
         <div className="wrapper">
-          <h1 className="title">Organisations</h1>
-          <p>Here you can find information about different organisations.</p>
+          <h1 className="title">Rewards</h1>
+          <p>Here you can find information about different rewards.</p>
           <br/>
             <div>
               {items.map((item) => (
@@ -44,17 +45,17 @@ class OrganisationsComponent extends Component {
                        style={{filter: "drop-shadow(0px 0px 5px #555)", borderRadius: 10}}>
                     <figure>
                       <img
-                          src="https://static.wixstatic.com/media/7ab21d_0065f074991045f19085036583d803c7~mv2.png/v1/fill/w_365,h_174,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/SICS%20Logo.png"
-                          alt={item.fullName}
+                          src="https://cdn-icons-png.flaticon.com/512/1426/1426770.png"
+                          alt={item.name}
                       />
                     </figure>
                     <div className="card-body">
-                      <h2 className="card-title">{item.fullName}</h2>
+                      <h2 className="card-title">{item.name}</h2>
                       {/*<h1>{item.id}</h1>*/}
-                      <p>Organisation</p>
+                      <p>Reward</p>
                       <button
                           className="btn btn-primary"
-                          onClick={(event) => this.organisationSubmit(event, item.email)}
+                          onClick={(event) => this.rewardSubmit(event, item.id)}
                       >
                         More info
                       </button>
@@ -84,15 +85,5 @@ class OrganisationsComponent extends Component {
   }
 }
 
-export default withNavigateandLocation(OrganisationsComponent);
+export default withNavigateandLocation(Rewards);
 
-// const Orgs = () => {
-//   return (
-//     <div>
-//       <h1>Organisations</h1>
-//       <p>Here you can find information about different organisations.</p>
-//     </div>
-//   );
-// };
-
-// export default Orgs;

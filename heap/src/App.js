@@ -25,6 +25,8 @@ import SignUp from "./components/signUp";
 import EditOpp from "./components/editOpp";
 import OrgDetails from "./components/orgDetails"
 import CreateReward from "./components/createReward";
+import RegisterAdmin from "./components/registerAdmin";
+import Rewards from "./components/rewards";
 
 export default function App() {
   return (
@@ -34,8 +36,10 @@ export default function App() {
           <Route exact index element={<HomeComponent />} />
           <Route exact path="/opportunities" element={<OpportunitiesComponent />} />
           <Route exact path="/organisations" element={<OrganisationsComponent />} />
+          <Route exact path="/rewards" element={<Rewards />} />
           <Route exact path="/organisations/:id" element={<OrgDetails />} />
           <Route exact path="/login" element={<Login />} />
+          <Route exact path="/register-admin" element={<RegisterAdmin />} />
           <Route exact path="/register-volunteer" element={<RegisterVolunteer />} />
           <Route exact path="/register-organisation" element={<RegisterOrganisation />} />
           <Route exact path="/sign-up" element={<SignUp />} />

@@ -10,6 +10,12 @@ class RewardService{
         }});
     }
 
+    async getAllRewards(){
+        return await axios.get(REWARD_API_BASE_URL + "/all", {headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }});
+    }
+
 }
 
 export default new RewardService()

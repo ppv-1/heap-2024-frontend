@@ -23,6 +23,11 @@ const Navbar = () => {
             <p>Organisations</p>
           </Link>
         </li>
+        <li>
+          <Link to="/rewards">
+            <p>Rewards</p>
+          </Link>
+        </li>
       </ul>
       <div className="spacer"></div>
       <Link to="/">
@@ -37,9 +42,6 @@ const Navbar = () => {
 
             userType === "O" ? (
             <>
-              <li>
-                <Link to="/create-reward">Create Reward (test)</Link>
-              </li>
               <li>
                 <Link to="/create-opportunity">Create Event</Link>
               </li>
@@ -65,6 +67,18 @@ const Navbar = () => {
                 <Link to="/logout">Logout</Link>
               </li>
             </>
+            ) : userType === "A" ? (
+              <>
+                <li>
+                  <Link to="/create-reward">Create Reward (test)</Link>
+                </li>
+                <li>
+                  <Link to="/user-profile">Profile</Link>
+                </li>
+                <li>
+                  <Link to="/logout">Logout</Link>
+                </li>
+              </>
             ) : (
               <>
                 <li>

@@ -44,6 +44,9 @@ class Login extends Component {
         } else if (res.data.userType === 'O') {
           console.log(res.data.userType);
           this.props.navigate("/create-opportunity");
+        } else if (res.data.userType === 'A'){
+          console.log(res.data.userType);
+          this.props.navigate("/");
         }
         // this.props.navigate("/user-profile");
       } else {
@@ -104,6 +107,11 @@ class Login extends Component {
             <div className="button-container">
               <Link to="/register-organisation">
                 <button className="btn btn-wide">Sign up here (Organisation)</button>
+              </Link>
+            </div>
+            <div className="button-container">
+              <Link to="/register-admin">
+                <button className="btn btn-wide">Create admin account (Test)</button>
               </Link>
             </div>
           </form>
