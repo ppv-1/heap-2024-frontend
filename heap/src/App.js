@@ -27,6 +27,7 @@ import OrgDetails from "./components/orgDetails"
 import CreateReward from "./components/createReward";
 import RegisterAdmin from "./components/registerAdmin";
 import Rewards from "./components/rewards";
+import RewardDetails from "./components/rewardDetails";
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
           <Route exact path="/opportunities" element={<OpportunitiesComponent />} />
           <Route exact path="/organisations" element={<OrganisationsComponent />} />
           <Route exact path="/rewards" element={<Rewards />} />
+          <Route exact path="/rewards/:id" element={<RewardDetails />} />
           <Route exact path="/organisations/:id" element={<OrgDetails />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register-admin" element={<RegisterAdmin />} />
