@@ -78,7 +78,7 @@ class RewardDetails extends Component {
 
                             <div className="button-container">
                                 <button className="btn btn-wide">
-                                    Hello this is reward
+                                    Redeem
                                 </button>
                             </div>
                         </div>
