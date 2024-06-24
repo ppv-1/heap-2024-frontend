@@ -28,6 +28,7 @@ import CreateReward from "./components/createReward";
 import RegisterAdmin from "./components/registerAdmin";
 import Rewards from "./components/rewards";
 import RewardDetails from "./components/rewardDetails";
+import VerifyOrgs from "./components/verifyOrgs";
 
 export default function App() {
   return (
@@ -50,6 +51,7 @@ export default function App() {
           <Route exact path="/opportunities/:id" element={<OpportunityComponent />} />
           <Route exact path="/logout" element={<LogoutComponent />} />
           <Route element={<ProtectedRoute/>}>
+            <Route exact path="/verify-orgs" element={<VerifyOrgs />} />
             <Route exact path="/create-reward" element={<CreateReward />} />
             <Route exact path="/user-profile" element={<UserProfileComponent />} />
             <Route exact path="/org-profile" element={<OrganisationProfileComponent />} />

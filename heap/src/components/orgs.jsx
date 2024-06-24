@@ -86,13 +86,3 @@ class OrganisationsComponent extends Component {
 
 export default withNavigateandLocation(OrganisationsComponent);
 
-// const Orgs = () => {
-//   return (
-//     <div>
-//       <h1>Organisations</h1>
-//       <p>Here you can find information about different organisations.</p>
-//     </div>
-//   );
-// };
-
-// export default Orgs;
