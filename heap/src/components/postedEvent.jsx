@@ -65,9 +65,9 @@ class PostedEvent extends Component {
           <p>These are the volunteer opportunities you have posted.</p>
           <br/>
 
-          <div className="content-wrapper">
+          <div>
             {items.map((item) => (
-              <div className="card card-compact w-30 bg-base-100 shadow-xl" style={{ filter: "drop-shadow(0px 0px 5px #555)", borderRadius: 10 }}>
+              <div className="card card-compact w-30 bg-base-100 shadow-xl">
                 <figure>
                   <img
                     src="https://static.wixstatic.com/media/7ab21d_0065f074991045f19085036583d803c7~mv2.png/v1/fill/w_365,h_174,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/SICS%20Logo.png"

@@ -38,8 +38,7 @@ class Rewards extends Component {
           <br/>
             <div>
               {items.map((item) => (
-                  <div key={item.id} className="card card-compact w-30 bg-base-100 shadow-xl"
-                       style={{filter: "drop-shadow(0px 0px 5px #555)", borderRadius: 10}}>
+                  <div key={item.id} className="card card-compact w-30 bg-base-100 shadow-xl">
                     <figure>
                       <img
                           src="https://cdn-icons-png.flaticon.com/512/1426/1426770.png"

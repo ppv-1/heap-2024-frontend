@@ -50,6 +50,7 @@
 .nav-list li {
   list-style: none;
   padding: 26px 30px;
+  text-align: center !important;
 }
 
 .nav-list li a {
@@ -59,13 +60,14 @@
   color: #000;
 }
 
-.nav-list li a:hover {
+.nav-list li a:hover, .right-nav-list li a:hover {
   color: grey;
 }
 
 .right-nav-list li {
   list-style: none;
   padding: 26px 30px;
+  text-align: center;
 }
 
 .right-nav-list li a {
@@ -73,10 +75,6 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
   color: #000;
-}
-
-.right-nav-list li a:hover {
-  color: grey;
 }
 
 .rightnav {
