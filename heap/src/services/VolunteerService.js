@@ -19,7 +19,7 @@ class VolunteerService{
     }
 
     async unregisterEvent(eventId){
-        return await axios.post(VOLUNTEER_API_BASE_URL + "/unregister/event/" + eventId, {headers: {
+        return await axios.post(VOLUNTEER_API_BASE_URL + "/unregister/event/" + eventId, "", {headers: {
             'Authorization': `Bearer ${localStorage.getItem("token")}`
         }});
     }
