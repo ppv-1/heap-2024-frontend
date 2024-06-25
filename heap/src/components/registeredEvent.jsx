@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-// import "./css/Opportunities.css";
-import OppService from "../services/OppService";
 import withNavigateandLocation from "./withNavigateandLocation";
+import VolunteerService from "../services/VolunteerService";
 
 class RegisteredEvent extends Component {
   constructor(props) {
@@ -12,17 +11,19 @@ class RegisteredEvent extends Component {
     };
   }
 
-    volunteerSubmit = (event, id) => {
+    unregisterSubmit = async (event, id) => {
         event.preventDefault();
-        this.props.navigate(`/opportunities/${id}`);
+        let result = window.confirm("Are you sure you want to unregister from this event?");
+        console.log(id);
+        if (result){
+          const event =await VolunteerService.unregisterEvent(id);
+          window.location.reload();
+          alert("Successfully unregistered");
+        }
     }
 
     fetchData = async () => {
-      const res = await OppService.getAllOpps();
-      // if (res.data.code !== 200) {
-      //   this.props.navigate("/login");
-      //   window.location.reload()
-      // }
+      const res = await VolunteerService.getRegisteredEvents();
       console.log(JSON.stringify(res.data));
       console.log(res.data + typeof res.data);
       this.setState( {items : res.data.events});
@@ -64,7 +65,7 @@ class RegisteredEvent extends Component {
                   <h2 className="card-title">{item.name}</h2>
                   <p>Volunteer opportunity</p>
                   <div className="card-actions justify-end">
-                    <button className="btn btn-primary" onClick={(event) => this.volunteerSubmit(event, item.id)}>More Info</button>
+                    <button className="btn btn-primary" onClick={(event) => this.unregisterSubmit(event, item.id)}>Unregister</button>
                   </div>
                 </div>
               </div>

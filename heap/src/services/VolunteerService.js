@@ -12,5 +12,17 @@ class VolunteerService{
         }});
     }
 
+    async getRegisteredEvents(){
+        return await axios.get(VOLUNTEER_API_BASE_URL + "/registeredEvents", {headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }});
+    }
+
+    async unregisterEvent(eventId){
+        return await axios.post(VOLUNTEER_API_BASE_URL + "/unregister/event/" + eventId, {headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }});
+    }
+
 }
 export default new VolunteerService();
