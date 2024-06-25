@@ -46,9 +46,8 @@ class OrganisationsComponent extends Component {
                     <div className="card-body">
                       <h2 className="card-title">{item.fullName}</h2>
                       {/*<h1>{item.id}</h1>*/}
-                      <p>Organisation</p>
                       <button
-                          className="btn btn-primary"
+                          className="btn btn-sm btn-neutral"
                           onClick={(event) => this.organisationSubmit(event, item.email)}
                       >
                         More info
