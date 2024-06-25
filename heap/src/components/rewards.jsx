@@ -13,11 +13,8 @@ class Rewards extends Component {
     };
   }
   fetchData = async () => {
+    
     const res = await RewardService.getAllRewards();
-    // if (res.data.code !== 200) {
-    //   this.props.navigate("/login");
-    //   window.location.reload()
-    // }
     console.log(JSON.stringify(res.data));
     console.log(res.data + typeof res.data);
     console.log(res.data.rewards);

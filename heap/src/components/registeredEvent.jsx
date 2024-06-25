@@ -14,7 +14,7 @@ class RegisteredEvent extends Component {
 
     volunteerSubmit = (event, id) => {
         event.preventDefault();
-        this.props.navigate(`/opportunity/${id}`);
+        this.props.navigate(`/opportunities/${id}`);
     }
 
     fetchData = async () => {

@@ -25,6 +25,7 @@ class OpportunitiesComponent extends Component {
     // }
     console.log(JSON.stringify(res.data));
     console.log(res.data + typeof res.data);
+    console.log(res.data.events);
     this.setState({ items: res.data.events });
   }
 
