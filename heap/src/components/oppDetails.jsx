@@ -45,13 +45,7 @@ class Opportunity extends Component {
   registerEvent = async (event) => {
     const eventId = this.props.params.id;
     console.log(eventId);
-    const res = await UserService.getProfile();
-    console.log(res.data);
-    const userId = res.data.email;
-    console.log(userId);
-    // let userId = {userId: res.data.email};
-    // console.log(userId);
-    await VolunteerService.registerEvent(eventId, userId);
+    await VolunteerService.registerEvent(eventId);
     alert("You have successfully registered for this event");
   };
 

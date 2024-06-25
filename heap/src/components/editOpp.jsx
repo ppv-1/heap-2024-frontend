@@ -150,7 +150,7 @@ class EditOpp extends Component {
                             <textarea required value={this.state.description} onChange={this.changeDescriptionHandler}/>
                         </label>
                         <div className="button-container">
-                            <button className="btn btn-wide" onClick={this.editOpp}>Edit</button>
+                            <button className="btn btn-wide" onClick={this.editOpp}>Save</button>
                         </div>
                     </form>
                 </div>

@@ -22,6 +22,18 @@ class RewardService{
         }});
     }
 
+    async deleteRewards(rewardId){
+        return await axios.delete(REWARD_API_BASE_URL + "/delete/" + rewardId, {headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }});
+    }
+
+    async updateReward(rewardId, reward){
+        return await axios.put(REWARD_API_BASE_URL + "/update/" + rewardId, reward, {headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }});
+    }
+
 }
 
 export default new RewardService()

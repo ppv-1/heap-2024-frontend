@@ -37,9 +37,9 @@ class UserService {
 
     }
 
-    async registerEvent(eventId, userId) {
+    async registerEvent(eventId) {
         console.log(localStorage.getItem("token"));
-        return await axios.post(USER_API_BASE_URL+ "/register/event/" + eventId, userId,{headers: {
+        return await axios.post(USER_API_BASE_URL+ "/register/event/" + eventId,{headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
         }});
     }

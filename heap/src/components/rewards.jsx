@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./css/Organisations.css";
 import withNavigateandLocation from "./withNavigateandLocation";
-import OrgService from "../services/OrgService";
 import RewardService from "../services/RewardService";
 
 class Rewards extends Component {
@@ -14,12 +13,15 @@ class Rewards extends Component {
   }
   fetchData = async () => {
     
-    const res = await RewardService.getAllRewards();
-    console.log(JSON.stringify(res.data));
-    console.log(res.data + typeof res.data);
-    console.log(res.data.rewards);
-    this.setState({ items: res.data.rewards });
+    const res = await RewardService.getAllRewards().then((res) => {
+      console.log(JSON.stringify(res.data));
+      console.log(res.data + typeof res.data);
+      console.log(res.data.rewards);
+      this.setState({ items: res.data.rewards });
+    });
+
   }
+
   async componentDidMount() {
     await this.fetchData();
   }
