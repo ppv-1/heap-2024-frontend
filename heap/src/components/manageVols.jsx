@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import "./css/Organisations.css";
 import withNavigateandLocation from "./withNavigateandLocation";
-import OrgService from "../services/OrgService";
 import AdminService from "../services/AdminService";
 
-class VerifyOrgs extends Component {
+class ManageVols extends Component {
   constructor(props) {
     super(props);
 
@@ -13,32 +12,43 @@ class VerifyOrgs extends Component {
     };
   }
   fetchData = async () => {
-    const res = await OrgService.getAllOrgs();
+    const res = await AdminService.getAllVolunteers();
     console.log(JSON.stringify(res.data));
     console.log(res.data + typeof res.data);
-    console.log(res.data.orgs);
-    this.setState({ items: res.data.orgs });
+    console.log(res.data.vols);
+    this.setState({ items: res.data.vols });
   }
   async componentDidMount() {
     await this.fetchData();
   }
 
-  verifyOrgHandler = async (event, id) => {
+  
+
+  blacklistVolHandler = async (event, id) => {
     event.preventDefault();
-    let result = window.confirm("Are you sure you want to verify organisation " +id  +"?");
+    let result = window.confirm("Are you sure you want to blacklist volunteer " +id  +"?");
       if (result){
-        await AdminService.verifyOrg(id);
+        await AdminService.blacklistUser(id);
         window.location.reload();
-        alert("Organisation " + id + " verified");
+        alert("Volunteer " + id + " blacklisted");
       }
-}
+  }
+
+  deleteVolHandler = async (event, id) => {
+    event.preventDefault();
+    let result = window.confirm("Are you sure you want to delete volunteer " +id  +"?");
+      if (result){
+        await AdminService.deleteUser(id);
+        window.location.reload();
+        alert("Volunteer " + id + " deleted");
+      }
+  }
 
   render() {
     let items = this.state.items;
     return (
         <div className="wrapper">
-          <h1 className="title">Verify Organisations</h1>
-          <p>Choose organisations to verify.</p>
+          <h1 className="title">Manage Volunteers</h1>
           <br/>
             <div>
               {items.map((item) => (
@@ -52,12 +62,18 @@ class VerifyOrgs extends Component {
                     </figure>
                     <div className="card-body">
                       <h2 className="card-title">{item.fullName}</h2>
-                      <p>Organisation</p>
+                      <p>Volunteer</p>
                       <button
                           className="btn btn-primary"
-                          onClick={(event) => this.verifyOrgHandler(event, item.email)}
+                          onClick={(event) => this.blacklistVolHandler(event, item.email)}
                       >
-                        Verify
+                        Blacklist
+                      </button>
+                      <button
+                          className="btn btn-primary"
+                          onClick={(event) => this.deleteVolHandler(event, item.email)}
+                      >
+                        Delete
                       </button>
                     </div>
                   </div>
@@ -68,5 +84,5 @@ class VerifyOrgs extends Component {
   }
 }
 
-export default withNavigateandLocation(VerifyOrgs);
+export default withNavigateandLocation(ManageVols);
 

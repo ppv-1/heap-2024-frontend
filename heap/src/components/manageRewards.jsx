@@ -26,6 +26,12 @@ class ManageRewards extends Component {
             alert("Reward successfully deleted");
         }
     }
+
+    createRewardHandler= (event) => {
+        event.preventDefault();
+        this.props.navigate('/create-reward');
+    }
+
     fetchData = async () => {
 
         const res = await RewardService.getAllRewards();
@@ -44,6 +50,12 @@ class ManageRewards extends Component {
             <div className="wrapper">
                 <h1 className="title">Rewards</h1>
                 <p>Here you can find information about different rewards.</p>
+                <button
+                    className="btn btn-primary"
+                    onClick={this.createRewardHandler}
+                    >
+                    Add new reward
+                </button>
                 <br/>
                 <div>
                     {items.map((item) => (

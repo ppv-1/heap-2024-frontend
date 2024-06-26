@@ -70,13 +70,13 @@ const Navbar = () => {
             ) : userType === "A" ? (
                 <>
                     <li>
-                        <Link to="/manage-rewards">Manage rewards (test)</Link>
+                        <Link to="/manage-vols">Manage Volunteers </Link>
                     </li>
                     <li>
-                        <Link to="/create-reward">Create Reward </Link>
+                        <Link to="/manage-rewards">Manage rewards </Link>
                     </li>
                     <li>
-                        <Link to="/verify-orgs">Verify organisations</Link>
+                        <Link to="/manage-orgs">Manage organisations</Link>
                     </li>
                     <li>
                         <Link to="/user-profile">Profile</Link>
