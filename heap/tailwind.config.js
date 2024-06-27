@@ -9,6 +9,7 @@ module.exports = {
     "./src/components/oppDetails.jsx",
     "./src/components/home.jsx",
     "./src/components/createOpp.jsx",
+    "./src/components/opps.jsx",
   ],
   theme: {
     extend: {

@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
   width: 80%;
+  background-color: white;
 }
 
 .title {
@@ -34,10 +35,21 @@
   max-width: fit-content;
 }
 
-.content-wrapper {
-  display: flex;
+.content {
+  width: 100%;
 }
 
 .searchbar-container {
   gap: 20px;
+}
+
+.input-bordered {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.event-listings {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }

@@ -10,6 +10,7 @@ class SearchInputComponent extends Component {
 
   handleInputChange = (e) => {
     const searchTerm = e.target.value;
+    console.log('Search Term:', searchTerm); // Debug log
     this.props.onSearchChange(searchTerm);
   };
 
