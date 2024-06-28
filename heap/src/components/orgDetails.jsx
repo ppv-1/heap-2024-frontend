@@ -70,7 +70,7 @@ class OrgDetails extends Component {
                                 <a href="/">Home</a>
                             </li>
                             <li>
-                                <a href="/opportunities">Volunteer</a>
+                                <a href="/organisations">Organisations</a>
                             </li>
                             <li>{organisation.fullName}</li>
                         </ul>
@@ -94,8 +94,8 @@ class OrgDetails extends Component {
                             <p>Email: {organisation.email}</p>
 
                             <div className="button-container">
-                                <button className="btn btn-wide" onClick={this.registerEvent}>
-                                    I want to volunteer
+                                <button className="btn btn-wide">
+                                    hello ngjac
                                 </button>
                             </div>
                         </div>

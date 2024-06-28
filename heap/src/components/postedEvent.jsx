@@ -14,6 +14,11 @@ class PostedEvent extends Component {
     };
   }
 
+    detailsOpp = (event, id) => {
+        event.preventDefault();
+        this.props.navigate(`/posted-event/${id}`);
+    }
+
     editOpp = (event, id) => {
         event.preventDefault();
         this.props.navigate(`/edit-event/${id}`);
@@ -77,10 +82,14 @@ class PostedEvent extends Component {
                 <div className="card-body">
                   <h2 className="card-title">{item.name}</h2>
                   <p>Volunteer opportunity</p>
-                  <div className="card-actions justify-end">
-                    <button className="btn btn-primary" onClick={(event) => this.editOpp(event, item.id)}>Edit</button> 
-                    <button className="btn btn-primary" onClick={(event) =>this.deleteOpp(event, item.id)}>Delete</button>
-                  </div>
+                    <div className="card-actions justify-end">
+                        <button className="btn btn-primary" onClick={(event) => this.detailsOpp(event, item.id)}>Details
+                        </button>
+                        <button className="btn btn-primary" onClick={(event) => this.editOpp(event, item.id)}>Edit
+                        </button>
+                        <button className="btn btn-primary" onClick={(event) => this.deleteOpp(event, item.id)}>Delete
+                        </button>
+                    </div>
                 </div>
               </div>
             ))}

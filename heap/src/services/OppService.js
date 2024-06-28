@@ -30,11 +30,13 @@ class OppService {
     }
 
     async getAllOpps() {
-        
         return await axios.get(OPP_API_BASE_URL+ "/all");
-
     }
-
+    async getEventParticipants(eventId){
+        return await axios.get(OPP_API_BASE_URL+ "/" + eventId + "/participants",{headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }});
+    }
 
 }
 

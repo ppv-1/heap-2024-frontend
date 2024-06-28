@@ -3,6 +3,7 @@ import "./css/OpportunityDetails.css";
 import { useParams } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
 import RewardService from "../services/RewardService";
+import QRCode from 'qrcode.react';
 
 class RewardDetails extends Component {
     constructor(props) {
@@ -67,6 +68,7 @@ class RewardDetails extends Component {
                             <br />
                             <p>Description: {reward.description}</p>
                             <p>Barcode Serial No: {reward.barcodeSerialNo}</p>
+                            <QRCode value={reward.barcodeSerialNo} />
                         </div>
                     </div>
                     <div className="right-container">

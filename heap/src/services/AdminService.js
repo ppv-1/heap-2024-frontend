@@ -17,6 +17,12 @@ class AdminService{
         }});
     }
 
+    async whitelistUser(Id){
+        return await axios.get(ADMIN_API_BASE_URL + "/whitelist/" + Id, {headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }});
+    }
+
     async deleteUser(Id){
         return await axios.get(ADMIN_API_BASE_URL + "/delete/" + Id, {headers: {
             'Authorization': `Bearer ${localStorage.getItem("token")}`

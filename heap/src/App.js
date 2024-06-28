@@ -32,6 +32,7 @@ import ManageOrgs from "./components/manageOrgs";
 import ManageRewards from "./components/manageRewards";
 import EditReward from "./components/editReward";
 import ManageVols from "./components/manageVols";
+import PostedEventDetails from "./components/postedEventDetails";
 
 export default function App() {
   return (
@@ -54,7 +55,7 @@ export default function App() {
           <Route exact path="/opportunities/:id" element={<OpportunityComponent />} />
           <Route exact path="/logout" element={<LogoutComponent />} />
           <Route element={<ProtectedRoute/>}>
-
+            <Route exact path="/posted-event/:id" element={<PostedEventDetails />} />
             <Route exact path="/edit-reward/:id" element={<EditReward />} />
             <Route exact path="/manage-rewards" element={<ManageRewards />} />
             <Route exact path="/manage-vols" element={<ManageVols />} />

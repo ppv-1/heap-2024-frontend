@@ -73,13 +73,10 @@ const Navbar = () => {
                         <Link to="/manage-vols">Manage Volunteers </Link>
                     </li>
                     <li>
-                        <Link to="/manage-rewards">Manage rewards </Link>
+                        <Link to="/manage-rewards">Manage Rewards </Link>
                     </li>
                     <li>
-                        <Link to="/manage-orgs">Manage organisations</Link>
-                    </li>
-                    <li>
-                        <Link to="/user-profile">Profile</Link>
+                        <Link to="/manage-orgs">Manage Organisations</Link>
                     </li>
                     <li>
                         <Link to="/logout">Logout</Link>

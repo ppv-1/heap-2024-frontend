@@ -22,16 +22,55 @@ class ManageVols extends Component {
     await this.fetchData();
   }
 
-  
+
 
   blacklistVolHandler = async (event, id) => {
     event.preventDefault();
-    let result = window.confirm("Are you sure you want to blacklist volunteer " +id  +"?");
-      if (result){
-        await AdminService.blacklistUser(id);
-        window.location.reload();
-        alert("Volunteer " + id + " blacklisted");
-      }
+    let result = window.confirm("Are you sure you want to blacklist volunteer " + id + "?");
+
+    if (result) {
+      await AdminService.blacklistUser(id);
+      // Assuming AdminService.blacklistUser(id) toggles the blacklist status
+
+      // After the operation completes, update the state or modify the item directly
+      let updatedItems = this.state.items.map(item => {
+        if (item.email === id) {
+          // Toggle the state of the item's blacklist status
+          item.locked = !item.locked;
+        }
+        return item;
+      });
+
+      // Update the state with the modified items array
+      this.setState({ items: updatedItems });
+      let item = updatedItems.find(item => item.email === id);
+
+      alert("Volunteer " + id + (item.locked ? " blacklisted" : " whitelisted"));
+    }
+  }
+
+  whitelistVolHandler = async (event, id) => {
+    event.preventDefault();
+    let result = window.confirm("Are you sure you want to whitelist volunteer " + id + "?");
+
+    if (result) {
+      await AdminService.whitelistUser(id);
+
+      // After the operation completes, update the state or modify the item directly
+      let updatedItems = this.state.items.map(item => {
+        if (item.email === id) {
+          // Toggle the state of the item's blacklist status
+          item.locked = !item.locked;
+        }
+        return item;
+      });
+
+      // Update the state with the modified items array
+      this.setState({ items: updatedItems });
+      let item = updatedItems.find(item => item.email === id);
+
+      alert("Volunteer " + id + (item.locked ? " blacklisted" : " whitelisted"));
+    }
   }
 
   deleteVolHandler = async (event, id) => {
@@ -63,12 +102,21 @@ class ManageVols extends Component {
                     <div className="card-body">
                       <h2 className="card-title">{item.fullName}</h2>
                       <p>Volunteer</p>
-                      <button
-                          className="btn btn-primary"
-                          onClick={(event) => this.blacklistVolHandler(event, item.email)}
-                      >
-                        Blacklist
-                      </button>
+                      {item.locked ? (
+                          <button
+                              className="btn btn-primary"
+                              onClick={(event) => this.whitelistVolHandler(event, item.email)}
+                          >
+                            Whitelist
+                          </button>
+                      ) : (
+                          <button
+                              className="btn btn-primary"
+                              onClick={(event) => this.blacklistVolHandler(event, item.email)}
+                          >
+                            Blacklist
+                          </button>
+                      )}
                       <button
                           className="btn btn-primary"
                           onClick={(event) => this.deleteVolHandler(event, item.email)}
