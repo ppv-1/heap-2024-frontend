@@ -53,3 +53,12 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.right-wrapper {
+  z-index: 9;
+}
+
+.checkbox-container {
+  padding: auto;
+}
+
