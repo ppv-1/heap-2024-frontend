@@ -15,6 +15,7 @@ class EditOpp extends Component {
             startTime: '',
             endTime: '',
             location: '',
+            address: '',
             manpowerCount: '',
             description: '',
             type: ''
@@ -25,6 +26,7 @@ class EditOpp extends Component {
         this.changeStartTimeHandler = this.changeStartTimeHandler.bind(this);
         this.changeEndTimeHandler = this.changeEndTimeHandler.bind(this);
         this.changeLocationHandler = this.changeLocationHandler.bind(this);
+        this.changeAddressHandler = this.changeAddressHandler.bind(this);
         this.changeManpowerCountHandler = this.changeManpowerCountHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeTypeHandler = this.changeTypeHandler.bind(this);
@@ -46,6 +48,7 @@ class EditOpp extends Component {
             startTime: res.data.startTime,
             endTime: res.data.endTime,
             location: res.data.location,
+            address: res.data.address,
             manpowerCount: res.data.neededManpowerCount,
             description: res.data.description,
             type: res.data.type });
@@ -75,6 +78,10 @@ class EditOpp extends Component {
         this.setState({location: event.target.value});
     }
 
+    changeAddressHandler = (event) => {
+        this.setState({address: event.target.value});
+    }
+
     changeManpowerCountHandler= (event) => {
         this.setState({manpowerCount: event.target.value});
     }
@@ -91,7 +98,7 @@ class EditOpp extends Component {
         e.preventDefault();
         const { state } = this.props.location;
         console.log(state);
-        let opp = {name: this.state.name, date: this.state.date, startTime: this.state.startTime, endTime: this.state.endTime, location: this.state.location,
+        let opp = {name: this.state.name, date: this.state.date, startTime: this.state.startTime, endTime: this.state.endTime, location: this.state.location, address: this.state.address,
                         manpowerCount: this.state.manpowerCount, description: this.state.description, type: this.state.type, organisation: localStorage.getItem("token")};
         console.log('opp => ' + JSON.stringify(opp));
 
@@ -142,8 +149,8 @@ class EditOpp extends Component {
                                    onChange={this.changeManpowerCountHandler}/>
                         </label>
                         <label>
-                            <p>Type</p>
-                            <input required type="text" value={this.state.type} onChange={this.changeTypeHandler}/>
+                            <p>Address</p>
+                            <input required type="text" value={this.state.address} onChange={this.changeAddressHandler}/>
                         </label>
                         <label>
                             <p>Description</p>

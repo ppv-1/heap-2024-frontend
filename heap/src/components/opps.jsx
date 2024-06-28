@@ -12,6 +12,7 @@ class OpportunitiesComponent extends Component {
       items: [],
       searchTerm: "",
       sortType: "nameAsc",
+      cause: "all",
     };
   }
 
@@ -40,6 +41,10 @@ class OpportunitiesComponent extends Component {
     this.setState({ sortType });
   };
 
+  handleCauseChange = (cause) => {
+    this.setState({ cause });
+  };
+
   async componentDidMount() {
     await this.fetchData();
   }
@@ -48,9 +53,9 @@ class OpportunitiesComponent extends Component {
     // let items = this.state.items;
     // console.log(items);
 
-    const { items, searchTerm, sortType } = this.state;
+    const { items, searchTerm, sortType, cause } = this.state;
     console.log(items);
-    const filteredItems = items
+    let filteredItems = items
       ? items.filter((item) => {
           const itemName = item.name ? item.name.toLowerCase() : "";
           const itemOrganization = item.organization
@@ -62,6 +67,11 @@ class OpportunitiesComponent extends Component {
           );
         })
       : [];
+
+    // filteredItems = filteredItems.filter((item) => {
+    //   const itemCause = item.cause ? item.cause.toLowerCase() : "";
+    //   return itemCause.includes(cause.toLowerCase());
+    // });
 
     const sortedItems = filteredItems.sort((a, b) => {
       if (sortType === "nameAsc") {
@@ -124,7 +134,7 @@ class OpportunitiesComponent extends Component {
                     <li>
                       <h2>Sort by</h2>
                       <details className="dropdown">
-                        <summary className="m-1 btn">Latest</summary>
+                        <summary className="m-1 btn">Name: A to Z</summary>
                         <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
                           <li>
                             <a onClick={() => this.handleSortChange("nameAsc")}>
@@ -159,15 +169,26 @@ class OpportunitiesComponent extends Component {
                     <li>
                       <h2>Filters</h2>
                       <p>Causes</p>
-                      <div className="dropdown-menu show">
-                        <div className="actionbox">
+                      {/* <div className="dropdown-menu show"> 
+                         <div className="actionbox">
                           <div className="btn-group btn-group-sm btn-block">
-                            <button
+                            {/* <button
                               type="button"
                               className="actions-btn bs-select-all btn btn-light"
                             >
                               Select All
-                            </button>
+                            </button> 
+                             <div className="checkbox-container">
+                              <label className="label cursor-pointer">
+                                <input
+                                  type="checkbox"
+                                  defaultChecked
+                                  className="checkbox"
+                                />
+                                <p className="label-text">Select all</p>
+                              </label>
+                            </div>
+
                             <button
                               type="button"
                               className="actions-btn bs-deselect-all btn btn-light"
@@ -176,10 +197,25 @@ class OpportunitiesComponent extends Component {
                             </button>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
+
+                      <details className="dropdown">
+                        <summary className="m-1 btn">All</summary>
+                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                          <li>
+                            <a>Cause 1</a>
+                          </li>
+                          <li>
+                            <a>Cause 2</a>
+                          </li>
+                          <li>
+                            <a>Cause 3</a>
+                          </li>
+                        </ul>
+                      </details>
                       <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
                       <p>Opportunity Type</p>
-                      <ul>
+                      {/* <ul>
                         <li>
                           <input
                             type="radio"
@@ -209,9 +245,38 @@ class OpportunitiesComponent extends Component {
                           />
                           <label for="option2">Online</label>
                         </li>
-                      </ul>
+                      </ul> */}
+
+                      <details className="dropdown">
+                        <summary className="m-1 btn">All</summary>
+                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                          <li>
+                            <a>Adhoc</a>
+                          </li>
+                          <li>
+                            <a>Short-term (3-6 months)</a>
+                          </li>
+                          <li>
+                            <a>Long-term (>6 months)</a>
+                          </li>
+                        </ul>
+                      </details>
                       <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
                       <p>Location</p>
+                      <details className="dropdown">
+                        <summary className="m-1 btn">All</summary>
+                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                          <li>
+                            <a>All</a>
+                          </li>
+                          <li>
+                            <a>Online</a>
+                          </li>
+                          <li>
+                            <a>On-site</a>
+                          </li>
+                        </ul>
+                      </details>
                       <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
                       <p>Skills</p>
                       <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
