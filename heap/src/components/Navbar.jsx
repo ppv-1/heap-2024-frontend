@@ -11,7 +11,9 @@ const Navbar = () => {
   return (
     <nav className="navbar bg-base-100">
       <ul className="nav-list">
-        <li>
+        {isLoggedIn ? (
+          <>
+          <li>
           <Link to="/opportunities">
             <p>Discover</p>
             <p>Opportunities</p>
@@ -28,6 +30,24 @@ const Navbar = () => {
             <p>Rewards</p>
           </Link>
         </li>
+        </>
+        ) : (
+          <>
+          <li>
+          <Link to="/opportunities">
+            <p>Discover</p>
+            <p>Opportunities</p>
+          </Link>
+        </li>
+        <li>
+          <Link to="/organisations">
+            <p>Our</p>
+            <p>Organisations</p>
+          </Link>
+        </li>
+        </>
+        )}
+        
       </ul>
       <div className="spacer"></div>
       <Link to="/">
