@@ -10,6 +10,7 @@ module.exports = {
     "./src/components/home.jsx",
     "./src/components/createOpp.jsx",
     "./src/components/opps.jsx",
+    "./src/components/toggleTheme.jsx",
   ],
   theme: {
     extend: {
@@ -22,7 +23,7 @@ module.exports = {
   plugins: [require("daisyui")],
 
   daisyui: {
-    themes: false, // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
+    themes: true, // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "dim"]
     darkTheme: "light", // name of one of the included themes for dark mode
     base: true, // applies background color and foreground color for root element by default
     styled: true, // include daisyUI colors and design decisions for all components

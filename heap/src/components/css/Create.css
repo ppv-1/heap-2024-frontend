@@ -5,11 +5,12 @@
     margin-top: 0px;
     margin-left: 30%;
     width: 80% !important;
+    color: oklch(var(--nc));
 }
 
-/* form {
-    
-} */
+* {
+    color: oklch(var(--n));
+  }
 
 .title {
     height: min-content;

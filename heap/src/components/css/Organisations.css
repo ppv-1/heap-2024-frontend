@@ -4,7 +4,12 @@
     align-items: flex-start;
     margin-left: 30%;
     width: 60%;
+    color: oklch(var(--nc));
 }
+
+* {
+    color: oklch(var(--n));
+  }
 
 .title {
     height: min-content;

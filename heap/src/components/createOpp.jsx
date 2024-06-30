@@ -139,15 +139,6 @@ class CreateOppComponent extends Component {
               />
             </label>
             <label>
-              <p>Location</p>
-              <input
-                required
-                type="text"
-                value={this.state.location}
-                onChange={this.changeLocationHandler}
-              />
-            </label>
-            <label>
               <p>Manpower Count</p>
               <input
                 required
@@ -158,10 +149,23 @@ class CreateOppComponent extends Component {
             </label>
             <label>
               <p>Type</p>
-
-              <select className="select select-bordered w-full">
+              <select
+                className="select select-bordered w-full"
+                onChange={this.changeTypeHandler}
+              >
                 <option disabled selected>
                   Select type
+                </option>
+                <option>Ad-hoc</option>
+                <option>Short-term (3-6 months)</option>
+                <option>Long-term (>6 months)</option>
+              </select>
+            </label>
+            <label>
+              <p>Location</p>
+              <select className="select select-bordered w-full">
+                <option disabled selected>
+                  Select location
                 </option>
                 <option>Online</option>
                 <option>On-site</option>
@@ -173,8 +177,8 @@ class CreateOppComponent extends Component {
               <input
                 required
                 type="text"
-                value={this.state.type}
-                onChange={this.changeTypeHandler}
+                value={this.state.address}
+                onChange={this.changeAddressHandler}
               />
             </label>
             <label>

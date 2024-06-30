@@ -15,7 +15,8 @@
   z-index: 10;
 }
 
-.nav-list, .right-nav-list {
+.nav-list,
+.right-nav-list {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -57,11 +58,11 @@
   text-decoration: none;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  color: #000;
 }
 
-.nav-list li a:hover, .right-nav-list li a:hover {
-  color: grey;
+.nav-list li a:hover,
+.right-nav-list li a:hover {
+  color: oklch(var(--p)) !important;
 }
 
 .right-nav-list li {
@@ -74,7 +75,7 @@
   text-decoration: none;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  color: #000;
+  color: oklch(var(--n));
 }
 
 .rightnav {

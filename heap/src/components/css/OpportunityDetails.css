@@ -4,6 +4,11 @@
   align-items: flex-start;
   width: 100% !important;
   margin-left: 20% !important;
+  color: oklch(var(--nc));
+}
+
+* {
+  color: oklch(var(--n));
 }
 
 .title {
