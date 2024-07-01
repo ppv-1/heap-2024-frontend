@@ -13,41 +13,46 @@ const Navbar = () => {
       <ul className="nav-list">
         {isLoggedIn ? (
           <>
-          <li>
-          <Link to="/opportunities">
-            <p>Discover</p>
-            <p>Opportunities</p>
-          </Link>
-        </li>
-        <li>
-          <Link to="/organisations">
-            <p>Our</p>
-            <p>Organisations</p>
-          </Link>
-        </li>
-        <li>
-          <Link to="/rewards">
-            <p>Rewards</p>
-          </Link>
-        </li>
-        </>
+            <li>
+              <Link to="/opportunities">
+                <p>
+                  Discover <br />
+                  Opportunities
+                </p>
+              </Link>
+            </li>
+            <li>
+              <Link to="/organisations">
+                <p>
+                  Our <br />
+                  Organisations
+                </p>
+              </Link>
+            </li>
+            <li>
+              <Link to="/rewards">Rewards</Link>
+            </li>
+          </>
         ) : (
           <>
-          <li>
-          <Link to="/opportunities">
-            <p>Discover</p>
-            <p>Opportunities</p>
-          </Link>
-        </li>
-        <li>
-          <Link to="/organisations">
-            <p>Our</p>
-            <p>Organisations</p>
-          </Link>
-        </li>
-        </>
+            <li>
+              <Link to="/opportunities">
+                <p>
+                  Discover <br />
+                  Opportunities
+                </p>
+              </Link>
+            </li>
+            <li>
+              <Link to="/organisations">
+                <p>
+                  Our <br />
+                  Organisations
+                </p>
+              </Link>
+            </li>
+          </>
         )}
-        
       </ul>
       <div className="spacer"></div>
       <Link to="/">
@@ -59,53 +64,52 @@ const Navbar = () => {
       <div className="rightnav">
         <ul className="right-nav-list">
           {isLoggedIn ? (
-
             userType === "O" ? (
-            <>
-              <li>
-                <Link to="/create-opportunity">Create Event</Link>
-              </li>
-              <li>
-                <Link to="/posted-event">View Posted Events</Link>
-              </li>
-              <li>
-                <Link to="/org-profile">Profile</Link>
-              </li>
-              <li>
-                <Link to="/logout">Logout</Link>
-              </li>
-            </>
+              <>
+                <li>
+                  <Link to="/create-opportunity">Create Event</Link>
+                </li>
+                <li>
+                  <Link to="/posted-event">View Posted Events</Link>
+                </li>
+                <li>
+                  <Link to="/org-profile">Profile</Link>
+                </li>
+                <li>
+                  <Link to="/logout">Logout</Link>
+                </li>
+              </>
             ) : userType === "V" ? (
               <>
-              <li>
-                <Link to="/registered-event">View Registered Events</Link>
-              </li>
-              <li>
-                <Link to="/user-profile">Profile</Link>
-              </li>
-              <li>
-                <Link to="/logout">Logout</Link>
-              </li>
-            </>
+                <li>
+                  <Link to="/registered-event">View Registered Events</Link>
+                </li>
+                <li>
+                  <Link to="/user-profile">Profile</Link>
+                </li>
+                <li>
+                  <Link to="/logout">Logout</Link>
+                </li>
+              </>
             ) : userType === "A" ? (
-                <>
-                    <li>
-                        <Link to="/manage-vols">Manage Volunteers </Link>
-                    </li>
-                    <li>
-                        <Link to="/manage-rewards">Manage Rewards </Link>
-                    </li>
-                    <li>
-                        <Link to="/manage-orgs">Manage Organisations</Link>
-                    </li>
-                    <li>
-                        <Link to="/logout">Logout</Link>
-                    </li>
-                </>
+              <>
+                <li>
+                  <Link to="/manage-vols">Manage Volunteers </Link>
+                </li>
+                <li>
+                  <Link to="/manage-rewards">Manage Rewards </Link>
+                </li>
+                <li>
+                  <Link to="/manage-orgs">Manage Organisations</Link>
+                </li>
+                <li>
+                  <Link to="/logout">Logout</Link>
+                </li>
+              </>
             ) : (
-                <>
-                    <li>
-                        <Link to="/user-profile">Profile</Link>
+              <>
+                <li>
+                  <Link to="/user-profile">Profile</Link>
                 </li>
                 <li>
                   <Link to="/logout">Logout</Link>
@@ -120,7 +124,6 @@ const Navbar = () => {
               <li>
                 <Link to="/sign-up">Sign Up</Link>
               </li>
-              
             </>
           )}
         </ul>

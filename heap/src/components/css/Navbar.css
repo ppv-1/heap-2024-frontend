@@ -54,15 +54,17 @@
   text-align: center !important;
 }
 
+.nav-list li a:hover,
+.nav-list li a p:hover,
+.right-nav-list li a:hover {
+  color: oklch(var(--p)) !important;
+}
+
 .nav-list li a {
   text-decoration: none;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-}
-
-.nav-list li a:hover,
-.right-nav-list li a:hover {
-  color: oklch(var(--p)) !important;
+  color: oklch(var(--n));
 }
 
 .right-nav-list li {
