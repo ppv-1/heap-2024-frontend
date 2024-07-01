@@ -10,7 +10,7 @@ class RegisterVolunteer extends Component {
 
     this.state = {
       name: "",
-      gender: "",
+      gender: '',
       contactNo: "",
       email: "",
       password: "",
@@ -45,7 +45,19 @@ class RegisterVolunteer extends Component {
   };
 
   changeGenderHandler = (event) => {
-    this.setState({ gender: event.target.value });
+    const selectedGender = event.target.value;
+    let genderChar;
+
+    if (selectedGender === 'male') {
+      genderChar = 'M';
+    } else if (selectedGender === 'female') {
+      genderChar = 'F';
+    } else if (selectedGender === 'non-binary') {
+      genderChar = 'N';
+    } else {
+      genderChar = 'O';
+    }
+    this.setState({ gender: genderChar });
   };
 
   changeContactNoHandler = (event) => {
@@ -84,9 +96,9 @@ class RegisterVolunteer extends Component {
                 <option disabled selected>
                   Select type
                 </option>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Non-binary</option>
+                <option value={"male"}>Male</option>
+                <option value={"female"}>Female</option>
+                <option value={"non-binary"}>Non-binary</option>
               </select>
             </label>
             <label>
