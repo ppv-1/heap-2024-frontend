@@ -1,20 +1,28 @@
-import axios from "axios";
-
-const AUTH_API_BASE_URL = "http://localhost:8080/api/v1/auth"
+import { API } from './API';
 
 class AuthService {
-    loginUser(credentials) {
-        return axios.post(AUTH_API_BASE_URL+'/login', credentials);
+    async loginUser(credentials) {
+        return await API.post('/auth/login', credentials);
     }
 
-    createVolunteer(user){
-        return axios.post(AUTH_API_BASE_URL+'/register-volunteer', user);
+    async createVolunteer(user){
+        return await API.post('/auth/register-volunteer', user);
     }
-    createOrganisation(user){
-        return axios.post(AUTH_API_BASE_URL+'/register-organisation', user);
+
+    async createOrganisation(user){
+        return await API.post('/auth/register-organisation', user);
     }
-    createAdmin(user){
-        return axios.post(AUTH_API_BASE_URL+'/register-admin', user);
+
+    async createAdmin(user){
+        return await API.post('/auth/register-admin', user);
+    }
+    
+    async forgetPassword(email){
+        return await API.get(`/auth/forget-password/${email}`);
+    }
+
+    async resetPassword(token, password){
+        return await API.get(`/auth/reset-password/${token}`, password);
     }
 
 }

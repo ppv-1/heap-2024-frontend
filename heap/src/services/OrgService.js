@@ -1,23 +1,19 @@
-import axios from "axios";
-
-const ORG_API_BASE_URL = "http://localhost:8080/api/v1/organisation"
+import { ProtectedAPI } from './ProtectedAPI';
+import { API } from './API';
 
 class OrganisationService{
     async getAllOrgs(){
-        return await axios.get(ORG_API_BASE_URL+ "/all");
+        return await API.get(`/organisation/all`);
     }
 
     async getOrg(orgId){
-        return await axios.get(ORG_API_BASE_URL + "/get/" + orgId);
+        return await API.get(`/organisation/get/${orgId}`);
     }
 
     async getOrgEvents(orgId){
-        return await axios.get(ORG_API_BASE_URL + "/events/" + orgId);
+        return await ProtectedAPI.get(`/organisation/events/${orgId}`);
     }
 
-    // async getOrgEvents(orgId){
-    //     return await axios.get(ORG_API_BASE_URL + "/" + orgId + "/events");
-    // }
 }
 
 export default new OrganisationService()

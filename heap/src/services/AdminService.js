@@ -1,41 +1,25 @@
-import axios from "axios";
+import { ProtectedAPI } from './ProtectedAPI';
 
-const ADMIN_API_BASE_URL = "http://localhost:8080/api/v1/admin"
-
-class AdminService{
-
-    async verifyOrg(orgId){
-        return await axios.get(ADMIN_API_BASE_URL + "/verify/" + orgId, {headers: {
-            'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }});
+class AdminService {
+    async verifyOrg(orgId) {
+        return await ProtectedAPI.get(`/admin/verify/${orgId}`);
     }
 
-    async blacklistUser(Id){
-        
-        return await axios.get(ADMIN_API_BASE_URL + "/blacklist/" + Id, {headers: {
-            'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }});
+    async blacklistUser(id) {
+        return await ProtectedAPI.get(`/admin/blacklist/${id}`);
     }
 
-    async whitelistUser(Id){
-        return await axios.get(ADMIN_API_BASE_URL + "/whitelist/" + Id, {headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }});
+    async whitelistUser(id) {
+        return await ProtectedAPI.get(`/admin/whitelist/${id}`);
     }
 
-    async deleteUser(Id){
-        return await axios.get(ADMIN_API_BASE_URL + "/delete/" + Id, {headers: {
-            'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }});
+    async deleteUser(id) {
+        return await ProtectedAPI.get(`/admin/delete/${id}`);
     }
 
-    async getAllVolunteers(){
-        return await axios.get(ADMIN_API_BASE_URL + "/all-volunteers", {headers: {
-            'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }});
+    async getAllVolunteers() {
+        return await ProtectedAPI.get('/admin/all-volunteers');
     }
-    
-
 }
 
-export default new AdminService()
+export default new AdminService();

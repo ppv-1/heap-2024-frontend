@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import "./css/ResetPassword.css";
-// import UserService from "../services/UserService";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import withNavigate from "./withNavigateandLocation";
 import validator from "validator";
+import withNavigateandLocation from "./withNavigateandLocation";
+import AuthService from "../services/AuthService";
 
 class ResetPassword extends Component {
   constructor(props) {
@@ -65,8 +66,12 @@ class ResetPassword extends Component {
     
   };
 
-  handleResetPasswordClick = () => {
-    this.props.navigate("/login");
+  handleResetPasswordClick = async () => {
+    const { token } = this.props.params;
+    console.log(token);
+    console.log(this.state.password);
+    await AuthService.resetPassword(token, this.state.password);
+    // this.props.navigate("/login");
   };
 
   render() {
@@ -98,7 +103,7 @@ class ResetPassword extends Component {
             <div className="button-container">
               <button
                 className="btn btn-wide"
-                disabled={errorMessage !== "Strong Password"}
+                // disabled={errorMessage !== "Strong Password"}
                 onClick={this.handleResetPasswordClick}
               >
                 Reset Password
@@ -111,4 +116,6 @@ class ResetPassword extends Component {
   }
 }
 
-export default withNavigate(ResetPassword);
+export default withNavigateandLocation((props) => (
+  <ResetPassword {...props} params={useParams()} />
+));

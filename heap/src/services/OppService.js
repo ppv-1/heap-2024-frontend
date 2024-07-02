@@ -1,41 +1,29 @@
-import axios from "axios";
-
-
-const OPP_API_BASE_URL = "http://localhost:8080/api/v1/event"
+import { ProtectedAPI } from './ProtectedAPI';
+import { API } from './API';
 
 class OppService {
     async createOpp(opp){
-        return await axios.post(OPP_API_BASE_URL+"/create", opp, {headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }});
+        return await ProtectedAPI.post(`/event/create`, opp);
     }
 
     async getOpp(eventId){
-        return await axios.get(OPP_API_BASE_URL+"/get/" + eventId, {headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }});
+        return await API.get(`/event/get/${eventId}`);
     }
 
     async updateOpp(eventId, opp){
-        return await axios.put(OPP_API_BASE_URL+"/update/" + eventId, opp, {headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }});
-
+        return await ProtectedAPI.put(`/event/update/${eventId}`, opp);
     }
 
     async deleteOpp(eventId){
-        return await axios.delete(OPP_API_BASE_URL+ "/delete/" + eventId,{headers: {
-            'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }});
+        return await ProtectedAPI.delete(`/event/delete/${eventId}`);
     }
 
     async getAllOpps() {
-        return await axios.get(OPP_API_BASE_URL+ "/all");
+        return await API.get(`/event/all`);
     }
+
     async getEventParticipants(eventId){
-        return await axios.get(OPP_API_BASE_URL+ "/" + eventId + "/participants",{headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }});
+        return await ProtectedAPI.get(`/${eventId}/participants`);
     }
 
 }

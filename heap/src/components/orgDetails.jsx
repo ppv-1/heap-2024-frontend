@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import "./css/OpportunityDetails.css";
 import { useParams } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
-import OppService from "../services/OppService";
-import UserService from "../services/UserService";
-import VolunteerService from "../services/VolunteerService";
 import OrgService from "../services/OrgService";
 
 class OrgDetails extends Component {

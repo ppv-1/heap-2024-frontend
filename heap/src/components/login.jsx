@@ -90,7 +90,7 @@ class Login extends Component {
               />
             </label>
             <div className="forgot-password">
-              <a className="link link-hover" href="/reset-password">Forgot password</a>
+              <a className="link link-hover" href="/forget-password">Forgot password</a>
             </div>
             <div className="button-container">
               <button className="btn btn-wide" onClick={this.loginSubmit}>

@@ -33,10 +33,13 @@ import ManageRewards from "./components/manageRewards";
 import EditReward from "./components/editReward";
 import ManageVols from "./components/manageVols";
 import PostedEventDetails from "./components/postedEventDetails";
+import { NavigateProvider } from './services/NavigateProvider';
+import ForgetPassword from "./components/forgetPassword";
 
 export default function App() {
   return (
     <BrowserRouter>
+      <NavigateProvider>
       <Routes>
         <Route element={<Layout />}>
           <Route exact index element={<HomeComponent />} />
@@ -50,10 +53,11 @@ export default function App() {
           <Route exact path="/register-volunteer" element={<RegisterVolunteer />} />
           <Route exact path="/register-organisation" element={<RegisterOrganisation />} />
           <Route exact path="/sign-up" element={<SignUp />} />
-          <Route exact path="/reset-password" element={<ResetPassword />} />
+          <Route exact path="/reset-password/:token" element={<ResetPassword />} />
           <Route exact path="/change-password" element={<ChangePassword />} />
           <Route exact path="/opportunities/:id" element={<OpportunityComponent />} />
           <Route exact path="/logout" element={<LogoutComponent />} />
+          <Route exact path="/forget-password" element={<ForgetPassword />} />
           <Route element={<ProtectedRoute/>}>
             <Route exact path="/posted-event/:id" element={<PostedEventDetails />} />
             <Route exact path="/edit-reward/:id" element={<EditReward />} />
@@ -71,6 +75,7 @@ export default function App() {
           
         </Route>
       </Routes>
+      </NavigateProvider>
     </BrowserRouter>
   );
 }
