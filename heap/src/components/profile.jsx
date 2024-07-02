@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./css/Profile.css";
-import pfp from "../pfp.jpg";
+import pfp from "../images/pfp.jpg";
 import withNavigateandLocation from "./withNavigateandLocation";
 import { Link, useLocation } from "react-router-dom";
 import UserService from "../services/UserService";

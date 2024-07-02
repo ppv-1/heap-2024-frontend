@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./css/Profile.css";
 import { Link, useLocation } from "react-router-dom";
 import withLocation from "./withLocation";
-import logo from "../orgLogo.png";
+import logo from "../images//orgLogo.png";
 import ToggleThemeComponent from "./toggleTheme.jsx";
 
 class OrganisationProfileComponent extends Component {
