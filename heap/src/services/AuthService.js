@@ -22,7 +22,7 @@ class AuthService {
     }
 
     async resetPassword(token, password){
-        return await API.get(`/auth/reset-password/${token}`, password);
+        return await API.post(`/auth/reset-password/${token}`, password);
     }
 
 }

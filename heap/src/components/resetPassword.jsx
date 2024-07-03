@@ -70,7 +70,8 @@ class ResetPassword extends Component {
     const { token } = this.props.params;
     console.log(token);
     console.log(this.state.password);
-    await AuthService.resetPassword(token, this.state.password);
+    let data = {newPassword: this.state.password}
+    await AuthService.resetPassword(token, data);
     // this.props.navigate("/login");
   };
 
