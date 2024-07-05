@@ -4,12 +4,13 @@ import {API} from './API';
 class RewardService{
 
     async createReward(reward){
-        return await ProtectedAPI.post(`/reward/create`, reward);
+        return await ProtectedAPI.post(`/reward/reward-category/create`, reward, {headers:{
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }, 'Content-Type': 'multipart/form-data'});
     }
 
     async getAllRewards(){
-        console.log("hello this is get all rewards");
-        return await ProtectedAPI.get(`/reward/all`);
+        return await ProtectedAPI.get(`/reward/reward-category/all`);
     }
 
     async getReward(rewardId){
@@ -17,11 +18,11 @@ class RewardService{
     }
 
     async deleteRewards(rewardId){
-        return await ProtectedAPI.delete(`/reward/delete/${rewardId}`);
+        return await ProtectedAPI.delete(`/reward/reward-category/delete/${rewardId}`);
     }
 
     async updateReward(rewardId, reward){
-        return await ProtectedAPI.put(`/reward/update/${rewardId}`, reward);
+        return await ProtectedAPI.put(`/reward/reward-category/update/${rewardId}`, reward);
     }
 
 }
