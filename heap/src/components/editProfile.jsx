@@ -105,7 +105,6 @@ class EditProfile extends Component{
         return (
             <>
                 <div className="wrapper">
-<<<<<<< Updated upstream
                 <h1 className="title">Edit Profile</h1>
 
                     <form enctype="multipart/form-data">
