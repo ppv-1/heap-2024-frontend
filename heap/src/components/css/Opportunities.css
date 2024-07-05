@@ -5,6 +5,7 @@
   width: 80%;
   background-color: white;
   color: oklch(var(--nc));
+  margin-bottom: 50%;
 }
 
 * {
@@ -25,6 +26,7 @@
 
 .card {
   width: 400px;
+  max-width: 400px !important;
   margin: auto;
   padding: 5%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -40,12 +42,14 @@
   max-width: fit-content;
 }
 
-.content {
+.opps-content {
   width: 100%;
+  margin: 0 !important;
 }
 
 .searchbar-container {
   gap: 20px;
+  width: 800px;
 }
 
 .input-bordered {
@@ -63,7 +67,40 @@
   z-index: 9;
 }
 
+.right-wrapper > .drawer > .drawer-content {
+  margin: 0;
+}
+
+.drawerr-content > li > h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.drawerr-content > li > p {
+  font-size: 16px;
+}
+
+.drawerr-content {
+  height: 980px;
+}
+
+.drawer-side {
+  margin-top: 100px;
+}
+
+.drawer-button {
+  width: 100px;
+}
+
+.m-1,
+.drawer-button {
+  max-width: 200px;
+}
+
 .checkbox-container {
   padding: auto;
 }
 
+.multiselect {
+  margin-top: 10px;
+}

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import withNavigateandLocation from "./withNavigateandLocation";
+import "./css/SearchInput.css";
 
 class SearchInputComponent extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class SearchInputComponent extends Component {
         value={this.props.searchTerm}
         onChange={this.handleInputChange}
         placeholder="Search for opportunities by name or organisation"
-        className="input input-bordered w-full max-w-xs"
+        className="input input-bordered"
       ></input>
     );
   }

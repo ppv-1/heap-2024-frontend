@@ -64,9 +64,9 @@ class CreateOppComponent extends Component {
       date: "",
       startTime: "",
       endTime: "",
-      causes: "",
+      causes: [],
       manpowerCount: "",
-      skills: "",
+      skills: [],
       type: "",
       location: "",
       address: "",
@@ -131,8 +131,9 @@ class CreateOppComponent extends Component {
   };
 
   changeCausesHandler = (selected) => {
-    const causesString = selected.join(",");
-    this.setState({ causes: causesString });
+    // const causesString = selected.join(",");
+    // this.setState({ causes: causesString });
+    this.setState({ causes: selected });
   };
 
   changeLocationHandler = (event) => {
@@ -144,8 +145,9 @@ class CreateOppComponent extends Component {
   };
 
   changeSkillsHandler = (selected) => {
-    const skillsString = selected.join(",");
-    this.setState({ skills: skillsString });
+    // const skillsString = selected.join(",");
+    // this.setState({ skills: skillsString });
+    this.setState({ skills: selected });
   };
 
   changeDescriptionHandler = (event) => {
@@ -213,7 +215,6 @@ class CreateOppComponent extends Component {
                 value={this.state.causes}
                 onChange={this.changeCausesHandler}
                 labelledBy="Select related causes"
-                className="table"
               />
             </label>
             <label>
@@ -244,6 +245,7 @@ class CreateOppComponent extends Component {
                 <option disabled selected>
                   Select type
                 </option>
+                <option value={"all"}>All</option>
                 <option value={"ad-hoc"}>Ad-hoc</option>
                 <option value={"short"}>Short-term (3-6 months)</option>
                 <option value={"long"}>Long-term ({">"}6 months)</option>

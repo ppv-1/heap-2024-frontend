@@ -3,7 +3,7 @@ import { ProtectedAPI } from './ProtectedAPI';
 class VolunteerService{
 
     async registerEvent(eventId, userId) {
-        return await ProtectedAPI.post(`/volunteer/register/event/${eventId}`, userId,{headers: {
+        return await ProtectedAPI.post(`/volunteer/register/event/${eventId}`, userId, {headers: {
             'Content-Type': 'text/plain'
         }});
     }
