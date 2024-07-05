@@ -42,15 +42,17 @@ class UserProfileComponent extends Component {
 
   fetchData = async () => {
     const res = await UserService.getProfile();
-    // if (res.data.code !== 200) {
-    //   this.props.navigate("/login");
-    //   window.location.reload()
-    // }
+    const base64Image = await MediaService.getPfp();
+
+    console.log(base64Image.data);
+    const dataUrl= `data:image/jpeg;base64,${base64Image.data}`;
+    console.log(dataUrl);
     this.setState({
       fullName: res.data.fullName,
       contactNo: res.data.contactNo,
       email: res.data.email,
       gender: res.data.gender,
+      profilePicture: dataUrl
     });
   };
 
@@ -111,7 +113,7 @@ class UserProfileComponent extends Component {
           <div className="profile text-center mt-8 font-bold">
             <div className="avatar">
               <div className="w-36 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
-                <img src={pfp} alt="avatar" />
+                <img src={this.state.profilePicture} alt="avatar" />
               </div>
             </div>
             <h1>{this.state.name}</h1>
