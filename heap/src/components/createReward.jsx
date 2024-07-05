@@ -10,32 +10,34 @@ class CreateReward extends Component{
         this.state = {
             name: '',
             pointsNeeded: '',
-            barcodeSerialNo: '',
+            rewardMedia: null,
             type: '',
-            description: ''
+            description: '',
+            count: '',
+            
         };
         this.changeNameHandler = this.changeNameHandler.bind(this);
         this.changePointsNeededHandler = this.changePointsNeededHandler.bind(this);
-        this.changeBarcodeSerialNoHandler = this.changeBarcodeSerialNoHandler.bind(this);
+        this.changeRewardMediaHandler = this.changeRewardMediaHandler.bind(this);
         this.changeTypeHandler = this.changeTypeHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
+        this.changeCountHandler = this.changeCountHandler.bind(this);
         
     }
 
     createReward = (event) => {
         event.preventDefault();
         const { state } = this.props.location;
-        console.log(state);
-        let reward = {
-            name: this.state.name, 
-            pointsNeeded: this.state.pointsNeeded, 
-            barcodeSerialNo: this.state.barcodeSerialNo, 
-            type: this.state.type, 
-            description: this.state.description
-        };
-        console.log('reward => ' + JSON.stringify(reward));
+        const formData = new FormData();
+        formData.append("name", this.state.name);
+        formData.append("pointsNeeded", this.state.pointsNeeded);
+        formData.append("rewardMedia", this.state.rewardMedia);
+        formData.append("type", this.state.type);
+        formData.append("description", this.state.description);
+        formData.append("count", this.state.count);
+        console.log('reward => ' + formData);
     
-        RewardService.createReward(reward).then(res => {
+        RewardService.createReward(formData).then(res => {
             this.props.navigate('/');
             console.log(res.status);
         });
@@ -50,8 +52,8 @@ class CreateReward extends Component{
         this.setState({pointsNeeded: event.target.value});
     }
     
-    changeBarcodeSerialNoHandler= (event) => {
-        this.setState({barcodeSerialNo: event.target.value});
+    changeRewardMediaHandler= (event) => {
+        this.setState({rewardMedia: event.target.value});
     }
     
     changeTypeHandler= (event) => {
@@ -61,6 +63,10 @@ class CreateReward extends Component{
     changeDescriptionHandler= (event) => {
         this.setState({description: event.target.value});
     }
+
+    changeCountHandler= (event) => {
+        this.setState({count: event.target.value});
+    } 
     
     render() {
       
@@ -70,7 +76,7 @@ class CreateReward extends Component{
                 <div className="wrapper">
                     <h1 className="title">Create Reward</h1>
 
-                    <form>
+                    <form enctype="multipart/form-data">
                         <label>
                             <p>Name</p>
                             <input type="text" required value={this.state.name} onChange={this.changeNameHandler}/>
@@ -79,10 +85,11 @@ class CreateReward extends Component{
                             <p>Points Needed</p>
                             <input type="number" required value={this.state.pointsNeeded} onChange={this.changePointsNeededHandler}/>
                         </label>
+
                         <label>
-                            <p>Barcode Serial No.</p>
-                            <input type="number" required value={this.state.barcodeSerialNo}
-                                   onChange={this.changeBarcodeSerialNoHandler}/>
+                            <p>Reward Image</p>
+                            <input type="file" accept="image/*" required value={this.state.rewardMedia}
+                                   onChange={this.changeRewardMediaHandler}/>
                         </label>
                         <label>
                             <p>Type</p>
@@ -92,6 +99,10 @@ class CreateReward extends Component{
                         <label>
                             <p>Description</p>
                             <input required type="text" value={this.state.description} onChange={this.changeDescriptionHandler}/>
+                        </label>
+                        <label>
+                            <p>Count</p>
+                            <input required type="number" value={this.state.count} onChange={this.changeCountHandler}/>
                         </label>
         
                         <div className="button-container">

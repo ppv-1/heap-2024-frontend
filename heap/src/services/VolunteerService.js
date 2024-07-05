@@ -16,5 +16,11 @@ class VolunteerService{
         return await ProtectedAPI.post(`/volunteer/unregister/event/${eventId}`, "");
     }
 
+    async updateVolunteer(profile){
+        return await ProtectedAPI.put(`/updateDetails`, profile, {headers:{
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }});
+    }
+
 }
 export default new VolunteerService();

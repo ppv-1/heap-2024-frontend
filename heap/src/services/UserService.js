@@ -6,7 +6,9 @@ class UserService {
     }
 
     async getProfile() {
-        return await ProtectedAPI.get(`/user/profile`);
+        return await ProtectedAPI.get(`/user/profile`, {headers:{
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }});
 
     }
 

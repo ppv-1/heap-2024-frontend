@@ -58,6 +58,11 @@ class UserProfileComponent extends Component {
     this.props.navigate("/change-password");
   };
 
+  EditProfileNavigate = (event, id) =>{
+    event.preventDefault();
+    this.props.navigate(`/edit-profile/${id}`);
+  }
+
   componentDidMount() {
     // if (localStorage.getItem("token") === null) {
     //   this.props.navigate("/login");
@@ -98,6 +103,7 @@ class UserProfileComponent extends Component {
     // if (!localStorage.getItem('token')){
     //   return;
     // }
+    const {id} = this.state.email;
     return (
       <>
         <div className="banner h-screen flex justify-center items-center">
@@ -107,7 +113,7 @@ class UserProfileComponent extends Component {
                 <img src={pfp} alt="avatar" />
               </div>
             </div>
-            <h1>{this.state.fullName}</h1>
+            <h1>{this.state.name}</h1>
           </div>
         </div>
         <div className="divider"></div>
@@ -119,8 +125,11 @@ class UserProfileComponent extends Component {
             </div>
             <br />
             <div>
+                  <button className="btn" onClick={(event) => this.EditProfileNavigate(event, id)}>Edit Profile</button>
+            </div>
+            <div>
               <h2>Name</h2>
-              <p>{this.state.fullName}</p>
+              <p>{this.state.name}</p>
             </div>
             <div>
               <h2>Phone Number</h2>
