@@ -80,7 +80,7 @@ button.btn {
   line-height: 1; /* Ensure line-height is adequate */
 }
 
-.button-container {
+.button-container > * {
   width: 100%;
 }
 

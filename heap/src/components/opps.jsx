@@ -3,6 +3,58 @@ import "./css/Opportunities.css";
 import OppService from "../services/OppService";
 import withNavigateandLocation from "./withNavigateandLocation";
 import SearchInputComponent from "./searchInput";
+import { MultiSelect } from "react-multi-select-component";
+
+const causes = [
+  { label: "Animal Welfare", value: "animalWelfare" },
+  { label: "Arts", value: "arts" },
+  { label: "Children", value: "children" },
+  { label: "Community", value: "community" },
+  { label: "Drug Awareness", value: "drugs" },
+  { label: "Education", value: "education" },
+  { label: "Eldercare", value: "elderly" },
+  { label: "Environment and Water", value: "environment" },
+  { label: "Families", value: "families" },
+  { label: "Health", value: "health" },
+  { label: "Heritage", value: "heritage" },
+  { label: "Humanitarian", value: "humanitarian" },
+  { label: "Mental Health", value: "mentalHealth" },
+  { label: "Migrant Workers", value: "migrantWorkers" },
+  { label: "Other", value: "other" },
+  { label: "Rehabilitation & Reintegration", value: "rehabilitation" },
+  { label: "Safety & Security", value: "safety" },
+  { label: "Social Services", value: "socialServices" },
+  { label: "Special Needs/Disabilities", value: "disabilities" },
+  { label: "Sports", value: "sports" },
+  { label: "Women & Girls", value: "women" },
+  { label: "Youth", value: "youth" },
+];
+
+const skills = [
+  { label: "Art & Craft", value: "art" },
+  { label: "Befriending", value: "befriending" },
+  { label: "Coaching & Mentoring", value: "coaching" },
+  { label: "Counselling", value: "counselling" },
+  { label: "Dialect-Speaking", value: "dialect" },
+  { label: "Emcee skills", value: "emcee" },
+  { label: "Entrepreneurship", value: "entrepreneurship" },
+  { label: "Event Management", value: "eventManagement" },
+  { label: "Facilitation", value: "facilitation" },
+  { label: "First-aid", value: "firstAid" },
+  { label: "Graphic Design", value: "GraphicDesign" },
+  { label: "Language Translation", value: "translation" },
+  { label: "Music", value: "music" },
+  { label: "Photography", value: "photography" },
+  { label: "Reading", value: "reading" },
+  { label: "Sign Language", value: "signLanguage" },
+  { label: "Social Media Execution", value: "socialMedia" },
+  { label: "Software Development", value: "softwareDevelopment" },
+  { label: "Sports", value: "sports" },
+  { label: "Tutoring", value: "tutor" },
+  { label: "Videography", value: "videography" },
+  { label: "Web Design", value: "webDesign" },
+  { label: "Others", value: "other" },
+];
 
 class OpportunitiesComponent extends Component {
   constructor(props) {
@@ -12,7 +64,10 @@ class OpportunitiesComponent extends Component {
       items: [],
       searchTerm: "",
       sortType: "nameAsc",
-      cause: "all",
+      cause: [],
+      type: "all",
+      location: "all",
+      skill: [],
     };
   }
 
@@ -27,9 +82,11 @@ class OpportunitiesComponent extends Component {
     //   this.props.navigate("/login");
     //   window.location.reload()
     // }
+    console.log("start");
     console.log(JSON.stringify(res.data));
     console.log(res.data + typeof res.data);
     console.log(res.data.events);
+    console.log("end");
     this.setState({ items: res.data.events });
   };
 
@@ -41,8 +98,20 @@ class OpportunitiesComponent extends Component {
     this.setState({ sortType });
   };
 
-  handleCauseChange = (cause) => {
-    this.setState({ cause });
+  handleCauseChange = (selected) => {
+    this.setState({ cause: selected });
+  };
+
+  handleTypeChange = (type) => {
+    this.setState({ type });
+  };
+
+  handleLocationChange = (location) => {
+    this.setState({ location });
+  };
+
+  handleSkillChange = (selected) => {
+    this.setState({ skill: selected });
   };
 
   async componentDidMount() {
@@ -50,28 +119,46 @@ class OpportunitiesComponent extends Component {
   }
 
   render() {
-    // let items = this.state.items;
-    // console.log(items);
-
-    const { items, searchTerm, sortType, cause } = this.state;
-    console.log(items);
+    const { items, searchTerm, sortType, cause, type, location, skill } =
+      this.state;
     let filteredItems = items
       ? items.filter((item) => {
           const itemName = item.name ? item.name.toLowerCase() : "";
           const itemOrganization = item.organization
             ? item.organization.toLowerCase()
             : "";
-          return (
+
+          const itemLocation = item.location ? item.location.toLowerCase() : "";
+          const itemCauses = item.causes;
+          const itemType = item.type ? item.type.toLowerCase() : "";
+          const itemSkills = item.skills;
+
+          const searchMatch =
             itemName.includes(searchTerm.toLowerCase()) ||
-            itemOrganization.includes(searchTerm.toLowerCase())
+            itemOrganization.includes(searchTerm.toLowerCase());
+
+          const locationMatch =
+            location === "all" || itemLocation.includes(location);
+
+          const causesMatch =
+            cause.length === 0 ||
+            cause.some((c) => itemCauses.includes(c.value));
+
+          const typeMatch = type === "all" || itemType.includes(type);
+
+          const skillsMatch =
+            skill.length === 0 ||
+            skill.some((s) => itemSkills.includes(s.value));
+
+          return (
+            searchMatch &&
+            locationMatch &&
+            causesMatch &&
+            typeMatch &&
+            skillsMatch
           );
         })
       : [];
-
-    // filteredItems = filteredItems.filter((item) => {
-    //   const itemCause = item.cause ? item.cause.toLowerCase() : "";
-    //   return itemCause.includes(cause.toLowerCase());
-    // });
 
     const sortedItems = filteredItems.sort((a, b) => {
       if (sortType === "nameAsc") {
@@ -99,224 +186,179 @@ class OpportunitiesComponent extends Component {
         <h1 className="title">Events</h1>
         <p>Here you can find various opportunities.</p>
 
-        <div className="content">
+        <div className="opps-content">
           <div className="searchbar-container">
-            <h1 className="label-text">Search for opportunities</h1>
             <SearchInputComponent
               searchTerm={searchTerm}
               onSearchChange={this.handleSearchChange}
             />
+          </div>
 
-            <div className="right-wrapper">
-              <div className="drawer drawer-end">
-                <input
-                  id="my-drawer-4"
-                  type="checkbox"
-                  className="drawer-toggle"
-                />
-                <div className="drawer-content">
-                  <label
-                    htmlFor="my-drawer-4"
-                    className="drawer-button btn btn-secondary"
-                  >
-                    Filters
-                  </label>
-                </div>
+          <div className="right-wrapper">
+            <div className="drawer drawer-end">
+              <input
+                id="my-drawer-4"
+                type="checkbox"
+                className="drawer-toggle"
+              />
+              <div className="drawer-content">
+                <label
+                  htmlFor="my-drawer-4"
+                  className="drawer-button btn btn-secondary"
+                >
+                  Filters
+                </label>
+              </div>
 
-                <div className="drawer-side">
-                  <label
-                    htmlFor="my-drawer-4"
-                    aria-label="close sidebar"
-                    className="drawer-overlay"
-                  ></label>
-                  <ul className="drawer-content p-4 w-80 min-h-full bg-base-200 text-base-content">
-                    {/* Sidebar content here */}
-                    <li>
-                      <h2>Sort by</h2>
-                      <details className="dropdown">
-                        <summary className="m-1 btn">Name: A to Z</summary>
-                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                          <li>
-                            <a onClick={() => this.handleSortChange("nameAsc")}>
-                              Name: A to Z
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              onClick={() => this.handleSortChange("nameDesc")}
-                            >
-                              Name: Z to A
-                            </a>
-                          </li>
-                          <li>
-                            <a onClick={() => this.handleSortChange("latest")}>
-                              Latest
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              onClick={() =>
-                                this.handleSortChange("reg-ending-soon")
-                              }
-                            >
-                              Registration ending soon
-                            </a>
-                          </li>
-                        </ul>
-                      </details>
-                    </li>
+              <div className="drawer-side">
+                <label
+                  htmlFor="my-drawer-4"
+                  aria-label="close sidebar"
+                  className="drawer-overlay"
+                ></label>
+                <ul className="drawerr-content p-4 w-80 bg-base-200 text-base-content">
+                  {/* Sidebar content here */}
+                  <li>
+                    <h2>Sort by</h2>
+                    <details className="dropdown">
+                      <summary className="m-1 btn">Name: A to Z</summary>
+                      <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                        <li>
+                          <a onClick={() => this.handleSortChange("nameAsc")}>
+                            Name: A to Z
+                          </a>
+                        </li>
+                        <li>
+                          <a onClick={() => this.handleSortChange("nameDesc")}>
+                            Name: Z to A
+                          </a>
+                        </li>
+                        <li>
+                          <a onClick={() => this.handleSortChange("latest")}>
+                            Latest
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            onClick={() =>
+                              this.handleSortChange("reg-ending-soon")
+                            }
+                          >
+                            Registration ending soon
+                          </a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                  <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
+                  <li>
+                    <h2>Filters</h2>
+                    <p>Causes</p>
+                    <MultiSelect
+                      options={causes}
+                      value={this.state.cause}
+                      onChange={this.handleCauseChange}
+                      labelledBy="Select related causes"
+                      disableSearch="true"
+                      className="multiselect"
+                    />
                     <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
-                    <li>
-                      <h2>Filters</h2>
-                      <p>Causes</p>
-                      {/* <div className="dropdown-menu show"> 
-                         <div className="actionbox">
-                          <div className="btn-group btn-group-sm btn-block">
-                            {/* <button
-                              type="button"
-                              className="actions-btn bs-select-all btn btn-light"
-                            >
-                              Select All
-                            </button> 
-                             <div className="checkbox-container">
-                              <label className="label cursor-pointer">
-                                <input
-                                  type="checkbox"
-                                  defaultChecked
-                                  className="checkbox"
-                                />
-                                <p className="label-text">Select all</p>
-                              </label>
-                            </div>
-
-                            <button
-                              type="button"
-                              className="actions-btn bs-deselect-all btn btn-light"
-                            >
-                              Deselect All
-                            </button>
-                          </div>
-                        </div>
-                      </div> */}
-
-                      <details className="dropdown">
-                        <summary className="m-1 btn">All</summary>
-                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                          <li>
-                            <a>Cause 1</a>
-                          </li>
-                          <li>
-                            <a>Cause 2</a>
-                          </li>
-                          <li>
-                            <a>Cause 3</a>
-                          </li>
-                        </ul>
-                      </details>
-                      <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
-                      <p>Opportunity Type</p>
-                      {/* <ul>
+                    <p>Opportunity Type</p>
+                    <details className="dropdown">
+                      <summary className="m-1 btn">All</summary>
+                      <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
                         <li>
-                          <input
-                            type="radio"
-                            name="typeOptions"
-                            className="radio"
-                            value="all"
-                          />
-                          <label for="option2">All</label>
+                          <a onClick={() => this.handleTypeChange("all")}>
+                            All
+                          </a>
                         </li>
-                        <br></br>
                         <li>
-                          <input
-                            type="radio"
-                            name="typeOptions"
-                            className="radio"
-                            value="onsite"
-                          />
-                          <label for="option2">On-site</label>
+                          <a onClick={() => this.handleTypeChange("ad-hoc")}>
+                            Adhoc
+                          </a>
                         </li>
-                        <br></br>
                         <li>
-                          <input
-                            type="radio"
-                            name="typeOptions"
-                            className="radio"
-                            value="online"
-                          />
-                          <label for="option2">Online</label>
+                          <a onClick={() => this.handleTypeChange("short")}>
+                            Short-term (3-6 months)
+                          </a>
                         </li>
-                      </ul> */}
-
-                      <details className="dropdown">
-                        <summary className="m-1 btn">All</summary>
-                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                          <li>
-                            <a>Adhoc</a>
-                          </li>
-                          <li>
-                            <a>Short-term (3-6 months)</a>
-                          </li>
-                          <li>
-                            <a>Long-term (>6 months)</a>
-                          </li>
-                        </ul>
-                      </details>
-                      <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
-                      <p>Location</p>
-                      <details className="dropdown">
-                        <summary className="m-1 btn">All</summary>
-                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                          <li>
-                            <a>All</a>
-                          </li>
-                          <li>
-                            <a>Online</a>
-                          </li>
-                          <li>
-                            <a>On-site</a>
-                          </li>
-                        </ul>
-                      </details>
-                      <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
-                      <p>Skills</p>
-                      <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
-                    </li>
-                  </ul>
-                </div>
+                        <li>
+                          <a onClick={() => this.handleTypeChange("long")}>
+                            Long-term ({">"}6 months)
+                          </a>
+                        </li>
+                      </ul>
+                    </details>
+                    <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
+                    <p>Location</p>
+                    <details className="dropdown">
+                      <summary className="m-1 btn">All</summary>
+                      <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                        <li>
+                          <a onClick={() => this.handleLocationChange("all")}>
+                            All
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            onClick={() => this.handleLocationChange("online")}
+                          >
+                            Online
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            onClick={() => this.handleLocationChange("on-site")}
+                          >
+                            On-site
+                          </a>
+                        </li>
+                      </ul>
+                    </details>
+                    <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
+                    <p>Skills</p>
+                    <MultiSelect
+                      options={skills}
+                      value={this.state.skill}
+                      onChange={this.handleSkillChange}
+                      labelledBy="Select related skills"
+                      disableSearch="true"
+                      className="multiselect"
+                    />
+                  </li>
+                </ul>
               </div>
             </div>
+          </div>
 
-            <ul className="event-listings">
-              {sortedItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="card card-compact w-30 bg-base-100 shadow-xl"
-                >
-                  <figure>
-                    <img
-                      src="https://static.wixstatic.com/media/7ab21d_0065f074991045f19085036583d803c7~mv2.png/v1/fill/w_365,h_174,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/SICS%20Logo.png"
-                      alt={item.name}
-                    />
-                  </figure>
-                  <div className="card-body">
-                    <h2 className="card-title">{item.name}</h2>
-                    <h1>{item.id}</h1>
-                    <p>Volunteer opportunity</p>
-                    <div className="card-actions justify-end">
-                      <button
-                        className="btn btn-neutral"
-                        onClick={(event) =>
-                          this.volunteerSubmit(event, item.id)
-                        }
-                      >
-                        Volunteer Now
-                      </button>
-                    </div>
+          <ul className="event-listings">
+            {sortedItems.map((item) => (
+              <div
+                key={item.id}
+                className="card card-compact w-30 bg-base-100 shadow-xl"
+              >
+                <figure>
+                  <img
+                    src="https://static.wixstatic.com/media/7ab21d_0065f074991045f19085036583d803c7~mv2.png/v1/fill/w_365,h_174,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/SICS%20Logo.png"
+                    alt={item.name}
+                  />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title">{item.name}</h2>
+                  <h1>{item.id}</h1>
+                  <p>Volunteer opportunity</p>
+                  <div className="card-actions justify-end">
+                    <button
+                      className="btn btn-neutral"
+                      onClick={(event) => this.volunteerSubmit(event, item.id)}
+                    >
+                      Volunteer Now
+                    </button>
                   </div>
                 </div>
-              ))}
-            </ul>
-          </div>
+              </div>
+            ))}
+          </ul>
         </div>
       </div>
     );
