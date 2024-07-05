@@ -70,7 +70,7 @@ class PostedEvent extends Component {
           <p>These are the volunteer opportunities you have posted.</p>
           <br/>
 
-          <div>
+          <div className="event-listings">
             {items.map((item) => (
               <div className="card card-compact w-30 bg-base-100 shadow-xl">
                 <figure>

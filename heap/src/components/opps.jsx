@@ -68,6 +68,7 @@ class OpportunitiesComponent extends Component {
       type: "all",
       location: "all",
       skill: [],
+      placeholderText: "Search for opportunities by name or organisation",
     };
   }
 
@@ -191,6 +192,7 @@ class OpportunitiesComponent extends Component {
             <SearchInputComponent
               searchTerm={searchTerm}
               onSearchChange={this.handleSearchChange}
+              placeholderText={this.state.placeholderText}
             />
           </div>
 
@@ -204,7 +206,7 @@ class OpportunitiesComponent extends Component {
               <div className="drawer-content">
                 <label
                   htmlFor="my-drawer-4"
-                  className="drawer-button btn btn-secondary"
+                  className="drawer-button btn btn-primary"
                 >
                   Filters
                 </label>

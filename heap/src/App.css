@@ -70,7 +70,7 @@
   height: 33px;
   width: 70px;
   color: #fff;
-  background-color: #000;
+  background-color: #000000;
   cursor: pointer;
 }
 
@@ -83,7 +83,6 @@
   height: 200px;
   display: flex;
   align-items: center;
-  background-color: rgb(250, 250, 250);
   justify-content: space-between;
 }
 

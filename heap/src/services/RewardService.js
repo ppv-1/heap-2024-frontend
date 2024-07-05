@@ -1,30 +1,40 @@
-import { ProtectedAPI } from './ProtectedAPI';
-import {API} from './API';
+import { ProtectedAPI } from "./ProtectedAPI";
+import { API } from "./API";
 
-class RewardService{
+class RewardService {
+  async createReward(reward) {
+    return await ProtectedAPI.post(`/reward/reward-category/create`, reward, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      "Content-Type": "multipart/form-data",
+    });
+  }
 
-    async createReward(reward){
-        return await ProtectedAPI.post(`/reward/reward-category/create`, reward, {headers:{
-            'Authorization': `Bearer ${localStorage.getItem("token")}`
-          }, 'Content-Type': 'multipart/form-data'});
-    }
+  async getAllRewards() {
+    return await ProtectedAPI.get(`/reward/reward-category/all`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+  }
 
-    async getAllRewards(){
-        return await ProtectedAPI.get(`/reward/reward-category/all`);
-    }
+  async getReward(rewardId) {
+    return await ProtectedAPI.get(`/reward/get/${rewardId}`);
+  }
 
-    async getReward(rewardId){
-        return await ProtectedAPI.get(`/reward/get/${rewardId}`);
-    }
+  async deleteRewards(rewardId) {
+    return await ProtectedAPI.delete(
+      `/reward/reward-category/delete/${rewardId}`
+    );
+  }
 
-    async deleteRewards(rewardId){
-        return await ProtectedAPI.delete(`/reward/reward-category/delete/${rewardId}`);
-    }
-
-    async updateReward(rewardId, reward){
-        return await ProtectedAPI.put(`/reward/reward-category/update/${rewardId}`, reward);
-    }
-
+  async updateReward(rewardId, reward) {
+    return await ProtectedAPI.put(
+      `/reward/reward-category/update/${rewardId}`,
+      reward
+    );
+  }
 }
 
-export default new RewardService()
+export default new RewardService();

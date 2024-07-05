@@ -16,7 +16,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-left: 10%;
 }
 
 .image {
@@ -68,8 +67,8 @@
   justify-content: space-evenly;
 }
 
-.btn {
-  width: 530px;
+.button1, .button2 {
+  max-width: 200px;
 }
 
 .orgs {

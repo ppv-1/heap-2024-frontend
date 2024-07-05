@@ -28,40 +28,39 @@ class OrganisationProfileComponent extends Component {
           </div>
         </div>
         <div className="divider"></div>
-        <div className="details-container h-screen flex justify-center items-center">
-          <div className="details">
-            <div className="details-top">
-              <h1>Account Details</h1>
-              <ToggleThemeComponent></ToggleThemeComponent>
-            </div>
-            <br />
-            <div>
-              <h2>Organisation Name</h2>
-              {/* <p>{state.name}</p> */}
-            </div>
-            <div>
-              <h2>Email Address</h2>
-              {/* <p>{state.email}</p> */}
-            </div>
-            <div>
-              <h2>Website</h2>
-              {/* <p>{state.website}</p> */}
-            </div>
-            <div>
-              <h2>Description</h2>
-              {/* <p>{state.description}</p> */}
-            </div>
-            <div>
-              <h2>Verified</h2>
-              {/* <p>{state.verified}</p> */}
-            </div>
-            <div>
-              <h2>Password</h2>
-              <p>password</p>
-              <Link to="/change-password">
-                <button className="btn">Change password</button>
-              </Link>
-            </div>
+
+        <div className="details">
+          <div className="details-top">
+            <h1>Account Details</h1>
+            <ToggleThemeComponent></ToggleThemeComponent>
+          </div>
+          <br />
+          <div>
+            <h2>Organisation Name</h2>
+            {/* <p>{state.name}</p> */}
+          </div>
+          <div>
+            <h2>Email Address</h2>
+            {/* <p>{state.email}</p> */}
+          </div>
+          <div>
+            <h2>Website</h2>
+            {/* <p>{state.website}</p> */}
+          </div>
+          <div>
+            <h2>Description</h2>
+            {/* <p>{state.description}</p> */}
+          </div>
+          <div>
+            <h2>Verified</h2>
+            {/* <p>{state.verified}</p> */}
+          </div>
+          <div>
+            <h2>Password</h2>
+            <p>password</p>
+            <Link to="/change-password">
+              <button className="btn">Change password</button>
+            </Link>
           </div>
         </div>
       </>

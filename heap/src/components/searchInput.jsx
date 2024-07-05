@@ -6,7 +6,9 @@ class SearchInputComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      placeholderText: "",
+    };
   }
 
   handleInputChange = (e) => {
@@ -21,8 +23,8 @@ class SearchInputComponent extends Component {
         type="text"
         value={this.props.searchTerm}
         onChange={this.handleInputChange}
-        placeholder="Search for opportunities by name or organisation"
         className="input input-bordered"
+        placeholder={this.props.placeholderText}
       ></input>
     );
   }

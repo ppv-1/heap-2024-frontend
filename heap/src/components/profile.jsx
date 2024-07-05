@@ -58,10 +58,10 @@ class UserProfileComponent extends Component {
     this.props.navigate("/change-password");
   };
 
-  EditProfileNavigate = (event) =>{
+  EditProfileNavigate = (event) => {
     event.preventDefault();
     this.props.navigate(`/edit-profile`);
-  }
+  };
 
   componentDidMount() {
     // if (localStorage.getItem("token") === null) {
@@ -103,7 +103,7 @@ class UserProfileComponent extends Component {
     // if (!localStorage.getItem('token')){
     //   return;
     // }
-  
+
     return (
       <>
         <div className="banner h-screen flex justify-center items-center">
@@ -117,40 +117,49 @@ class UserProfileComponent extends Component {
           </div>
         </div>
         <div className="divider"></div>
-        <div className="details-container h-screen flex justify-center items-center">
-          <div className="details">
-            <div className="details-top">
-              <h1>Account Details</h1>
-              <ToggleThemeComponent></ToggleThemeComponent>
-            </div>
-            <br />
-            <div>
-                  <button className="btn" onClick={(event) => this.EditProfileNavigate(event)}>Edit Profile</button>
-            </div>
-            <div>
-              <h2>Name</h2>
-              <p>{this.state.name}</p>
-            </div>
-            <div>
-              <h2>Phone Number</h2>
-              <p>{this.state.contactNo}</p>
-            </div>
-            <div>
-              <h2>Gender</h2>
-              <p>{this.state.gender}</p>
-            </div>
-            <div>
-              <h2>Email Address</h2>
-              <p>{this.state.email}</p>
-            </div>
-            <div>
-              <h2>Password</h2>
-              <div className="change-password-container">
-                <Link to="/change-password">
-                  <button className="btn">Change password</button>
-                </Link>
+        <div className="details">
+          <div className="details-top">
+            <h1>Account Details</h1>
+            <div className="right-side">
+              <div className="edit-button">
+                <button
+                  className="btn"
+                  onClick={(event) => this.EditProfileNavigate(event)}
+                >
+                  Edit Profile
+                </button>
               </div>
             </div>
+          </div>
+          <br />
+
+          <div>
+            <h2>Name</h2>
+            <p>{this.state.name}</p>
+          </div>
+          <div>
+            <h2>Phone Number</h2>
+            <p>{this.state.contactNo}</p>
+          </div>
+          <div>
+            <h2>Gender</h2>
+            <p>{this.state.gender}</p>
+          </div>
+          <div>
+            <h2>Email Address</h2>
+            <p>{this.state.email}</p>
+          </div>
+          <div>
+            <h2>Password</h2>
+            <div className="change-password-container">
+              <Link to="/change-password">
+                <button className="btn">Change password</button>
+              </Link>
+            </div>
+          </div>
+          <div>
+            <h2>Theme</h2>
+            <ToggleThemeComponent></ToggleThemeComponent>
           </div>
         </div>
       </>

@@ -48,12 +48,28 @@
 }
 
 .details {
-  width: 100%;
+  width: 80%;
   color: oklch(var(--n));
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  position: relative !important;
 }
 
 .details-top {
   justify-content: space-between;
+}
+
+.right-side {
+  align-items: center;
+  display: inline-block;
+  flex-direction: row;
+  padding: auto;
+}
+
+.edit-button {
+  max-width: 200px;
 }
 
 .details > .details-top > h1 {
