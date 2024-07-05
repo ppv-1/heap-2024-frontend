@@ -4,6 +4,7 @@ import UserService from "../services/UserService";
 import { Link } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
 import AuthService from "../services/AuthService";
+import { ProtectedAPI } from "../services/ProtectedAPI";
 
 class Login extends Component {
   constructor(props) {
@@ -18,8 +19,7 @@ class Login extends Component {
     this.loginSubmit = this.loginSubmit.bind(this);
   }
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   loginSubmit = (event) => {
     event.preventDefault();
@@ -34,17 +34,20 @@ class Login extends Component {
         console.log(res.data);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userType", res.data.userType);
+        ProtectedAPI.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${localStorage.getItem("token")}`;
         // navigate('/organisations');
         // return redirect('/organisations');
         // console.log(res.data.userType);
         // this.props.navigate("/user-profile");
-        if (res.data.userType === 'V') {
+        if (res.data.userType === "V") {
           console.log(res.data.userType);
           this.props.navigate("/user-profile");
-        } else if (res.data.userType === 'O') {
+        } else if (res.data.userType === "O") {
           console.log(res.data.userType);
           this.props.navigate("/create-opportunity");
-        } else if (res.data.userType === 'A'){
+        } else if (res.data.userType === "A") {
           console.log(res.data.userType);
           this.props.navigate("/");
         }
@@ -74,44 +77,52 @@ class Login extends Component {
             <label>
               <p>Username</p>
               <input
-                  required
-                  type="email"
-                  value={this.state.username}
-                  onChange={this.changeUsernameHandler}
+                required
+                type="email"
+                value={this.state.username}
+                onChange={this.changeUsernameHandler}
               />
             </label>
             <label>
               <p>Password</p>
               <input
-                  required
-                  type="password"
-                  value={this.state.password}
-                  onChange={this.changePasswordHandler}
+                required
+                type="password"
+                value={this.state.password}
+                onChange={this.changePasswordHandler}
               />
             </label>
             <div className="forgot-password">
-              <a className="link link-hover" href="/forget-password">Forgot password</a>
+              <a className="link link-hover" href="/forget-password">
+                Forgot password
+              </a>
             </div>
             <div className="button-container">
               <button className="btn btn-wide" onClick={this.loginSubmit}>
                 Login
               </button>
             </div>
-            <br/>
+            <br />
             <p>Don't have an account?</p>
             <div className="button-container">
               <Link to="/register-volunteer">
-                <button className="btn btn-wide">Sign up here (Volunteer)</button>
+                <button className="btn btn-wide">
+                  Sign up here (Volunteer)
+                </button>
               </Link>
             </div>
             <div className="button-container">
               <Link to="/register-organisation">
-                <button className="btn btn-wide">Sign up here (Organisation)</button>
+                <button className="btn btn-wide">
+                  Sign up here (Organisation)
+                </button>
               </Link>
             </div>
             <div className="button-container">
               <Link to="/register-admin">
-                <button className="btn btn-wide">Create admin account (Test)</button>
+                <button className="btn btn-wide">
+                  Create admin account (Test)
+                </button>
               </Link>
             </div>
           </form>
