@@ -17,7 +17,7 @@ class VolunteerService{
     }
 
     async updateVolunteer(profile){
-        return await ProtectedAPI.put(`/updateDetails`, profile, {headers:{
+        return await ProtectedAPI.put(`/volunteer/updateDetails`, profile, {headers:{
             'Authorization': `Bearer ${localStorage.getItem("token")}`
           }});
     }

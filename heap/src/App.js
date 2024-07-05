@@ -66,7 +66,7 @@ export default function App() {
             <Route exact path="/manage-vols" element={<ManageVols />} />
             <Route exact path="/manage-orgs" element={<ManageOrgs />} />
             <Route exact path="/create-reward" element={<CreateReward />} />
-            <Route exact path="/edit-profile/:id" element={<EditProfile />} />
+            <Route exact path="/edit-profile" element={<EditProfile />} />
             <Route exact path="/user-profile" element={<UserProfileComponent />} />
             <Route exact path="/org-profile" element={<OrganisationProfileComponent />} />
             <Route exact path="/create-opportunity" element={<CreateOppComponent />} />

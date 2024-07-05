@@ -58,9 +58,9 @@ class UserProfileComponent extends Component {
     this.props.navigate("/change-password");
   };
 
-  EditProfileNavigate = (event, id) =>{
+  EditProfileNavigate = (event) =>{
     event.preventDefault();
-    this.props.navigate(`/edit-profile/${id}`);
+    this.props.navigate(`/edit-profile`);
   }
 
   componentDidMount() {
@@ -103,7 +103,7 @@ class UserProfileComponent extends Component {
     // if (!localStorage.getItem('token')){
     //   return;
     // }
-    const {id} = this.state.email;
+  
     return (
       <>
         <div className="banner h-screen flex justify-center items-center">
@@ -125,7 +125,7 @@ class UserProfileComponent extends Component {
             </div>
             <br />
             <div>
-                  <button className="btn" onClick={(event) => this.EditProfileNavigate(event, id)}>Edit Profile</button>
+                  <button className="btn" onClick={(event) => this.EditProfileNavigate(event)}>Edit Profile</button>
             </div>
             <div>
               <h2>Name</h2>
