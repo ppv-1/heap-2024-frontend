@@ -89,7 +89,7 @@ class EditProfile extends Component{
             dob: null
         };
         const formData = new FormData();
-        formData.append('pfp',this.state.profilePicture)
+        formData.append('pfp',this.state.profilePicture);
         console.log('profile => ' + JSON.stringify(profile));
         MediaService.uploadPfp(formData);
         VolunteerService.updateVolunteer(profile).then(res => {

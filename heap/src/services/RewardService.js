@@ -3,12 +3,7 @@ import { API } from "./API";
 
 class RewardService {
   async createReward(reward) {
-    return await ProtectedAPI.post(`/reward/reward-category/create`, reward, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      "Content-Type": "multipart/form-data",
-    });
+    return await ProtectedAPI.post(`/reward/reward-category/create`, reward);
   }
 
   async getAllRewards() {

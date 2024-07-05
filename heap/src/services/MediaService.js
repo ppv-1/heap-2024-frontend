@@ -9,7 +9,7 @@ class MediaService{
     }
 
     async uploadRewardPhoto(rewardId, image){
-        return await ProtectedAPI.post(`/reward-category/reward-image/upload/${rewardId}`, image, {headers:{
+        return await ProtectedAPI.post(`/media/reward-category/reward-image/upload/${rewardId}`, image, {headers:{
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
             }, 'Content-Type': 'multipart/form-data'} );
     }
