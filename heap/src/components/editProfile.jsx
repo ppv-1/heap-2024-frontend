@@ -105,7 +105,7 @@ class EditProfile extends Component{
         return (
             <>
                 <div className="wrapper">
-                    <h1 className="title">Create Reward</h1>
+                <h1 className="title">Edit Profile</h1>
 
                     <form enctype="multipart/form-data">
                         <label>

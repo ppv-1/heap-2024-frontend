@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import "./css/Profile.css";
-import pfp from "../images/pfp.jpg";
 import withNavigateandLocation from "./withNavigateandLocation";
 import { Link, useLocation } from "react-router-dom";
 import UserService from "../services/UserService";
 import { api } from "../services/UserService";
 import ToggleThemeComponent from "./toggleTheme.jsx";
+import MediaService from "../services/MediaService";
 
 class UserProfileComponent extends Component {
   constructor(props) {
@@ -17,6 +17,7 @@ class UserProfileComponent extends Component {
       contactNo: "",
       email: "",
       gender: "",
+      profilePicture: null
     };
 
     // UserService.getProfile().then((res) => {

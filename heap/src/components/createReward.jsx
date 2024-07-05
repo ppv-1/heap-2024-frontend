@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import withNavigateandLocation from './withNavigateandLocation';
 import "./css/Create.css";
 import RewardService from "../services/RewardService";
+import MediaService from "../services/MediaService";
 
 class CreateReward extends Component{
     constructor(props){
@@ -29,15 +30,17 @@ class CreateReward extends Component{
         event.preventDefault();
         const { state } = this.props.location;
         const formData = new FormData();
-        formData.append("name", this.state.name);
-        formData.append("pointsNeeded", this.state.pointsNeeded);
-        formData.append("rewardMedia", this.state.rewardMedia);
-        formData.append("type", this.state.type);
-        formData.append("description", this.state.description);
-        formData.append("count", this.state.count);
-        console.log('reward => ' + formData);
-    
-        RewardService.createReward(formData).then(res => {
+        formData.append("media", this.state.rewardMedia);
+        let reward = {
+            name: this.state.name,
+            pointsNeeded: this.state.pointsNeeded,
+            type: this.state.type,
+            description: this.state.description,
+            count: this.state.count
+        }
+        console.log('reward => ' + JSON.stringify(reward));
+        MediaService.uploadRewardPhoto(formData);
+        RewardService.createReward(reward).then(res => {
             this.props.navigate('/');
             console.log(res.status);
         });
