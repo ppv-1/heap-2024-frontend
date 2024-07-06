@@ -2,9 +2,9 @@
   width: 100%;
   height: 100vh;
   display: flex;
-  justify-content: left;
-  align-items: flex-start;
-  margin-top: 0;
+  /* justify-content: flex-start;
+  align-items: center;  */
+  margin: 0 auto;
 }
 
 * {
@@ -15,7 +15,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
 }
 
 .image {
@@ -34,10 +35,15 @@
   margin-bottom: 20px;
 }
 
+.top-title {
+  text-align: center;
+}
+
 .causes {
-  margin-top: 30%;
+  margin-top: 40%;
   margin-bottom: 30%;
   max-width: 1060px;
+  text-align: center;
 }
 
 .causes > h1 {
@@ -57,8 +63,23 @@
 }
 
 .carousel-item {
-  margin: 2%;
-  height: 200px;
+  height: 250px;
+  margin-right: 2%;
+  margin-top: 2%;
+}
+
+.mask {
+  max-height: 200px;
+}
+
+.cause {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.cause > a {
+  margin-top: 5px;
+  color: oklch(var(--n));
 }
 
 .button-container {
@@ -67,7 +88,8 @@
   justify-content: space-evenly;
 }
 
-.button1, .button2 {
+.button1,
+.button2 {
   max-width: 200px;
 }
 
@@ -75,6 +97,7 @@
   margin-top: 30%;
   margin-bottom: 30%;
   max-width: 1060px;
+  text-align: center;
 }
 
 .orgs > h1 {

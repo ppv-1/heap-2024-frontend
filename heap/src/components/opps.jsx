@@ -60,11 +60,17 @@ class OpportunitiesComponent extends Component {
   constructor(props) {
     super(props);
 
+    let searchParams = new URLSearchParams(props.location.search);
+    let causeQuery = searchParams.get("cause");
+
+    console.log("!!!!!!!!!!!");
+    console.log("causeQ=" + causeQuery);
+
     this.state = {
       items: [],
       searchTerm: "",
       sortType: "nameAsc",
-      cause: [],
+      cause: causeQuery ? [causeQuery] : [],
       type: "all",
       location: "all",
       skill: [],
@@ -88,6 +94,7 @@ class OpportunitiesComponent extends Component {
     console.log(res.data + typeof res.data);
     console.log(res.data.events);
     console.log("end");
+
     this.setState({ items: res.data.events });
   };
 
@@ -120,8 +127,10 @@ class OpportunitiesComponent extends Component {
   }
 
   render() {
-    const { items, searchTerm, sortType, cause, type, location, skill } =
+    let { items, searchTerm, sortType, cause, type, location, skill } =
       this.state;
+
+    console.log("cause.state=" + cause);
     let filteredItems = items
       ? items.filter((item) => {
           const itemName = item.name ? item.name.toLowerCase() : "";
@@ -130,9 +139,9 @@ class OpportunitiesComponent extends Component {
             : "";
 
           const itemLocation = item.location ? item.location.toLowerCase() : "";
-          const itemCauses = item.causes;
+          let itemCauses = item.causes || [];
           const itemType = item.type ? item.type.toLowerCase() : "";
-          const itemSkills = item.skills;
+          let itemSkills = item.skills || [];
 
           const searchMatch =
             itemName.includes(searchTerm.toLowerCase()) ||
@@ -143,7 +152,8 @@ class OpportunitiesComponent extends Component {
 
           const causesMatch =
             cause.length === 0 ||
-            cause.some((c) => itemCauses.includes(c.value));
+            cause.some((c) => itemCauses.includes(c.value)) ||
+            cause.some((c) => itemCauses.includes(c.valueOf()));
 
           const typeMatch = type === "all" || itemType.includes(type);
 
@@ -220,6 +230,7 @@ class OpportunitiesComponent extends Component {
                 ></label>
                 <ul className="drawerr-content p-4 w-80 bg-base-200 text-base-content">
                   {/* Sidebar content here */}
+
                   <li>
                     <h2>Sort by</h2>
                     <details className="dropdown">

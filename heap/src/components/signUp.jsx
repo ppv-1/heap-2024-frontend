@@ -22,7 +22,7 @@ class SignUp extends Component {
   render() {
     return (
       <>
-        <div className="signup-wrapper">
+        <div className="content">
           <h1 className="title">Sign Up</h1>
 
           <h1 className="sub-title">What would you like to sign up as?</h1>

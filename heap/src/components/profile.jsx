@@ -116,7 +116,7 @@ class UserProfileComponent extends Component {
                 <img src={this.state.profilePicture} alt="avatar" />
               </div>
             </div>
-            <h1>{this.state.name}</h1>
+            <h1>{this.state.fullName}</h1>
           </div>
         </div>
         <div className="divider"></div>
@@ -138,7 +138,7 @@ class UserProfileComponent extends Component {
 
           <div>
             <h2>Name</h2>
-            <p>{this.state.name}</p>
+            <p>{this.state.fullName}</p>
           </div>
           <div>
             <h2>Phone Number</h2>

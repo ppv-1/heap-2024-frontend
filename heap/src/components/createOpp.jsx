@@ -53,7 +53,7 @@ const skills = [
   { label: "Videography", value: "videography" },
   { label: "Web Design", value: "webDesign" },
   { label: "Others", value: "other" },
-]
+];
 
 class CreateOppComponent extends Component {
   constructor(props) {
@@ -168,9 +168,10 @@ class CreateOppComponent extends Component {
     console.log(this.state.user);
     return (
       <>
-        <div className="wrapper">
-          <h1 className="title">Create Event</h1>
-
+        <div className="content">
+          <div className="title">
+            <h1>Create Event</h1>
+          </div>
           <form>
             <label>
               <p>Name</p>
@@ -284,11 +285,18 @@ class CreateOppComponent extends Component {
             </label>
             <label>
               <p>Cover Image</p>
-              <input type="file" className="file-input file-input-bordered w-full max-w-xs" />
+              <input
+                type="file"
+                className="file-input file-input-bordered w-full max-w-xs"
+              />
             </label>
             <label>
               <p>Gallery</p>
-              <input type="file" className="file-input file-input-bordered w-full max-w-xs" multiple />
+              <input
+                type="file"
+                className="file-input file-input-bordered w-full max-w-xs"
+                multiple
+              />
             </label>
             <div className="button-container">
               <button className="btn btn-wide" onClick={this.createOpp}>

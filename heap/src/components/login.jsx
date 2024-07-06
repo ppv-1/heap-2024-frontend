@@ -71,7 +71,7 @@ class Login extends Component {
   render() {
     return (
       <>
-        <div className="login-wrapper">
+        <div className="content">
           <h1 className="title">LOGIN</h1>
           <form>
             <label>

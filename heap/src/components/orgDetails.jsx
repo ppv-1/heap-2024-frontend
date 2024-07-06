@@ -79,6 +79,7 @@ class OrgDetails extends Component {
             </ul>
           </div>
         </div>
+
         <div className="details-container">
           <div className="left-container">
             <div className="left-details">
@@ -95,7 +96,6 @@ class OrgDetails extends Component {
               <p>Contact No.{organisation.contactNo}</p>
               <h1 className="title">Email</h1>
               <p>Email: {organisation.email}</p>
-
             </div>
           </div>
         </div>

@@ -84,6 +84,7 @@ class Opportunity extends Component {
             </ul>
           </div>
         </div>
+        
         <div className="details-container">
           <div className="left-container">
             <h1 className="title">

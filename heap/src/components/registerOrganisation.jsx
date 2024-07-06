@@ -68,7 +68,7 @@ class RegisterOrganisation extends Component {
     render() {
         return (
             <>
-                <div className="signup-wrapper">
+                <div className="content">
                     <h1 className="title">Sign Up</h1>
 
                     <form>
@@ -86,15 +86,15 @@ class RegisterOrganisation extends Component {
                             <input type="email" required value={this.state.email} onChange={this.changeEmailHandler}/>
                         </label>
                         <label>
-                            <p>Organisation Location</p>
+                            <p>Organisation Address</p>
                             <input required type="text" value={this.state.location} onChange={this.changeLocationHandler}/>
                         </label>
                         <label>
-                            <p>Organisation Website (optional)</p>
+                            <p>Organisation Website (Optional)</p>
                             <input type="text" value={this.state.website} onChange={this.changeWebsiteHandler}/>
                         </label>
                         <label>
-                            <p>Organisation Description (optional)</p>
+                            <p>Organisation Description (Optional)</p>
                             <textarea value={this.state.description} onChange={this.changeDescriptionHandler}/>
                         </label>
                         <label>

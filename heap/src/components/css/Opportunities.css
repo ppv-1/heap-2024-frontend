@@ -3,8 +3,6 @@
   flex-direction: column;
   align-items: flex-start;
   width: 80%;
-  background-color: white;
-  color: oklch(var(--nc));
   margin-bottom: 50%;
 }
 
@@ -81,7 +79,8 @@
 }
 
 .drawerr-content {
-  height: 980px;
+  height: 100vh;
+  padding: auto;
 }
 
 .drawer-side {
@@ -102,4 +101,5 @@
 
 .multiselect {
   margin-top: 10px;
+  margin-right: 5%;
 }

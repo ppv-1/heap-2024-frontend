@@ -1,22 +1,16 @@
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-top: 0px;
-  margin-left: 30%;
-  width: 80% !important;
-  color: oklch(var(--nc));
-}
-
 * {
   color: oklch(var(--n));
 }
 
+.content {
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
 .title {
   height: min-content;
-  align-self: stretch;
-  flex-direction: column;
-  align-items: flex-start;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 700;
   font-size: 40px;
@@ -24,6 +18,7 @@
 }
 
 form {
+  width: 100%;
   margin-bottom: 10%;
 }
 

@@ -11,6 +11,7 @@ module.exports = {
     "./src/components/createOpp.jsx",
     "./src/components/opps.jsx",
     "./src/components/toggleTheme.jsx",
+    "./src/components/registeredEvent.jsx",
   ],
   theme: {
     extend: {

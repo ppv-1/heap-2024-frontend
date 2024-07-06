@@ -1,10 +1,9 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 import "./css/Navbar.css";
 
 const Navbar = () => {
-  const location = useLocation();
   const isLoggedIn = !!localStorage.getItem("token");
   const userType = localStorage.getItem("userType");
 
