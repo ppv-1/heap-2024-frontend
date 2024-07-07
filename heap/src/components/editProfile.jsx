@@ -125,6 +125,7 @@ class EditProfile extends Component{
                             <p>Gender</p>
                             <select
                                 className="select select-bordered w-full"
+                                required value={this.state.gender}
                                 onChange={this.changeGenderHandler}
                             >
                                 <option disabled selected>

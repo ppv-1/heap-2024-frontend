@@ -96,7 +96,7 @@ const Navbar = () => {
                   <Link to="/manage-vols">Manage Volunteers </Link>
                 </li>
                 <li>
-                  <Link to="/create-reward">Manage Rewards </Link>
+                  <Link to="/manage-rewards">Manage Rewards </Link>
                 </li>
                 <li>
                   <Link to="/manage-orgs">Manage Organisations</Link>

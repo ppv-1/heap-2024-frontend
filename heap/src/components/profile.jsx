@@ -20,40 +20,29 @@ class UserProfileComponent extends Component {
       profilePicture: null
     };
 
-    // UserService.getProfile().then((res) => {
-    // // api.get("/profile").then((res) => {
-    //   console.log(res.data)
-    //   this.setState({fullName: res.data.fullName,
-    //     contactNo: res.data.contactNo,
-    //     email: res.data.email,
-    //     gender: res.data.gender});
-    //   // if (res.data.code === 200) {
-    //   //   this.setState({fullName: res.data.fullName,
-    //   //     contactNo: res.data.contactNo,
-    //   //     email: res.data.email,
-    //   //     gender: res.data.gender});
-    //   // } else {
-    //   //   localStorage.removeItem("token");
-    //   //   this.props.navigate("/login");
-    //   // }
-    //
-    // });
+   
   }
 
   fetchData = async () => {
-    const res = await UserService.getProfile();
-    const base64Image = await MediaService.getPfp();
+    try {
+      const res = await UserService.getProfile();
+      const base64Image = await MediaService.getPfp();
 
-    console.log(base64Image.data);
-    const dataUrl= `data:image/jpeg;base64,${base64Image.data}`;
-    console.log(dataUrl);
-    this.setState({
-      fullName: res.data.fullName,
-      contactNo: res.data.contactNo,
-      email: res.data.email,
-      gender: res.data.gender,
-      profilePicture: dataUrl
-    });
+      console.log(base64Image.data);
+      const dataUrl = `data:image/jpeg;base64,${base64Image.data}`;
+      console.log(dataUrl);
+
+      this.setState({
+        fullName: res.data.fullName,
+        contactNo: res.data.contactNo,
+        email: res.data.email,
+        gender: res.data.gender,
+        profilePicture: dataUrl
+      });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      alert('An error occurred while fetching data.');
+    }
   };
 
   changePasswordHandler = (event) => {
@@ -67,45 +56,11 @@ class UserProfileComponent extends Component {
   };
 
   componentDidMount() {
-    // if (localStorage.getItem("token") === null) {
-    //   this.props.navigate("/login");
-    //   window.location.reload()
-    // } else {
     this.fetchData();
-    // }
-
-    // if (this.state.code !== 200) {
-    //   localStorage.removeItem("token");
-    //   this.props.navigate("/login");
-    // }
-    // UserService.getProfile().then((res) => {
-    //   this.setState({fullName: res.data.fullName,
-    //     contactNo: res.data.contactNo,
-    //     email: res.data.email,
-    //     gender: res.data.gender});
-    //     console.log(res.data)
-    //     // if (res.data.code === 200) {
-    //     //   this.setState({
-    //     //     fullName: res.data.fullName,
-    //     //     contactNo: res.data.contactNo,
-    //     //     email: res.data.email,
-    //     //     gender: res.data.gender
-    //     //   });
-    //     // } else {
-    //     //   localStorage.removeItem("token");
-    //     //   this.props.navigate("/login");
-    //     // }
-    //   });
   }
-  //
+  
 
   render() {
-    // const { state } = this.props.location;
-    // console.log(state);
-    // console.log(localStorage.getItem("token"));
-    // if (!localStorage.getItem('token')){
-    //   return;
-    // }
 
     return (
       <>
@@ -171,36 +126,3 @@ class UserProfileComponent extends Component {
 }
 
 export default withNavigateandLocation(UserProfileComponent);
-
-// const Profile = () => {
-//   return (
-//     <>
-//       <section className="banner h-screen flex justify-center items-center">
-//         <section className="profile text-center mt-8 font-bold">
-//           <div class="avatar">
-//             <div class="w-36 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
-//               <img src={pfp} alt="avatar" />
-//             </div>
-//           </div>
-//           <h1>John Lee</h1>
-//         </section>
-//       </section>
-//       <div className="divider"></div>
-
-//       <section className="details-container h-screen flex justify-center items-center">
-//         <section className="details">
-//           <h1>Account</h1>
-//           <br />
-//           <h2>Name</h2>
-//           <p>John Lee</p>
-//           <h2>Phone Number</h2>
-//           <p>1234 5678</p>
-//           <h2>Email Address</h2>
-//           <p>johnlee@gmail.com</p>
-//         </section>
-//       </section>
-//     </>
-//   );
-// };
-
-// export default Profile;
