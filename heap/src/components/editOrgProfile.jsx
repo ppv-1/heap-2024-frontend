@@ -1,42 +1,49 @@
 import React, { Component } from "react";
 import withNavigateandLocation from './withNavigateandLocation';
 import "./css/Create.css";
-import VolunteerService from "../services/VolunteerService";
+import OrgService from "../services/OrgService";
 import UserService from "../services/UserService";
 import MediaService from "../services/MediaService";
 
-class EditProfile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fullName: "",
-      contactNo: "",
-      email: "",
-      gender: "",
-      profilePicture: null,
-      showAlert: false,
-    };
-    this.changeFullNameHandler = this.changeFullNameHandler.bind(this);
-    this.changeContactNoHandler = this.changeContactNoHandler.bind(this);
-    this.changeEmailHandler = this.changeEmailHandler.bind(this);
-    this.changeGenderHandler = this.changeGenderHandler.bind(this);
-    this.changeProfilePictureHandler =
-    this.changeProfilePictureHandler.bind(this);
-    this.editProfile = this.editProfile.bind(this);
-  }
+class EditOrgProfile extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            fullName: "",
+            email: "",
+            contactNo: "",
+            website: "",
+            description: "",
+            location: "",
+            profilePicture: null
+        }
+        this.changeFullNameHandler = this.changeFullNameHandler.bind(this);
+        this.changeContactNoHandler = this.changeContactNoHandler.bind(this);
+        this.changeEmailHandler = this.changeEmailHandler.bind(this);
+        this.changeWebsiteHandler = this.changeWebsiteHandler.bind(this);
+        this.changeProfilePictureHandler = this.changeProfilePictureHandler.bind(this);
+    }
+
+    fetchData = async () => {
+        try {
+          const res = await UserService.getProfile();
+    
+          this.setState({
+            fullName: res.data.fullName,
+            contactNo: res.data.contactNo,
+            email: res.data.email,
+            website: res.data.website,
+            description: res.data.description,
+            location: res.data.location,
+          });
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          alert('An error occurred while fetching data.');
+        }
+      };
 
     async componentDidMount(){
-        try{
-            const res = await UserService.getProfile();
-            this.setState({
-                fullName: res.data.fullName,
-                contactNo: res.data.contactNo,
-                email: res.data.email,
-                gender: res.data.gender,
-            });
-        } catch(error){
-            console.error("failed to fetch user", error);
-        }
+        this.fetchData();
     }
     changeFullNameHandler= (event) => {
         this.setState({fullName: event.target.value});
@@ -46,24 +53,16 @@ class EditProfile extends Component {
         this.setState({contactNo: event.target.value});
     }
 
-    changeEmailHandler= (event) => {
-        this.setState({email: event.target.value});
+    changeWebsiteHandler= (event) => {
+        this.setState({website: event.target.value});
     }
 
-    changeGenderHandler= (event) => {
-        const selectedGender = event.target.value;
-        let genderChar;
+    changeLocationHandler= (event) => {
+        this.setState({location: event.target.value});
+    }
 
-        if (selectedGender === 'male') {
-        genderChar = 'M';
-        } else if (selectedGender === 'female') {
-        genderChar = 'F';
-        } else if (selectedGender === 'non-binary') {
-        genderChar = 'N';
-        } else {
-        genderChar = 'O';
-        }
-        this.setState({gender: genderChar});
+    changeEmailHandler= (event) => {
+        this.setState({email: event.target.value});
     }
 
     changeDescriptionHandler= (event) => {
@@ -83,14 +82,15 @@ class EditProfile extends Component {
             fullName: this.state.fullName,
             password: null,
             contactNo: this.state.contactNo,
-            gender: this.state.gender,
-            dob: null
+            location: this.state.location,
+            website: this.state.website,
+            description: this.state.description
         };
         const formData = new FormData();
         formData.append('pfp',this.state.profilePicture);
         console.log('profile => ' + JSON.stringify(profile));
         MediaService.uploadPfp(formData);
-        VolunteerService.updateVolunteer(profile).then(res => {
+        OrgService.updateOrganisation(profile).then(res => {
             this.props.navigate('/');
             console.log(res.status);
         });
@@ -98,6 +98,7 @@ class EditProfile extends Component {
     }
 
     render() {
+
         console.log(this.state);
         return (
             <>
@@ -119,19 +120,19 @@ class EditProfile extends Component {
                                    onChange={this.changeEmailHandler}/>
                         </label>
                         <label>
-                            <p>Gender</p>
-                            <select
-                                className="select select-bordered w-full"
-                                required value={this.state.gender}
-                                onChange={this.changeGenderHandler}
-                            >
-                                <option disabled selected>
-                                Select type
-                                </option>
-                                <option value={"male"}>Male</option>
-                                <option value={"female"}>Female</option>
-                                <option value={"non-binary"}>Non-binary</option>
-                            </select>
+                            <p>Location</p>
+                            <input type="text" required value={this.state.location}
+                                   onChange={this.changeLocationHandler}/>
+                        </label>
+                        <label>
+                            <p>Website</p>
+                            <input type="text" required value={this.state.website}
+                                   onChange={this.changeWebsiteHandler}/>
+                        </label>
+                        <label>
+                            <p>Description</p>
+                            <input type="text" required value={this.state.description}
+                                   onChange={this.changeDescriptionHandler}/>
                         </label>
                         <label>
                             <p>Profile Picture</p>
@@ -150,4 +151,4 @@ class EditProfile extends Component {
 
 }
 
-export default withNavigateandLocation(EditProfile);
+export default withNavigateandLocation(EditOrgProfile);

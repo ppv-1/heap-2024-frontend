@@ -36,6 +36,7 @@ import PostedEventDetails from "./components/postedEventDetails";
 import { NavigateProvider } from './services/NavigateProvider';
 import ForgetPassword from "./components/forgetPassword";
 import EditProfile from "./components/editProfile";
+import EditOrgProfile from "./components/editOrgProfile";
 
 export default function App() {
   return (
@@ -67,6 +68,7 @@ export default function App() {
             <Route exact path="/manage-orgs" element={<ManageOrgs />} />
             <Route exact path="/create-reward" element={<CreateReward />} />
             <Route exact path="/edit-profile" element={<EditProfile />} />
+            <Route exact path="/edit-org-profile" element={<EditOrgProfile />} />
             <Route exact path="/user-profile" element={<UserProfileComponent />} />
             <Route exact path="/org-profile" element={<OrganisationProfileComponent />} />
             <Route exact path="/create-opportunity" element={<CreateOppComponent />} />

@@ -3,7 +3,6 @@ import "./css/Profile.css";
 import withNavigateandLocation from "./withNavigateandLocation";
 import { Link } from "react-router-dom";
 import UserService from "../services/UserService";
-// import { api } from "../services/UserService";
 import ToggleThemeComponent from "./toggleTheme.jsx";
 import MediaService from "../services/MediaService";
 
@@ -12,7 +11,6 @@ class UserProfileComponent extends Component {
     super(props);
 
     this.state = {
-      code: "",
       fullName: "",
       contactNo: "",
       email: "",

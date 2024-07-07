@@ -14,6 +14,10 @@ class OrganisationService{
         return await ProtectedAPI.get(`/organisation/events/${orgId}`);
     }
 
+    async updateOrganisation(org){
+        return await ProtectedAPI.put(`/organisation/updateDetails`, org);
+    }
+
 }
 
 export default new OrganisationService()
