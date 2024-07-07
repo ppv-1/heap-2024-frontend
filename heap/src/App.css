@@ -91,3 +91,10 @@
   text-align: center;
 }
 
+.toast > .alert {
+  padding: auto;
+}
+
+.toast > .alert > span {
+  font-size: 20px;
+}

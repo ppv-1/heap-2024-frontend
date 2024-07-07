@@ -13,6 +13,7 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
+      showLoginAlert: false,
     };
     this.changeUsernameHandler = this.changeUsernameHandler.bind(this);
     this.changePasswordHandler = this.changePasswordHandler.bind(this);
@@ -43,13 +44,13 @@ class Login extends Component {
         // this.props.navigate("/user-profile");
         if (res.data.userType === "V") {
           console.log(res.data.userType);
-          this.props.navigate("/user-profile");
+          this.props.navigate("/user-profile", { state: { showLoginAlert: true } });
         } else if (res.data.userType === "O") {
           console.log(res.data.userType);
-          this.props.navigate("/create-opportunity");
+          this.props.navigate("/create-opportunity", { state: { showLoginAlert: true } });
         } else if (res.data.userType === "A") {
           console.log(res.data.userType);
-          this.props.navigate("/");
+          this.props.navigate("/", { state: { showLoginAlert: true } });
         }
         // this.props.navigate("/user-profile");
       } else {

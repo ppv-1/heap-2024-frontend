@@ -16,7 +16,7 @@ class HomeComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = { fullName: "", showLoginAlert: false };
   }
 
   fetchData = async () => {
@@ -27,11 +27,26 @@ class HomeComponent extends Component {
     // }
     console.log(JSON.stringify(res.data));
     console.log(res.data + typeof res.data);
-    this.setState({ items: res.data.events });
+    this.setState({ items: res.data.events, fullName: res.data.fullName });
   };
 
   async componentDidMount() {
     await this.fetchData();
+    if (this.props.location.state && this.props.location.state.showAlert) {
+      this.setState({ showAlert: true }, () => {
+        console.log("showAlert=", this.state.showAlert);
+      });
+      setTimeout(() => {
+        this.setState({ showAlert: false });
+      }, 3000);
+    } else if (this.props.location.state && this.props.location.state.showLoginAlert) {
+      this.setState({ showLoginAlert: true }, () => {
+        console.log("showAlert=", this.state.showLoginAlert);
+      });
+      setTimeout(() => {
+        this.setState({ showLoginAlert: false });
+      }, 3000);
+    }
   }
 
   oppButtonHandler = (event) => {
@@ -225,6 +240,14 @@ class HomeComponent extends Component {
             </div>
           </motion.div>
         </div>
+
+        {this.state.showLoginAlert && (
+          <div className="toast toast-end">
+            <div className="alert alert-success">
+              <span>Welcome back, {this.state.fullName}</span>
+            </div>
+          </div>
+        )}
       </>
     );
   }

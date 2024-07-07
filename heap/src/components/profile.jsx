@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./css/Profile.css";
 import withNavigateandLocation from "./withNavigateandLocation";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import UserService from "../services/UserService";
-import { api } from "../services/UserService";
+// import { api } from "../services/UserService";
 import ToggleThemeComponent from "./toggleTheme.jsx";
 import MediaService from "../services/MediaService";
 
@@ -17,8 +17,14 @@ class UserProfileComponent extends Component {
       contactNo: "",
       email: "",
       gender: "",
-      profilePicture: null
+      profilePicture: null,
+      showAlert: false,
+      showLoginAlert: false,
     };
+
+    this.fetchData = this.fetchData.bind(this);
+    this.changePasswordHandler = this.changePasswordHandler.bind(this);
+    this.EditProfileNavigate = this.EditProfileNavigate.bind(this);
 
     // UserService.getProfile().then((res) => {
     // // api.get("/profile").then((res) => {
@@ -45,14 +51,14 @@ class UserProfileComponent extends Component {
     const base64Image = await MediaService.getPfp();
 
     console.log(base64Image.data);
-    const dataUrl= `data:image/jpeg;base64,${base64Image.data}`;
+    const dataUrl = `data:image/jpeg;base64,${base64Image.data}`;
     console.log(dataUrl);
     this.setState({
       fullName: res.data.fullName,
       contactNo: res.data.contactNo,
       email: res.data.email,
       gender: res.data.gender,
-      profilePicture: dataUrl
+      profilePicture: dataUrl,
     });
   };
 
@@ -72,30 +78,22 @@ class UserProfileComponent extends Component {
     //   window.location.reload()
     // } else {
     this.fetchData();
-    // }
 
-    // if (this.state.code !== 200) {
-    //   localStorage.removeItem("token");
-    //   this.props.navigate("/login");
-    // }
-    // UserService.getProfile().then((res) => {
-    //   this.setState({fullName: res.data.fullName,
-    //     contactNo: res.data.contactNo,
-    //     email: res.data.email,
-    //     gender: res.data.gender});
-    //     console.log(res.data)
-    //     // if (res.data.code === 200) {
-    //     //   this.setState({
-    //     //     fullName: res.data.fullName,
-    //     //     contactNo: res.data.contactNo,
-    //     //     email: res.data.email,
-    //     //     gender: res.data.gender
-    //     //   });
-    //     // } else {
-    //     //   localStorage.removeItem("token");
-    //     //   this.props.navigate("/login");
-    //     // }
-    //   });
+    if (this.props.location.state && this.props.location.state.showAlert) {
+      this.setState({ showAlert: true }, () => {
+        console.log("showAlert=", this.state.showAlert);
+      });
+      setTimeout(() => {
+        this.setState({ showAlert: false });
+      }, 3000);
+    } else if (this.props.location.state && this.props.location.state.showLoginAlert) {
+      this.setState({ showLoginAlert: true }, () => {
+        console.log("showLoginAlert=", this.state.showLoginAlert);
+      });
+      setTimeout(() => {
+        this.setState({ showLoginAlert: false });
+      }, 3000);
+    }
   }
   //
 
@@ -106,6 +104,17 @@ class UserProfileComponent extends Component {
     // if (!localStorage.getItem('token')){
     //   return;
     // }
+
+    const gender = this.state.gender;
+    if (gender === "M") {
+      let genderFull = "Male";
+    } else if (gender === "F") {
+      let genderFull = "Female";
+    } else if (gender === "N") {
+      let genderFull = "Non-binary";
+    } else {
+      let genderFull = "None";
+    }
 
     return (
       <>
@@ -122,7 +131,7 @@ class UserProfileComponent extends Component {
         <div className="divider"></div>
         <div className="details">
           <div className="details-top">
-            <h1>Account Details</h1>
+            <h1>Profile Details</h1>
             <div className="right-side">
               <div className="edit-button">
                 <button
@@ -165,42 +174,25 @@ class UserProfileComponent extends Component {
             <ToggleThemeComponent></ToggleThemeComponent>
           </div>
         </div>
+
+        {this.state.showAlert && (
+          <div className="toast toast-end">
+            <div className="alert alert-success">
+              <span>Profile updated successfully!</span>
+            </div>
+          </div>
+        )}
+
+        {this.state.showLoginAlert && (
+          <div className="toast toast-end">
+            <div className="alert alert-success">
+              <span>Welcome back, {this.state.fullName}!</span>
+            </div>
+          </div>
+        )}
       </>
     );
   }
 }
 
 export default withNavigateandLocation(UserProfileComponent);
-
-// const Profile = () => {
-//   return (
-//     <>
-//       <section className="banner h-screen flex justify-center items-center">
-//         <section className="profile text-center mt-8 font-bold">
-//           <div class="avatar">
-//             <div class="w-36 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
-//               <img src={pfp} alt="avatar" />
-//             </div>
-//           </div>
-//           <h1>John Lee</h1>
-//         </section>
-//       </section>
-//       <div className="divider"></div>
-
-//       <section className="details-container h-screen flex justify-center items-center">
-//         <section className="details">
-//           <h1>Account</h1>
-//           <br />
-//           <h2>Name</h2>
-//           <p>John Lee</p>
-//           <h2>Phone Number</h2>
-//           <p>1234 5678</p>
-//           <h2>Email Address</h2>
-//           <p>johnlee@gmail.com</p>
-//         </section>
-//       </section>
-//     </>
-//   );
-// };
-
-// export default Profile;

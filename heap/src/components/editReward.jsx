@@ -75,7 +75,12 @@ class EditReward extends Component{
         RewardService.updateReward(this.state.id, reward).then(res => {
             this.props.navigate('/');
             console.log(res.status);
-        })
+        });
+        return (
+            <>
+
+            </>
+        );
     }
 
     render() {
@@ -83,7 +88,7 @@ class EditReward extends Component{
         console.log(this.state);
         return (
             <>
-                <div className="wrapper">
+                <div className="content">
                     <h1 className="title">Create Reward</h1>
 
                     <form>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import withNavigateandLocation from "./withNavigateandLocation";
 import VolunteerService from "../services/VolunteerService";
+import "./css/Opportunities.css";
 
 class RegisteredEvent extends Component {
   constructor(props) {
@@ -77,14 +78,3 @@ class RegisteredEvent extends Component {
 }
 
 export default withNavigateandLocation(RegisteredEvent);
-
-// const Opps = () => {
-//   return (
-//     <div>
-//       <h1>Opportunities</h1>
-//       <p>Here you can find various opportunities.</p>
-//     </div>
-//   );
-// };
-
-// export default Opps;

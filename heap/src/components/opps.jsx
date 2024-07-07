@@ -357,8 +357,15 @@ class OpportunitiesComponent extends Component {
                   />
                 </figure>
                 <div className="card-body">
-                  <h2 className="card-title">{item.name}</h2>
+                  <div className="card-title">
+                    <h2 className="card-title">{item.name}</h2>
+                    <div className="badge badge-accent">
+                      {item.neededManpowerCount - item.currentManpowerCount}{" "}
+                      Spots left
+                    </div>
+                  </div>
                   <h1>{item.id}</h1>
+
                   <p>Volunteer opportunity</p>
                   <div className="card-actions justify-end">
                     <button
