@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./css/Organisations.css";
 import withNavigateandLocation from "./withNavigateandLocation";
 import RewardService from "../services/RewardService";
+import MediaService from "../services/MediaService";
 
 class Rewards extends Component {
   constructor(props) {
@@ -9,15 +10,40 @@ class Rewards extends Component {
 
     this.state = {
       items: [],
+      images: {}, // To store the images for each reward
+      loading: true // To manage the loading state
     };
   }
+
   fetchData = async () => {
-    const res = await RewardService.getAllRewards().then((res) => {
+    try {
+      const res = await RewardService.getAllRewards();
       console.log(JSON.stringify(res.data));
       console.log(res.data + typeof res.data);
       console.log(res.data.rewards);
-      this.setState({ items: res.data.rewards });
-    });
+      
+      const rewards = res.data.rewards;
+      this.setState({ items: rewards });
+
+      // Fetch images for each reward
+      const images = await Promise.all(rewards.map(async (reward) => {
+        const imageRes = await MediaService.getRewardMedia(reward.id);
+        return { id: reward.id, imageUrl: `data:image/jpeg;base64,${imageRes.data}` };
+      }));
+
+      // Convert array of images to an object with reward id as key
+      const imagesObject = images.reduce((acc, curr) => {
+        acc[curr.id] = curr.imageUrl;
+        return acc;
+      }, {});
+
+      this.setState({ images: imagesObject, loading: false });
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      alert('An error occurred while fetching data.');
+      this.setState({ loading: false });
+    }
   };
 
   async componentDidMount() {
@@ -30,7 +56,12 @@ class Rewards extends Component {
   };
 
   render() {
-    let items = this.state.items;
+    const { items, images, loading } = this.state;
+
+    if (loading) {
+      return <div>Loading...</div>; // Show a loading indicator while fetching data
+    }
+
     return (
       <div className="wrapper">
         <div className="text-sm breadcrumbs">
@@ -51,7 +82,7 @@ class Rewards extends Component {
             >
               <figure>
                 <img
-                  src="https://cdn-icons-png.flaticon.com/512/1426/1426770.png"
+                  src={images[item.id] || "https://cdn-icons-png.flaticon.com/512/1426/1426770.png"}
                   alt={item.name}
                 />
               </figure>

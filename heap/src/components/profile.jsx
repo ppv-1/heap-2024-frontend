@@ -47,19 +47,25 @@ class UserProfileComponent extends Component {
   }
 
   fetchData = async () => {
-    const res = await UserService.getProfile();
-    const base64Image = await MediaService.getPfp();
+    try {
+      const res = await UserService.getProfile();
+      const base64Image = await MediaService.getPfp();
 
-    console.log(base64Image.data);
-    const dataUrl = `data:image/jpeg;base64,${base64Image.data}`;
-    console.log(dataUrl);
-    this.setState({
-      fullName: res.data.fullName,
-      contactNo: res.data.contactNo,
-      email: res.data.email,
-      gender: res.data.gender,
-      profilePicture: dataUrl,
-    });
+      console.log(base64Image.data);
+      const dataUrl = `data:image/jpeg;base64,${base64Image.data}`;
+      console.log(dataUrl);
+
+      this.setState({
+        fullName: res.data.fullName,
+        contactNo: res.data.contactNo,
+        email: res.data.email,
+        gender: res.data.gender,
+        profilePicture: dataUrl
+      });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      alert('An error occurred while fetching data.');
+    }
   };
 
   changePasswordHandler = (event) => {
@@ -73,10 +79,6 @@ class UserProfileComponent extends Component {
   };
 
   componentDidMount() {
-    // if (localStorage.getItem("token") === null) {
-    //   this.props.navigate("/login");
-    //   window.location.reload()
-    // } else {
     this.fetchData();
 
     if (this.props.location.state && this.props.location.state.showAlert) {
@@ -95,15 +97,9 @@ class UserProfileComponent extends Component {
       }, 3000);
     }
   }
-  //
+  
 
   render() {
-    // const { state } = this.props.location;
-    // console.log(state);
-    // console.log(localStorage.getItem("token"));
-    // if (!localStorage.getItem('token')){
-    //   return;
-    // }
 
     const gender = this.state.gender;
     if (gender === "M") {

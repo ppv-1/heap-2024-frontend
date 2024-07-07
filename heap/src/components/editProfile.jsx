@@ -97,12 +97,103 @@ class EditProfile extends Component {
     });
   };
 
-  render() {
-    console.log(this.state);
-    return (
-      <>
-        <div className="content">
-          <h1 className="title">Edit Profile</h1>
+    changeGenderHandler= (event) => {
+        const selectedGender = event.target.value;
+        let genderChar;
+
+        if (selectedGender === 'male') {
+        genderChar = 'M';
+        } else if (selectedGender === 'female') {
+        genderChar = 'F';
+        } else if (selectedGender === 'non-binary') {
+        genderChar = 'N';
+        } else {
+        genderChar = 'O';
+        }
+        this.setState({gender: genderChar});
+    }
+
+    changeDescriptionHandler= (event) => {
+        this.setState({description: event.target.value});
+    }   
+
+    changeProfilePictureHandler= (event) =>{
+        this.setState({ profilePicture: event.target.files[0] });
+    }
+
+    editProfile = (e) => {
+        e.preventDefault();
+        const { state } = this.props.location;
+        console.log(state);
+        let profile = {
+            email: this.state.email,
+            fullName: this.state.fullName,
+            password: null,
+            contactNo: this.state.contactNo,
+            gender: this.state.gender,
+            dob: null
+        };
+        const formData = new FormData();
+        formData.append('pfp',this.state.profilePicture);
+        console.log('profile => ' + JSON.stringify(profile));
+        MediaService.uploadPfp(formData);
+        VolunteerService.updateVolunteer(profile).then(res => {
+            this.props.navigate('/');
+            console.log(res.status);
+        });
+
+    }
+
+    render() {
+
+        console.log(this.state);
+        return (
+            <>
+                <div className="wrapper">
+                <h1 className="title">Edit Profile</h1>
+
+                    <form enctype="multipart/form-data">
+                        <label>
+                            <p>Name</p>
+                            <input type="text" required value={this.state.fullName} onChange={this.changeNameHandler}/>
+                        </label>
+                        <label>
+                            <p>Contact No</p>
+                            <input type="number" required value={this.state.contactNo} onChange={this.changeContactNoHandler}/>
+                        </label>
+                        <label>
+                            <p>Email</p>
+                            <input type="text" required value={this.state.email}
+                                   onChange={this.changeEmailHandler}/>
+                        </label>
+                        <label>
+                            <p>Gender</p>
+                            <select
+                                className="select select-bordered w-full"
+                                required value={this.state.gender}
+                                onChange={this.changeGenderHandler}
+                            >
+                                <option disabled selected>
+                                Select type
+                                </option>
+                                <option value={"male"}>Male</option>
+                                <option value={"female"}>Female</option>
+                                <option value={"non-binary"}>Non-binary</option>
+                            </select>
+                        </label>
+                        <label>
+                            <p>Profile Picture</p>
+                            <input required type="file" accept="image/*" onChange={this.changeProfilePictureHandler}/>
+                        </label>
+
+                        <div className="button-container">
+                            <button className="btn btn-wide" onClick={this.editProfile}>Save</button>
+                        </div>
+                    </form>
+                </div>
+            </>
+        );
+    }
 
           <form encType="multipart/form-data">
             <label>

@@ -15,7 +15,7 @@ class RewardService {
   }
 
   async getReward(rewardId) {
-    return await ProtectedAPI.get(`/reward/get/${rewardId}`);
+    return await ProtectedAPI.get(`/reward/reward-category/get/${rewardId}`);
   }
 
   async deleteRewards(rewardId) {
