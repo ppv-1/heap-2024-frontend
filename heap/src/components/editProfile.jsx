@@ -145,7 +145,6 @@ class EditProfile extends Component {
     }
 
     render() {
-
         console.log(this.state);
         return (
             <>
@@ -194,70 +193,6 @@ class EditProfile extends Component {
             </>
         );
     }
-
-          <form encType="multipart/form-data">
-            <label>
-              <p>Name</p>
-              <input
-                type="text"
-                required
-                value={this.state.fullName}
-                onChange={this.changeNameHandler}
-              />
-            </label>
-            <label>
-              <p>Contact No</p>
-              <input
-                type="number"
-                required
-                value={this.state.contactNo}
-                onChange={this.changeContactNoHandler}
-              />
-            </label>
-            <label>
-              <p>Email</p>
-              <input
-                type="text"
-                required
-                value={this.state.email}
-                onChange={this.changeEmailHandler}
-              />
-            </label>
-            <label>
-              <p>Gender</p>
-              <select
-                className="select select-bordered w-full"
-                onChange={this.changeGenderHandler}
-              >
-                <option disabled selected>
-                  Select type
-                </option>
-                <option value={"male"}>Male</option>
-                <option value={"female"}>Female</option>
-                <option value={"non-binary"}>Non-binary</option>
-              </select>
-            </label>
-            <label>
-              <p>Profile Picture</p>
-              <input
-                required
-                type="file"
-                className="file-input file-input-bordered w-full max-w-xs"
-                accept="image/*"
-                onChange={this.changeProfilePictureHandler}
-              />
-            </label>
-
-            <div className="button-container">
-              <button className="btn btn-wide" onClick={this.editProfile}>
-                Save
-              </button>
-            </div>
-          </form>
-        </div>
-      </>
-    );
-  }
 }
 
 export default withNavigateandLocation((props) => (
