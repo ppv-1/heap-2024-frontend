@@ -3,15 +3,11 @@ import { API } from "./API";
 
 class OppService {
   async createOpp(opp) {
-    return await ProtectedAPI.post(`/event/create`, opp, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    return await ProtectedAPI.post(`/event/create`, opp);
   }
 
   async getOpp(eventId) {
-    return await API.get(`/event/get/${eventId}`);
+    return await ProtectedAPI.get(`/event/get/${eventId}`);
   }
 
   async updateOpp(eventId, opp) {
@@ -27,8 +23,13 @@ class OppService {
   }
 
   async getEventParticipants(eventId) {
-    return await ProtectedAPI.get(`/${eventId}/participants`);
+    return await ProtectedAPI.get(`/event/${eventId}/participants`);
   }
+
+  async setEventAttendance(eventId, attendanceList){
+    return await ProtectedAPI.post(`/event/${eventId}/participants/attendance`, attendanceList);
+  }
+
 }
 
 export default new OppService();

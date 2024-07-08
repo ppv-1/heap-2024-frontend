@@ -23,7 +23,7 @@ class RewardService {
   }
 
   async uploadReward(rewardId, file){
-    return await ProtectedAPI.post(`/reward/reward-category/upload-barcodes/${rewardId}`, file)
+    return await ProtectedAPI.post(`/reward/reward-category/upload-barcodes/${rewardId}`, file, {'Content-Type': 'multipart/form-data'})
   }
 
 }

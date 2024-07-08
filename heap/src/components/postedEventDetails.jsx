@@ -3,8 +3,6 @@ import "./css/OpportunityDetails.css";
 import { useParams } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
 import OppService from "../services/OppService";
-// import UserService from "../services/UserService";
-// import VolunteerService from "../services/VolunteerService";
 import OrgService from "../services/OrgService";
 
 class PostedEventDetails extends Component {
@@ -15,9 +13,12 @@ class PostedEventDetails extends Component {
             opportunity: null,
             loading: true,
             orgName: null,
-            participants: []
+            participants: [],
+            attendance: []
         };
 
+        this.markAttendance = this.markAttendance.bind(this);
+        this.submitAttendance = this.submitAttendance.bind(this);
     }
 
     fetchData = async () => {
@@ -30,11 +31,13 @@ class PostedEventDetails extends Component {
             console.log(res.status);
             console.log(res.data);
             console.log("participants =>" + participants.data);
+
             this.setState({
                 opportunity: res.data,
                 loading: false,
                 orgName: org.data.fullName,
-                participants: participants.data.vols
+                participants: participants.data.vols,
+                attendance: []
             });
         } catch (error) {
             console.error("Failed to fetch opportunity", error);
@@ -45,8 +48,28 @@ class PostedEventDetails extends Component {
         await this.fetchData();
     }
 
+    markAttendance(participant) {
+        this.setState(prevState => {
+            const isAttending = prevState.attendance.some(att => att.id === participant.id);
+            const newAttendance = isAttending
+                ? prevState.attendance.filter(att => att.id !== participant.id)
+                : [...prevState.attendance, participant];
+            
+            return { attendance: newAttendance };
+        });
+        
+    }
+
+    submitAttendance(){
+        
+        console.log("id => " + this.state.opportunity.id + "  attendance => " + this.state.attendance);
+        OppService.setEventAttendance(this.state.opportunity.id, this.state.attendance);
+
+    }
+
+
     render() {
-        const { opportunity, loading, orgName, participants } = this.state;
+        const { opportunity, loading, orgName, participants, attendance } = this.state;
         console.log(this.state);
 
         if (loading) {
@@ -109,10 +132,10 @@ class PostedEventDetails extends Component {
                                             <p>Volunteer</p>
                                             <div className="card-actions justify-end">
                                                 <button
-                                                    className="btn btn-neutral"
-
+                                                    className={`btn ${attendance.some(att => att.id === item.id) ? 'btn-success' : 'btn-neutral'}`}
+                                                    onClick={() => this.markAttendance(item)}
                                                 >
-                                                    Mark attendance
+                                                    {attendance.some(att => att.id === item.id) ? 'Attendance Marked' : 'Mark Attendance'}
                                                 </button>
                                             </div>
                                         </div>
@@ -120,7 +143,6 @@ class PostedEventDetails extends Component {
                                 ))}
                             </ul>
                         </div>
-
                     </div>
                     <div className="right-container">
                         <div className="right-details">
@@ -132,7 +154,10 @@ class PostedEventDetails extends Component {
                                     <p>Date: {opportunity.date}</p>
                                     <p>Start: {opportunity.startTime}</p>
                                     <p>End: {opportunity.endTime}</p>
-
+                                    <button
+                                    className="btn btn-neutral"
+                                    onClick={this.submitAttendance}
+                                    >Submit Attendance</button>
                                 </div>
                             </div>
                         </div>

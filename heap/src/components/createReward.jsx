@@ -104,6 +104,9 @@ class CreateReward extends Component {
                 accept="image/*"
                 onChange={this.changeRewardMediaHandler}
               />
+              {/* {this.state.fileErrorMessage && (
+                <div className="error-message">{this.state.fileErrorMessage}</div>
+              )} */}
             </label>
             <label>
               <p>Type</p>

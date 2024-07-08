@@ -26,7 +26,7 @@ class ManageRewards extends Component {
       try {
         const formData = new FormData();
         formData.append("file", file);
-        await RewardService.uploadReward(id, file); // Assuming this method exists in your MediaService
+        await RewardService.uploadReward(id, formData); // Assuming this method exists in your MediaService
         alert("Barcode uploaded successfully");
       } catch (error) {
         console.error("Error uploading barcodes:", error);
@@ -128,7 +128,6 @@ class ManageRewards extends Component {
                   type="file"
                   ref={`fileInput-${item.id}`}
                   style={{ display: "none" }}
-                  accept="image/*"
                   onChange={(event) => this.handleFileChange(event, item.id)}
                 />
                 <button className="btn btn-primary" onClick={(event) => this.uploadReward(event, item.id)}>

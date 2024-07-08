@@ -37,6 +37,8 @@ import { NavigateProvider } from './services/NavigateProvider';
 import ForgetPassword from "./components/forgetPassword";
 import EditProfile from "./components/editProfile";
 import EditOrgProfile from "./components/editOrgProfile";
+import CreateComplaint from "./components/createComplaint";
+import ManageComplaints from "./components/manageComplaints";
 
 export default function App() {
   return (
@@ -61,6 +63,8 @@ export default function App() {
           <Route exact path="/logout" element={<LogoutComponent />} />
           <Route exact path="/forget-password" element={<ForgetPassword />} />
           <Route element={<ProtectedRoute/>}>
+            <Route exact path="/create-complaint" element={<CreateComplaint />} />
+            <Route exact path="/manage-complaints" element={<ManageComplaints />} />
             <Route exact path="/posted-event/:id" element={<PostedEventDetails />} />
             <Route exact path="/edit-reward/:id" element={<EditReward />} />
             <Route exact path="/manage-rewards" element={<ManageRewards />} />
