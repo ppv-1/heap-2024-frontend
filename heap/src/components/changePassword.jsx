@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./css/ResetPassword.css";
+import "./css/Create.css";
 import { Link } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
 import validator from "validator";
@@ -91,7 +91,7 @@ class ChangePassword extends Component {
     console.log(this.state);
     return (
       <>
-        <div className="change-wrapper">
+        <div className="content">
           <h1 className="title">Change Password</h1>
           <form>
             <label>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./css/ResetPassword.css";
+import "./css/Create.css";
 import { useParams } from "react-router-dom";
 import withNavigate from "./withNavigateandLocation";
 import validator from "validator";
@@ -62,15 +62,13 @@ class ResetPassword extends Component {
     } else {
       this.setState({ errorMessage: "Is Not Strong Password" });
     }
-
-    
   };
 
   handleResetPasswordClick = async () => {
     const { token } = this.props.params;
     console.log(token);
     console.log(this.state.password);
-    let data = {newPassword: this.state.password}
+    let data = { newPassword: this.state.password };
     await AuthService.resetPassword(token, data);
     // this.props.navigate("/login");
   };
@@ -78,41 +76,39 @@ class ResetPassword extends Component {
   render() {
     const { password, confirmPassword, errorMessage } = this.state;
     return (
-      <>
-        <div className="reset-wrapper">
-          <h1 className="title">Reset Password</h1>
-          <form>
-            <label>
-              <p>Enter password</p>
-              <input
-                required
-                type="password"
-                value={password}
-                onChange={this.handleChangePassword}
-              />
-            </label>
-            <label>
-              <p>Confirm password</p>
-              <input
-                required
-                type="password"
-                value={confirmPassword}
-                onChange={this.handleChangeConfirmPassword}
-              />
-            </label>
-            <div className="error-message">{errorMessage}</div>
-            <div className="button-container">
-              <button
-                className="btn btn-wide"
-                // disabled={errorMessage !== "Strong Password"}
-                onClick={this.handleResetPasswordClick}
-              >
-                Reset Password
-              </button>
-            </div>
-          </form>
-        </div>
-      </>
+      <div className="content">
+        <h1 className="title">Reset Password</h1>
+        <form>
+          <label>
+            <p>Enter password</p>
+            <input
+              required
+              type="password"
+              value={password}
+              onChange={this.handleChangePassword}
+            />
+          </label>
+          <label>
+            <p>Confirm password</p>
+            <input
+              required
+              type="password"
+              value={confirmPassword}
+              onChange={this.handleChangeConfirmPassword}
+            />
+          </label>
+          <div className="error-message">{errorMessage}</div>
+          <div className="button-container">
+            <button
+              className="btn btn-wide"
+              // disabled={errorMessage !== "Strong Password"}
+              onClick={this.handleResetPasswordClick}
+            >
+              Reset Password
+            </button>
+          </div>
+        </form>
+      </div>
     );
   }
 }

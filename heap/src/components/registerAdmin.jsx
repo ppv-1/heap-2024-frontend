@@ -12,6 +12,7 @@ class RegisterAdmin extends Component {
       contactNo: "",
       email: "",
       password: "",
+      showLoginAlert: false,
     };
 
     this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -32,7 +33,7 @@ class RegisterAdmin extends Component {
     console.log("user (admin) => " + JSON.stringify(user));
 
     AuthService.createAdmin(user).then((res) => {
-      this.props.navigate("/login");
+      this.props.navigate("/", { state: { showLoginAlert: true } });
     });
   };
 

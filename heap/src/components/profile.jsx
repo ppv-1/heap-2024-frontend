@@ -171,7 +171,7 @@ class UserProfileComponent extends Component {
 
         {this.state.showAlert && (
           <div className="toast toast-end">
-            <div className="alert alert-success">
+            <div className="alert alert-success update">
               <span>Profile updated successfully!</span>
             </div>
           </div>
@@ -179,7 +179,7 @@ class UserProfileComponent extends Component {
 
         {this.state.showLoginAlert && (
           <div className="toast toast-end">
-            <div className="alert alert-success">
+            <div className="alert alert-info">
               <span>Welcome back, {this.state.fullName}!</span>
             </div>
           </div>

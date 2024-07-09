@@ -122,7 +122,7 @@ class Login extends Component {
             <div className="button-container">
               <Link to="/register-admin">
                 <button className="btn btn-wide">
-                  Create admin account (Test)
+                  Create admin account
                 </button>
               </Link>
             </div>

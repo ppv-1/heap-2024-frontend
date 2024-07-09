@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./css/ResetPassword.css";
+import "./css/Create.css";
 import withNavigate from "./withNavigateandLocation";
 import AuthService from "../services/AuthService";
 
@@ -33,7 +33,7 @@ class ForgetPassword extends Component {
     const { email } = this.state;
     return (
       <>
-        <div className="reset-wrapper">
+        <div className="content">
           <h1 className="title">Forget Password</h1>
           <form>
             <label>

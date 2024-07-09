@@ -39,7 +39,10 @@ class HomeComponent extends Component {
       setTimeout(() => {
         this.setState({ showAlert: false });
       }, 3000);
-    } else if (this.props.location.state && this.props.location.state.showLoginAlert) {
+    } else if (
+      this.props.location.state &&
+      this.props.location.state.showLoginAlert
+    ) {
       this.setState({ showLoginAlert: true }, () => {
         console.log("showAlert=", this.state.showLoginAlert);
       });
@@ -243,8 +246,11 @@ class HomeComponent extends Component {
 
         {this.state.showLoginAlert && (
           <div className="toast toast-end">
-            <div className="alert alert-success">
-              <span>Welcome back, {this.state.fullName}</span>
+            <div className="alert alert-info">
+              <span>
+                Welcome back
+                {this.state.fullName ? `, ${this.state.fullName}` : `, admin`}
+              </span>
             </div>
           </div>
         )}

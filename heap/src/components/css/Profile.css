@@ -100,3 +100,7 @@
 .change-password-container {
   max-width: 200px;
 }
+
+.toast {
+  z-index: 40;
+}

@@ -91,6 +91,10 @@
   text-align: center;
 }
 
+.toast {
+  z-index: 40;
+}
+
 .toast > .alert {
   padding: auto;
 }

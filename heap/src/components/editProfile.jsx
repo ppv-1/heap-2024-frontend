@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import withNavigateandLocation from './withNavigateandLocation';
+import withNavigateandLocation from "./withNavigateandLocation";
 import "./css/Create.css";
 import VolunteerService from "../services/VolunteerService";
 import UserService from "../services/UserService";
@@ -21,7 +21,8 @@ class EditProfile extends Component {
     this.changeContactNoHandler = this.changeContactNoHandler.bind(this);
     this.changeEmailHandler = this.changeEmailHandler.bind(this);
     this.changeGenderHandler = this.changeGenderHandler.bind(this);
-    this.changeProfilePictureHandler = this.changeProfilePictureHandler.bind(this);
+    this.changeProfilePictureHandler =
+      this.changeProfilePictureHandler.bind(this);
     this.editProfile = this.editProfile.bind(this);
   }
 
@@ -55,14 +56,14 @@ class EditProfile extends Component {
     const selectedGender = event.target.value;
     let genderChar;
 
-    if (selectedGender === 'male') {
-      genderChar = 'M';
-    } else if (selectedGender === 'female') {
-      genderChar = 'F';
-    } else if (selectedGender === 'non-binary') {
-      genderChar = 'N';
+    if (selectedGender === "male") {
+      genderChar = "M";
+    } else if (selectedGender === "female") {
+      genderChar = "F";
+    } else if (selectedGender === "non-binary") {
+      genderChar = "N";
     } else {
-      genderChar = 'O';
+      genderChar = "O";
     }
     this.setState({ gender: genderChar });
   };
@@ -88,15 +89,15 @@ class EditProfile extends Component {
       password: null,
       contactNo: this.state.contactNo,
       gender: this.state.gender,
-      dob: null
+      dob: null,
     };
     const formData = new FormData();
-    formData.append('pfp', this.state.profilePicture);
-    console.log('profile => ' + JSON.stringify(profile));
+    formData.append("pfp", this.state.profilePicture);
+    console.log("profile => " + JSON.stringify(profile));
     try {
       await MediaService.uploadPfp(formData);
       await VolunteerService.updateVolunteer(profile);
-      this.props.navigate('/');
+      this.props.navigate("/user-profile", { state: { showAlert: true } });
     } catch (error) {
       console.error("Failed to update profile", error);
     }
@@ -106,25 +107,47 @@ class EditProfile extends Component {
     console.log(this.state);
     return (
       <>
-        <div className="wrapper">
+        <div className="content">
           <h1 className="title">Edit Profile</h1>
           <form encType="multipart/form-data">
             <label>
               <p>Name</p>
-              <input type="text" required value={this.state.fullName} onChange={this.changeFullNameHandler} />
+              <input
+                type="text"
+                required
+                value={this.state.fullName}
+                onChange={this.changeFullNameHandler}
+              />
             </label>
             <label>
               <p>Contact No</p>
-              <input type="number" required value={this.state.contactNo} onChange={this.changeContactNoHandler} />
+              <input
+                type="number"
+                required
+                value={this.state.contactNo}
+                onChange={this.changeContactNoHandler}
+              />
             </label>
             <label>
               <p>Email</p>
-              <input type="text" required value={this.state.email} onChange={this.changeEmailHandler} />
+              <input
+                type="text"
+                required
+                value={this.state.email}
+                onChange={this.changeEmailHandler}
+              />
             </label>
             <label>
               <p>Gender</p>
-              <select className="select select-bordered w-full" required value={this.state.gender} onChange={this.changeGenderHandler}>
-                <option disabled selected>Select type</option>
+              <select
+                className="select select-bordered w-full"
+                required
+                value={this.state.gender}
+                onChange={this.changeGenderHandler}
+              >
+                <option disabled selected>
+                  Select type
+                </option>
                 <option value={"male"}>Male</option>
                 <option value={"female"}>Female</option>
                 <option value={"non-binary"}>Non-binary</option>
@@ -132,13 +155,23 @@ class EditProfile extends Component {
             </label>
             <label>
               <p>Profile Picture</p>
-              <input required type="file" accept="image/*" onChange={this.changeProfilePictureHandler} />
+              <input
+                required
+                type="file"
+                accept="image/*"
+                onChange={this.changeProfilePictureHandler}
+                className="file-input file-input-bordered w-full max-w-xs"
+              />
               {this.state.fileErrorMessage && (
-                <div className="error-message">{this.state.fileErrorMessage}</div>
+                <div className="error-message">
+                  {this.state.fileErrorMessage}
+                </div>
               )}
             </label>
             <div className="button-container">
-              <button className="btn btn-wide" onClick={this.editProfile}>Save</button>
+              <button className="btn btn-wide" onClick={this.editProfile}>
+                Save
+              </button>
             </div>
           </form>
         </div>

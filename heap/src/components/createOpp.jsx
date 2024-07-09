@@ -162,10 +162,39 @@ class CreateOppComponent extends Component {
     this.setState({ address: event.target.value });
   };
 
+  isFormComplete() {
+    const {
+      name,
+      date,
+      startTime,
+      endTime,
+      causes,
+      manpowerCount,
+      skills,
+      type,
+      location,
+      address,
+      description,
+    } = this.state;
+
+    return (
+      name &&
+      date &&
+      startTime &&
+      endTime &&
+      causes.length > 0 &&
+      manpowerCount &&
+      skills.length > 0 &&
+      location &&
+      description
+    );
+  };
+
   render() {
     // const { state } = this.props.location;
     console.log(this.state);
     console.log(this.state.user);
+    const isComplete = this.isFormComplete();
     return (
       <>
         <div className="content">
@@ -215,7 +244,8 @@ class CreateOppComponent extends Component {
                 options={causes}
                 value={this.state.causes}
                 onChange={this.changeCausesHandler}
-                labelledBy="Select related causes"
+                labelledBy="causes"
+                hasSelectAll={false}
               />
             </label>
             <label>
@@ -233,8 +263,8 @@ class CreateOppComponent extends Component {
                 options={skills}
                 value={this.state.skills}
                 onChange={this.changeSkillsHandler}
-                labelledBy="Select related skills"
-                className="table"
+                labelledBy="skills"
+                hasSelectAll={false}
               />
             </label>
             <label>
@@ -299,7 +329,7 @@ class CreateOppComponent extends Component {
               />
             </label>
             <div className="button-container">
-              <button className="btn btn-wide" onClick={this.createOpp}>
+              <button className="btn btn-wide" onClick={this.createOpp} disabled={!isComplete}>
                 Create Event
               </button>
             </div>

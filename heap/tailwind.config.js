@@ -13,6 +13,7 @@ module.exports = {
     "./src/components/toggleTheme.jsx",
     "./src/components/registeredEvent.jsx",
     "./src/components/editProfile.jsx",
+    "./src/components/manageVols.jsx",
   ],
   theme: {
     extend: {

@@ -1,12 +1,14 @@
 .footer {
-    background-color: rgb(233, 237, 243);
-    height: 150px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    margin-top: 10%;
+  background-color: rgb(233, 237, 243);
+  height: 130px;
+  left: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 2;
 }
 
 .footer-text {
-    color: rgb(0, 0, 0);
-    text-align: center;
+  color: rgb(0, 0, 0);
+  text-align: center;
 }
+

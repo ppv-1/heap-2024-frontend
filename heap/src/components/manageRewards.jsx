@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./css/Organisations.css";
+import "./css/Admin.css";
 import withNavigateandLocation from "./withNavigateandLocation";
 import RewardService from "../services/RewardService";
 import MediaService from "../services/MediaService";
@@ -69,7 +69,10 @@ class ManageRewards extends Component {
       const images = await Promise.all(
         rewards.map(async (reward) => {
           const imageRes = await MediaService.getRewardMedia(reward.id);
-          return { id: reward.id, imageUrl: `data:image/jpeg;base64,${imageRes.data}` };
+          return {
+            id: reward.id,
+            imageUrl: `data:image/jpeg;base64,${imageRes.data}`,
+          };
         })
       );
 
@@ -107,17 +110,27 @@ class ManageRewards extends Component {
           </ul>
         </div>
         <h1 className="title">Rewards</h1>
-        <p>Here you can find information about different rewards.</p>
-        <button className="btn btn-primary" onClick={this.createRewardHandler}>
-          Add new reward
-        </button>
+        <div className="reward-button-container">
+          <button
+            className="btn btn-primary"
+            onClick={this.createRewardHandler}
+          >
+            Add new reward
+          </button>
+        </div>
         <br />
         <div>
           {items.map((item) => (
-            <div key={item.id} className="card card-compact w-30 bg-base-100 shadow-xl">
+            <div
+              key={item.id}
+              className="card card-compact w-30 bg-base-100 shadow-xl"
+            >
               <figure>
                 <img
-                  src={images[item.id] || "https://cdn-icons-png.flaticon.com/512/1426/1426770.png"}
+                  src={
+                    images[item.id] ||
+                    "https://cdn-icons-png.flaticon.com/512/1426/1426770.png"
+                  }
                   alt={item.name}
                 />
               </figure>
@@ -130,13 +143,22 @@ class ManageRewards extends Component {
                   style={{ display: "none" }}
                   onChange={(event) => this.handleFileChange(event, item.id)}
                 />
-                <button className="btn btn-primary" onClick={(event) => this.uploadReward(event, item.id)}>
+                <button
+                  className="btn btn-primary"
+                  onClick={(event) => this.uploadReward(event, item.id)}
+                >
                   Upload Barcodes
                 </button>
-                <button className="btn btn-primary" onClick={(event) => this.editReward(event, item.id)}>
+                <button
+                  className="btn btn-primary"
+                  onClick={(event) => this.editReward(event, item.id)}
+                >
                   Edit
                 </button>
-                <button className="btn btn-primary" onClick={(event) => this.deleteReward(event, item.id)}>
+                <button
+                  className="btn btn-primary"
+                  onClick={(event) => this.deleteReward(event, item.id)}
+                >
                   Delete
                 </button>
               </div>
