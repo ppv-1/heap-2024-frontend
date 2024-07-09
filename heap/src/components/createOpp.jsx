@@ -2,6 +2,7 @@ import React, { Component, useState } from "react";
 import withNavigateandLocation from "./withNavigateandLocation";
 import "./css/Create.css";
 import OppService from "../services/OppService";
+import MediaService from "../services/MediaService";
 import { MultiSelect } from "react-multi-select-component";
 
 const causes = [
@@ -71,6 +72,7 @@ class CreateOppComponent extends Component {
       location: "",
       address: "",
       description: "",
+      coverImage: null,
     };
 
     this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -109,7 +111,9 @@ class CreateOppComponent extends Component {
     console.log("opp => " + JSON.stringify(opp));
 
     OppService.createOpp(opp).then((res) => {
-      this.props.navigate("/");
+      this.props.navigate("/posted-event", {
+        state: { showCreateAlert: true, itemName: opp.name },
+      });
       console.log(res.status);
     });
   };
@@ -188,7 +192,7 @@ class CreateOppComponent extends Component {
       location &&
       description
     );
-  };
+  }
 
   render() {
     // const { state } = this.props.location;
@@ -329,7 +333,11 @@ class CreateOppComponent extends Component {
               />
             </label>
             <div className="button-container">
-              <button className="btn btn-wide" onClick={this.createOpp} disabled={!isComplete}>
+              <button
+                className="btn btn-wide"
+                onClick={this.createOpp}
+                disabled={!isComplete}
+              >
                 Create Event
               </button>
             </div>

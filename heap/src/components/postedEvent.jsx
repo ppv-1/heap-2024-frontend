@@ -10,7 +10,9 @@ class PostedEvent extends Component {
     super(props);
 
     this.state = {
-      items: []
+      items: [],
+      showCreateAlert: false,
+      itemName: "",
     };
   }
 
@@ -48,7 +50,18 @@ class PostedEvent extends Component {
     }
 
     async componentDidMount() {
-        await this.fetchData();
+      await this.fetchData();
+      if (
+        this.props.location.state &&
+        this.props.location.state.showCreateAlert
+      ) {
+        this.setState({ showCreateAlert: true }, () => {
+          console.log("showAlert=", this.state.showCreateAlert);
+        });
+        setTimeout(() => {
+          this.setState({ showCreateAlert: false, itemName: "" });
+        }, 3000);
+      }
     }
 
   render() {
@@ -94,6 +107,14 @@ class PostedEvent extends Component {
               </div>
             ))}
           </div>
+
+          {this.state.showCreateAlert && (
+          <div className="toast toast-end">
+            <div className="alert alert-success">
+              <span>{this.state.itemName} created successfully!</span>
+            </div>
+          </div>
+        )}
 
         </div>
     );

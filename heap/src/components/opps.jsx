@@ -364,9 +364,9 @@ class OpportunitiesComponent extends Component {
                       Spots left
                     </div>
                   </div>
-                  <h1>{item.id}</h1>
+                  {/* <h1>{item.id}</h1> */}
 
-                  <p>Volunteer opportunity</p>
+                  {/* <p>Volunteer opportunity</p> */}
                   <div className="card-actions justify-end">
                     <button
                       className="btn btn-neutral"

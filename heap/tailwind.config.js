@@ -10,10 +10,12 @@ module.exports = {
     "./src/components/home.jsx",
     "./src/components/createOpp.jsx",
     "./src/components/opps.jsx",
+    "./src/components/oppDetails.jsx",
     "./src/components/toggleTheme.jsx",
     "./src/components/registeredEvent.jsx",
     "./src/components/editProfile.jsx",
     "./src/components/manageVols.jsx",
+    "./src/components/registeredEvent.jsx",
   ],
   theme: {
     extend: {

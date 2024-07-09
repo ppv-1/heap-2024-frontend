@@ -103,3 +103,7 @@
   margin-top: 10px;
   margin-right: 5%;
 }
+
+.toast {
+  z-index: 40;
+}

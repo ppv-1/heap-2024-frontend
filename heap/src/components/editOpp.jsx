@@ -196,7 +196,7 @@ class EditOpp extends Component {
     console.log(this.state.user);
     return (
       <>
-        <div className="wrapper">
+        <div className="content">
           <h1 className="title">Edit Event</h1>
 
           <form>

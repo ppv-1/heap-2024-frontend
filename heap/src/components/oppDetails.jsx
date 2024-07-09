@@ -46,7 +46,8 @@ class Opportunity extends Component {
     const eventId = this.props.params.id;
     console.log(eventId);
     await VolunteerService.registerEvent(eventId);
-    alert("You have successfully registered for this event");
+    // alert("You have successfully registered for this event");
+    this.props.navigate("/registered-event", { state: { showRegAlert: true } });
   };
 
   render() {

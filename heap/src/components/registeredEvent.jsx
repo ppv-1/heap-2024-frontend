@@ -9,6 +9,7 @@ class RegisteredEvent extends Component {
 
     this.state = {
       items: [],
+      showRegAlert: false,
     };
   }
 
@@ -19,7 +20,7 @@ class RegisteredEvent extends Component {
     );
     console.log(id);
     if (result) {
-      const event = await VolunteerService.unregisterEvent(id);
+      await VolunteerService.unregisterEvent(id);
       window.location.reload();
       alert("Successfully unregistered");
     }
@@ -34,6 +35,14 @@ class RegisteredEvent extends Component {
 
   componentDidMount() {
     this.fetchData();
+    if (this.props.location.state && this.props.location.state.showRegAlert) {
+      this.setState({ showRegAlert: true }, () => {
+        console.log("showAlert=", this.state.showRegAlert);
+      });
+      setTimeout(() => {
+        this.setState({ showRegAlert: false });
+      }, 3000);
+    }
   }
 
   render() {
@@ -56,15 +65,9 @@ class RegisteredEvent extends Component {
           <>
             <p>These are the volunteer opportunities you are signed up for.</p>
             <br />
-            <div className="content-wrapper">
+            <div className="event-listings">
               {items.map((item) => (
-                <div
-                  className="card card-compact w-30 bg-base-100 shadow-xl"
-                  style={{
-                    filter: "drop-shadow(0px 0px 5px #555)",
-                    borderRadius: 10,
-                  }}
-                >
+                <div className="card card-compact w-30 bg-base-100 shadow-xl">
                   <figure>
                     <img
                       src="https://static.wixstatic.com/media/7ab21d_0065f074991045f19085036583d803c7~mv2.png/v1/fill/w_365,h_174,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/SICS%20Logo.png"
@@ -87,6 +90,13 @@ class RegisteredEvent extends Component {
                   </div>
                 </div>
               ))}
+              {this.state.showRegAlert && (
+                <div className="toast toast-end">
+                  <div className="alert alert-success update">
+                    <span>Registered successfully!</span>
+                  </div>
+                </div>
+              )}
             </div>
           </>
         )}

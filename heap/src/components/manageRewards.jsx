@@ -102,13 +102,6 @@ class ManageRewards extends Component {
 
     return (
       <div className="wrapper">
-        <div className="text-sm breadcrumbs">
-          <ul>
-            <li>
-              <a href="/">Home</a>
-            </li>
-          </ul>
-        </div>
         <h1 className="title">Rewards</h1>
         <div className="reward-button-container">
           <button
@@ -119,7 +112,7 @@ class ManageRewards extends Component {
           </button>
         </div>
         <br />
-        <div>
+        <div className="reward-listing">
           {items.map((item) => (
             <div
               key={item.id}

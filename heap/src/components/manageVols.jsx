@@ -182,7 +182,7 @@ class ManageVols extends Component {
   // };
 
   render() {
-    let { items, modalVisible, modalType, selectedVol, alertMessage } = this.state;
+    let { items, modalVisible, modalType, selectedVol } = this.state;
     return (
       <div className="wrapper">
         <h1 className="title">Manage Volunteers</h1>
@@ -202,7 +202,7 @@ class ManageVols extends Component {
               <div className="card-body">
                 <h2 className="card-title">{item.fullName}</h2>
                 <p>Volunteer</p>
-                {item.locked ? (
+                {item.locked === 1 ? (
                   <button
                     className="btn btn-primary"
                     onClick={(event) =>
