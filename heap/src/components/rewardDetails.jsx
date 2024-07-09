@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
 import RewardService from "../services/RewardService";
 import QRCode from 'qrcode.react';
+import UserService from "../services/UserService";
 
 class RewardDetails extends Component {
     constructor(props) {
@@ -14,6 +15,16 @@ class RewardDetails extends Component {
             loading: true,
         };
 
+    }
+
+    redeemReward = async (event, id) => {
+        try{
+            await RewardService.redeemReward(id);
+            const res = await UserService.getProfile();
+            alert("Reward redeemed. You have " + res.data.points + " remaining.");
+        } catch (error) {
+            console.error("failed to redeem reward", error);
+        }
     }
 
     fetchData = async () => {
@@ -79,7 +90,7 @@ class RewardDetails extends Component {
                             <p>Points Needed: {reward.pointsNeeded}</p>
 
                             <div className="button-container">
-                                <button className="btn btn-wide">
+                                <button className="btn btn-wide" onClick={(event) => this.redeemReward(event, reward.id)}>
                                     Redeem
                                 </button>
                             </div>

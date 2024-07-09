@@ -23,7 +23,24 @@ class RewardService {
   }
 
   async uploadReward(rewardId, file){
-    return await ProtectedAPI.post(`/reward/reward-category/upload-barcodes/${rewardId}`, file, {'Content-Type': 'multipart/form-data'})
+    return await ProtectedAPI.post(`/reward/reward-category/upload-barcodes/${rewardId}`, file, {'Content-Type': 'multipart/form-data'});
+  }
+
+  async deleteRewardBarcode(rewardCatId, rewardId){
+    return await ProtectedAPI.get(`/reward/reward/delete/${rewardCatId}/${rewardId}`);
+  }
+
+  async redeemReward(rewardCatId){
+    return await ProtectedAPI.get(`/reward/reward/redeem/${rewardCatId}`);
+  }
+
+  async getRedeemedRewards(){
+    return await ProtectedAPI.get(`/reward/reward/all-redeemed`);
+  }
+
+  async getRewardBarcode(rewardId){
+    return await ProtectedAPI.get(`/reward/reward/view-barcode/${rewardId}`);
+
   }
 
 }

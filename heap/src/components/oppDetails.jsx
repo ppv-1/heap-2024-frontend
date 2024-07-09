@@ -3,9 +3,9 @@ import "./css/OpportunityDetails.css";
 import { useParams } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
 import OppService from "../services/OppService";
-import UserService from "../services/UserService";
-import VolunteerService from "../services/VolunteerService";
 import OrgService from "../services/OrgService";
+import MediaService from "../services/MediaService";
+import VolunteerService from "../services/VolunteerService";
 
 class Opportunity extends Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class Opportunity extends Component {
       opportunity: null,
       loading: true,
       orgName: null,
+      images: [],
     };
 
     this.registerEvent = this.registerEvent.bind(this);
@@ -26,12 +27,17 @@ class Opportunity extends Component {
     try {
       const res = await OppService.getOpp(id);
       const org = await OrgService.getOrg(res.data.organisation);
+      const imageRes = await MediaService.getEventPhotos(id);
+      
+      console.log(imageRes.data);
       console.log(res.status);
       console.log(res.data);
+
       this.setState({
         opportunity: res.data,
         loading: false,
         orgName: org.data.fullName,
+        images: imageRes.data, // Assuming imageRes.data is an array of base64 strings
       });
     } catch (error) {
       console.error("Failed to fetch opportunity", error);
@@ -51,7 +57,7 @@ class Opportunity extends Component {
   };
 
   render() {
-    const { opportunity, loading, orgName } = this.state;
+    const { opportunity, loading, orgName, images } = this.state;
     console.log(this.state);
 
     if (loading) {
@@ -85,7 +91,7 @@ class Opportunity extends Component {
             </ul>
           </div>
         </div>
-        
+
         <div className="details-container">
           <div className="left-container">
             <h1 className="title">
@@ -97,6 +103,24 @@ class Opportunity extends Component {
               <p>Description: {opportunity.description}</p>
               <p>Manpower needed: {opportunity.neededManpowerCount}</p>
               <p>Type: {opportunity.type}</p>
+              <div>
+                {images.map((image, index) => (
+                  <div
+                    className="card card-compact w-30 bg-base-100 shadow-xl"
+                  >
+                    <figure>
+                      <img
+                        src={`data:image/jpeg;base64,${image}`}
+                        alt={`Image ${index}`}
+                      />
+                    </figure>
+                    <div className="card-body">
+                      <p>image</p>
+                      <p>{image}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
           <div className="right-container">

@@ -41,7 +41,7 @@ class Rewards extends Component {
 
     } catch (error) {
       console.error('Error fetching data:', error);
-      alert('An error occurred while fetching data.');
+      // alert('An error occurred while fetching data.');
       this.setState({ loading: false });
     }
   };

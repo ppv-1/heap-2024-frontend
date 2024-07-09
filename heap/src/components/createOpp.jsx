@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import withNavigateandLocation from "./withNavigateandLocation";
 import "./css/Create.css";
 import OppService from "../services/OppService";
@@ -28,6 +28,7 @@ const causes = [
   { label: "Sports", value: "sports" },
   { label: "Women & Girls", value: "women" },
   { label: "Youth", value: "youth" },
+
 ];
 
 const skills = [
@@ -54,6 +55,7 @@ const skills = [
   { label: "Videography", value: "videography" },
   { label: "Web Design", value: "webDesign" },
   { label: "Others", value: "other" },
+
 ];
 
 class CreateOppComponent extends Component {
@@ -72,7 +74,7 @@ class CreateOppComponent extends Component {
       location: "",
       address: "",
       description: "",
-      coverImage: null,
+      eventMedia: []
     };
 
     this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -81,19 +83,24 @@ class CreateOppComponent extends Component {
     this.changeEndTimeHandler = this.changeEndTimeHandler.bind(this);
     this.changeCausesHandler = this.changeCausesHandler.bind(this);
     this.changeLocationHandler = this.changeLocationHandler.bind(this);
-    this.changeManpowerCountHandler =
-      this.changeManpowerCountHandler.bind(this);
+    this.changeManpowerCountHandler = this.changeManpowerCountHandler.bind(this);
     this.changeSkillsHandler = this.changeSkillsHandler.bind(this);
     this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
     this.changeTypeHandler = this.changeTypeHandler.bind(this);
     this.changeAddressHandler = this.changeAddressHandler.bind(this);
+    this.changeCoverImageHandler = this.changeCoverImageHandler.bind(this);
+    this.changeGalleryImagesHandler = this.changeGalleryImagesHandler.bind(this);
     this.createOpp = this.createOpp.bind(this);
   }
 
-  createOpp = (event) => {
+  createOpp = async (event) => {
     event.preventDefault();
     const { state } = this.props.location;
     console.log(state);
+    const formData = new FormData();
+    this.state.eventMedia.forEach((file, index) => {
+      formData.append(`eventPhotos`, file);
+    });
     let opp = {
       name: this.state.name,
       date: this.state.date,
@@ -106,16 +113,23 @@ class CreateOppComponent extends Component {
       description: this.state.description,
       type: this.state.type,
       address: this.state.address,
-      organisation: localStorage.getItem("token"),
+      // organisation: localStorage.getItem("token"),
     };
     console.log("opp => " + JSON.stringify(opp));
-
-    OppService.createOpp(opp).then((res) => {
-      this.props.navigate("/posted-event", {
-        state: { showCreateAlert: true, itemName: opp.name },
+    try {
+      const res = await OppService.createOpp(opp);
+      console.log(res);
+      console.log(formData);
+      await MediaService.uploadEventPhotos(res.data.id, formData).then((res) => {
+        this.props.navigate("/posted-event", {
+          state: { showCreateAlert: true, itemName: opp.name },
+        });
+        console.log(res.status);
       });
-      console.log(res.status);
-    });
+    } catch(error){
+      console.error("failed to create event", error);
+    }
+    
   };
 
   changeNameHandler = (event) => {
@@ -135,8 +149,6 @@ class CreateOppComponent extends Component {
   };
 
   changeCausesHandler = (selected) => {
-    // const causesString = selected.join(",");
-    // this.setState({ causes: causesString });
     this.setState({ causes: selected });
   };
 
@@ -149,8 +161,6 @@ class CreateOppComponent extends Component {
   };
 
   changeSkillsHandler = (selected) => {
-    // const skillsString = selected.join(",");
-    // this.setState({ skills: skillsString });
     this.setState({ skills: selected });
   };
 
@@ -164,6 +174,20 @@ class CreateOppComponent extends Component {
 
   changeAddressHandler = (event) => {
     this.setState({ address: event.target.value });
+  };
+
+  changeCoverImageHandler = (event) => {
+    const file = event.target.files[0];
+    this.setState(prevState => ({
+      eventMedia: [file, ...prevState.eventMedia.filter((_, index) => index !== 0)]
+    }));
+  };
+
+  changeGalleryImagesHandler = (event) => {
+    const files = Array.from(event.target.files);
+    this.setState(prevState => ({
+      eventMedia: [prevState.eventMedia[0], ...files]
+    }));
   };
 
   isFormComplete() {
@@ -195,9 +219,7 @@ class CreateOppComponent extends Component {
   }
 
   render() {
-    // const { state } = this.props.location;
     console.log(this.state);
-    console.log(this.state.user);
     const isComplete = this.isFormComplete();
     return (
       <>
@@ -322,6 +344,8 @@ class CreateOppComponent extends Component {
               <input
                 type="file"
                 className="file-input file-input-bordered w-full max-w-xs"
+                accept="image/*"
+                onChange={this.changeCoverImageHandler}
               />
             </label>
             <label>
@@ -330,6 +354,8 @@ class CreateOppComponent extends Component {
                 type="file"
                 className="file-input file-input-bordered w-full max-w-xs"
                 multiple
+                accept="image/*"
+                onChange={this.changeGalleryImagesHandler}
               />
             </label>
             <div className="button-container">

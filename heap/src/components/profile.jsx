@@ -15,6 +15,7 @@ class UserProfileComponent extends Component {
       contactNo: "",
       email: "",
       gender: "",
+      points: "",
       profilePicture: null,
       showAlert: false,
       showLoginAlert: false,
@@ -58,7 +59,8 @@ class UserProfileComponent extends Component {
         contactNo: res.data.contactNo,
         email: res.data.email,
         gender: res.data.gender,
-        profilePicture: dataUrl
+        points: res.data.points,
+        profilePicture: dataUrl,
       });
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -154,6 +156,10 @@ class UserProfileComponent extends Component {
           <div>
             <h2>Email Address</h2>
             <p>{this.state.email}</p>
+          </div>
+          <div>
+            <h2>Points Remaining</h2>
+            <p>{this.state.points}</p>
           </div>
           <div>
             <h2>Password</h2>
