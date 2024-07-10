@@ -39,6 +39,7 @@ import EditProfile from "./components/editProfile";
 import EditOrgProfile from "./components/editOrgProfile";
 import CreateComplaint from "./components/createComplaint";
 import ManageComplaints from "./components/manageComplaints";
+import RedeemedRewards from "./components/redeemedRewards";
 
 export default function App() {
   return (
@@ -63,6 +64,7 @@ export default function App() {
           <Route exact path="/logout" element={<LogoutComponent />} />
           <Route exact path="/forget-password" element={<ForgetPassword />} />
           <Route element={<ProtectedRoute/>}>
+            <Route exact path="/redeemed-rewards" element={<RedeemedRewards />} />
             <Route exact path="/create-complaint" element={<CreateComplaint />} />
             <Route exact path="/manage-complaints" element={<ManageComplaints />} />
             <Route exact path="/posted-event/:id" element={<PostedEventDetails />} />

@@ -22,6 +22,10 @@ class ComplaintService{
         return await ProtectedAPI.delete(`/complaint/delete/${complaintId}`);
     }
 
+    async resolveComplaint(complaintId){
+        return await ProtectedAPI.get(`/complaint/resolve/${complaintId}`);
+    }
+
 }
 
 export default new ComplaintService();

@@ -81,6 +81,9 @@ const Navbar = () => {
             ) : userType === "V" ? (
               <>
                 <li>
+                  <Link to="/redeemed-rewards">View Redeemed Rewards</Link>
+                </li>
+                <li>
                   <Link to="/registered-event">View Registered Events</Link>
                 </li>
                 <li>
@@ -92,6 +95,9 @@ const Navbar = () => {
               </>
             ) : userType === "A" ? (
               <>
+                <li>
+                  <Link to="/manage-complaints">Manage Complaints </Link>
+                </li>
                 <li>
                   <Link to="/manage-vols">Manage Volunteers </Link>
                 </li>

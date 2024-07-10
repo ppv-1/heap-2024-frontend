@@ -18,30 +18,9 @@ class ManageComplaints extends Component {
   fetchData = async () => {
     try {
       const res = await ComplaintService.getAllComplaints();
-      console.log(JSON.stringify(res.data));
-      console.log(res.data + typeof res.data);
-      console.log(res.data.complaints);
-      
-      const complaints = res.data.complaints;
-      this.setState({ items: complaints });
-
-    //   // Fetch images for each 
-    //   const images = await Promise.all(rewards.map(async (reward) => {
-    //     const imageRes = await MediaService.getRewardMedia(reward.id);
-    //     return { id: reward.id, imageUrl: `data:image/jpeg;base64,${imageRes.data}` };
-    //   }));
-
-      // Convert array of images to an object with reward id as key
-    //   const imagesObject = images.reduce((acc, curr) => {
-    //     acc[curr.id] = curr.imageUrl;
-    //     return acc;
-    //   }, {});
-
-    //   this.setState({ images: imagesObject, loading: false });
-
+      this.setState({ items: res.data.complaints, loading: false });
     } catch (error) {
       console.error('Error fetching data:', error);
-      alert('An error occurred while fetching data.');
       this.setState({ loading: false });
     }
   };
@@ -50,9 +29,21 @@ class ManageComplaints extends Component {
     await this.fetchData();
   }
 
-  complaintSubmit = (event, id) => {
+  complaintResolve = async (event, id) => {
     event.preventDefault();
-    this.props.navigate(`/complaint/${id}`);
+    try {
+      await ComplaintService.resolveComplaint(id);
+      alert("Complaint " + id + " resolved");
+      
+      // Update the state to mark the complaint as resolved
+      this.setState(prevState => ({
+        items: prevState.items.map(item =>
+          item.id === id ? { ...item, status: 'resolved' } : item
+        )
+      }));
+    } catch (error) {
+      console.error("Failed to resolve complaint", error);
+    }
   };
 
   render() {
@@ -82,18 +73,19 @@ class ManageComplaints extends Component {
             >
               <figure>
                 <img
-                  src={images[item.id] || "https://cdn-icons-png.flaticon.com/512/1426/1426770.png"}
+                  src={images[item.id] || "https://wewin.com/wp-content/uploads/2023/06/Complaint2-01-1024x577-1.webp"}
                   alt={item.title}
                 />
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{item.title}</h2>
-                <p>Complaint</p>
+                <p>{item.description}</p>
                 <button
                   className="btn btn-primary"
-                  onClick={(event) => this.complaintSubmit(event, item.id)}
+                  onClick={(event) => this.complaintResolve(event, item.id)}
+                  disabled={item.status === 'resolved'} // Disable button if resolved
                 >
-                  More info
+                  {item.status === 'resolved' ? "Resolved" : "Resolve"}
                 </button>
               </div>
             </div>
