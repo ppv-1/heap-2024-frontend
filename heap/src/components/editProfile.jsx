@@ -15,7 +15,7 @@ class EditProfile extends Component {
       gender: "",
       profilePicture: null,
       fileErrorMessage: "", // State to store error message for file size
-      showAlert: false,
+      showEditAlert: false,
     };
     this.changeFullNameHandler = this.changeFullNameHandler.bind(this);
     this.changeContactNoHandler = this.changeContactNoHandler.bind(this);
@@ -97,7 +97,7 @@ class EditProfile extends Component {
     try {
       await MediaService.uploadPfp(formData);
       await VolunteerService.updateVolunteer(profile);
-      this.props.navigate("/user-profile", { state: { showAlert: true } });
+      this.props.navigate("/user-profile", { state: { showEditAlert: true } });
     } catch (error) {
       console.error("Failed to update profile", error);
     }

@@ -100,7 +100,7 @@ class EditReward extends Component{
         console.log(this.state);
         return (
             <>
-                <div className="wrapper">
+                <div className="content">
                     <h1 className="title">Edit Reward</h1>
 
                     <form enctype="multipart/form-data">
@@ -128,6 +128,7 @@ class EditReward extends Component{
                             <input
                                 type="file"
                                 accept="image/*"
+                                className="file-input file-input-bordered w-full max-w-xs"
                                 onChange={this.changeRewardMediaHandler}
                             />
                             {/* <img

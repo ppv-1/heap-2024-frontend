@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import withNavigateandLocation from './withNavigateandLocation';
+import withNavigateandLocation from "./withNavigateandLocation";
 import "./css/Create.css";
 import OrgService from "../services/OrgService";
 import UserService from "../services/UserService";
@@ -17,12 +17,14 @@ class EditOrgProfile extends Component {
       location: "",
       profilePicture: null,
       fileErrorMessage: "", // State to store error message for file size
+      showEditAlert: false,
     };
     this.changeFullNameHandler = this.changeFullNameHandler.bind(this);
     this.changeContactNoHandler = this.changeContactNoHandler.bind(this);
     this.changeEmailHandler = this.changeEmailHandler.bind(this);
     this.changeWebsiteHandler = this.changeWebsiteHandler.bind(this);
-    this.changeProfilePictureHandler = this.changeProfilePictureHandler.bind(this);
+    this.changeProfilePictureHandler =
+      this.changeProfilePictureHandler.bind(this);
     this.changeLocationHandler = this.changeLocationHandler.bind(this);
     this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
   }
@@ -40,8 +42,8 @@ class EditOrgProfile extends Component {
         location: res.data.location,
       });
     } catch (error) {
-      console.error('Error fetching data:', error);
-      alert('An error occurred while fetching data.');
+      console.error("Error fetching data:", error);
+      alert("An error occurred while fetching data.");
     }
   };
 
@@ -95,15 +97,15 @@ class EditOrgProfile extends Component {
       contactNo: this.state.contactNo,
       location: this.state.location,
       website: this.state.website,
-      description: this.state.description
+      description: this.state.description,
     };
     const formData = new FormData();
-    formData.append('pfp', this.state.profilePicture);
-    console.log('profile => ' + JSON.stringify(profile));
+    formData.append("pfp", this.state.profilePicture);
+    console.log("profile => " + JSON.stringify(profile));
     try {
       await MediaService.uploadPfp(formData);
       await OrgService.updateOrganisation(profile);
-      this.props.navigate('/');
+      this.props.navigate("/org-profile", { state: { showEditAlert: true } });
     } catch (error) {
       console.error("Failed to update profile", error);
     }
@@ -113,42 +115,82 @@ class EditOrgProfile extends Component {
     console.log(this.state);
     return (
       <>
-        <div className="wrapper">
+        <div className="content">
           <h1 className="title">Edit Profile</h1>
           <form encType="multipart/form-data">
             <label>
               <p>Name</p>
-              <input type="text" required value={this.state.fullName} onChange={this.changeFullNameHandler} />
+              <input
+                type="text"
+                required
+                value={this.state.fullName}
+                onChange={this.changeFullNameHandler}
+              />
             </label>
             <label>
               <p>Contact No</p>
-              <input type="number" required value={this.state.contactNo} onChange={this.changeContactNoHandler} />
+              <input
+                type="number"
+                required
+                value={this.state.contactNo}
+                onChange={this.changeContactNoHandler}
+              />
             </label>
             <label>
               <p>Email</p>
-              <input type="text" required value={this.state.email} onChange={this.changeEmailHandler} />
+              <input
+                type="text"
+                required
+                value={this.state.email}
+                onChange={this.changeEmailHandler}
+              />
             </label>
             <label>
               <p>Location</p>
-              <input type="text" required value={this.state.location} onChange={this.changeLocationHandler} />
+              <input
+                type="text"
+                required
+                value={this.state.location}
+                onChange={this.changeLocationHandler}
+              />
             </label>
             <label>
               <p>Website</p>
-              <input type="text" required value={this.state.website} onChange={this.changeWebsiteHandler} />
+              <input
+                type="text"
+                required
+                value={this.state.website}
+                onChange={this.changeWebsiteHandler}
+              />
             </label>
             <label>
               <p>Description</p>
-              <input type="text" required value={this.state.description} onChange={this.changeDescriptionHandler} />
+              <input
+                type="text"
+                required
+                value={this.state.description}
+                onChange={this.changeDescriptionHandler}
+              />
             </label>
             <label>
               <p>Profile Picture</p>
-              <input required type="file" accept="image/*" onChange={this.changeProfilePictureHandler} />
+              <input
+                required
+                type="file"
+                accept="image/*"
+                onChange={this.changeProfilePictureHandler}
+                className="file-input file-input-bordered w-full max-w-xs"
+              />
               {this.state.fileErrorMessage && (
-                <div className="error-message">{this.state.fileErrorMessage}</div>
+                <div className="error-message">
+                  {this.state.fileErrorMessage}
+                </div>
               )}
             </label>
             <div className="button-container">
-              <button className="btn btn-wide" onClick={this.editProfile}>Save</button>
+              <button className="btn btn-wide" onClick={this.editProfile}>
+                Save
+              </button>
             </div>
           </form>
         </div>

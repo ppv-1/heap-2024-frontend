@@ -33,7 +33,7 @@ class RegisterAdmin extends Component {
     console.log("user (admin) => " + JSON.stringify(user));
 
     AuthService.createAdmin(user).then((res) => {
-      this.props.navigate("/");
+      this.props.navigate("/login");
     });
   };
 

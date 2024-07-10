@@ -54,7 +54,7 @@ const skills = [
   { label: "Videography", value: "videography" },
   { label: "Web Design", value: "webDesign" },
   { label: "Others", value: "other" },
-]
+];
 
 class EditOpp extends Component {
   constructor(props) {
@@ -73,6 +73,7 @@ class EditOpp extends Component {
       location: "",
       address: "",
       description: "",
+      showEditAlert: false,
     };
 
     this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -185,7 +186,7 @@ class EditOpp extends Component {
     console.log("opp => " + JSON.stringify(opp));
 
     OppService.updateOpp(this.state.id, opp).then((res) => {
-      this.props.navigate("/");
+      this.props.navigate("/posted-event", { state: { showEditAlert: true, itemName: opp.name } });
       console.log(res.status);
     });
   };

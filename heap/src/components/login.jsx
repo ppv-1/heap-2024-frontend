@@ -47,7 +47,7 @@ class Login extends Component {
           this.props.navigate("/user-profile", { state: { showLoginAlert: true } });
         } else if (res.data.userType === "O") {
           console.log(res.data.userType);
-          this.props.navigate("/create-opportunity", { state: { showLoginAlert: true } });
+          this.props.navigate("/org-profile", { state: { showLoginAlert: true } });
         } else if (res.data.userType === "A") {
           console.log(res.data.userType);
           this.props.navigate("/", { state: { showLoginAlert: true } });

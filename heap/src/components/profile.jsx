@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import UserService from "../services/UserService";
 import ToggleThemeComponent from "./toggleTheme.jsx";
 import MediaService from "../services/MediaService";
+import AlertComponent from "./alert.jsx";
 
 class UserProfileComponent extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class UserProfileComponent extends Component {
       gender: "",
       points: "",
       profilePicture: null,
-      showAlert: false,
+      showEditAlert: false,
       showLoginAlert: false,
     };
 
@@ -63,8 +64,8 @@ class UserProfileComponent extends Component {
         profilePicture: dataUrl,
       });
     } catch (error) {
-      console.error('Error fetching data:', error);
-      alert('An error occurred while fetching data.');
+      console.error("Error fetching data:", error);
+      alert("An error occurred while fetching data.");
     }
   };
 
@@ -81,26 +82,32 @@ class UserProfileComponent extends Component {
   componentDidMount() {
     this.fetchData();
 
-    if (this.props.location.state && this.props.location.state.showAlert) {
-      this.setState({ showAlert: true }, () => {
-        console.log("showAlert=", this.state.showAlert);
+    if (this.props.location.state && this.props.location.state.showEditAlert) {
+      this.setState({ showEditAlert: true }, () => {
+        console.log("showEditAlert=", this.state.showEditAlert);
       });
       setTimeout(() => {
-        this.setState({ showAlert: false });
+        this.setState({ showEditAlert: false });
       }, 3000);
-    } else if (this.props.location.state && this.props.location.state.showLoginAlert) {
-      this.setState({ showLoginAlert: true }, () => {
-        console.log("showLoginAlert=", this.state.showLoginAlert);
-      });
+    } else if (
+      this.props.location.state &&
+      this.props.location.state.showLoginAlert
+    ) {
+      this.setState(
+        {
+          showLoginAlert: true,
+        },
+        () => {
+          console.log("showLoginAlert=", this.state.showLoginAlert);
+        }
+      );
       setTimeout(() => {
         this.setState({ showLoginAlert: false });
       }, 3000);
     }
   }
-  
 
   render() {
-
     const gender = this.state.gender;
     if (gender === "M") {
       let genderFull = "Male";
@@ -175,21 +182,17 @@ class UserProfileComponent extends Component {
           </div>
         </div>
 
-        {this.state.showAlert && (
-          <div className="toast toast-end">
-            <div className="alert alert-success update">
-              <span>Profile updated successfully!</span>
-            </div>
-          </div>
-        )}
+        <AlertComponent
+          showAlert={this.state.showEditAlert}
+          type="success"
+          message="Profile edited successfully!"
+        />
 
-        {this.state.showLoginAlert && (
-          <div className="toast toast-end">
-            <div className="alert alert-info">
-              <span>Welcome back, {this.state.fullName}!</span>
-            </div>
-          </div>
-        )}
+        <AlertComponent
+          showAlert={this.state.showLoginAlert}
+          type="info"
+          message={`Welcome back, ${this.state.fullName}!`}
+        />
       </>
     );
   }

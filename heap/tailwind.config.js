@@ -16,6 +16,8 @@ module.exports = {
     "./src/components/editProfile.jsx",
     "./src/components/manageVols.jsx",
     "./src/components/registeredEvent.jsx",
+    "./src/components/manageRewards.jsx",
+    "./src/components/manageOrgs.jsx",
   ],
   theme: {
     extend: {

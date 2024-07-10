@@ -3,6 +3,7 @@ import "../components/css/Home.css";
 import OppService from "../services/OppService";
 import withNavigateandLocation from "./withNavigateandLocation";
 import { motion, AnimatePresence } from "framer-motion";
+import AlertComponent from "./alert";
 import homePic from "../images/homePic.png";
 import painting from "../images/test1.png";
 import health from "../images/test (3).png";
@@ -16,7 +17,12 @@ class HomeComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { fullName: "", showLoginAlert: false };
+    this.state = {
+      fullName: "",
+      showLoginAlert: false,
+      loginAlertType: "info",
+      loginAlertMessage: "",
+    };
   }
 
   fetchData = async () => {
@@ -43,9 +49,15 @@ class HomeComponent extends Component {
       this.props.location.state &&
       this.props.location.state.showLoginAlert
     ) {
-      this.setState({ showLoginAlert: true }, () => {
-        console.log("showAlert=", this.state.showLoginAlert);
-      });
+      this.setState(
+        {
+          showLoginAlert: true,
+          loginAlertMessage: `Welcome back, admin!`,
+        },
+        () => {
+          console.log("showAlert=", this.state.showLoginAlert);
+        }
+      );
       setTimeout(() => {
         this.setState({ showLoginAlert: false });
       }, 3000);
@@ -244,16 +256,11 @@ class HomeComponent extends Component {
           </motion.div>
         </div>
 
-        {this.state.showLoginAlert && (
-          <div className="toast toast-end">
-            <div className="alert alert-info">
-              <span>
-                Welcome back
-                {this.state.fullName ? `, ${this.state.fullName}` : `, admin`}
-              </span>
-            </div>
-          </div>
-        )}
+        <AlertComponent
+          showAlert={this.state.showLoginAlert}
+          type={this.state.loginAlertType}
+          message={this.state.loginAlertMessage}
+        />
       </>
     );
   }

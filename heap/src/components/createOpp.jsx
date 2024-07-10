@@ -126,6 +126,21 @@ class CreateOppComponent extends Component {
         });
         console.log(res.status);
       });
+      // clear form fields?
+      this.setState({
+        name: "",
+        date: "",
+        startTime: "",
+        endTime: "",
+        causes: [],
+        manpowerCount: "",
+        skills: [],
+        type: "",
+        location: "",
+        address: "",
+        description: "",
+        eventMedia: [],
+      });
     } catch(error){
       console.error("failed to create event", error);
     }
@@ -317,9 +332,9 @@ class CreateOppComponent extends Component {
                 <option disabled selected>
                   Select location
                 </option>
+                <option value={"all"}>All</option>
                 <option value={"online"}>Online</option>
                 <option value={"on-site"}>On-site</option>
-                <option value={"all"}>All of the above</option>
               </select>
             </label>
             <label>

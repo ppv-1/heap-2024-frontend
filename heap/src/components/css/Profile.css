@@ -82,18 +82,19 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  gap: 20px;
+  gap: 40px;
 }
 
 .details > div h2 {
-  margin-right: 50px;
+  margin-right: 20px;
+  width: 215px;
   min-width: 180px;
   font-size: 24px;
   font-weight: 500;
 }
 
 .details > div p {
-  margin: 0;
+  margin-left: 0;
   font-size: 24px;
 }
 

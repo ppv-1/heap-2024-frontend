@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./css/Organisations.css";
+import "./css/Opportunities.css";
 import withNavigateandLocation from "./withNavigateandLocation";
 import RewardService from "../services/RewardService";
 import MediaService from "../services/MediaService";
@@ -74,7 +74,7 @@ class Rewards extends Component {
         <h1 className="title">Rewards</h1>
         <p>Here you can find information about different rewards.</p>
         <br />
-        <div>
+        <div className="event-listings">
           {items.map((item) => (
             <div
               key={item.id}
@@ -88,7 +88,10 @@ class Rewards extends Component {
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{item.name}</h2>
-                <p>Reward</p>
+                <div className="badge badge-accent">
+                      {item.pointsNeeded}{" "}
+                      Points
+                    </div>
                 <button
                   className="btn btn-primary"
                   onClick={(event) => this.rewardSubmit(event, item.id)}

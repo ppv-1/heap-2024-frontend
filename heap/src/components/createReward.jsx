@@ -40,9 +40,12 @@ class CreateReward extends Component {
     console.log("reward => " + JSON.stringify(reward));
     const res = await RewardService.createReward(reward);
     console.log(res.data);
-    MediaService.uploadRewardPhoto(res.data.id, formData).then((res) => {
+    await MediaService.uploadRewardPhoto(res.data.id, formData).then((res) => {
       console.log("helo");
       console.log(res);
+      this.props.navigate("/manage-rewards", {
+        state: { showCreateAlert: true, rewardName: this.state.name },
+      });
     });
   };
 
@@ -74,7 +77,7 @@ class CreateReward extends Component {
     console.log(this.state);
     return (
       <>
-        <div className="wrapper">
+        <div className="content">
           <h1 className="title">Create Reward</h1>
 
           <form enctype="multipart/form-data">
@@ -102,6 +105,7 @@ class CreateReward extends Component {
               <input
                 type="file"
                 accept="image/*"
+                className="file-input file-input-bordered w-full max-w-xs"
                 onChange={this.changeRewardMediaHandler}
               />
               {/* {this.state.fileErrorMessage && (

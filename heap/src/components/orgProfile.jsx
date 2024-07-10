@@ -6,6 +6,7 @@ import logo from "../images//orgLogo.png";
 import ToggleThemeComponent from "./toggleTheme.jsx";
 import MediaService from "../services/MediaService.js";
 import UserService from "../services/UserService.js";
+import AlertComponent from "./alert.jsx";
 
 class OrganisationProfileComponent extends Component {
   constructor(props) {
@@ -17,7 +18,9 @@ class OrganisationProfileComponent extends Component {
       contactNo: "",
       website: "",
       description: "",
-      profilePicture: null
+      profilePicture: null,
+      showLoginAlert: false,
+      showEditAlert: false,
     };
   }
 
@@ -33,11 +36,11 @@ class OrganisationProfileComponent extends Component {
         email: res.data.email,
         website: res.data.website,
         description: res.data.description,
-        profilePicture: dataUrl
+        profilePicture: dataUrl,
       });
     } catch (error) {
-      console.error('Error fetching data:', error);
-      alert('An error occurred while fetching data.');
+      console.error("Error fetching data:", error);
+      alert("An error occurred while fetching data.");
     }
   };
 
@@ -51,8 +54,32 @@ class OrganisationProfileComponent extends Component {
     this.props.navigate(`/edit-org-profile`);
   };
 
-  componentDidMount(){
+  componentDidMount() {
     this.fetchData();
+
+    if (this.props.location.state && this.props.location.state.showEditAlert) {
+      this.setState({ showEditAlert: true }, () => {
+        console.log("showEditAlert=", this.state.showEditAlert);
+      });
+      setTimeout(() => {
+        this.setState({ showEditAlert: false });
+      }, 3000);
+    } else if (
+      this.props.location.state &&
+      this.props.location.state.showLoginAlert
+    ) {
+      this.setState(
+        {
+          showLoginAlert: true,
+        },
+        () => {
+          console.log("showLoginAlert=", this.state.showLoginAlert);
+        }
+      );
+      setTimeout(() => {
+        this.setState({ showLoginAlert: false });
+      }, 3000);
+    }
   }
 
   render() {
@@ -116,6 +143,18 @@ class OrganisationProfileComponent extends Component {
             <ToggleThemeComponent></ToggleThemeComponent>
           </div>
         </div>
+
+        <AlertComponent
+          showAlert={this.state.showEditAlert}
+          type="success"
+          message="Profile edited successfully!"
+        />
+
+        <AlertComponent
+          showAlert={this.state.showLoginAlert}
+          type="info"
+          message={`Welcome back, ${this.state.fullName}!`}
+        />
       </>
     );
   }

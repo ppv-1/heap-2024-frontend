@@ -3,6 +3,7 @@ import "./css/Admin.css";
 import withNavigateandLocation from "./withNavigateandLocation";
 import OrgService from "../services/OrgService";
 import AdminService from "../services/AdminService";
+import AlertComponent from "./alert";
 
 class ManageOrgs extends Component {
   constructor(props) {
@@ -65,19 +66,19 @@ class ManageOrgs extends Component {
   verifyOrg = async (id) => {
     await AdminService.verifyOrg(id);
     this.updateOrgList(id);
-    this.setState({ alertMessage: "Organisation " + id + " verified." });
+    this.setState({ alertMessage: `Organization ${id} verified.` });
   };
 
   blacklistOrg = async (id) => {
     await AdminService.blacklistUser(id);
     this.updateOrgList(id);
-    this.setState({ alertMessage: id + " blacklisted successfully." });
+    this.setState({ alertMessage: `${id} blacklisted successfully.` });
   };
 
   whitelistOrg = async (id) => {
     await AdminService.whitelistUser(id);
     this.updateOrgList(id);
-    this.setState({ alertMessage: id + " whitelisted successfully." });
+    this.setState({ alertMessage: `${id} whitelisted successfully.` });
   };
 
   deleteOrg = async (id) => {
@@ -85,14 +86,18 @@ class ManageOrgs extends Component {
     this.updateOrgList(id);
     this.setState({
       items: this.state.items.filter((item) => item.email !== id),
-      alertMessage: id + " deleted successfully.",
+      alertMessage: `${id} deleted successfully.`,
     });
   };
 
-  updateOrgList = (id) => {
-    let updatedItems = this.state.items.map((item) => {
+  updateOrgList = (id, isLocked = null) => {
+    const updatedItems = this.state.items.map((item) => {
       if (item.email === id) {
-        item.locked = !item.locked;
+        if (isLocked !== null) {
+          item.locked = isLocked;
+        } else {
+          item.locked = !item.locked;
+        }
       }
       return item;
     });
@@ -232,14 +237,13 @@ class ManageOrgs extends Component {
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{item.fullName}</h2>
-                <p>Organisation</p>
                 <button
                   className="btn btn-primary"
                   onClick={(event) => this.verifyOrgHandler(event, item.email)}
                 >
                   Verify
                 </button>
-                {item.locked === 1 ? (
+                {item.locked ? (
                   <button
                     className="btn btn-primary"
                     onClick={(event) =>
@@ -273,8 +277,7 @@ class ManageOrgs extends Component {
           <dialog className="modal modal-bottom sm:modal-middle" open>
             <div className="modal-box">
               <h3 className="font-bold text-lg">
-                Are you sure you want to{" "}
-                {modalType === "verify" && "verify"}
+                Are you sure you want to {modalType === "verify" && "verify"}
                 {modalType === "blacklist" && "blacklist"}
                 {modalType === "whitelist" && "whitelist"}
                 {modalType === "delete" && "delete"} {selectedOrg?.fullName}?
@@ -292,16 +295,12 @@ class ManageOrgs extends Component {
           </dialog>
         )}
 
-        {this.state.showAlert && (
-          <div className="toast toast-end">
-            <div className="alert alert-success">
-              <span>{this.state.alertMessage}</span>
-            </div>
-          </div>
-        )}
+        <AlertComponent
+          showAlert={this.state.showAlert}
+          alertType="success"
+          alertMessage={this.state.alertMessage}
+        />
       </div>
-
-
 
       // <div className="wrapper">
       //   <h1 className="title">Manage Organisations</h1>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./css/Admin.css";
 import withNavigateandLocation from "./withNavigateandLocation";
 import AdminService from "../services/AdminService";
+import AlertComponent from "./alert";
 
 class ManageVols extends Component {
   constructor(props) {
@@ -61,20 +62,20 @@ class ManageVols extends Component {
   blacklistVol = async (id) => {
     await AdminService.blacklistUser(id);
     this.updateVolList(id);
-    this.setState({ alertMessage: id + " blacklisted successfully."});
+    this.setState({ alertMessage: `${id} blacklisted successfully.`});
   };
 
   whitelistVol = async (id) => {
     await AdminService.whitelistUser(id);
     this.updateVolList(id);
-    this.setState({ alertMessage: id + " whitelisted successfully."});
+    this.setState({ alertMessage: `${id} whitelisted successfully.` });
   };
 
   deleteVol = async (id) => {
     await AdminService.deleteUser(id);
     this.setState({
       items: this.state.items.filter((item) => item.email !== id),
-      alertMessage: id + " deleted successfully."
+      alertMessage: `${id} deleted successfully.`
     });
   };
 
@@ -201,8 +202,7 @@ class ManageVols extends Component {
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{item.fullName}</h2>
-                <p>Volunteer</p>
-                {item.locked === 1 ? (
+                {item.locked ? (
                   <button
                     className="btn btn-primary"
                     onClick={(event) =>
@@ -256,13 +256,11 @@ class ManageVols extends Component {
           </dialog>
         )}
 
-        {this.state.showAlert && (
-          <div className="toast toast-end">
-            <div className="alert alert-success">
-              <span>{this.state.alertMessage}</span>
-            </div>
-          </div>
-        )}
+        <AlertComponent 
+          showAlert={this.state.showAlert}
+          alertType="success"
+          alertMessage={this.state.alertMessage}
+        />
       </div>
 
       // <div className="wrapper">
