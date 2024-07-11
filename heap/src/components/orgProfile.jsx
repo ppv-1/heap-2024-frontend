@@ -146,14 +146,14 @@ class OrganisationProfileComponent extends Component {
 
         <AlertComponent
           showAlert={this.state.showEditAlert}
-          type="success"
-          message="Profile edited successfully!"
+          alertType="success"
+          alertMessage="Profile edited successfully!"
         />
 
         <AlertComponent
           showAlert={this.state.showLoginAlert}
-          type="info"
-          message={`Welcome back, ${this.state.fullName}!`}
+          alertType="info"
+          alertMessage={`Welcome back, ${this.state.fullName}!`}
         />
       </>
     );

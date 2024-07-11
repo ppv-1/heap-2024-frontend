@@ -90,3 +90,9 @@
 .btn {
   margin-top: 10px;
 }
+
+.event-listings {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}

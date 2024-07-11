@@ -129,14 +129,14 @@ class PostedEvent extends Component {
 
         <AlertComponent
           showAlert={this.state.showCreateAlert}
-          type="success"
-          message={`${this.state.itemName} created successfully.`}
+          alertType="success"
+          alertMessage={`${this.state.itemName} created successfully.`}
         />
 
         <AlertComponent
           showAlert={this.state.showEditAlert}
-          type="success"
-          message={`${this.state.itemName} edited successfully.`}
+          alertType="success"
+          alertMessage={`${this.state.itemName} edited successfully.`}
         />
 
 <AlertComponent

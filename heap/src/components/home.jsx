@@ -3,7 +3,7 @@ import "../components/css/Home.css";
 import OppService from "../services/OppService";
 import withNavigateandLocation from "./withNavigateandLocation";
 import { motion, AnimatePresence } from "framer-motion";
-import AlertComponent from "./alert";
+import AlertComponent from "./alert.jsx";
 import homePic from "../images/homePic.png";
 import painting from "../images/test1.png";
 import health from "../images/test (3).png";
@@ -38,14 +38,15 @@ class HomeComponent extends Component {
 
   async componentDidMount() {
     await this.fetchData();
-    if (this.props.location.state && this.props.location.state.showAlert) {
-      this.setState({ showAlert: true }, () => {
-        console.log("showAlert=", this.state.showAlert);
-      });
-      setTimeout(() => {
-        this.setState({ showAlert: false });
-      }, 3000);
-    } else if (
+    // if (this.props.location.state && this.props.location.state.showAlert) {
+    //   this.setState({ showAlert: true }, () => {
+    //     console.log("showAlert=", this.state.showAlert);
+    //   });
+    //   setTimeout(() => {
+    //     this.setState({ showAlert: false });
+    //   }, 3000);
+    // } else 
+    if (
       this.props.location.state &&
       this.props.location.state.showLoginAlert
     ) {
@@ -55,7 +56,7 @@ class HomeComponent extends Component {
           loginAlertMessage: `Welcome back, admin!`,
         },
         () => {
-          console.log("showAlert=", this.state.showLoginAlert);
+          console.log("showLoginAlert=", this.state.showLoginAlert);
         }
       );
       setTimeout(() => {
@@ -258,8 +259,8 @@ class HomeComponent extends Component {
 
         <AlertComponent
           showAlert={this.state.showLoginAlert}
-          type={this.state.loginAlertType}
-          message={this.state.loginAlertMessage}
+          alertType="info"
+          alertMessage={ `Welcome back, admin!`}
         />
       </>
     );

@@ -4,6 +4,7 @@ import OppService from "../services/OppService";
 import withNavigateandLocation from "./withNavigateandLocation";
 import SearchInputComponent from "./searchInput";
 import { MultiSelect } from "react-multi-select-component";
+import MediaService from "../services/MediaService";
 
 const causes = [
   { label: "Animal Welfare", value: "animalWelfare" },
@@ -366,7 +367,6 @@ class OpportunitiesComponent extends Component {
                   </div>
                   {/* <h1>{item.id}</h1> */}
 
-                  {/* <p>Volunteer opportunity</p> */}
                   <div className="card-actions justify-end">
                     <button
                       className="btn btn-neutral"
