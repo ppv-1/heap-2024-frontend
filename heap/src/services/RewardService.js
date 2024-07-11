@@ -38,9 +38,8 @@ class RewardService {
     return await ProtectedAPI.get(`/reward/reward/all-redeemed`);
   }
 
-  async getRewardBarcode(rewardId){
-    return await ProtectedAPI.get(`/reward/reward/view-barcode/${rewardId}`);
-
+  async useRewardBarcode(rewardId){
+    return await ProtectedAPI.get(`/reward/reward/use/${rewardId}`);
   }
 
 }

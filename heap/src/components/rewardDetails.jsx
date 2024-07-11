@@ -21,7 +21,7 @@ class RewardDetails extends Component {
         try{
             await RewardService.redeemReward(id);
             const res = await UserService.getProfile();
-            alert("Reward redeemed. You have " + res.data.points + " remaining.");
+            alert("Reward redeemed. You have " + res.data.points + " points remaining.");
         } catch (error) {
             console.error("failed to redeem reward", error);
         }

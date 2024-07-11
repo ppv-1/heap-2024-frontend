@@ -17,7 +17,7 @@ class RedeemedRewards extends Component {
 
   fetchData = async () => {
     try {
-      const res = await RewardService.getAllRewards();
+      const res = await RewardService.getRedeemedRewards();
       console.log(JSON.stringify(res.data));
       console.log(res.data + typeof res.data);
       console.log(res.data.rewards);
@@ -27,7 +27,7 @@ class RedeemedRewards extends Component {
 
       // Fetch images for each reward
       const images = await Promise.all(rewards.map(async (reward) => {
-        const imageRes = await MediaService.getRewardMedia(reward.id);
+        const imageRes = await MediaService.getRewardMedia(reward.name);
         return { id: reward.id, imageUrl: `data:image/jpeg;base64,${imageRes.data}` };
       }));
 
@@ -50,9 +50,11 @@ class RedeemedRewards extends Component {
     await this.fetchData();
   }
 
-  rewardSubmit = (event, id) => {
+  rewardSubmit = async (event, id) => {
     event.preventDefault();
-    this.props.navigate(`/rewards/${id}`);
+    const res = await RewardService.useRewardBarcode(id);
+    console.log(res.data);
+    // this.props.navigate(`/rewards/${id}`);
   };
 
   render() {
@@ -92,11 +94,12 @@ class RedeemedRewards extends Component {
                       {item.pointsNeeded}{" "}
                       Points
                     </div>
+                <p>Expiry Date: {item.expiryDate}</p>
                 <button
                   className="btn btn-primary"
-                  onClick={(event) => this.rewardSubmit(event, item.id)}
+                  onClick={(event) => this.rewardSubmit(event, item.reward_barcode_id)}
                 >
-                  More info
+                  Use
                 </button>
               </div>
             </div>
