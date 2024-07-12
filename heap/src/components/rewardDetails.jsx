@@ -18,12 +18,16 @@ class RewardDetails extends Component {
     }
 
     redeemReward = async (event, id) => {
+        let points;
         try{
-            await RewardService.redeemReward(id);
+            
             const res = await UserService.getProfile();
-            alert("Reward redeemed. You have " + res.data.points + " points remaining.");
+            points = res.data.points
+            await RewardService.redeemReward(id);
+            alert("Reward redeemed. You have " + points + " points remaining.");
         } catch (error) {
             console.error("failed to redeem reward", error);
+            alert(error.response.data + ". You have " + points + " currently.");
         }
     }
 
