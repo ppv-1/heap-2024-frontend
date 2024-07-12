@@ -18,9 +18,11 @@ class AdminService {
     }
 
     async getAllVolunteers() {
-        return await ProtectedAPI.get('/admin/all-volunteers', {headers:{
-            'Authorization': `Bearer ${localStorage.getItem("token")}`
-          }});
+        return await ProtectedAPI.get(`/admin/all-volunteers`);
+    }
+
+    async getAllOrganisations() {
+        return await ProtectedAPI.get(`/admin/all-organisation`);
     }
 }
 

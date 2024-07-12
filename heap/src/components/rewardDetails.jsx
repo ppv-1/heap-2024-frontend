@@ -59,9 +59,20 @@ class RewardDetails extends Component {
       return <div>Loading...</div>;
     }
 
-    if (!reward) {
-      return <div>reward not found</div>;
-    }
+    // if (!reward) {
+    //   return <div>reward not found</div>;
+    redeemReward = async (event, id) => {
+      let points;
+      try {
+        const res = await UserService.getProfile();
+        points = res.data.points;
+        await RewardService.redeemReward(id);
+        alert("Reward redeemed. You have " + points + " points remaining.");
+      } catch (error) {
+        console.error("failed to redeem reward", error);
+        alert(error.response.data + ". You have " + points + " currently.");
+      }
+    };
 
     return (
       <div className="wrapper">
