@@ -3,6 +3,8 @@ import "./css/Opportunities.css";
 import withNavigateandLocation from "./withNavigateandLocation";
 import RewardService from "../services/RewardService";
 import MediaService from "../services/MediaService";
+import QRCode from "qrcode.react";
+import AlertComponent from "./alert";
 
 class RedeemedRewards extends Component {
   constructor(props) {
@@ -11,7 +13,10 @@ class RedeemedRewards extends Component {
     this.state = {
       items: [],
       images: {}, // To store the images for each reward
-      loading: true // To manage the loading state
+      loading: true, // To manage the loading state
+      modalVisible: false,
+      selectedReward: null,
+      showRedeemAlert: false,
     };
   }
 
@@ -21,15 +26,22 @@ class RedeemedRewards extends Component {
       console.log(JSON.stringify(res.data));
       console.log(res.data + typeof res.data);
       console.log(res.data.rewards);
-      
+
       const rewards = res.data.rewards;
       this.setState({ items: rewards });
 
       // Fetch images for each reward
-      const images = await Promise.all(rewards.map(async (reward) => {
-        const imageRes = await MediaService.getRewardMedia(reward.name);
-        return { id: reward.id, imageUrl: `data:image/jpeg;base64,${imageRes.data}` };
-      }));
+      const images = await Promise.all(
+        rewards.map(async (reward) => {
+          const imageRes = await MediaService.getRewardMedia(
+            reward.reward_category_id
+          );
+          return {
+            id: reward.id,
+            imageUrl: `data:image/jpeg;base64,${imageRes.data}`,
+          };
+        })
+      );
 
       // Convert array of images to an object with reward id as key
       const imagesObject = images.reduce((acc, curr) => {
@@ -38,9 +50,8 @@ class RedeemedRewards extends Component {
       }, {});
 
       this.setState({ images: imagesObject, loading: false });
-
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
       // alert('An error occurred while fetching data.');
       this.setState({ loading: false });
     }
@@ -50,15 +61,46 @@ class RedeemedRewards extends Component {
     await this.fetchData();
   }
 
-  rewardSubmit = async (event, id) => {
-    event.preventDefault();
-    const res = await RewardService.useRewardBarcode(id);
-    console.log(res.data);
-    // this.props.navigate(`/rewards/${id}`);
+  showModal = (selected) => {
+    this.setState({ modalVisible: true, selectedReward: selected });
   };
 
+  closeModal = () => {
+    this.setState({
+      modalVisible: false,
+      selectedReward: null,
+      showRedeemAlert: true,
+    });
+    setTimeout(() => {
+      this.setState({ showRedeemAlert: false });
+    }, 3000);
+  };
+
+  handleConfirm = async (e) => {
+    e.preventDefault();
+    this.closeModal();
+  };
+
+  redeemRewardHandler = async (event, id) => {
+    event.preventDefault();
+    const res = await RewardService.useRewardBarcode(id);
+    let selected = this.state.items.find((item) => item.reward_barcode_id === id);
+    console.log(res.data);
+    this.showModal(selected);
+    this.setState({
+      items: this.state.items.filter((item) => item.reward_barcode_id !== id),
+    });
+  };
+
+  // rewardSubmit = async (event, id) => {
+  //   event.preventDefault();
+  //   const res = await RewardService.useRewardBarcode(id);
+  //   console.log(res.data);
+  //   // this.props.navigate(`/rewards/${id}`);
+  // };
+
   render() {
-    const { items, images, loading } = this.state;
+    const { items, images, loading, selectedReward, modalVisible } = this.state;
 
     if (loading) {
       return <div>Loading...</div>; // Show a loading indicator while fetching data
@@ -84,20 +126,24 @@ class RedeemedRewards extends Component {
             >
               <figure>
                 <img
-                  src={images[item.id] || "https://cdn-icons-png.flaticon.com/512/1426/1426770.png"}
+                  src={
+                    images[item.id] ||
+                    "https://cdn-icons-png.flaticon.com/512/1426/1426770.png"
+                  }
                   alt={item.name}
                 />
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{item.name}</h2>
                 <div className="badge badge-accent">
-                      {item.pointsNeeded}{" "}
-                      Points
-                    </div>
+                  {item.pointsNeeded} Points
+                </div>
                 <p>Expiry Date: {item.expiryDate}</p>
                 <button
                   className="btn btn-primary"
-                  onClick={(event) => this.rewardSubmit(event, item.reward_barcode_id)}
+                  onClick={(event) =>
+                    this.redeemRewardHandler(event, item.reward_barcode_id)
+                  }
                 >
                   Use
                 </button>
@@ -105,6 +151,29 @@ class RedeemedRewards extends Component {
             </div>
           ))}
         </div>
+
+        {modalVisible && (
+          <dialog className="modal modal-bottom sm:modal-middle" open>
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">
+                Redeem {selectedReward?.name}
+              </h3>
+              <QRCode value={selectedReward.barcodeSerialNo} />
+              <p className="py-4">Please show this QR Code for redemption.</p>
+              <div className="modal-action">
+                <button className="btn" onClick={this.handleConfirm}>
+                  Close
+                </button>
+              </div>
+            </div>
+          </dialog>
+        )}
+
+        <AlertComponent
+          showAlert={this.state.showRedeemAlert}
+          alertType="success"
+          alertMessage={`Reward redeemed successfully.`}
+        />
       </div>
     );
   }

@@ -107,3 +107,15 @@
 .toast {
   z-index: 40;
 }
+
+.modal-box {
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.badge-container {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}

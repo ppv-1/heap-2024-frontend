@@ -78,14 +78,15 @@ class PostedEvent extends Component {
 
     return (
       <div className="wrapper">
-        <div className="text-sm breadcrumbs">
-          <ul>
-            <li>
-              <a href="/">Home</a>
-            </li>
-          </ul>
+        <div className="breadcrumbs-container">
+          <div className="text-sm breadcrumbs">
+            <ul>
+              <li>
+                <a href="/">Home</a>
+              </li>
+            </ul>
+          </div>
         </div>
-
         <h1 className="title">Posted Events</h1>
         <p>These are the volunteer opportunities you have posted.</p>
         <br />
@@ -139,7 +140,7 @@ class PostedEvent extends Component {
           alertMessage={`${this.state.itemName} edited successfully.`}
         />
 
-<AlertComponent
+        <AlertComponent
           showAlert={this.state.showDeleteAlert}
           type="success"
           message={`${this.state.itemName} deleted successfully.`}

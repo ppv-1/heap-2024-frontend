@@ -20,8 +20,6 @@ class HomeComponent extends Component {
     this.state = {
       fullName: "",
       showLoginAlert: false,
-      loginAlertType: "info",
-      loginAlertMessage: "",
     };
   }
 
@@ -53,7 +51,6 @@ class HomeComponent extends Component {
       this.setState(
         {
           showLoginAlert: true,
-          loginAlertMessage: `Welcome back, admin!`,
         },
         () => {
           console.log("showLoginAlert=", this.state.showLoginAlert);

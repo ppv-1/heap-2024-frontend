@@ -9,50 +9,52 @@ const Navbar = () => {
 
   return (
     <nav className="navbar bg-base-100">
-      <ul className="nav-list">
-        {isLoggedIn ? (
-          <>
-            <li>
-              <Link to="/opportunities">
-                <p>
-                  Discover <br />
-                  Opportunities
-                </p>
-              </Link>
-            </li>
-            <li>
-              <Link to="/organisations">
-                <p>
-                  Our <br />
-                  Organisations
-                </p>
-              </Link>
-            </li>
-            <li>
-              <Link to="/rewards">Rewards</Link>
-            </li>
-          </>
-        ) : (
-          <>
-            <li>
-              <Link to="/opportunities">
-                <p>
-                  Discover <br />
-                  Opportunities
-                </p>
-              </Link>
-            </li>
-            <li>
-              <Link to="/organisations">
-                <p>
-                  Our <br />
-                  Organisations
-                </p>
-              </Link>
-            </li>
-          </>
-        )}
-      </ul>
+      <div className="left-nav">
+        <ul className="nav-list">
+          {isLoggedIn ? (
+            <>
+              <li>
+                <Link to="/opportunities">
+                  <p>
+                    Discover <br />
+                    Opportunities
+                  </p>
+                </Link>
+              </li>
+              <li>
+                <Link to="/organisations">
+                  <p>
+                    Our <br />
+                    Organisations
+                  </p>
+                </Link>
+              </li>
+              <li>
+                <Link to="/rewards">Rewards</Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to="/opportunities">
+                  <p>
+                    Discover <br />
+                    Opportunities
+                  </p>
+                </Link>
+              </li>
+              <li>
+                <Link to="/organisations">
+                  <p>
+                    Our <br />
+                    Organisations
+                  </p>
+                </Link>
+              </li>
+            </>
+          )}
+        </ul>
+      </div>
       <div className="spacer"></div>
       <Link to="/">
         <div className="logo">

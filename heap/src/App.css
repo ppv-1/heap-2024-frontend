@@ -102,3 +102,16 @@
 .toast > .alert > span {
   font-size: 20px;
 }
+
+.breadcrumbs {
+  padding: 0 0;
+}
+
+.modal, .modal-box {
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  margin-bottom: 50%;
+}

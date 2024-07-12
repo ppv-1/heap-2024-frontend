@@ -14,14 +14,12 @@ class CreateReward extends Component {
       rewardMedia: null,
       type: "",
       description: "",
-      count: "",
     };
     this.changeNameHandler = this.changeNameHandler.bind(this);
     this.changePointsNeededHandler = this.changePointsNeededHandler.bind(this);
     this.changeRewardMediaHandler = this.changeRewardMediaHandler.bind(this);
     this.changeTypeHandler = this.changeTypeHandler.bind(this);
     this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
-    this.changeCountHandler = this.changeCountHandler.bind(this);
   }
 
   createReward = async (event) => {
@@ -34,7 +32,6 @@ class CreateReward extends Component {
       pointsNeeded: this.state.pointsNeeded,
       type: this.state.type,
       description: this.state.description,
-      count: this.state.count,
     };
 
     console.log("reward => " + JSON.stringify(reward));
@@ -67,10 +64,6 @@ class CreateReward extends Component {
 
   changeDescriptionHandler = (event) => {
     this.setState({ description: event.target.value });
-  };
-
-  changeCountHandler = (event) => {
-    this.setState({ count: event.target.value });
   };
 
   render() {
@@ -128,15 +121,6 @@ class CreateReward extends Component {
                 type="text"
                 value={this.state.description}
                 onChange={this.changeDescriptionHandler}
-              />
-            </label>
-            <label>
-              <p>Count</p>
-              <input
-                required
-                type="number"
-                value={this.state.count}
-                onChange={this.changeCountHandler}
               />
             </label>
 

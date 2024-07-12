@@ -66,7 +66,7 @@ class ManageOrgs extends Component {
   verifyOrg = async (id) => {
     await AdminService.verifyOrg(id);
     this.updateOrgList(id);
-    this.setState({ alertMessage: `Organization ${id} verified.` });
+    this.setState({ alertMessage: `Organisation ${id} verified.` });
   };
 
   blacklistOrg = async (id) => {

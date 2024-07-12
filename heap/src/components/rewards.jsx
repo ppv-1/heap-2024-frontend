@@ -11,7 +11,7 @@ class Rewards extends Component {
     this.state = {
       items: [],
       images: {}, // To store the images for each reward
-      loading: true // To manage the loading state
+      loading: true, // To manage the loading state
     };
   }
 
@@ -21,15 +21,20 @@ class Rewards extends Component {
       console.log(JSON.stringify(res.data));
       console.log(res.data + typeof res.data);
       console.log(res.data.rewards);
-      
+
       const rewards = res.data.rewards;
       this.setState({ items: rewards });
 
       // Fetch images for each reward
-      const images = await Promise.all(rewards.map(async (reward) => {
-        const imageRes = await MediaService.getRewardMedia(reward.id);
-        return { id: reward.id, imageUrl: `data:image/jpeg;base64,${imageRes.data}` };
-      }));
+      const images = await Promise.all(
+        rewards.map(async (reward) => {
+          const imageRes = await MediaService.getRewardMedia(reward.id);
+          return {
+            id: reward.id,
+            imageUrl: `data:image/jpeg;base64,${imageRes.data}`,
+          };
+        })
+      );
 
       // Convert array of images to an object with reward id as key
       const imagesObject = images.reduce((acc, curr) => {
@@ -38,9 +43,8 @@ class Rewards extends Component {
       }, {});
 
       this.setState({ images: imagesObject, loading: false });
-
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
       // alert('An error occurred while fetching data.');
       this.setState({ loading: false });
     }
@@ -82,16 +86,23 @@ class Rewards extends Component {
             >
               <figure>
                 <img
-                  src={images[item.id] || "https://cdn-icons-png.flaticon.com/512/1426/1426770.png"}
+                  src={
+                    images[item.id] ||
+                    "https://cdn-icons-png.flaticon.com/512/1426/1426770.png"
+                  }
                   alt={item.name}
                 />
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{item.name}</h2>
-                <div className="badge badge-accent">
-                      {item.pointsNeeded}{" "}
-                      Points
-                    </div>
+                <div className="badge-container">
+                  <div className="badge badge-accent">
+                    {item.pointsNeeded} Points
+                  </div>
+                  {item.count <= 0 && (
+                    <div className="badge badge-accent">Fully Redeemed</div>
+                  )}
+                </div>
                 <button
                   className="btn btn-primary"
                   onClick={(event) => this.rewardSubmit(event, item.id)}

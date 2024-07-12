@@ -129,7 +129,6 @@ class ManageRewards extends Component {
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{item.name}</h2>
-                <p>Reward</p>
                 <input
                   type="file"
                   ref={`fileInput-${item.id}`}

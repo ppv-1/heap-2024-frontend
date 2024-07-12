@@ -30,10 +30,6 @@
   flex-wrap: wrap;
 }
 
-.wrapper {
-  margin-bottom: 10%;
-}
-
 .card {
   max-width: 200px;
 }
@@ -45,6 +41,7 @@
 
 .modal-box {
   width: 450px;
+  justify-content: center;
 }
 
 .modal-action {

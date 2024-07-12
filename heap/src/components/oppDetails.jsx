@@ -27,18 +27,28 @@ class Opportunity extends Component {
     try {
       const res = await OppService.getOpp(id);
       const org = await OrgService.getOrg(res.data.organisation);
+      this.setState({ loading: false });
       const imageRes = await MediaService.getEventPhotos(id);
-      
-      console.log(imageRes.data);
-      console.log(res.status);
-      console.log(res.data);
+
+      console.log("type imageRes=" + typeof imageRes.data);
+
+      console.log("Image Data:", imageRes.data);
+
+      // Convert object values to an array of objects
+      const imagePathsArray = Object.keys(imageRes.data).map((key) => ({
+        id: key, // Assuming each key in imageRes.data can be used as an identifier
+        data: imageRes.data[key],
+      }));
+
+      console.log("type imagePathsArray=" + typeof imagePathsArray);
 
       this.setState({
         opportunity: res.data,
         loading: false,
         orgName: org.data.fullName,
-        images: imageRes.data, // Assuming imageRes.data is an array of base64 strings
+        images: imagePathsArray, // Assuming imageRes.data is an array of base64 strings
       });
+      console.log("!!!!!!!");
     } catch (error) {
       console.error("Failed to fetch opportunity", error);
     }
@@ -57,8 +67,12 @@ class Opportunity extends Component {
   };
 
   render() {
-    const { opportunity, loading, orgName, images } = this.state;
+    const { opportunity, loading, images } = this.state;
     console.log(this.state);
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!");
+    // images.forEach((image, index) => {
+    //   console.log(`Image ${index} data:`, image.data);
+    // });
 
     if (loading) {
       return (
@@ -95,7 +109,7 @@ class Opportunity extends Component {
         <div className="details-container">
           <div className="left-container">
             <h1 className="title">
-              {opportunity.name} @ {orgName}
+              {opportunity.name} @ {this.state.orgName}
             </h1>
 
             <br />
@@ -103,20 +117,23 @@ class Opportunity extends Component {
               <p>Description: {opportunity.description}</p>
               <p>Manpower needed: {opportunity.neededManpowerCount}</p>
               <p>Type: {opportunity.type}</p>
-              <div>
+              <div className="event-listings">
+                <div>
+                  <img src={`data:image/jpeg;base64,${this.state.images[0].data}`} alt="image" />
+                </div>
                 {images.map((image, index) => (
                   <div
+                    key={index} // Ensure a unique key for each image
                     className="card card-compact w-30 bg-base-100 shadow-xl"
                   >
                     <figure>
                       <img
-                        src={`data:image/jpeg;base64,${image}`}
+                        src={`data:image/jpeg;base64,${image.data}`}
                         alt={`Image ${index}`}
                       />
                     </figure>
                     <div className="card-body">
-                      <p>image</p>
-                      <p>{image}</p>
+                      <p>Image {index + 1}</p>
                     </div>
                   </div>
                 ))}

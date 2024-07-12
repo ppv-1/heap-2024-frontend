@@ -74,7 +74,8 @@ class CreateOppComponent extends Component {
       location: "",
       address: "",
       description: "",
-      eventMedia: []
+      eventMedia: [], 
+      eventCoverMedia: null
     };
 
     this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -98,9 +99,12 @@ class CreateOppComponent extends Component {
     const { state } = this.props.location;
     console.log(state);
     const formData = new FormData();
+    formData.append(`eventPhotos`, this.state.eventCoverMedia);
     this.state.eventMedia.forEach((file, index) => {
       formData.append(`eventPhotos`, file);
     });
+    console.log("length of event media");
+    console.log(this.state.eventMedia.length);
     let opp = {
       name: this.state.name,
       date: this.state.date,
@@ -140,6 +144,7 @@ class CreateOppComponent extends Component {
         address: "",
         description: "",
         eventMedia: [],
+        eventCoverMedia: null
       });
     } catch(error){
       console.error("failed to create event", error);
@@ -193,16 +198,16 @@ class CreateOppComponent extends Component {
 
   changeCoverImageHandler = (event) => {
     const file = event.target.files[0];
-    this.setState(prevState => ({
-      eventMedia: [file, ...prevState.eventMedia.filter((_, index) => index !== 0)]
-    }));
+    this.setState(
+      {eventCoverMedia: file}
+    );
   };
 
   changeGalleryImagesHandler = (event) => {
     const files = Array.from(event.target.files);
-    this.setState(prevState => ({
-      eventMedia: [prevState.eventMedia[0], ...files]
-    }));
+    this.setState({
+      eventMedia: files
+    });
   };
 
   isFormComplete() {
