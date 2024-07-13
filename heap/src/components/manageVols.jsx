@@ -198,7 +198,7 @@ class ManageVols extends Component {
                   <th>Gender</th>
                   <th>Email</th>
                   <th>Complaint Count</th>
-                  <th></th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -253,7 +253,7 @@ class ManageVols extends Component {
                   <th>Gender</th>
                   <th>Email</th>
                   <th>Complaint Count</th>
-                  <th></th>
+                  <th>Actions</th>
                 </tr>
               </tfoot>
             </table>

@@ -119,3 +119,16 @@
   flex-direction: row;
   gap: 5px;
 }
+
+.instructions {
+  width: 40%;
+  margin: 2% 0%;
+}
+
+.instructions > p {
+  font-size: 20px;
+  padding: 5%;
+  border-radius: 16px;
+  background-color: oklch(var(--pc));
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}

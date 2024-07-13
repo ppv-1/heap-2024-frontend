@@ -16,7 +16,7 @@ class RedeemedRewards extends Component {
       loading: true, // To manage the loading state
       modalVisible: false,
       selectedReward: null,
-      showRedeemAlert: false,
+      showUsedAlert: false,
     };
   }
 
@@ -28,6 +28,8 @@ class RedeemedRewards extends Component {
       console.log(res.data.rewards);
 
       const rewards = res.data.rewards;
+      rewards.sort((a, b) => new Date(a.expiryDate) - new Date(b.expiryDate));
+
       this.setState({ items: rewards });
 
       // Fetch images for each reward
@@ -69,10 +71,10 @@ class RedeemedRewards extends Component {
     this.setState({
       modalVisible: false,
       selectedReward: null,
-      showRedeemAlert: true,
+      showUsedAlert: true,
     });
     setTimeout(() => {
-      this.setState({ showRedeemAlert: false });
+      this.setState({ showUsedAlert: false });
     }, 3000);
   };
 
@@ -84,7 +86,9 @@ class RedeemedRewards extends Component {
   redeemRewardHandler = async (event, id) => {
     event.preventDefault();
     const res = await RewardService.useRewardBarcode(id);
-    let selected = this.state.items.find((item) => item.reward_barcode_id === id);
+    let selected = this.state.items.find(
+      (item) => item.reward_barcode_id === id
+    );
     console.log(res.data);
     this.showModal(selected);
     this.setState({
@@ -116,8 +120,15 @@ class RedeemedRewards extends Component {
           </ul>
         </div>
         <h1 className="title">Redeemed Rewards</h1>
-        <p>Here you can find information about rewards you have redeemed.</p>
-        <br />
+        <div className="instructions">
+          <p>
+            Here you can use the rewards you have redeemed.
+            <br />
+            Please be ready to show the QR Code in order to use the reward.
+            <br />
+            The reward will then be deleted.
+          </p>
+        </div>
         <div className="event-listings">
           {items.map((item) => (
             <div
@@ -136,9 +147,8 @@ class RedeemedRewards extends Component {
               <div className="card-body">
                 <h2 className="card-title">{item.name}</h2>
                 <div className="badge badge-accent">
-                  {item.pointsNeeded} Points
+                  Expiry Date: {item.expiryDate}
                 </div>
-                <p>Expiry Date: {item.expiryDate}</p>
                 <button
                   className="btn btn-primary"
                   onClick={(event) =>
@@ -155,11 +165,11 @@ class RedeemedRewards extends Component {
         {modalVisible && (
           <dialog className="modal modal-bottom sm:modal-middle" open>
             <div className="modal-box">
-              <h3 className="font-bold text-lg">
-                Redeem {selectedReward?.name}
-              </h3>
+              <h3 className="font-bold text-lg">Use {selectedReward?.name}</h3>
               <QRCode value={selectedReward.barcodeSerialNo} />
-              <p className="py-4">Please show this QR Code for redemption.</p>
+              <p className="py-4">
+                Please show this QR Code to use the reward.
+              </p>
               <div className="modal-action">
                 <button className="btn" onClick={this.handleConfirm}>
                   Close
@@ -170,9 +180,9 @@ class RedeemedRewards extends Component {
         )}
 
         <AlertComponent
-          showAlert={this.state.showRedeemAlert}
+          showAlert={this.state.showUsedAlert}
           alertType="success"
-          alertMessage={`Reward redeemed successfully.`}
+          alertMessage={`Reward used successfully.`}
         />
       </div>
     );

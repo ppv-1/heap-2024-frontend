@@ -5,6 +5,7 @@ import withNavigateandLocation from "./withNavigateandLocation";
 import RewardService from "../services/RewardService";
 import QRCode from "qrcode.react";
 import UserService from "../services/UserService";
+import AlertComponent from "./alert";
 
 class RewardDetails extends Component {
   constructor(props) {
@@ -13,6 +14,10 @@ class RewardDetails extends Component {
     this.state = {
       reward: null,
       loading: true,
+      showFailAlert: false,
+      showRedeemAlert: false,
+      failAlertMessage: "",
+      redeemAlertMessage: "",
     };
   }
 
@@ -22,10 +27,26 @@ class RewardDetails extends Component {
       const res = await UserService.getProfile();
       points = res.data.points;
       await RewardService.redeemReward(id);
-      alert("Reward redeemed. You have " + points + " points remaining.");
+      const updatedProfileRes = await UserService.getProfile();
+      const updatedPoints = updatedProfileRes.data.points;
+      // alert("Reward redeemed. You have " + points + " points remaining.");
+      this.setState({
+        showRedeemAlert: true,
+        redeemAlertMessage: `Reward redeemed. You have ${updatedPoints} points remaining.`,
+      });
+      setTimeout(() => {
+        this.setState({ showRedeemAlert: false });
+      }, 3000);
     } catch (error) {
       console.error("failed to redeem reward", error);
-      alert(error.response.data + ". You have " + points + " currently.");
+      this.setState({
+        showFailAlert: true,
+        failAlertMessage: `${error.response.data}. You have ${points} points currently.`,
+      });
+      setTimeout(() => {
+        this.setState({ showFailAlert: false });
+      }, 3000);
+      // alert(error.response.data + ". You have " + points + " currently.");
     }
   };
 
@@ -52,7 +73,14 @@ class RewardDetails extends Component {
   };
 
   render() {
-    const { reward, loading } = this.state;
+    const {
+      reward,
+      loading,
+      showFailAlert,
+      showRedeemAlert,
+      failAlertMessage,
+      redeemAlertMessage,
+    } = this.state;
     console.log(this.state);
 
     if (loading) {
@@ -118,6 +146,18 @@ class RewardDetails extends Component {
             </div>
           </div>
         </div>
+
+        <AlertComponent
+          showAlert={showFailAlert}
+          alertType="error"
+          alertMessage={failAlertMessage}
+        />
+
+        <AlertComponent
+          showAlert={showRedeemAlert}
+          alertType="success"
+          alertMessage={redeemAlertMessage}
+        />
       </div>
     );
   }

@@ -169,7 +169,7 @@ class ManageRewards extends Component {
                   <th>Points Needed</th>
                   <th>Count</th>
                   <th>Upload Barcodes</th>
-                  <th></th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -228,7 +228,7 @@ class ManageRewards extends Component {
                   <th>Points Needed</th>
                   <th>Count</th>
                   <th>Upload Barcodes</th>
-                  <th></th>
+                  <th>Actions</th>
                 </tr>
               </tfoot>
             </table>

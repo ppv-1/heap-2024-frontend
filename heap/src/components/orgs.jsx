@@ -63,7 +63,7 @@ class OrganisationsComponent extends Component {
           />
         </div>
         <br />
-        <div>
+        <div className="vol-listings">
           {filteredItems.map((item) => (
             <div
               key={item.id}

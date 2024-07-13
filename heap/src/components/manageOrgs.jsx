@@ -4,6 +4,7 @@ import withNavigateandLocation from "./withNavigateandLocation";
 import OrgService from "../services/OrgService";
 import AdminService from "../services/AdminService";
 import AlertComponent from "./alert";
+import { Link } from "react-router-dom";
 
 class ManageOrgs extends Component {
   constructor(props) {
@@ -21,8 +22,7 @@ class ManageOrgs extends Component {
   fetchData = async () => {
     const res = await OrgService.getAllOrgs();
     console.log(JSON.stringify(res.data));
-    console.log(res.data + typeof res.data);
-    console.log(res.data.orgs);
+    console.log("res.data.orgs=" + res.data.orgs);
     this.setState({ items: res.data.orgs });
   };
 
@@ -231,7 +231,7 @@ class ManageOrgs extends Component {
                   <th>Name</th>
                   <th>Email</th>
                   <th>Verfication Status</th>
-                  <th></th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -239,8 +239,10 @@ class ManageOrgs extends Component {
                   <tr key={item.id}>
                     <td>
                       <div className="flex items-center gap-3">
-                        <div>
-                          <div className="font-bold">{item.fullName}</div>
+                        <div className="font-bold">
+                          <Link to={`/manage-orgs/${item.email}`}>
+                            {item.fullName}
+                          </Link>
                         </div>
                       </div>
                     </td>
@@ -300,7 +302,7 @@ class ManageOrgs extends Component {
                   <th>Name</th>
                   <th>Email</th>
                   <th>Verfication Status</th>
-                  <th></th>
+                  <th>Actions</th>
                 </tr>
               </tfoot>
             </table>
