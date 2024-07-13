@@ -222,55 +222,89 @@ class ManageOrgs extends Component {
     return (
       <div className="wrapper">
         <h1 className="title">Manage Organisations</h1>
-        <br />
-        <div className="org-listing">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className="card card-compact w-30 bg-base-100 shadow-xl"
-            >
-              <figure>
-                <img
-                  src="https://static.wixstatic.com/media/7ab21d_0065f074991045f19085036583d803c7~mv2.png/v1/fill/w_365,h_174,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/SICS%20Logo.png"
-                  alt={item.fullName}
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">{item.fullName}</h2>
-                <button
-                  className="btn btn-primary"
-                  onClick={(event) => this.verifyOrgHandler(event, item.email)}
-                >
-                  Verify
-                </button>
-                {item.locked ? (
-                  <button
-                    className="btn btn-primary"
-                    onClick={(event) =>
-                      this.whitelistOrgHandler(event, item.email)
-                    }
-                  >
-                    Whitelist
-                  </button>
-                ) : (
-                  <button
-                    className="btn btn-primary"
-                    onClick={(event) =>
-                      this.blacklistOrgHandler(event, item.email)
-                    }
-                  >
-                    Blacklist
-                  </button>
-                )}
-                <button
-                  className="btn btn-primary"
-                  onClick={(event) => this.deleteOrgHandler(event, item.email)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
+        <div className="data-table">
+          <div className="overflow-x-auto">
+            <table className="table">
+              {/* head */}
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Verfication Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {items.map((item) => (
+                  <tr key={item.id}>
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <div>
+                          <div className="font-bold">{item.fullName}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>{item.email}</td>
+                    <td>
+                      {item.verified ? (
+                        "Verified"
+                      ) : (
+                        <div className="manage-button-container">
+                          <button
+                            className="btn btn-neutral"
+                            onClick={(event) =>
+                              this.verifyOrgHandler(event, item.email)
+                            }
+                          >
+                            Verify
+                          </button>
+                        </div>
+                      )}
+                    </td>
+                    <td className="manage-button-container">
+                      {item.locked ? (
+                        <button
+                          className="btn btn-neutral"
+                          onClick={(event) =>
+                            this.whitelistVolHandler(event, item.email)
+                          }
+                        >
+                          Whitelist
+                        </button>
+                      ) : (
+                        <button
+                          className="btn btn-neutral"
+                          onClick={(event) =>
+                            this.blacklistVolHandler(event, item.email)
+                          }
+                        >
+                          Blacklist
+                        </button>
+                      )}
+
+                      <button
+                        className="btn btn-danger"
+                        onClick={(event) =>
+                          this.deleteVolHandler(event, item.email)
+                        }
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              {/* foot */}
+              <tfoot>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Verfication Status</th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
 
         {modalVisible && (

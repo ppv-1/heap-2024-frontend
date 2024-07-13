@@ -3,6 +3,7 @@ import "./css/Admin.css";
 import withNavigateandLocation from "./withNavigateandLocation";
 import RewardService from "../services/RewardService";
 import MediaService from "../services/MediaService";
+import { Link } from "react-router-dom";
 
 class ManageRewards extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class ManageRewards extends Component {
         const formData = new FormData();
         formData.append("file", file);
         await RewardService.uploadReward(id, formData); // Assuming this method exists in your MediaService
+        window.location.reload();
         alert("Barcode uploaded successfully");
       } catch (error) {
         console.error("Error uploading barcodes:", error);
@@ -108,11 +110,10 @@ class ManageRewards extends Component {
             className="btn btn-primary"
             onClick={this.createRewardHandler}
           >
-            Add new reward
+            Create new reward
           </button>
         </div>
-        <br />
-        <div className="reward-listing">
+        {/* <div className="reward-listing">
           {items.map((item) => (
             <div
               key={item.id}
@@ -156,6 +157,82 @@ class ManageRewards extends Component {
               </div>
             </div>
           ))}
+        </div> */}
+
+        <div className="data-table">
+          <div className="overflow-x-auto">
+            <table className="table">
+              {/* head */}
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Points Needed</th>
+                  <th>Count</th>
+                  <th>Upload Barcodes</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {items.map((item) => (
+                  <tr key={item.id}>
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <div>
+                          <div className="font-bold">
+                            <Link to={`/manage-rewards/${item.id}`}>{item.name}</Link>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>{item.pointsNeeded}</td>
+                    <td>{item.count}</td>
+                    <td className="upload-container">
+                      <input
+                        type="file"
+                        ref={`fileInput-${item.id}`}
+                        style={{ display: "none" }}
+                        onChange={(event) =>
+                          this.handleFileChange(event, item.id)
+                        }
+                      />
+                      <button
+                        className="btn btn-neutral"
+                        onClick={(event) => this.uploadReward(event, item.id)}
+                      >
+                        Upload
+                      </button>
+                    </td>
+                    <td className="manage-button-container">
+                      <button
+                        className="btn btn-neutral"
+                        onClick={(event) => this.editReward(event, item.id)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={(event) =>
+                          this.deleteVolHandler(event, item.email)
+                        }
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              {/* foot */}
+              <tfoot>
+                <tr>
+                  <th>Name</th>
+                  <th>Points Needed</th>
+                  <th>Count</th>
+                  <th>Upload Barcodes</th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
       </div>
     );

@@ -20,9 +20,8 @@ class ManageVols extends Component {
   fetchData = async () => {
     const res = await AdminService.getAllVolunteers();
     console.log(JSON.stringify(res.data));
-    console.log(res.data + typeof res.data);
-    console.log(res.data.vols);
-    this.setState({ items: res.data.vols });
+    console.log(typeof res.data);
+    this.setState({ items: res.data.users });
   };
   async componentDidMount() {
     await this.fetchData();
@@ -62,7 +61,7 @@ class ManageVols extends Component {
   blacklistVol = async (id) => {
     await AdminService.blacklistUser(id);
     this.updateVolList(id);
-    this.setState({ alertMessage: `${id} blacklisted successfully.`});
+    this.setState({ alertMessage: `${id} blacklisted successfully.` });
   };
 
   whitelistVol = async (id) => {
@@ -75,7 +74,7 @@ class ManageVols extends Component {
     await AdminService.deleteUser(id);
     this.setState({
       items: this.state.items.filter((item) => item.email !== id),
-      alertMessage: `${id} deleted successfully.`
+      alertMessage: `${id} deleted successfully.`,
     });
   };
 
@@ -184,52 +183,81 @@ class ManageVols extends Component {
 
   render() {
     let { items, modalVisible, modalType, selectedVol } = this.state;
+    console.log("!!!!!!!!!");
+    console.log("this.state.items=" + this.state.items);
     return (
       <div className="wrapper">
         <h1 className="title">Manage Volunteers</h1>
-        <br />
-        <div className="vol-listing">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className="card card-compact w-30 bg-base-100 shadow-xl"
-            >
-              <figure>
-                <img
-                  src="https://static.wixstatic.com/media/7ab21d_0065f074991045f19085036583d803c7~mv2.png/v1/fill/w_365,h_174,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/SICS%20Logo.png"
-                  alt={item.fullName}
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">{item.fullName}</h2>
-                {item.locked ? (
-                  <button
-                    className="btn btn-primary"
-                    onClick={(event) =>
-                      this.whitelistVolHandler(event, item.email)
-                    }
-                  >
-                    Whitelist
-                  </button>
-                ) : (
-                  <button
-                    className="btn btn-primary"
-                    onClick={(event) =>
-                      this.blacklistVolHandler(event, item.email)
-                    }
-                  >
-                    Blacklist
-                  </button>
-                )}
-                <button
-                  className="btn btn-primary"
-                  onClick={(event) => this.deleteVolHandler(event, item.email)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
+        <div className="data-table">
+          <div className="overflow-x-auto">
+            <table className="table">
+              {/* head */}
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Gender</th>
+                  <th>Email</th>
+                  <th>Complaint Count</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {items.map((item) => (
+                  <tr key={item.id}> 
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <div>
+                          <div className="font-bold">{item.fullName}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>{item.gender}</td>
+                    <td>{item.email}</td>
+                    <td>{item.complainCount}</td>
+                    <td className="manage-button-container">
+                    {item.locked ? (
+                      <button
+                        className="btn btn-primary btn-xs"
+                        onClick={(event) =>
+                          this.whitelistVolHandler(event, item.email)
+                        }
+                      >
+                        Whitelist
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-neutral"
+                        onClick={(event) =>
+                          this.blacklistVolHandler(event, item.email)
+                        }
+                      >
+                        Blacklist
+                      </button>
+                    )}
+                    <button
+                      className="btn btn-danger"
+                      onClick={(event) =>
+                        this.deleteVolHandler(event, item.email)
+                      }
+                    >
+                      Delete
+                    </button>
+                  </td>
+                  </tr>
+                ))}
+              </tbody>
+              {/* foot */}
+              <tfoot>
+                <tr>
+                  <th>Name</th>
+                  <th>Gender</th>
+                  <th>Email</th>
+                  <th>Complaint Count</th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
 
         {modalVisible && (
@@ -241,9 +269,7 @@ class ManageVols extends Component {
                 {modalType === "whitelist" && "whitelist"}
                 {modalType === "delete" && "delete"} {selectedVol?.fullName}?
               </h3>
-              <p className="py-4">
-                Please confirm your choice.
-              </p>
+              <p className="py-4">Please confirm your choice.</p>
               <div className="modal-action">
                 <button className="btn" onClick={this.handleConfirm}>
                   Confirm
@@ -256,88 +282,12 @@ class ManageVols extends Component {
           </dialog>
         )}
 
-        <AlertComponent 
+        <AlertComponent
           showAlert={this.state.showAlert}
           alertType="success"
           alertMessage={this.state.alertMessage}
         />
       </div>
-
-      // <div className="wrapper">
-      //   <h1 className="title">Manage Volunteers</h1>
-      //   <br />
-      //   <div>
-      //     {items.map((item) => (
-      //       <div
-      //         key={item.id}
-      //         className="card card-compact w-30 bg-base-100 shadow-xl"
-      //       >
-      //         <figure>
-      //           <img
-      //             src="https://static.wixstatic.com/media/7ab21d_0065f074991045f19085036583d803c7~mv2.png/v1/fill/w_365,h_174,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/SICS%20Logo.png"
-      //             alt={item.fullName}
-      //           />
-      //         </figure>
-      //         <div className="card-body">
-      //           <h2 className="card-title">{item.fullName}</h2>
-      //           <p>Volunteer</p>
-      //           {item.locked ? (
-      //             <button
-      //               className="btn btn-primary"
-      //               onClick={(event) =>
-      //                 this.whitelistVolHandler(event, item.email)
-      //               }
-      //             >
-      //               Whitelist
-      //             </button>
-      //           ) : (
-      //             <button
-      //               className="btn btn-primary"
-      //               onClick={(event) =>
-      //                 this.blacklistVolHandler(event, item.email)
-      //               }
-      //             >
-      //               Blacklist
-      //             </button>
-      //           )}
-      //           <button
-      //             className="btn btn-primary"
-      //             onClick={(event) => this.deleteVolHandler(event, item.email)}
-      //           >
-      //             Delete
-      //           </button>
-      //         </div>
-      //       </div>
-      //     ))}
-      //   </div>
-
-      //   {this.state.showAlert && (
-      //     <div className="alert alert-success">Action completed successfully</div>
-      //   )}
-
-      //   <dialog className="modal modal-bottom sm:modal-middle" open>
-      //       <div className="modal-box">
-      //         <h3 className="font-bold text-lg">
-      //           Are you sure you want to{" "}
-      //           {modalType === "blacklist" && "blacklist"}
-      //           {modalType === "whitelist" && "whitelist"}
-      //           {modalType === "delete" && "delete"}{" "}
-      //           {selectedVol?.fullName}?
-      //         </h3>
-      //         <p className="py-4">
-      //           This action cannot be undone. Please confirm your choice.
-      //         </p>
-      //         <div className="modal-action">
-      //           <button className="btn" onClick={this.handleConfirm}>
-      //             Confirm
-      //           </button>
-      //           <button className="btn" onClick={this.closeModal}>
-      //             Cancel
-      //           </button>
-      //         </div>
-      //       </div>
-      //     </dialog>
-      // </div>
     );
   }
 }

@@ -40,6 +40,7 @@ import EditOrgProfile from "./components/editOrgProfile";
 import CreateComplaint from "./components/createComplaint";
 import ManageComplaints from "./components/manageComplaints";
 import RedeemedRewards from "./components/redeemedRewards";
+import ManageRewardsDetails from "./components/manageRewardDetails";
 
 export default function App() {
   return (
@@ -72,6 +73,7 @@ export default function App() {
             <Route exact path="/manage-rewards" element={<ManageRewards />} />
             <Route exact path="/manage-vols" element={<ManageVols />} />
             <Route exact path="/manage-orgs" element={<ManageOrgs />} />
+            <Route exact path="/manage-rewards/:id" element={<ManageRewardsDetails />} />
             <Route exact path="/create-reward" element={<CreateReward />} />
             <Route exact path="/edit-profile" element={<EditProfile />} />
             <Route exact path="/edit-org-profile" element={<EditOrgProfile />} />

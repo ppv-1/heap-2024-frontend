@@ -55,13 +55,6 @@ class ManageComplaints extends Component {
 
     return (
       <div className="wrapper">
-        <div className="text-sm breadcrumbs">
-          <ul>
-            <li>
-              <a href="/">Home</a>
-            </li>
-          </ul>
-        </div>
         <h1 className="title">Complaints</h1>
         <p>Here you can find information about different complaints.</p>
         <br />

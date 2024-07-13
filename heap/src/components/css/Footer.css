@@ -6,15 +6,20 @@
   /* position: fixed; */
   z-index: 2;
   justify-items: center;
+  align-items: center;
 }
 
-.logo {
+.footer-logo {
   max-height: 65px;
   margin-top: 15px;
+  
 }
 
-.logo > img {
+.footer-logo > img {
   max-height: 65px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .footer-text {

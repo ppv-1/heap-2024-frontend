@@ -5,8 +5,8 @@ import "./css/Footer.css";
 
 const Footer = () => {
   return (
-    <footer className="footer text-neutral items-center">
-      <div className="logo">
+    <footer className="footer text-neutral">
+      <div className="footer-logo">
         <img src={logo} alt="logo" />
       </div>
       <p className="footer-text">

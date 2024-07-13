@@ -1,6 +1,6 @@
-* {
+/* * {
   color: oklch(var(--n));
-}
+} */
 
 .title {
   height: min-content;
@@ -20,6 +20,11 @@
 
 .reward-button-container {
   max-width: 400px;
+  margin: 10px 0px;
+}
+
+a {
+  color: oklch(var(--n));
 }
 
 .vol-listing,
@@ -47,4 +52,26 @@
 .modal-action {
   max-width: 200px;
   justify-content: space-between;
+}
+
+.data-table {
+  width: 100%;
+}
+
+.table {
+  border: 0px;
+}
+
+th, tbody {
+  font-size: 16px;
+}
+
+.manage-button-container {
+  display: flex;
+  gap: 20px;
+}
+
+.manage-button-container > button,
+.verify-button, .upload-container > button {
+  width: 150px;
 }
