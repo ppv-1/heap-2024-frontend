@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import withNavigateandLocation from "./withNavigateandLocation";
 import VolunteerService from "../services/VolunteerService";
 import "./css/Opportunities.css";
+import AlertComponent from "./alert";
 
 class RegisteredEvent extends Component {
   constructor(props) {
@@ -10,19 +11,45 @@ class RegisteredEvent extends Component {
     this.state = {
       items: [],
       showRegAlert: false,
+      showDeregAlert: false,
+      modalVisible: false,
+      selectedEvent: null,
+      registeredEventName: "",
+      deregisteredEventName: "",
     };
   }
 
   unregisterSubmit = async (event, id) => {
     event.preventDefault();
-    let result = window.confirm(
-      "Are you sure you want to unregister from this event?"
-    );
-    console.log(id);
-    if (result) {
-      await VolunteerService.unregisterEvent(id);
+    const selectedEvent = this.state.items.find((item) => item.id === id);
+    this.showModal(selectedEvent);
+  };
+
+  showModal = (selectedEvent) => {
+    this.setState({ modalVisible: true, selectedEvent });
+  };
+
+  closeModal = () => {
+    this.setState({
+      modalVisible: false,
+      deregisteredEventName: this.state.selectedEvent
+        ? this.state.selectedEvent.name
+        : "",
+      selectedEvent: null,
+      showDeregAlert: true,
+    });
+    setTimeout(() => {
+      this.setState({ showDeregAlert: false, deregisteredEventName: "" });
       window.location.reload();
-      alert("Successfully unregistered");
+    }, 3000);
+  };
+
+  handleConfirm = async (e) => {
+    e.preventDefault();
+    const { selectedEvent } = this.state;
+    if (selectedEvent) {
+      await VolunteerService.unregisterEvent(selectedEvent.id);
+      this.closeModal();
     }
   };
 
@@ -36,17 +63,45 @@ class RegisteredEvent extends Component {
   componentDidMount() {
     this.fetchData();
     if (this.props.location.state && this.props.location.state.showRegAlert) {
-      this.setState({ showRegAlert: true }, () => {
-        console.log("showAlert=", this.state.showRegAlert);
-      });
+      this.setState(
+        {
+          showRegAlert: true,
+          registeredEventName: this.props.location.state.registeredEventName,
+        },
+        () => {
+          console.log("showAlert=", this.state.showRegAlert);
+        }
+      );
       setTimeout(() => {
         this.setState({ showRegAlert: false });
       }, 3000);
     }
+    // const alertData = sessionStorage.getItem("showRegAlert");
+    // if (alertData) {
+    //   const { show, eventName } = JSON.parse(alertData);
+    //   if (show) {
+    //     this.setState(
+    //       { showRegAlert: true, registeredEventName: eventName },
+    //       () => {
+    //         console.log("showAlert=", this.state.showRegAlert);
+    //       }
+    //     );
+    //     setTimeout(() => {
+    //       this.setState({ showRegAlert: false });
+    //     }, 3000);
+    //     sessionStorage.removeItem("showRegAlert");
+    //   }
+    // }
   }
 
   render() {
-    let items = this.state.items;
+    const {
+      items,
+      selectedEvent,
+      modalVisible,
+      registeredEventName,
+      deregisteredEventName,
+    } = this.state;
 
     return (
       <div className="wrapper">
@@ -76,7 +131,6 @@ class RegisteredEvent extends Component {
                   </figure>
                   <div className="card-body">
                     <h2 className="card-title">{item.name}</h2>
-                    <p>Volunteer opportunity</p>
                     <div className="card-actions justify-end">
                       <button
                         className="btn btn-primary"
@@ -90,16 +144,40 @@ class RegisteredEvent extends Component {
                   </div>
                 </div>
               ))}
-              {this.state.showRegAlert && (
-                <div className="toast toast-end">
-                  <div className="alert alert-success update">
-                    <span>Registered successfully!</span>
-                  </div>
-                </div>
-              )}
             </div>
           </>
         )}
+
+        <AlertComponent
+          showAlert={this.state.showRegAlert}
+          alertType="success"
+          alertMessage={`Registered for ${registeredEventName}.`}
+        />
+
+        {modalVisible && (
+          <dialog className="modal modal-bottom sm:modal-middle" open>
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">
+                Are you sure you want to deregister from {selectedEvent?.name}?
+              </h3>
+              <p className="py-4">Please confirm your choice.</p>
+              <div className="modal-action">
+                <button className="btn" onClick={this.handleConfirm}>
+                  Confirm
+                </button>
+                <button className="btn" onClick={this.closeModal}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </dialog>
+        )}
+
+        <AlertComponent
+          showAlert={this.state.showDeregAlert}
+          alertType="success"
+          alertMessage={`Deregistered from ${deregisteredEventName}.`}
+        />
       </div>
     );
   }

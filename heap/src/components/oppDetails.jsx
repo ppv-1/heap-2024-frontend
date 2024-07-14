@@ -60,10 +60,17 @@ class Opportunity extends Component {
 
   registerEvent = async (event) => {
     const eventId = this.props.params.id;
-    console.log(eventId);
+    const { opportunity } = this.state;
+    const eventName = opportunity.name;
+    console.log("eventName="+eventName);
     await VolunteerService.registerEvent(eventId);
     // alert("You have successfully registered for this event");
-    this.props.navigate("/registered-event", { state: { showRegAlert: true } });
+    this.props.navigate("/registered-event", { state: { showRegAlert: true, registeredEventName: eventName } });
+    // sessionStorage.setItem(
+    //   "showRegAlert",
+    //   JSON.stringify({ show: true, eventName })
+    // );
+    // this.props.navigate("/registered-event");
   };
 
   render() {
@@ -119,7 +126,10 @@ class Opportunity extends Component {
               <p>Type: {opportunity.type}</p>
               <div className="event-listings">
                 <div>
-                  <img src={`data:image/jpeg;base64,${this.state.images[0].data}`} alt="image" />
+                  <img
+                    src={`data:image/jpeg;base64,${this.state.images[0].data}`}
+                    alt="image"
+                  />
                 </div>
                 {images.map((image, index) => (
                   <div

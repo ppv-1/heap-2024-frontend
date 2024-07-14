@@ -102,7 +102,6 @@ class PostedEvent extends Component {
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{item.name}</h2>
-                <p>Volunteer opportunity</p>
                 <div className="card-actions justify-end">
                   <button
                     className="btn btn-primary"
