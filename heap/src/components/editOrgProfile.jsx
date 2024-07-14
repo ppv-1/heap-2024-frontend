@@ -4,6 +4,7 @@ import "./css/Create.css";
 import OrgService from "../services/OrgService";
 import UserService from "../services/UserService";
 import MediaService from "../services/MediaService";
+import validator from "validator";
 
 class EditOrgProfile extends Component {
   constructor(props) {
@@ -18,6 +19,8 @@ class EditOrgProfile extends Component {
       profilePicture: null,
       fileErrorMessage: "", // State to store error message for file size
       showEditAlert: false,
+      errorMessage1: "",
+      errorMessage2: "",
     };
     this.changeFullNameHandler = this.changeFullNameHandler.bind(this);
     this.changeContactNoHandler = this.changeContactNoHandler.bind(this);
@@ -56,7 +59,33 @@ class EditOrgProfile extends Component {
   };
 
   changeContactNoHandler = (event) => {
-    this.setState({ contactNo: event.target.value });
+    const contactNo = event.target.value;
+    this.setState({ contactNo }, () => {
+      this.validateContactNo(contactNo);
+    });
+  };
+
+  validateContactNo = (contactNo = null) => {
+    if (validator.isMobilePhone(contactNo, "en-SG")) {
+      this.setState({ errorMessage1: "" });
+    } else {
+      this.setState({ errorMessage1: "Invalid contact number" });
+    }
+  };
+
+  changeEmailHandler = (event) => {
+    const email = event.target.value;
+    this.setState({ email }, () => {
+      this.validateEmail(email);
+    });
+  };
+
+  validateEmail = (email = null) => {
+    if (validator.isEmail(email)) {
+      this.setState({ errorMessage2: "" });
+    } else {
+      this.setState({ errorMessage2: "Invalid email" });
+    }
   };
 
   changeWebsiteHandler = (event) => {
@@ -65,10 +94,6 @@ class EditOrgProfile extends Component {
 
   changeLocationHandler = (event) => {
     this.setState({ location: event.target.value });
-  };
-
-  changeEmailHandler = (event) => {
-    this.setState({ email: event.target.value });
   };
 
   changeDescriptionHandler = (event) => {
@@ -111,8 +136,14 @@ class EditOrgProfile extends Component {
     }
   };
 
+  cancel = async (e) => {
+    e.preventDefault();
+    this.props.navigate("/org-profile");
+  };
+
   render() {
     console.log(this.state);
+    const { errorMessage1, errorMessage2 } = this.state;
     return (
       <>
         <div className="content">
@@ -130,12 +161,13 @@ class EditOrgProfile extends Component {
             <label>
               <p>Contact No</p>
               <input
-                type="number"
+                type="tel"
                 required
                 value={this.state.contactNo}
                 onChange={this.changeContactNoHandler}
               />
             </label>
+            <span className="error-message">{errorMessage1}</span>
             <label>
               <p>Email</p>
               <input
@@ -145,6 +177,7 @@ class EditOrgProfile extends Component {
                 onChange={this.changeEmailHandler}
               />
             </label>
+            <span className="error-message">{errorMessage2}</span>
             <label>
               <p>Location</p>
               <input
@@ -188,8 +221,11 @@ class EditOrgProfile extends Component {
               )}
             </label>
             <div className="button-container">
-              <button className="btn btn-wide" onClick={this.editProfile}>
+              <button className="btn" onClick={this.editProfile}>
                 Save
+              </button>
+              <button className="btn" onClick={this.cancel}>
+                Cancel
               </button>
             </div>
           </form>

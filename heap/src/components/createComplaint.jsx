@@ -46,6 +46,11 @@ class CreateComplaint extends Component {
     this.setState({ description: event.target.value });
   };
 
+  cancel = async (e) => {
+    e.preventDefault();
+    this.props.navigate("/");
+  };
+
   render() {
     console.log(this.state);
     console.log(this.state.user);
@@ -83,6 +88,9 @@ class CreateComplaint extends Component {
             <div className="button-container">
               <button className="btn btn-wide" onClick={this.createComplaint}>
                 Create Complaint
+              </button>
+              <button className="btn" onClick={this.cancel}>
+                Cancel
               </button>
             </div>
           </form>

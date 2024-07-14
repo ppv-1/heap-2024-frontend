@@ -116,7 +116,7 @@ class ChangePassword extends Component {
                 onChange={this.handleChangeConfirmPassword}
               />
             </label>
-            <div className="error-message">{errorMessage}</div>
+            <span className="error-message">{errorMessage}</span>
             <div className="button-container">
               <button
                 className="btn btn-wide"

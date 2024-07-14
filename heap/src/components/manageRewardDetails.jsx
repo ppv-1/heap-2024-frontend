@@ -12,17 +12,23 @@ class ManageRewardsDetails extends Component {
     this.state = {
       reward: null,
       loading: true,
+      barcodes: [],
     };
   }
 
   fetchData = async () => {
     const { id } = this.props.params;
+    console.log("id=" + id);
 
     try {
-      const res = await RewardService.getReward(id);
-      console.log(res.status);
-      console.log(res.data);
-      this.setState({ reward: res.data, loading: false });
+      // const res = await RewardService.getReward(id);
+      const barcodesRes = await RewardService.getRewardBarcodes(id);
+      // console.log(res.status);
+      // console.log(res.data);
+      console.log("!!!!!!!!!!!");
+      console.log(barcodesRes.status);
+      console.log(barcodesRes.data);
+      // this.setState({ reward: res.data, loading: false });
     } catch (error) {
       console.error("Failed to fetch reward", error);
     }
@@ -57,6 +63,8 @@ class ManageRewardsDetails extends Component {
         </div>
         <h1 className="title">{reward.name}</h1>
         <h2>Description: {reward.description}</h2>
+        <h2>Count: {reward.count}</h2>
+        <h2>rewardId: {reward.id}</h2>
         <div className="data-table">
           <div className="overflow-x auto">
             <table className="table">

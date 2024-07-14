@@ -4,6 +4,7 @@ import "./css/Create.css";
 import OppService from "../services/OppService";
 import MediaService from "../services/MediaService";
 import { MultiSelect } from "react-multi-select-component";
+import validator from "validator";
 
 const causes = [
   { label: "Animal Welfare", value: "animalWelfare" },
@@ -75,7 +76,10 @@ class CreateOppComponent extends Component {
       address: "",
       description: "",
       eventMedia: [], 
-      eventCoverMedia: null
+      eventCoverMedia: null,
+      errorMessage1: "",
+      errorMessage2: "",
+      errorMessage3: "",
     };
 
     this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -157,15 +161,51 @@ class CreateOppComponent extends Component {
   };
 
   changeDateHandler = (event) => {
-    this.setState({ date: event.target.value });
+    // this.setState({ date: event.target.value });
+    const date = event.target.value;
+    this.setState({ date }, () => {
+      this.validateDate(date);
+    });
+  };
+
+  validateDate = (date = null) => {
+    if (validator.isAfter(date)) {
+      this.setState({ errorMessage1: ""});
+    } else {
+      this.setState({ errorMessage1: "Please choose a future date. This date is invalid."});
+    }
   };
 
   changeStartTimeHandler = (event) => {
-    this.setState({ startTime: event.target.value });
+    // this.setState({ startTime: event.target.value });
+    const startTime = event.target.value;
+    this.setState({ startTime }, () => {
+      this.validateStartTime(startTime);
+    });
+  };
+
+  validateStartTime = (startTime = null) => {
+    if (startTime < '06:00' || startTime > '22:00') {
+      this.setState({ errorMessage2: "Please select a time between 6am and 10pm."});
+    } else {
+      this.setState({ errorMessage2: ""});
+    }
   };
 
   changeEndTimeHandler = (event) => {
-    this.setState({ endTime: event.target.value });
+    // this.setState({ endTime: event.target.value });
+    const endTime = event.target.value;
+    this.setState({ endTime }, () => {
+      this.validateEndTime(endTime);
+    });
+  };
+
+  validateEndTime = (endTime = null) => {
+    if (endTime < '06:00' || endTime > '22:00') {
+      this.setState({ errorMessage3: "Please select a time between 6am and 10pm."});
+    } else {
+      this.setState({ errorMessage3: ""});
+    }
   };
 
   changeCausesHandler = (selected) => {
@@ -241,6 +281,7 @@ class CreateOppComponent extends Component {
   render() {
     console.log(this.state);
     const isComplete = this.isFormComplete();
+    const { errorMessage1, errorMessage2, errorMessage3 } = this.state;
     return (
       <>
         <div className="content">
@@ -266,24 +307,29 @@ class CreateOppComponent extends Component {
                 onChange={this.changeDateHandler}
               />
             </label>
+            <span className="error-message">{errorMessage1}</span>
             <label>
               <p>Start Time</p>
               <input
                 type="time"
+                min="06:00" max="22:00"
                 required
                 value={this.state.startTime}
                 onChange={this.changeStartTimeHandler}
               />
             </label>
+            <span className="error-message">{errorMessage2}</span>
             <label>
               <p>End Time</p>
               <input
                 type="time"
+                min="06:00" max="22:00"
                 required
                 value={this.state.endTime}
                 onChange={this.changeEndTimeHandler}
               />
             </label>
+            <span className="error-message">{errorMessage3}</span>
             <label htmlFor="causes">
               <p>Causes</p>
               <MultiSelect

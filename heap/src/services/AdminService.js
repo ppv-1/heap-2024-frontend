@@ -21,6 +21,10 @@ class AdminService {
         return await ProtectedAPI.get(`/admin/all-volunteers`);
     }
 
+    async getVolunteer(id) {
+        return await ProtectedAPI.get(`/get-volunteer/${id}`);
+    }
+
     async getAllOrganisations() {
         return await ProtectedAPI.get(`/admin/all-organisation`);
     }

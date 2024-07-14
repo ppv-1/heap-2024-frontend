@@ -42,6 +42,7 @@ import ManageComplaints from "./components/manageComplaints";
 import RedeemedRewards from "./components/redeemedRewards";
 import ManageRewardsDetails from "./components/manageRewardDetails";
 import ManageOrgDetails from "./components/manageOrgDetails";
+import ManageVolDetails from "./components/manageVolDetails";
 
 export default function App() {
   return (
@@ -76,6 +77,7 @@ export default function App() {
             <Route exact path="/manage-orgs" element={<ManageOrgs />} />
             <Route exact path="/manage-rewards/:id" element={<ManageRewardsDetails />} />
             <Route exact path="/manage-orgs/:id" element={<ManageOrgDetails />} />
+            <Route exact path="/manage-vols/:id" element={<ManageVolDetails />} />
             <Route exact path="/create-reward" element={<CreateReward />} />
             <Route exact path="/edit-profile" element={<EditProfile />} />
             <Route exact path="/edit-org-profile" element={<EditOrgProfile />} />

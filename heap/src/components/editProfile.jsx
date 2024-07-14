@@ -4,6 +4,7 @@ import "./css/Create.css";
 import VolunteerService from "../services/VolunteerService";
 import UserService from "../services/UserService";
 import MediaService from "../services/MediaService";
+import validator from "validator";
 
 class EditProfile extends Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class EditProfile extends Component {
       profilePicture: null,
       fileErrorMessage: "", // State to store error message for file size
       showEditAlert: false,
+      errorMessage1: "",
+      errorMessage2: "",
     };
     this.changeFullNameHandler = this.changeFullNameHandler.bind(this);
     this.changeContactNoHandler = this.changeContactNoHandler.bind(this);
@@ -45,11 +48,33 @@ class EditProfile extends Component {
   };
 
   changeContactNoHandler = (event) => {
-    this.setState({ contactNo: event.target.value });
+    const contactNo = event.target.value;
+    this.setState({ contactNo }, () => {
+      this.validateContactNo(contactNo);
+    });
+  };
+
+  validateContactNo = (contactNo = null) => {
+    if (validator.isMobilePhone(contactNo, "en-SG")) {
+      this.setState({ errorMessage1: "" });
+    } else {
+      this.setState({ errorMessage1: "Invalid contact number" });
+    }
   };
 
   changeEmailHandler = (event) => {
-    this.setState({ email: event.target.value });
+    const email = event.target.value;
+    this.setState({ email }, () => {
+      this.validateEmail(email);
+    });
+  };
+
+  validateEmail = (email = null) => {
+    if (validator.isEmail(email)) {
+      this.setState({ errorMessage2: "" });
+    } else {
+      this.setState({ errorMessage2: "Invalid email" });
+    }
   };
 
   changeGenderHandler = (event) => {
@@ -103,8 +128,14 @@ class EditProfile extends Component {
     }
   };
 
+  cancel = async (e) => {
+    e.preventDefault();
+    this.props.navigate("/user-profile");
+  };
+
   render() {
     console.log(this.state);
+    const { errorMessage1, errorMessage2 } = this.state;
     return (
       <>
         <div className="content">
@@ -117,24 +148,6 @@ class EditProfile extends Component {
                 required
                 value={this.state.fullName}
                 onChange={this.changeFullNameHandler}
-              />
-            </label>
-            <label>
-              <p>Contact No</p>
-              <input
-                type="number"
-                required
-                value={this.state.contactNo}
-                onChange={this.changeContactNoHandler}
-              />
-            </label>
-            <label>
-              <p>Email</p>
-              <input
-                type="text"
-                required
-                value={this.state.email}
-                onChange={this.changeEmailHandler}
               />
             </label>
             <label>
@@ -154,6 +167,26 @@ class EditProfile extends Component {
               </select>
             </label>
             <label>
+              <p>Contact No</p>
+              <input
+                type="tel"
+                required
+                value={this.state.contactNo}
+                onChange={this.changeContactNoHandler}
+              />
+            </label>
+            <span className="error-message">{errorMessage1}</span>
+            <label>
+              <p>Email</p>
+              <input
+                type="text"
+                required
+                value={this.state.email}
+                onChange={this.changeEmailHandler}
+              />
+            </label>
+            <span className="error-message">{errorMessage2}</span>
+            <label>
               <p>Profile Picture</p>
               <input
                 required
@@ -169,9 +202,10 @@ class EditProfile extends Component {
               )}
             </label>
             <div className="button-container">
-              <button className="btn btn-wide" onClick={this.editProfile}>
+              <button className="btn" onClick={this.editProfile}>
                 Save
               </button>
+              <button className="btn" onClick={this.cancel}>Cancel</button>
             </div>
           </form>
         </div>

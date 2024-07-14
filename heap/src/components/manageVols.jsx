@@ -3,6 +3,7 @@ import "./css/Admin.css";
 import withNavigateandLocation from "./withNavigateandLocation";
 import AdminService from "../services/AdminService";
 import AlertComponent from "./alert";
+import { Link } from "react-router-dom";
 
 class ManageVols extends Component {
   constructor(props) {
@@ -203,11 +204,15 @@ class ManageVols extends Component {
               </thead>
               <tbody>
                 {items.map((item) => (
-                  <tr key={item.id}> 
+                  <tr key={item.id}>
                     <td>
                       <div className="flex items-center gap-3">
                         <div>
-                          <div className="font-bold">{item.fullName}</div>
+                          <div className="font-bold">
+                            <Link to={`/manage-vols/${item.email}`}>
+                              {item.fullName}
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </td>
@@ -215,34 +220,34 @@ class ManageVols extends Component {
                     <td>{item.email}</td>
                     <td>{item.complainCount}</td>
                     <td className="manage-button-container">
-                    {item.locked ? (
+                      {item.locked ? (
+                        <button
+                          className="btn btn-primary btn-xs"
+                          onClick={(event) =>
+                            this.whitelistVolHandler(event, item.email)
+                          }
+                        >
+                          Whitelist
+                        </button>
+                      ) : (
+                        <button
+                          className="btn btn-neutral"
+                          onClick={(event) =>
+                            this.blacklistVolHandler(event, item.email)
+                          }
+                        >
+                          Blacklist
+                        </button>
+                      )}
                       <button
-                        className="btn btn-primary btn-xs"
+                        className="btn btn-danger"
                         onClick={(event) =>
-                          this.whitelistVolHandler(event, item.email)
+                          this.deleteVolHandler(event, item.email)
                         }
                       >
-                        Whitelist
+                        Delete
                       </button>
-                    ) : (
-                      <button
-                        className="btn btn-neutral"
-                        onClick={(event) =>
-                          this.blacklistVolHandler(event, item.email)
-                        }
-                      >
-                        Blacklist
-                      </button>
-                    )}
-                    <button
-                      className="btn btn-danger"
-                      onClick={(event) =>
-                        this.deleteVolHandler(event, item.email)
-                      }
-                    >
-                      Delete
-                    </button>
-                  </td>
+                    </td>
                   </tr>
                 ))}
               </tbody>

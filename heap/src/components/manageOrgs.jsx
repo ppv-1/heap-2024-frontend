@@ -20,10 +20,12 @@ class ManageOrgs extends Component {
     };
   }
   fetchData = async () => {
-    const res = await OrgService.getAllOrgs();
+    // const res = await OrgService.getAllOrgs();
+    const res = await AdminService.getAllOrganisations();
     console.log(JSON.stringify(res.data));
-    console.log("res.data.orgs=" + res.data.orgs);
-    this.setState({ items: res.data.orgs });
+    console.log("res.data="+res.data.users);
+    // console.log("res.data.orgs=" + res.data.orgs);
+    this.setState({ items: res.data.users });
   };
 
   async componentDidMount() {
@@ -43,7 +45,9 @@ class ManageOrgs extends Component {
     });
     setTimeout(() => {
       this.setState({ showAlert: false });
+      window.location.reload();
     }, 3000);
+    
   };
 
   handleConfirm = async (e) => {
@@ -135,87 +139,6 @@ class ManageOrgs extends Component {
       this.state.items.find((item) => item.email === id)
     );
   };
-
-  // verifyOrgHandler = async (event, id) => {
-  //   event.preventDefault();
-  //   let result = window.confirm(
-  //     "Are you sure you want to verify organisation " + id + "?"
-  //   );
-  //   if (result) {
-  //     await AdminService.verifyOrg(id);
-  //     window.location.reload();
-  //     alert("Organisation " + id + " verified");
-  //   }
-  // };
-
-  // blacklistOrgHandler = async (event, id) => {
-  //   event.preventDefault();
-  //   let result = window.confirm(
-  //     "Are you sure you want to blacklist organisation " + id + "?"
-  //   );
-
-  //   if (result) {
-  //     await AdminService.blacklistUser(id);
-  //     // Assuming AdminService.blacklistUser(id) toggles the blacklist status
-
-  //     // After the operation completes, update the state or modify the item directly
-  //     let updatedItems = this.state.items.map((item) => {
-  //       if (item.email === id) {
-  //         // Toggle the state of the item's blacklist status
-  //         item.locked = !item.locked;
-  //       }
-  //       return item;
-  //     });
-
-  //     // Update the state with the modified items array
-  //     this.setState({ items: updatedItems });
-  //     let item = updatedItems.find((item) => item.email === id);
-
-  //     alert(
-  //       "Organisation " + id + (item.locked ? " blacklisted" : " unblacklisted")
-  //     );
-  //   }
-  // };
-
-  // whitelistOrgHandler = async (event, id) => {
-  //   event.preventDefault();
-  //   let result = window.confirm(
-  //     "Are you sure you want to whitelist organisation " + id + "?"
-  //   );
-
-  //   if (result) {
-  //     await AdminService.whitelistUser(id);
-
-  //     // After the operation completes, update the state or modify the item directly
-  //     let updatedItems = this.state.items.map((item) => {
-  //       if (item.email === id) {
-  //         // Toggle the state of the item's blacklist status
-  //         item.locked = !item.locked;
-  //       }
-  //       return item;
-  //     });
-
-  //     // Update the state with the modified items array
-  //     this.setState({ items: updatedItems });
-  //     let item = updatedItems.find((item) => item.email === id);
-
-  //     alert(
-  //       "Organisation " + id + (item.locked ? " blacklisted" : " whitelisted")
-  //     );
-  //   }
-  // };
-
-  // deleteOrgHandler = async (event, id) => {
-  //   event.preventDefault();
-  //   let result = window.confirm(
-  //     "Are you sure you want to delete organisation " + id + "?"
-  //   );
-  //   if (result) {
-  //     await AdminService.deleteUser(id);
-  //     window.location.reload();
-  //     alert("Organisation " + id + " deleted");
-  //   }
-  // };
 
   render() {
     let { items, modalVisible, modalType, selectedOrg } = this.state;

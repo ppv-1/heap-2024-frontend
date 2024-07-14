@@ -42,6 +42,15 @@ input[type="file"] {
   margin: 8px 0;
 }
 
+/* input:invalid {
+  border: none;
+  outline: 2px solid red;
+} */
+
+.error-message {
+  color: oklch(var(--er));
+}
+
 select {
   width: 100%;
   margin: 8px 0;
@@ -90,6 +99,8 @@ button.btn {
 .button-container {
   width: 100%;
   margin-top: 50px;
+  display: flex;
+  flex-direction: column;
 }
 
 form > label {

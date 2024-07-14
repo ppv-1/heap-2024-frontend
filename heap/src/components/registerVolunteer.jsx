@@ -3,6 +3,7 @@ import UserService from "../services/UserService";
 import withNavigateandLocation from "./withNavigateandLocation";
 import "./css/Signup.css";
 import AuthService from "../services/AuthService";
+import validator from "validator";
 
 class RegisterVolunteer extends Component {
   constructor(props) {
@@ -10,10 +11,14 @@ class RegisterVolunteer extends Component {
 
     this.state = {
       name: "",
-      gender: '',
+      gender: "",
       contactNo: "",
       email: "",
       password: "",
+      confirmPassword: "",
+      errorMessage1: "",
+      errorMessage2: "",
+      errorMessage3: "",
     };
 
     this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -48,31 +53,94 @@ class RegisterVolunteer extends Component {
     const selectedGender = event.target.value;
     let genderChar;
 
-    if (selectedGender === 'male') {
-      genderChar = 'M';
-    } else if (selectedGender === 'female') {
-      genderChar = 'F';
-    } else if (selectedGender === 'non-binary') {
-      genderChar = 'N';
+    if (selectedGender === "male") {
+      genderChar = "M";
+    } else if (selectedGender === "female") {
+      genderChar = "F";
+    } else if (selectedGender === "non-binary") {
+      genderChar = "N";
     } else {
-      genderChar = 'O';
+      genderChar = "O";
     }
     this.setState({ gender: genderChar });
   };
 
   changeContactNoHandler = (event) => {
-    this.setState({ contactNo: event.target.value });
+    const contactNo = event.target.value;
+    this.setState({ contactNo }, () => {
+      this.validateContactNo(contactNo);
+    });
+  };
+
+  validateContactNo = (contactNo = null) => {
+    if (validator.isMobilePhone(contactNo, "en-SG")) {
+      this.setState({ errorMessage1: "" });
+    } else {
+      this.setState({ errorMessage1: "Invalid contact number" });
+    }
   };
 
   changeEmailHandler = (event) => {
-    this.setState({ email: event.target.value });
+    const email = event.target.value;
+    this.setState({ email }, () => {
+      this.validateEmail(email);
+    });
   };
 
+  validateEmail = (email = null) => {
+    if (validator.isEmail(email)) {
+      this.setState({ errorMessage2: "" });
+    } else {
+      this.setState({ errorMessage2: "Invalid email" });
+    }
+  };
   changePasswordHandler = (event) => {
     this.setState({ password: event.target.value });
   };
 
+  handleConfirmPassword = (event) => {
+    const confirmPassword = event.target.value;
+    this.setState({ confirmPassword }, () => {
+      this.validatePassword(this.state.password, confirmPassword);
+    });
+  };
+
+  validatePassword = (password, confirmPassword = null) => {
+    if (
+      validator.isStrongPassword(password, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+    ) {
+      if (confirmPassword && password !== confirmPassword) {
+        this.setState({ errorMessage3: "Passwords do not match" });
+      } else {
+        this.setState({ errorMessage3: "" });
+      }
+    } else {
+      this.setState({ errorMessage3: "Password not strong" });
+    }
+  };
+
+  isFormComplete() {
+    const { name, contactNo, email, gender, password, confirmPassword } =
+      this.state;
+
+    return (
+      name !== "" &&
+      contactNo !== "" &&
+      email !== "" &&
+      gender !== "" &&
+      password !== "" &&
+      confirmPassword !== ""
+    );
+  }
+
   render() {
+    const { errorMessage1, errorMessage2, errorMessage3 } = this.state;
     return (
       <>
         <div className="content">
@@ -105,12 +173,12 @@ class RegisterVolunteer extends Component {
               <p>Contact Number</p>
               <input
                 type="tel"
-                pattern="[0-9]{4}-[0-9]{4}"
                 required
                 value={this.state.contactNo}
                 onChange={this.changeContactNoHandler}
               />
             </label>
+            <span className="error-message">{errorMessage1}</span>
             <label>
               <p>Email Address</p>
               <input
@@ -120,6 +188,7 @@ class RegisterVolunteer extends Component {
                 onChange={this.changeEmailHandler}
               />
             </label>
+            <span className="error-message">{errorMessage2}</span>
             <label>
               <p>Password</p>
               <input
@@ -128,8 +197,22 @@ class RegisterVolunteer extends Component {
                 onChange={this.changePasswordHandler}
               />
             </label>
+            <label>
+              <p>Confirm password</p>
+              <input
+                required
+                type="password"
+                value={this.state.confirmPassword}
+                onChange={this.handleConfirmPassword}
+              />
+            </label>
+            <span className="error-message">{errorMessage3}</span>
             <div className="button-container">
-              <button className="btn btn-wide" onClick={this.createUser}>
+              <button
+                className="btn btn-wide"
+                onClick={this.createUser}
+                disabled={!this.isFormComplete()}
+              >
                 Sign Up
               </button>
             </div>

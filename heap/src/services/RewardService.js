@@ -26,6 +26,10 @@ class RewardService {
     return await ProtectedAPI.post(`/reward/reward-category/upload-barcodes/${rewardId}`, file, {'Content-Type': 'multipart/form-data'});
   }
 
+  async getRewardBarcodes(rewardCatId){
+    return await ProtectedAPI.get(`reward-category/list-barcodes/${rewardCatId}`);
+  }
+
   async deleteRewardBarcode(rewardCatId, rewardId){
     return await ProtectedAPI.get(`/reward/reward/delete/${rewardCatId}/${rewardId}`);
   }
