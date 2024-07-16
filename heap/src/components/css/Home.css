@@ -85,7 +85,7 @@
 .button-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  
 }
 
 .button1,
@@ -109,4 +109,44 @@
 
 .footer {
   width: 100% !important;
+}
+
+@media (max-width: 600px) {
+  .causes, .orgs {
+    /* margin-top: 40%;
+    margin-bottom: 30%; */
+    max-width: 95%;
+    text-align: center;
+  }
+
+  .causes > h1, .orgs > h1 {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    text-decoration: none;
+  }
+
+  .causes > p {
+    font-size: 12px;
+  }
+  
+  .carousel {
+    width: 95%;
+    margin-bottom: 40px;
+  }
+  
+  .carousel-item {
+    height: 150px;
+    margin-right: 10%;
+    margin-top: 10%;
+  }
+
+  .causes img {
+    max-height: 100px;
+  }
+
+  .causes a {
+    font-size: 14px;
+  }
+
 }

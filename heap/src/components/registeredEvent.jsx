@@ -105,13 +105,13 @@ class RegisteredEvent extends Component {
 
     return (
       <div className="wrapper">
-        <div className="text-sm breadcrumbs">
+        {/* <div className="text-sm breadcrumbs">
           <ul>
             <li>
               <a href="/">Home</a>
             </li>
           </ul>
-        </div>
+        </div> */}
 
         <h1 className="title">Registered Events</h1>
         {items.length === 0 ? (

@@ -13,7 +13,8 @@ class ResetPassword extends Component {
     this.state = {
       password: "",
       confirmPassword: "",
-      errorMessage: "",
+      errorMessage1: "",
+      errorMessage2: "",
     };
     //   this.changeUsernameHandler = this.changeUsernameHandler.bind(this);
     //   this.changePasswordHandler = this.changePasswordHandler.bind(this);
@@ -30,21 +31,19 @@ class ResetPassword extends Component {
 
   handleChangePassword = (event) => {
     const password = event.target.value;
-    this.setState({ password }, () => {
-      // Call validate function whenever the password input changes
-      this.validatePassword(password);
+    this.setState({ password: password}, () => {
+      this.validatePassword(password, this.state.password);
     });
   };
 
   handleChangeConfirmPassword = (event) => {
     const confirmPassword = event.target.value;
     this.setState({ confirmPassword }, () => {
-      // Call validate function whenever the confirm password input changes
-      this.validatePassword(this.state.password, confirmPassword);
+      this.validateConfirmPassword(this.state.password, confirmPassword);
     });
   };
 
-  validatePassword = (password, confirmPassword = null) => {
+  validatePassword = (password) => {
     if (
       validator.isStrongPassword(password, {
         minLength: 8,
@@ -54,13 +53,20 @@ class ResetPassword extends Component {
         minSymbols: 1,
       })
     ) {
-      if (confirmPassword && password !== confirmPassword) {
-        this.setState({ errorMessage: "Passwords do not match" });
-      } else {
-        this.setState({ errorMessage: "Is Strong Password" });
-      }
+      this.setState({ errorMessage1: "" });
     } else {
-      this.setState({ errorMessage: "Is Not Strong Password" });
+      this.setState({
+        errorMessage1:
+          "Password should be at least 8 characters, and contain at least one lowercase character, uppercase character, number and symbol.",
+      });
+    }
+  };
+  
+  validateConfirmPassword = (password, confirmPassword) => {
+    if (password !== confirmPassword) {
+      this.setState({ errorMessage2: "Passwords do not match" });
+    } else {
+      this.setState({ errorMessage2: "Is Strong Password" });
     }
   };
 
@@ -74,7 +80,7 @@ class ResetPassword extends Component {
   };
 
   render() {
-    const { password, confirmPassword, errorMessage } = this.state;
+    const { password, confirmPassword, errorMessage1,  errorMessage2} = this.state;
     return (
       <div className="content">
         <h1 className="title">Reset Password</h1>
@@ -88,6 +94,7 @@ class ResetPassword extends Component {
               onChange={this.handleChangePassword}
             />
           </label>
+          <span className="error-message">{errorMessage1}</span>
           <label>
             <p>Confirm password</p>
             <input
@@ -97,7 +104,7 @@ class ResetPassword extends Component {
               onChange={this.handleChangeConfirmPassword}
             />
           </label>
-          <div className="error-message">{errorMessage}</div>
+          <span className="error-message">{errorMessage2}</span>
           <div className="button-container">
             <button
               className="btn btn-wide"

@@ -162,7 +162,7 @@ class Opportunity extends Component {
                   <p>End: {opportunity.endTime}</p>
                   <div className="button-container">
                     <button
-                      className="btn btn-neutral"
+                      className="btn"
                       onClick={this.registerEvent}
                     >
                       I want to volunteer

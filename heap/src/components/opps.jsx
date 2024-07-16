@@ -187,13 +187,13 @@ class OpportunitiesComponent extends Component {
 
     return (
       <div className="wrapper">
-        <div className="text-sm breadcrumbs">
+        {/* <div className="text-sm breadcrumbs">
           <ul>
             <li>
               <a href="/">Home</a>
             </li>
           </ul>
-        </div>
+        </div> */}
 
         <h1 className="title">Events</h1>
         <p>Here you can find various opportunities.</p>
@@ -217,7 +217,7 @@ class OpportunitiesComponent extends Component {
               <div className="drawer-content">
                 <label
                   htmlFor="my-drawer-4"
-                  className="drawer-button btn btn-primary"
+                  className="drawer-button btn"
                 >
                   Filters
                 </label>
@@ -364,12 +364,16 @@ class OpportunitiesComponent extends Component {
                       {item.neededManpowerCount - item.currentManpowerCount}{" "}
                       Spots left
                     </div>
+                    <br />
+                    <div className="cause-badges">
+                      <div className="badge badge-accent">{item.causes}</div>
+                    </div>
                   </div>
                   {/* <h1>{item.id}</h1> */}
 
                   <div className="card-actions justify-end">
                     <button
-                      className="btn btn-neutral"
+                      className="btn"
                       onClick={(event) => this.volunteerSubmit(event, item.id)}
                     >
                       Volunteer Now

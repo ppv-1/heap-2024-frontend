@@ -78,7 +78,7 @@ class PostedEvent extends Component {
 
     return (
       <div className="wrapper">
-        <div className="breadcrumbs-container">
+        {/* <div className="breadcrumbs-container">
           <div className="text-sm breadcrumbs">
             <ul>
               <li>
@@ -86,7 +86,7 @@ class PostedEvent extends Component {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
         <h1 className="title">Posted Events</h1>
         <p>These are the volunteer opportunities you have posted.</p>
         <br />
@@ -104,19 +104,19 @@ class PostedEvent extends Component {
                 <h2 className="card-title">{item.name}</h2>
                 <div className="card-actions justify-end">
                   <button
-                    className="btn btn-primary"
+                    className="btn"
                     onClick={(event) => this.detailsOpp(event, item.id)}
                   >
                     Details
                   </button>
                   <button
-                    className="btn btn-primary"
+                    className="btn"
                     onClick={(event) => this.editOpp(event, item.id)}
                   >
                     Edit
                   </button>
                   <button
-                    className="btn btn-primary"
+                    className="btn"
                     onClick={(event) => this.deleteOpp(event, item.id)}
                   >
                     Delete

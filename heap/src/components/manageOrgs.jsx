@@ -23,7 +23,7 @@ class ManageOrgs extends Component {
     // const res = await OrgService.getAllOrgs();
     const res = await AdminService.getAllOrganisations();
     console.log(JSON.stringify(res.data));
-    console.log("res.data="+res.data.users);
+    console.log("res.data=" + res.data.users);
     // console.log("res.data.orgs=" + res.data.orgs);
     this.setState({ items: res.data.users });
   };
@@ -45,9 +45,7 @@ class ManageOrgs extends Component {
     });
     setTimeout(() => {
       this.setState({ showAlert: false });
-      window.location.reload();
     }, 3000);
-    
   };
 
   handleConfirm = async (e) => {
@@ -191,7 +189,7 @@ class ManageOrgs extends Component {
                         <button
                           className="btn btn-neutral"
                           onClick={(event) =>
-                            this.whitelistVolHandler(event, item.email)
+                            this.whitelistOrgHandler(event, item.email)
                           }
                         >
                           Whitelist
@@ -200,7 +198,7 @@ class ManageOrgs extends Component {
                         <button
                           className="btn btn-neutral"
                           onClick={(event) =>
-                            this.blacklistVolHandler(event, item.email)
+                            this.blacklistOrgHandler(event, item.email)
                           }
                         >
                           Blacklist
