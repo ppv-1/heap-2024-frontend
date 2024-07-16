@@ -96,9 +96,9 @@ class ManageOrgs extends Component {
     const updatedItems = this.state.items.map((item) => {
       if (item.email === id) {
         if (isLocked !== null) {
-          item.locked = isLocked;
+          item.blacklisted = isLocked;
         } else {
-          item.locked = !item.locked;
+          item.blacklisted = !item.blacklisted;
         }
       }
       return item;
@@ -185,7 +185,7 @@ class ManageOrgs extends Component {
                       )}
                     </td>
                     <td className="manage-button-container">
-                      {item.locked ? (
+                      {item.blacklisted ? (
                         <button
                           className="btn btn-neutral"
                           onClick={(event) =>
