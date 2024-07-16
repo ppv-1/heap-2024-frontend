@@ -27,7 +27,7 @@ class RewardService {
   }
 
   async getRewardBarcodes(rewardCatId){
-    return await ProtectedAPI.get(`reward-category/list-barcodes/${rewardCatId}`);
+    return await ProtectedAPI.get(`/reward/reward-category/list-barcodes/${rewardCatId}`);
   }
 
   async deleteRewardBarcode(rewardCatId, rewardId){

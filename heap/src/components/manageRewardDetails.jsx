@@ -21,14 +21,14 @@ class ManageRewardsDetails extends Component {
     console.log("id=" + id);
 
     try {
-      // const res = await RewardService.getReward(id);
+      const res = await RewardService.getReward(id);
       const barcodesRes = await RewardService.getRewardBarcodes(id);
       // console.log(res.status);
       // console.log(res.data);
       console.log("!!!!!!!!!!!");
       console.log(barcodesRes.status);
       console.log(barcodesRes.data);
-      // this.setState({ reward: res.data, loading: false });
+      this.setState({ reward: res.data, loading: false, barcodes: barcodesRes.data.rewards });
     } catch (error) {
       console.error("Failed to fetch reward", error);
     }
@@ -39,7 +39,7 @@ class ManageRewardsDetails extends Component {
   }
 
   render() {
-    const { reward, loading } = this.state;
+    const { reward, loading, barcodes } = this.state;
     console.log(this.state);
 
     if (loading) {
@@ -72,11 +72,20 @@ class ManageRewardsDetails extends Component {
                 <tr>
                   <th>Reward</th>
                   <th>Barcode</th>
+                  <th>Redemption status</th>
+                  <th>Expiry Date</th>
                 </tr>
               </thead>
               <tbody>
-                <td>i</td>
-                <td>2</td>
+                {barcodes.map((barcode) => (
+                  <tr key={barcode.reward_barcode_id}>
+                    <td>{barcode.reward_barcode_id}</td>
+                    <td>{barcode.barcode}</td>
+                    <td>{barcode.redeemed ? "Redeemed" : "Unredeemed"}</td>
+                    <td>{barcode.expiryDate}</td>
+                  </tr>
+                    
+                ))}
               </tbody>
               <tfoot>
                 <tr>
