@@ -93,3 +93,15 @@ a {
   color: gray;
   text-align: right;
 }
+
+@media (max-width: 600px) {
+
+  .title {
+    font-size: 30px;
+  }
+
+  button.btn-wide {
+    padding: 5px 10px !important;
+    margin: 1vh !important;
+  }
+}

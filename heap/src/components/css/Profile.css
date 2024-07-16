@@ -106,3 +106,75 @@
 .toast {
   z-index: 40;
 }
+
+@media (max-width: 600px) {
+
+  .banner {
+    width: 90%;
+    height: 20%;
+    padding: 16px;
+    background: rgb(172, 222, 253);
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profile {
+    font-size: 30px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: oklch(var(--n));
+  }
+  
+  .profile p {
+    font-size: 1.25rem;
+    margin-top: 0.5rem;
+    font-style: normal;
+    font-weight: normal;
+    margin: 16px 0;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  button.btn {
+    padding: 5px 10px !important;
+    margin: 1vh !important;
+  }
+
+  .details {
+    width: 90%;
+  }
+
+  .details > .details-top > h1 {
+    font-size: 30px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+  }
+  
+  .details > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 20px;
+  }
+  
+  .details > div h2 {
+    width: 15%;
+    font-size: 16px;
+    font-weight: 500;
+    min-width: 100px;
+  }
+  
+  .details > div p {
+    margin-left: 0;
+    font-size: 16px;
+  }
+
+  .toast {
+    z-index: 40;
+  }
+}

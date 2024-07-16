@@ -188,7 +188,7 @@ class PostedEventDetails extends Component {
                           className={`btn ${
                             attendance.some((att) => att.id === item.id)
                               ? "btn-success"
-                              : "btn-neutral"
+                              : "btn"
                           }`}
                           onClick={() => this.markAttendance(item)}
                         >

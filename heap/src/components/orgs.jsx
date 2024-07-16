@@ -46,13 +46,13 @@ class OrganisationsComponent extends Component {
       : [];
     return (
       <div className="wrapper">
-        <div className="text-sm breadcrumbs">
+        {/* <div className="text-sm breadcrumbs">
           <ul>
             <li>
               <a href="/">Home</a>
             </li>
           </ul>
-        </div>
+        </div> */}
         <h1 className="title">Organisations</h1>
         <p>Here you can find information about different organisations.</p>
         <div className="searchbar-container">
@@ -79,7 +79,7 @@ class OrganisationsComponent extends Component {
                 <h2 className="card-title">{item.fullName}</h2>
                 {/*<h1>{item.id}</h1>*/}
                 <button
-                  className="btn btn-sm btn-neutral"
+                  className="btn btn-sm btn"
                   onClick={(event) =>
                     this.organisationSubmit(event, item.email)
                   }

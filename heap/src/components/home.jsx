@@ -43,11 +43,8 @@ class HomeComponent extends Component {
     //   setTimeout(() => {
     //     this.setState({ showAlert: false });
     //   }, 3000);
-    // } else 
-    if (
-      this.props.location.state &&
-      this.props.location.state.showLoginAlert
-    ) {
+    // } else
+    if (this.props.location.state && this.props.location.state.showLoginAlert) {
       this.setState(
         {
           showLoginAlert: true,
@@ -112,8 +109,7 @@ class HomeComponent extends Component {
           <motion.div
             className="causes"
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1 }}
             transition={{
               type: "spring",
               delay: 0.2,
@@ -218,10 +214,10 @@ class HomeComponent extends Component {
               </div>
             </div>
             <h1>Or search for more opportunities here!</h1>
-            <div className="button-container">
+            <div className="takeme  flex justify-center items-center">
               <div className="button1">
                 <button
-                  className="btn btn-outline"
+                  className="btn"
                   onClick={this.oppButtonHandler}
                 >
                   Take me there!
@@ -241,10 +237,10 @@ class HomeComponent extends Component {
             }}
           >
             <h1>Want to learn more about the organisations we serve?</h1>
-            <div className="button-container">
+            <div className="takeme  flex justify-center items-center">
               <div className="button2">
                 <button
-                  className="btn btn-outline"
+                  className="btn"
                   onClick={this.orgButtonHandler}
                 >
                   Take me there!
@@ -257,7 +253,7 @@ class HomeComponent extends Component {
         <AlertComponent
           showAlert={this.state.showLoginAlert}
           alertType="info"
-          alertMessage={ `Welcome back, admin!`}
+          alertMessage={`Welcome back, admin!`}
         />
       </>
     );

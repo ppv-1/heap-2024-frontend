@@ -68,13 +68,13 @@ class Rewards extends Component {
 
     return (
       <div className="wrapper">
-        <div className="text-sm breadcrumbs">
+        {/* <div className="text-sm breadcrumbs">
           <ul>
             <li>
               <a href="/">Home</a>
             </li>
           </ul>
-        </div>
+        </div> */}
         <h1 className="title">Rewards</h1>
         <p>Here you can find information about different rewards.</p>
         <br />
@@ -104,7 +104,7 @@ class Rewards extends Component {
                   )}
                 </div>
                 <button
-                  className="btn btn-primary"
+                  className="btn"
                   onClick={(event) => this.rewardSubmit(event, item.id)}
                 >
                   More info

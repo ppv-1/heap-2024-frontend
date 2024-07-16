@@ -108,3 +108,22 @@ button.btn {
 .button-container {
   width: 100%;
 }
+
+@media (max-width: 600px) {
+
+  .title {
+    font-size: 30px;
+  }
+
+  .sub-title {
+    font-size: 16px;
+    margin-bottom: 5vh;
+  }
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    margin-bottom: 10vh;
+  }
+}

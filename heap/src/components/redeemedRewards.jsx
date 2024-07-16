@@ -112,13 +112,13 @@ class RedeemedRewards extends Component {
 
     return (
       <div className="wrapper">
-        <div className="text-sm breadcrumbs">
+        {/* <div className="text-sm breadcrumbs">
           <ul>
             <li>
               <a href="/">Home</a>
             </li>
           </ul>
-        </div>
+        </div> */}
         <h1 className="title">Redeemed Rewards</h1>
         <div className="instructions">
           <p>

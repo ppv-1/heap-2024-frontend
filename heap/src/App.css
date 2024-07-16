@@ -10,6 +10,32 @@
   max-width: 100%;
 }
 
+#root {
+  width: 100% !important;
+  margin: 0 auto !important; /* Center the element horizontally */
+}
+
+/* For small screens (mobile devices) */
+@media (max-width: 600px) {
+  #root {
+    max-width: 100%;
+  }
+}
+
+/* For medium screens (tablets) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  #root {
+    max-width: 100%;
+  }
+}
+
+/* For large screens (desktops) */
+@media (min-width: 1025px) {
+  #root {
+    max-width: 3000px; /* Set a maximum width for larger screens */
+  }
+}
+
 .background {
   /* background: rgb(255, 255, 255); */
   background-blend-mode: darken;
@@ -66,8 +92,11 @@
   margin-left: 20px;
   height: 33px;
   width: 70px;
-  color: #fff;
-  background-color: #000000;
+  /* color: #fff; */
+  color: oklch(var(--n));
+  /* background-color: #e2e9fd; */
+  /* background-color: oklch(var(--nc)); */
+  background-color: oklch(var(--pc));
   cursor: pointer;
 }
 
@@ -93,6 +122,7 @@
 
 .toast {
   z-index: 40;
+  max-width: 200px;
 }
 
 .toast > .alert {
