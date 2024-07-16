@@ -19,6 +19,7 @@ class RegisterVolunteer extends Component {
       errorMessage1: "",
       errorMessage2: "",
       errorMessage3: "",
+      errorMessage4: "",
     };
 
     this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -94,18 +95,22 @@ class RegisterVolunteer extends Component {
       this.setState({ errorMessage2: "Invalid email" });
     }
   };
+
   changePasswordHandler = (event) => {
-    this.setState({ password: event.target.value });
+    const password = event.target.value;
+    this.setState({ password: password}, () => {
+      this.validatePassword(password, this.state.password);
+    });
   };
 
   handleConfirmPassword = (event) => {
     const confirmPassword = event.target.value;
     this.setState({ confirmPassword }, () => {
-      this.validatePassword(this.state.password, confirmPassword);
+      this.validateConfirmPassword(this.state.password, confirmPassword);
     });
   };
 
-  validatePassword = (password, confirmPassword = null) => {
+  validatePassword = (password) => {
     if (
       validator.isStrongPassword(password, {
         minLength: 8,
@@ -115,13 +120,20 @@ class RegisterVolunteer extends Component {
         minSymbols: 1,
       })
     ) {
-      if (confirmPassword && password !== confirmPassword) {
-        this.setState({ errorMessage3: "Passwords do not match" });
-      } else {
-        this.setState({ errorMessage3: "" });
-      }
+      this.setState({ errorMessage3: "" });
     } else {
-      this.setState({ errorMessage3: "Password not strong" });
+      this.setState({
+        errorMessage3:
+          "Password should be at least 8 characters, and contain at least one lowercase character, uppercase character, number and symbol.",
+      });
+    }
+  };
+  
+  validateConfirmPassword = (password, confirmPassword) => {
+    if (password !== confirmPassword) {
+      this.setState({ errorMessage4: "Passwords do not match" });
+    } else {
+      this.setState({ errorMessage4: "" });
     }
   };
 
@@ -140,7 +152,7 @@ class RegisterVolunteer extends Component {
   }
 
   render() {
-    const { errorMessage1, errorMessage2, errorMessage3 } = this.state;
+    const { errorMessage1, errorMessage2, errorMessage3, errorMessage4 } = this.state;
     return (
       <>
         <div className="content">
@@ -197,6 +209,7 @@ class RegisterVolunteer extends Component {
                 onChange={this.changePasswordHandler}
               />
             </label>
+            <span className="error-message">{errorMessage3}</span>
             <label>
               <p>Confirm password</p>
               <input
@@ -206,7 +219,7 @@ class RegisterVolunteer extends Component {
                 onChange={this.handleConfirmPassword}
               />
             </label>
-            <span className="error-message">{errorMessage3}</span>
+            <span className="error-message">{errorMessage4}</span>
             <div className="button-container">
               <button
                 className="btn btn-wide"
