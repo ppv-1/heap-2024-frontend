@@ -147,12 +147,13 @@ class RegisteredEvent extends Component {
             </div>
           </>
         )}
-
-        <AlertComponent
-          showAlert={this.state.showRegAlert}
-          alertType="success"
-          alertMessage={`Registered for ${registeredEventName}.`}
-        />
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={this.state.showRegAlert}
+            alertType="success"
+            alertMessage={`Registered for ${registeredEventName}.`}
+          />
+        </div>
 
         {modalVisible && (
           <dialog className="modal modal-bottom sm:modal-middle" open>
@@ -172,12 +173,13 @@ class RegisteredEvent extends Component {
             </div>
           </dialog>
         )}
-
-        <AlertComponent
-          showAlert={this.state.showDeregAlert}
-          alertType="success"
-          alertMessage={`Deregistered from ${deregisteredEventName}.`}
-        />
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={this.state.showDeregAlert}
+            alertType="success"
+            alertMessage={`Deregistered from ${deregisteredEventName}.`}
+          />
+        </div>
       </div>
     );
   }

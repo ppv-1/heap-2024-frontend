@@ -97,7 +97,7 @@ class ManageOrgs extends Component {
       if (item.email === id) {
         if (isLocked !== null) {
           item.blacklisted = isLocked;
-        } 
+        }
       }
       return item;
     });
@@ -172,7 +172,7 @@ class ManageOrgs extends Component {
                       ) : (
                         <div className="manage-button-container">
                           <button
-                            className="btn btn-neutral"
+                            className="btn"
                             onClick={(event) =>
                               this.verifyOrgHandler(event, item.email)
                             }
@@ -185,7 +185,7 @@ class ManageOrgs extends Component {
                     <td className="manage-button-container">
                       {item.blacklisted ? (
                         <button
-                          className="btn btn-neutral"
+                          className="btn"
                           onClick={(event) =>
                             this.whitelistOrgHandler(event, item.email)
                           }
@@ -194,7 +194,7 @@ class ManageOrgs extends Component {
                         </button>
                       ) : (
                         <button
-                          className="btn btn-neutral"
+                          className="btn"
                           onClick={(event) =>
                             this.blacklistOrgHandler(event, item.email)
                           }
@@ -249,68 +249,14 @@ class ManageOrgs extends Component {
             </div>
           </dialog>
         )}
-
-        <AlertComponent
-          showAlert={this.state.showAlert}
-          alertType="success"
-          alertMessage={this.state.alertMessage}
-        />
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={this.state.showAlert}
+            alertType="success"
+            alertMessage={this.state.alertMessage}
+          />
+        </div>
       </div>
-
-      // <div className="wrapper">
-      //   <h1 className="title">Manage Organisations</h1>
-      //   <br />
-      //   <div>
-      //     {items.map((item) => (
-      //       <div
-      //         key={item.id}
-      //         className="card card-compact w-30 bg-base-100 shadow-xl"
-      //       >
-      //         <figure>
-      //           <img
-      //             src="https://static.wixstatic.com/media/7ab21d_0065f074991045f19085036583d803c7~mv2.png/v1/fill/w_365,h_174,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/SICS%20Logo.png"
-      //             alt={item.fullName}
-      //           />
-      //         </figure>
-      //         <div className="card-body">
-      //           <h2 className="card-title">{item.fullName}</h2>
-      //           <p>Organisation</p>
-      //           <button
-      //             className="btn btn-primary"
-      //             onClick={(event) => this.verifyOrgHandler(event, item.email)}
-      //           >
-      //             Verify
-      //           </button>
-      //           {item.locked ? (
-      //             <button
-      //               className="btn btn-primary"
-      //               onClick={(event) =>
-      //                 this.whitelistOrgHandler(event, item.email)
-      //               }
-      //             >
-      //               Whitelist
-      //             </button>
-      //           ) : (
-      //             <button
-      //               className="btn btn-primary"
-      //               onClick={(event) =>
-      //                 this.blacklistOrgHandler(event, item.email)
-      //               }
-      //             >
-      //               Blacklist
-      //             </button>
-      //           )}
-      //           <button
-      //             className="btn btn-primary"
-      //             onClick={(event) => this.deleteOrgHandler(event, item.email)}
-      //           >
-      //             Delete
-      //           </button>
-      //         </div>
-      //       </div>
-      //     ))}
-      //   </div>
-      // </div>
     );
   }
 }

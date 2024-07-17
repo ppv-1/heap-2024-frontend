@@ -109,7 +109,8 @@ class HomeComponent extends Component {
           <motion.div
             className="causes"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{
               type: "spring",
               delay: 0.2,
@@ -216,10 +217,7 @@ class HomeComponent extends Component {
             <h1>Or search for more opportunities here!</h1>
             <div className="takeme  flex justify-center items-center">
               <div className="button1">
-                <button
-                  className="btn"
-                  onClick={this.oppButtonHandler}
-                >
+                <button className="btn" onClick={this.oppButtonHandler}>
                   Take me there!
                 </button>
               </div>
@@ -239,22 +237,20 @@ class HomeComponent extends Component {
             <h1>Want to learn more about the organisations we serve?</h1>
             <div className="takeme  flex justify-center items-center">
               <div className="button2">
-                <button
-                  className="btn"
-                  onClick={this.orgButtonHandler}
-                >
+                <button className="btn" onClick={this.orgButtonHandler}>
                   Take me there!
                 </button>
               </div>
             </div>
           </motion.div>
         </div>
-
-        <AlertComponent
-          showAlert={this.state.showLoginAlert}
-          alertType="info"
-          alertMessage={`Welcome back, admin!`}
-        />
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={this.state.showLoginAlert}
+            alertType="info"
+            alertMessage={`Welcome back, admin!`}
+          />
+        </div>
       </>
     );
   }

@@ -141,18 +141,20 @@ class OrganisationProfileComponent extends Component {
             <ToggleThemeComponent></ToggleThemeComponent>
           </div>
         </div>
-
-        <AlertComponent
-          showAlert={this.state.showEditAlert}
-          alertType="success"
-          alertMessage="Profile edited successfully!"
-        />
-
-        <AlertComponent
-          showAlert={this.state.showLoginAlert}
-          alertType="info"
-          alertMessage={`Welcome back, ${this.state.fullName}!`}
-        />
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={this.state.showEditAlert}
+            alertType="success"
+            alertMessage="Profile edited successfully!"
+          />
+        </div>
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={this.state.showLoginAlert}
+            alertType="info"
+            alertMessage={`Welcome back, ${this.state.fullName}!`}
+          />
+        </div>
       </>
     );
   }

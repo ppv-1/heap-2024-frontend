@@ -31,19 +31,6 @@ class OrgDetails extends Component {
     await this.fetchData();
   }
 
-  // registerEvent = async (event) =>{
-  //     const eventId = this.props.params.id;
-  //     console.log(eventId);
-  //     const res = await UserService.getProfile();
-  //     console.log(res.data);
-  //     const userId = res.data.email;
-  //     console.log(userId);
-  //     // let userId = {userId: res.data.email};
-  //     // console.log(userId);
-  //     await VolunteerService.registerEvent(eventId, userId);
-  //     alert("You have successfully registered for this event");
-  // }
-
   render() {
     const { organisation, loading } = this.state;
     console.log(this.state);
@@ -59,7 +46,7 @@ class OrgDetails extends Component {
     if (!organisation) {
       return (
         <div className="wrapper">
-          <h1>Opportunity not found.</h1>
+          <h1>Organisation not found.</h1>
         </div>
       );
     }
@@ -84,6 +71,8 @@ class OrgDetails extends Component {
           <div className="left-container">
             <div className="left-details">
               <h1 className="title">{organisation.fullName}</h1>
+              <br />
+              <img src={organisation.pfp_filepath} alt="Logo"/>
               <br />
               <p>Description: {organisation.description}</p>
               <p>Location: {organisation.location}</p>

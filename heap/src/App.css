@@ -20,6 +20,15 @@
   #root {
     max-width: 100%;
   }
+
+  .toast {
+    /* z-index: 40; */
+    max-width: 200px;
+  }
+
+  .toast > .alert > span {
+    font-size: 12px;
+  }
 }
 
 /* For medium screens (tablets) */
@@ -32,7 +41,16 @@
 /* For large screens (desktops) */
 @media (min-width: 1025px) {
   #root {
-    max-width: 3000px; /* Set a maximum width for larger screens */
+    max-width: 3000px; 
+  }
+
+  .toast {
+    z-index: 40;
+    max-width: 500px;
+  }
+
+  .toast > .alert > span {
+    font-size: 20px;
   }
 }
 
@@ -120,18 +138,13 @@
   text-align: center;
 }
 
-.toast {
-  z-index: 40;
-  max-width: 200px;
-}
+
 
 .toast > .alert {
   padding: auto;
 }
 
-.toast > .alert > span {
-  font-size: 20px;
-}
+
 
 .breadcrumbs {
   padding: 0 0;

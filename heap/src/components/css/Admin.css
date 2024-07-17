@@ -76,9 +76,17 @@ th, tbody {
   width: 150px;
 }
 
+.font-bold > a:hover {
+  color: oklch(var(--p));
+}
+
 @media (max-width: 600px) {
 
   .title {
     font-size: 30px;
+  }
+
+  .font-bold {
+    text-decoration: underline;
   }
 }

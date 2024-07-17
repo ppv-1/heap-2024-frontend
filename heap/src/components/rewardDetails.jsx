@@ -146,18 +146,20 @@ class RewardDetails extends Component {
             </div>
           </div>
         </div>
-
-        <AlertComponent
-          showAlert={showFailAlert}
-          alertType="error"
-          alertMessage={failAlertMessage}
-        />
-
-        <AlertComponent
-          showAlert={showRedeemAlert}
-          alertType="success"
-          alertMessage={redeemAlertMessage}
-        />
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={showFailAlert}
+            alertType="error"
+            alertMessage={failAlertMessage}
+          />
+        </div>
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={showRedeemAlert}
+            alertType="success"
+            alertMessage={redeemAlertMessage}
+          />
+        </div>
       </div>
     );
   }

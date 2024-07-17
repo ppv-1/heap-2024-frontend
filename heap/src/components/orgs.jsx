@@ -70,10 +70,7 @@ class OrganisationsComponent extends Component {
               className="card card-compact w-30 bg-base-100 shadow-xl"
             >
               <figure>
-                <img
-                  src="https://static.wixstatic.com/media/7ab21d_0065f074991045f19085036583d803c7~mv2.png/v1/fill/w_365,h_174,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/SICS%20Logo.png"
-                  alt={item.fullName}
-                />
+                <img src={item.pfp_filepath} alt={item.fullName} />
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{item.fullName}</h2>

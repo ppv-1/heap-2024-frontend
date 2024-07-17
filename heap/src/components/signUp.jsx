@@ -38,7 +38,7 @@ class SignUp extends Component {
                 <h2 className="card-title">Volunteer</h2>
                 <div className="card-actions justify-end">
                   <button
-                    className="btn btn-primary"
+                    className="btn"
                     onClick={this.volunteerSignUpHandler}
                   >
                     Sign Up
@@ -58,7 +58,7 @@ class SignUp extends Component {
                 <h2 className="card-title">Organisation</h2>
                 <div className="card-actions justify-end">
                   <button
-                    className="btn btn-primary"
+                    className="btn"
                     onClick={this.orgSignUpHandler}
                   >
                     Sign Up

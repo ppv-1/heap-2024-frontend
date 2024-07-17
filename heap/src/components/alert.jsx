@@ -23,6 +23,11 @@ class AlertComponent extends Component {
           <span>{alertMessage}</span>
         </div>
       </div>
+      // <div className="fixed bottom-4 left-4">
+      //   <div className={`toast ${alertClass}`}>
+      //     <span>{alertMessage}</span>
+      //   </div>
+      // </div>
     );
   }
 }

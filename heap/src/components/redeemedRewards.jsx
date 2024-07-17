@@ -33,7 +33,6 @@ class RedeemedRewards extends Component {
       this.setState({ items: rewards });
 
       // Fetch images for each reward
-      
 
       this.setState({ loading: false });
     } catch (error) {
@@ -80,7 +79,6 @@ class RedeemedRewards extends Component {
     });
   };
 
-
   render() {
     const { items, images, loading, selectedReward, modalVisible } = this.state;
 
@@ -114,10 +112,7 @@ class RedeemedRewards extends Component {
               className="card card-compact w-30 bg-base-100 shadow-xl"
             >
               <figure>
-                <img
-                  src={item.pfp_filepath}
-                  alt={item.name}
-                />
+                <img src={item.pfp_filepath} alt={item.name} />
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{item.name}</h2>
@@ -154,11 +149,13 @@ class RedeemedRewards extends Component {
           </dialog>
         )}
 
-        <AlertComponent
-          showAlert={this.state.showUsedAlert}
-          alertType="success"
-          alertMessage={`Reward used successfully.`}
-        />
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={this.state.showUsedAlert}
+            alertType="success"
+            alertMessage={`Reward used successfully.`}
+          />
+        </div>
       </div>
     );
   }

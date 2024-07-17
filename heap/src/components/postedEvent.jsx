@@ -126,24 +126,29 @@ class PostedEvent extends Component {
             </div>
           ))}
         </div>
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={this.state.showCreateAlert}
+            alertType="success"
+            alertMessage={`${this.state.itemName} created successfully.`}
+          />
+        </div>
 
-        <AlertComponent
-          showAlert={this.state.showCreateAlert}
-          alertType="success"
-          alertMessage={`${this.state.itemName} created successfully.`}
-        />
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={this.state.showEditAlert}
+            alertType="success"
+            alertMessage={`${this.state.itemName} edited successfully.`}
+          />
+        </div>
 
-        <AlertComponent
-          showAlert={this.state.showEditAlert}
-          alertType="success"
-          alertMessage={`${this.state.itemName} edited successfully.`}
-        />
-
-        <AlertComponent
-          showAlert={this.state.showDeleteAlert}
-          type="success"
-          message={`${this.state.itemName} deleted successfully.`}
-        />
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={this.state.showDeleteAlert}
+            type="success"
+            message={`${this.state.itemName} deleted successfully.`}
+          />
+        </div>
       </div>
     );
   }

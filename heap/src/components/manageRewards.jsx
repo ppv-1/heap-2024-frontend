@@ -4,6 +4,7 @@ import withNavigateandLocation from "./withNavigateandLocation";
 import RewardService from "../services/RewardService";
 import MediaService from "../services/MediaService";
 import { Link } from "react-router-dom";
+import AlertComponent from "./alert";
 
 class ManageRewards extends Component {
   constructor(props) {
@@ -13,6 +14,12 @@ class ManageRewards extends Component {
       items: [],
       images: {}, // To store the images for each reward
       loading: true, // To manage the loading state
+      modalVisible: false,
+      selectedReward: null,
+      showDelAlert: false,
+      alertMessage: "",
+      showBarcodeAlert: false,
+      barcodeAlertMessage: "",
     };
   }
 
@@ -27,12 +34,26 @@ class ManageRewards extends Component {
       try {
         const formData = new FormData();
         formData.append("file", file);
-        await RewardService.uploadReward(id, formData); // Assuming this method exists in your MediaService
-        window.location.reload();
-        alert("Barcode uploaded successfully");
+        await RewardService.uploadReward(id, formData);
+        this.setState({
+          showBarcodeAlert: true,
+          barcodeAlertMessage: "Barcodes uploaded successfully.",
+        });
+        setTimeout(() => {
+          this.setState({ showBarcodeAlert: false });
+          window.location.reload();
+        }, 3000);
       } catch (error) {
         console.error("Error uploading barcodes:", error);
-        alert("An error occurred while uploading the barcodes.");
+        this.setState({
+          showBarcodeAlert: true,
+          barcodeAlertMessage:
+            "An error occurred while uploading the barcodes.",
+        });
+        setTimeout(() => {
+          this.setState({ showBarcodeAlert: false });
+          window.location.reload();
+        }, 3000);
       }
     }
   };
@@ -42,14 +63,23 @@ class ManageRewards extends Component {
     this.props.navigate(`/edit-reward/${id}`);
   };
 
+  // deleteReward = async (event, id) => {
+  //   event.preventDefault();
+  //   let result = window.confirm("Are you sure you want to delete this reward?");
+  //   if (result) {
+  //     await RewardService.deleteRewards(id);
+  //     window.location.reload();
+  //     alert("Reward successfully deleted");
+  //   }
+  // };
+
   deleteReward = async (event, id) => {
     event.preventDefault();
-    let result = window.confirm("Are you sure you want to delete this reward?");
-    if (result) {
-      await RewardService.deleteRewards(id);
-      window.location.reload();
-      alert("Reward successfully deleted");
-    }
+    this.setState((prevState) => ({
+      items: prevState.items.filter((item) => item.id !== id),
+      alertMessage: `Reward ${id} deleted successfully.`,
+    }));
+    await RewardService.deleteRewards(id);
   };
 
   createRewardHandler = (event) => {
@@ -67,8 +97,6 @@ class ManageRewards extends Component {
       const rewards = res.data.rewards;
       this.setState({ items: rewards });
 
-      
-
       this.setState({ loading: false });
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -80,8 +108,39 @@ class ManageRewards extends Component {
     await this.fetchData();
   }
 
+  showModal = (selectedReward) => {
+    this.setState({ modalVisible: true, selectedReward });
+  };
+
+  closeModal = () => {
+    this.setState({
+      modalVisible: false,
+      selectedReward: null,
+      showDelAlert: true,
+    });
+    setTimeout(() => {
+      this.setState({ showDelAlert: false });
+    }, 3000);
+  };
+
+  handleConfirm = async (e) => {
+    e.preventDefault();
+    const { selectedReward } = this.state;
+    if (selectedReward) {
+      await this.deleteReward(selectedReward.id);
+    }
+    this.closeModal();
+  };
+
   render() {
-    const { items, images, loading } = this.state;
+    const {
+      items,
+      images,
+      loading,
+      modalVisible,
+      selectedReward,
+      barcodeAlertMessage,
+    } = this.state;
 
     if (loading) {
       return <div>Loading...</div>; // Show a loading indicator while fetching data
@@ -91,10 +150,7 @@ class ManageRewards extends Component {
       <div className="wrapper">
         <h1 className="title">Rewards</h1>
         <div className="reward-button-container">
-          <button
-            className="btn btn-primary"
-            onClick={this.createRewardHandler}
-          >
+          <button className="btn" onClick={this.createRewardHandler}>
             Create new reward
           </button>
         </div>
@@ -119,7 +175,9 @@ class ManageRewards extends Component {
                       <div className="flex items-center gap-3">
                         <div>
                           <div className="font-bold">
-                            <Link to={`/manage-rewards/${item.id}`}>{item.name}</Link>
+                            <Link to={`/manage-rewards/${item.id}`}>
+                              {item.name}
+                            </Link>
                           </div>
                         </div>
                       </div>
@@ -136,7 +194,7 @@ class ManageRewards extends Component {
                         }
                       />
                       <button
-                        className="btn btn-neutral"
+                        className="btn"
                         onClick={(event) => this.uploadReward(event, item.id)}
                       >
                         Upload
@@ -144,7 +202,7 @@ class ManageRewards extends Component {
                     </td>
                     <td className="manage-button-container">
                       <button
-                        className="btn btn-neutral"
+                        className="btn"
                         onClick={(event) => this.editReward(event, item.id)}
                       >
                         Edit
@@ -152,7 +210,7 @@ class ManageRewards extends Component {
                       <button
                         className="btn btn-danger"
                         onClick={(event) =>
-                          this.deleteVolHandler(event, item.email)
+                          this.deleteReward(event, item.email)
                         }
                       >
                         Delete
@@ -173,6 +231,41 @@ class ManageRewards extends Component {
               </tfoot>
             </table>
           </div>
+        </div>
+
+        {modalVisible && (
+          <dialog className="modal modal-bottom sm:modal-middle" open>
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">
+                Are you sure you want to delete {selectedReward?.name}?
+              </h3>
+              <p className="py-4">Please confirm your choice.</p>
+              <div className="modal-action">
+                <button className="btn" onClick={this.handleConfirm}>
+                  Confirm
+                </button>
+                <button className="btn" onClick={this.closeModal}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </dialog>
+        )}
+
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={this.state.showDelAlert}
+            alertType="success"
+            alertMessage={this.state.alertMessage}
+          />
+        </div>
+
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={this.state.showBarcodeAlert}
+            alertType="success"
+            alertMessage={this.state.barcodeAlertMessage}
+          />
         </div>
       </div>
     );
