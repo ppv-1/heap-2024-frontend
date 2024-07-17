@@ -6,30 +6,28 @@ class ToggleThemeComponent extends Component {
   constructor(props) {
     super(props);
 
-    const theme = localStorage.getItem("theme")
-      ? localStorage.getItem("theme")
-      : "light";
-    this.state = { theme, isChecked: theme === "dracula" };
+    const theme = localStorage.getItem("theme") || "light";
+    this.state = { theme, isChecked: theme === "retro" };
 
     this.handleToggle = this.handleToggle.bind(this);
   }
 
   componentDidMount() {
+    // Set initial theme and update HTML attribute
     localStorage.setItem("theme", this.state.theme);
     document.querySelector("html").setAttribute("data-theme", this.state.theme);
   }
 
   componentDidUpdate(prevProps, prevState) {
+    // Update theme in local storage and HTML attribute when state changes
     if (prevState.theme !== this.state.theme) {
       localStorage.setItem("theme", this.state.theme);
-      document
-        .querySelector("html")
-        .setAttribute("data-theme", this.state.theme);
+      document.querySelector("html").setAttribute("data-theme", this.state.theme);
     }
   }
 
   handleToggle(e) {
-    const theme = e.target.checked ? "dracula" : "light";
+    const theme = e.target.checked ? "retro" : "light";
     this.setState({
       theme,
       isChecked: e.target.checked,

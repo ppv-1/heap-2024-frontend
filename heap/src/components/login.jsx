@@ -76,7 +76,7 @@ class Login extends Component {
           <h1 className="title">LOGIN</h1>
           <form>
             <label>
-              <p>Username</p>
+              <p>Email</p>
               <input
                 required
                 type="email"

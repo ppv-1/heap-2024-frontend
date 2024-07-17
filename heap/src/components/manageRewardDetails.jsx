@@ -89,8 +89,10 @@ class ManageRewardsDetails extends Component {
               </tbody>
               <tfoot>
                 <tr>
-                  <th>Reward</th>
+                <th>Reward</th>
                   <th>Barcode</th>
+                  <th>Redemption status</th>
+                  <th>Expiry Date</th>
                 </tr>
               </tfoot>
             </table>
