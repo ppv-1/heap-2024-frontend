@@ -49,19 +49,14 @@ class UserProfileComponent extends Component {
   fetchData = async () => {
     try {
       const res = await UserService.getProfile();
-      const base64Image = await MediaService.getPfp();
-
-      console.log(base64Image.data);
-      const dataUrl = `data:image/jpeg;base64,${base64Image.data}`;
-      console.log(dataUrl);
-
+      console.log(res.data);
       this.setState({
         fullName: res.data.fullName,
         contactNo: res.data.contactNo,
         email: res.data.email,
         gender: res.data.gender,
         points: res.data.points,
-        profilePicture: dataUrl,
+        profilePicture: res.data.pfp_filepath,
       });
     } catch (error) {
       console.error("Error fetching data:", error);

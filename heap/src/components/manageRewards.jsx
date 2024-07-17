@@ -67,24 +67,9 @@ class ManageRewards extends Component {
       const rewards = res.data.rewards;
       this.setState({ items: rewards });
 
-      // Fetch images for each reward
-      const images = await Promise.all(
-        rewards.map(async (reward) => {
-          const imageRes = await MediaService.getRewardMedia(reward.id);
-          return {
-            id: reward.id,
-            imageUrl: `data:image/jpeg;base64,${imageRes.data}`,
-          };
-        })
-      );
+      
 
-      // Convert array of images to an object with reward id as key
-      const imagesObject = images.reduce((acc, curr) => {
-        acc[curr.id] = curr.imageUrl;
-        return acc;
-      }, {});
-
-      this.setState({ images: imagesObject, loading: false });
+      this.setState({ loading: false });
     } catch (error) {
       console.error("Error fetching data:", error);
       this.setState({ loading: false });
@@ -113,51 +98,6 @@ class ManageRewards extends Component {
             Create new reward
           </button>
         </div>
-        {/* <div className="reward-listing">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className="card card-compact w-30 bg-base-100 shadow-xl"
-            >
-              <figure>
-                <img
-                  src={
-                    images[item.id] ||
-                    "https://cdn-icons-png.flaticon.com/512/1426/1426770.png"
-                  }
-                  alt={item.name}
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">{item.name}</h2>
-                <input
-                  type="file"
-                  ref={`fileInput-${item.id}`}
-                  style={{ display: "none" }}
-                  onChange={(event) => this.handleFileChange(event, item.id)}
-                />
-                <button
-                  className="btn btn-primary"
-                  onClick={(event) => this.uploadReward(event, item.id)}
-                >
-                  Upload Barcodes
-                </button>
-                <button
-                  className="btn btn-primary"
-                  onClick={(event) => this.editReward(event, item.id)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="btn btn-primary"
-                  onClick={(event) => this.deleteReward(event, item.id)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
-        </div> */}
 
         <div className="data-table">
           <div className="overflow-x-auto">

@@ -33,25 +33,9 @@ class RedeemedRewards extends Component {
       this.setState({ items: rewards });
 
       // Fetch images for each reward
-      const images = await Promise.all(
-        rewards.map(async (reward) => {
-          const imageRes = await MediaService.getRewardMedia(
-            reward.reward_category_id
-          );
-          return {
-            id: reward.id,
-            imageUrl: `data:image/jpeg;base64,${imageRes.data}`,
-          };
-        })
-      );
+      
 
-      // Convert array of images to an object with reward id as key
-      const imagesObject = images.reduce((acc, curr) => {
-        acc[curr.id] = curr.imageUrl;
-        return acc;
-      }, {});
-
-      this.setState({ images: imagesObject, loading: false });
+      this.setState({ loading: false });
     } catch (error) {
       console.error("Error fetching data:", error);
       // alert('An error occurred while fetching data.');
@@ -96,12 +80,6 @@ class RedeemedRewards extends Component {
     });
   };
 
-  // rewardSubmit = async (event, id) => {
-  //   event.preventDefault();
-  //   const res = await RewardService.useRewardBarcode(id);
-  //   console.log(res.data);
-  //   // this.props.navigate(`/rewards/${id}`);
-  // };
 
   render() {
     const { items, images, loading, selectedReward, modalVisible } = this.state;
@@ -137,10 +115,7 @@ class RedeemedRewards extends Component {
             >
               <figure>
                 <img
-                  src={
-                    images[item.id] ||
-                    "https://cdn-icons-png.flaticon.com/512/1426/1426770.png"
-                  }
+                  src={item.pfp_filepath}
                   alt={item.name}
                 />
               </figure>

@@ -73,13 +73,13 @@ class ManageOrgs extends Component {
 
   blacklistOrg = async (id) => {
     await AdminService.blacklistUser(id);
-    this.updateOrgList(id);
+    this.updateOrgList(id, true);
     this.setState({ alertMessage: `${id} blacklisted successfully.` });
   };
 
   whitelistOrg = async (id) => {
     await AdminService.whitelistUser(id);
-    this.updateOrgList(id);
+    this.updateOrgList(id, false);
     this.setState({ alertMessage: `${id} whitelisted successfully.` });
   };
 
@@ -97,9 +97,7 @@ class ManageOrgs extends Component {
       if (item.email === id) {
         if (isLocked !== null) {
           item.blacklisted = isLocked;
-        } else {
-          item.blacklisted = !item.blacklisted;
-        }
+        } 
       }
       return item;
     });

@@ -39,9 +39,7 @@ class EditReward extends Component{
                 description: res.data.description,
                 count: res.data.count,
             });
-            // const imageRes = await MediaService.getRewardMedia(this.state.id);
-            // this.setState({rewardMedia: `data:image/jpeg;base64,${imageRes.data}`})
-
+           
         } catch(error){
             console.error("failed to fetch reward", error);
         }
