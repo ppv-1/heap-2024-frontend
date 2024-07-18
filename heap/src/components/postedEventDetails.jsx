@@ -30,18 +30,14 @@ class PostedEventDetails extends Component {
       const res = await OppService.getOpp(id);
       const org = await OrgService.getOrg(res.data.organisation);
       const participants = await OppService.getEventParticipants(id);
-      const imageRes = await MediaService.getEventPhotos(id);
+      
       console.log(res.status);
       console.log(res.data);
       console.log("participants =>" + participants.data);
-      console.log("Image Data:", imageRes.data);
+     
 
       // Convert object values to an array of objects
-      const imagePathsArray = Object.keys(imageRes.data).map((key) => ({
-        id: key, // Assuming each key in imageRes.data can be used as an identifier
-        data: imageRes.data[key],
-      }));
-
+      
       //   const imageURLs = imagePathsArray.map(photo => {
       //     if (photo.data) {
       //       const byteCharacters = atob(photo.data);
@@ -62,7 +58,7 @@ class PostedEventDetails extends Component {
         orgName: org.data.fullName,
         participants: participants.data.vols,
         attendance: [],
-        images: imagePathsArray,
+        images: res.data.photosFilepaths,
       });
 
     } catch (error) {

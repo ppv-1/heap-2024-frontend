@@ -86,10 +86,10 @@ class Opportunity extends Component {
 
     try {
       const res = await OppService.getOpp(id);
-      const org = await OrgService.getOrg(res.data.organisation);
-      const orgResponse = await OrgService.getOrg(res.data.organisation);
-      console.log("orgResponse =", orgResponse);
-      console.log("org=" + org.fullName);
+      const org = await OrgService.getOrg(res.data.organisation_id);
+      // const orgResponse = await OrgService.getOrg(res.data.organisation);
+      // console.log("orgResponse =", orgResponse);
+      console.log(org.data);
       this.setState({ loading: false });
       // const imageRes = await MediaService.getEventPhotos(id);
       console.log(res.data);
@@ -180,7 +180,7 @@ class Opportunity extends Component {
         <div className="details-container">
           <div className="top">
             <h1 className="title">{opportunity.name}</h1>
-            <a href={`/organisations/${orgName}`}>org name</a>
+            <a href={`/organisations/${orgName}`}>{orgName}</a>
             <div className="carousel opp-carousel">
               {images.map((image, index) => (
                 <div
