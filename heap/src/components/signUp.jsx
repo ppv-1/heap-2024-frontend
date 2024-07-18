@@ -19,7 +19,7 @@ class SignUp extends Component {
     this.props.navigate("/register-organisation");
   };
 
-  render() {
+  render() { 
     return (
       <>
         <div className="content">

@@ -14,6 +14,7 @@ class Login extends Component {
       username: "",
       password: "",
       showLoginAlert: false,
+      errorMessage: "",
     };
     this.changeUsernameHandler = this.changeUsernameHandler.bind(this);
     this.changePasswordHandler = this.changePasswordHandler.bind(this);
@@ -44,10 +45,14 @@ class Login extends Component {
         // this.props.navigate("/user-profile");
         if (res.data.userType === "V") {
           console.log(res.data.userType);
-          this.props.navigate("/user-profile", { state: { showLoginAlert: true } });
+          this.props.navigate("/user-profile", {
+            state: { showLoginAlert: true },
+          });
         } else if (res.data.userType === "O") {
           console.log(res.data.userType);
-          this.props.navigate("/org-profile", { state: { showLoginAlert: true } });
+          this.props.navigate("/org-profile", {
+            state: { showLoginAlert: true },
+          });
         } else if (res.data.userType === "A") {
           console.log(res.data.userType);
           this.props.navigate("/", { state: { showLoginAlert: true } });
@@ -56,8 +61,21 @@ class Login extends Component {
       } else {
         console.log("failure");
         console.log(res.data);
+        this.setState({ errorMessage: "Incorrect email or password. Please try again." });
       }
       // console.log(res.data);
+    })
+    .catch((error) => {
+      console.error("Error logging in:", error);
+
+      if (error.response) {
+        console.log("Server responded with error status:", error.response.status);
+        if (error.response.status === 403) {
+          this.setState({ errorMessage: "Incorrect email or password. Please try again." });
+        } else {
+          this.setState({ errorMessage: "An error occurred. Please try again later." });
+        }
+      }
     });
   };
 
@@ -70,11 +88,13 @@ class Login extends Component {
   };
 
   render() {
+    const { errorMessage } = this.state;
     return (
       <>
         <div className="content">
           <h1 className="title">LOGIN</h1>
           <form>
+            
             <label>
               <p>Email</p>
               <input
@@ -93,11 +113,13 @@ class Login extends Component {
                 onChange={this.changePasswordHandler}
               />
             </label>
+            
             <div className="forgot-password">
               <a className="link link-hover" href="/forget-password">
                 Forgot password
               </a>
             </div>
+            <span className="error-message">{errorMessage}</span>
             <div className="button-container">
               <button className="btn btn-wide" onClick={this.loginSubmit}>
                 Login
@@ -121,9 +143,7 @@ class Login extends Component {
             </div>
             <div className="button-container">
               <Link to="/register-admin">
-                <button className="btn btn-wide">
-                  Create admin account
-                </button>
+                <button className="btn btn-wide">Create admin account</button>
               </Link>
             </div>
           </form>
