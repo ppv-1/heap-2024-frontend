@@ -6,10 +6,10 @@
   align-items: center;  */
   margin: 0 auto;
 }
-
+/* 
 * {
   color: oklch(var(--nc));
-}
+} */
 
 .content {
   width: 100%;
@@ -33,7 +33,7 @@
   text-decoration: none;
   margin-top: 20px;
   margin-bottom: 20px;
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 .top-title {
@@ -52,7 +52,7 @@
   font-weight: 500;
   font-size: 50px;
   text-decoration: none;
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 .causes > p {
@@ -81,7 +81,7 @@
 
 .cause > a {
   margin-top: 5px;
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 .button-container {
@@ -106,7 +106,7 @@
   font-weight: 500;
   font-size: 50px;
   text-decoration: none;
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 .footer {

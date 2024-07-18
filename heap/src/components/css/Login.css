@@ -4,7 +4,7 @@
   align-items: flex-start;
   margin-left: 25%;
   width: 60%;
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 .title {
@@ -30,7 +30,7 @@ form {
 }
 
 form > p, form > label, form > label > P, .link {
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 input[type="text"],

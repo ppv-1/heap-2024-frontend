@@ -96,41 +96,59 @@ class RedeemedRewards extends Component {
           </ul>
         </div> */}
         <h1 className="title">Redeemed Rewards</h1>
-        <div className="instructions">
-          <p>
-            Here you can use the rewards you have redeemed.
-            <br />
-            Please be ready to show the QR Code in order to use the reward.
-            <br />
-            The reward will then be deleted.
-          </p>
-        </div>
-        <div className="event-listings">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className="card card-compact w-30 bg-base-100 shadow-xl"
-            >
-              <figure>
-                <img src={item.pfp_filepath} alt={item.name} />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">{item.name}</h2>
-                <div className="badge badge-accent">
-                  Expiry Date: {item.expiryDate}
-                </div>
-                <button
-                  className="btn btn-primary"
-                  onClick={(event) =>
-                    this.redeemRewardHandler(event, item.reward_barcode_id)
-                  }
-                >
-                  Use
-                </button>
-              </div>
+
+        {items.length === 0 ? (
+          <>
+            <p>You have not redeemed any rewards.</p>
+            <div className="instructions">
+              <p>
+                Here you can use the rewards you have redeemed.
+                <br />
+                Please be ready to show the QR Code in order to use the reward.
+                <br />
+                The reward will then be deleted.
+              </p>
             </div>
-          ))}
-        </div>
+          </>
+        ) : (
+          <>
+            <div className="instructions">
+              <p>
+                Here you can use the rewards you have redeemed.
+                <br />
+                Please be ready to show the QR Code in order to use the reward.
+                <br />
+                The reward will then be deleted.
+              </p>
+            </div>
+            <div className="event-listings">
+              {items.map((item) => (
+                <div
+                  key={item.id}
+                  className="card card-compact w-30 bg-base-100 shadow-xl"
+                >
+                  <figure>
+                    <img src={item.pfp_filepath} alt={item.name} />
+                  </figure>
+                  <div className="card-body">
+                    <h2 className="card-title">{item.name}</h2>
+                    <div className="badge badge-accent">
+                      Expiry Date: {item.expiryDate}
+                    </div>
+                    <button
+                      className="btn btn-primary"
+                      onClick={(event) =>
+                        this.redeemRewardHandler(event, item.reward_barcode_id)
+                      }
+                    >
+                      Use
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
 
         {modalVisible && (
           <dialog className="modal modal-bottom sm:modal-middle" open>

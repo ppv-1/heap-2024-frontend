@@ -7,7 +7,7 @@
 
 .content > h1,
 .card-body > h2 {
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 .title {
@@ -59,11 +59,11 @@ select {
   border-width: 2px;
   border-radius: 16px;
   border-color: rgb(64, 64, 64);
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 .select, option {
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 /* Small button */

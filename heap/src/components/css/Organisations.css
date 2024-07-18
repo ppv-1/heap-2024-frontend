@@ -1,6 +1,6 @@
-* {
-  color: oklch(var(--n));
-}
+/* * {
+  color: var(--text-color);
+} */
 
 .title {
   height: min-content;

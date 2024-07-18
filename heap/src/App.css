@@ -10,6 +10,23 @@
   max-width: 100%;
 }
 
+:root {
+  --text-color-light: oklch(var(--n));
+  --text-color-dim: oklch(var(--nc));
+}
+
+[data-theme="light"] {
+  --text-color: var(--text-color-light);
+}
+
+[data-theme="dim"] {
+  --text-color: var(--text-color-dim);
+}
+
+body {
+  color: var(--text-color);
+}
+
 #root {
   width: 100% !important;
   margin: 0 auto !important; /* Center the element horizontally */
@@ -111,10 +128,10 @@
   height: 33px;
   width: 70px;
   /* color: #fff; */
-  color: oklch(var(--nc));
+  color: var(--text-color);
   /* background-color: #e2e9fd; */
   /* background-color: oklch(var(--nc)); */
-  background-color: oklch(var(--pc));
+  background-color: oklch(var(--b3));
   cursor: pointer;
 }
 

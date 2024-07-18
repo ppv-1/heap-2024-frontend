@@ -18,6 +18,7 @@ class RegisterOrganisation extends Component {
       location: "",
       website: "",
       description: "",
+      errorMessage: "",
       errorMessage1: "",
       errorMessage2: "",
       errorMessage3: "",
@@ -47,9 +48,29 @@ class RegisterOrganisation extends Component {
     };
     console.log("user => " + JSON.stringify(user));
 
-    AuthService.createOrganisation(user).then((res) => {
-      this.props.navigate("/login");
-    });
+    AuthService.createOrganisation(user)
+      .then((res) => {
+        this.props.navigate("/login");
+      })
+      .catch((error) => {
+        console.error("Error registering organisation:", error);
+
+        if (error.response) {
+          console.log(
+            "Server responded with error status:",
+            error.response.status
+          );
+          if (error.response.status === 403) {
+            this.setState({
+              errorMessage: "An error occurred. Please try again later.",
+            });
+          } else {
+            this.setState({
+              errorMessage: "An error occurred. Please try again later.",
+            });
+          }
+        }
+      });
   };
 
   changeNameHandler = (event) => {
@@ -88,7 +109,7 @@ class RegisterOrganisation extends Component {
 
   changePasswordHandler = (event) => {
     const password = event.target.value;
-    this.setState({ password: password}, () => {
+    this.setState({ password: password }, () => {
       this.validatePassword(password, this.state.password);
     });
   };
@@ -118,7 +139,7 @@ class RegisterOrganisation extends Component {
       });
     }
   };
-  
+
   validateConfirmPassword = (password, confirmPassword) => {
     if (password !== confirmPassword) {
       this.setState({ errorMessage4: "Passwords do not match" });
@@ -151,10 +172,11 @@ class RegisterOrganisation extends Component {
       password !== "" &&
       confirmPassword !== ""
     );
-  };
+  }
 
   render() {
-    const { errorMessage1, errorMessage2, errorMessage3, errorMessage4 } = this.state;
+    const { errorMessage, errorMessage1, errorMessage2, errorMessage3, errorMessage4 } =
+      this.state;
     return (
       <>
         <div className="content">
@@ -234,6 +256,7 @@ class RegisterOrganisation extends Component {
               />
             </label>
             <span className="error-message">{errorMessage4}</span>
+            <span className="error-message">{errorMessage}</span>
             <div className="button-container">
               <button
                 className="btn btn-wide"

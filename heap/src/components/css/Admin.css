@@ -24,7 +24,7 @@
 }
 
 a {
-  color: oklch(var(--n));
+  color: var(--text-color);
 }
 
 .vol-listing,
@@ -64,11 +64,11 @@ a {
 
 th {
   font-size: 20px;
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 tbody, td, a {
-  color: oklch(var(--nc));
+  color: var(--text-color);
   font-size: 16px;
 }
 

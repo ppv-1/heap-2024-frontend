@@ -19,7 +19,8 @@
 }
 
 .wrapper > P {
-  color: oklch(var(--nc));
+  color: var(--text-color);
+  font-size: 20px;
 }
 
 .card {
@@ -33,7 +34,7 @@
 }
 
 .card-title {
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 .card:hover {
@@ -137,7 +138,7 @@
   font-size: 20px;
   padding: 5%;
   border-radius: 16px;
-  background-color: oklch(var(--pc));
+  background-color: oklch(var(--b3));
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -163,7 +164,7 @@
     font-size: 16px;
     padding: 5%;
     border-radius: 16px;
-    background-color: oklch(var(--pc));
+    background-color: oklch(var(--b3));
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   }
 }

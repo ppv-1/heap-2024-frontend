@@ -1,6 +1,6 @@
-* {
+/* * {
   color: oklch(var(--n));
-}
+} */
 
 .signup-wrapper {
   display: flex;
@@ -8,7 +8,7 @@
   align-items: flex-start;
   margin-left: 30%;
   width: 80% !important;
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 form {

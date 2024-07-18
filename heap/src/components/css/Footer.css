@@ -1,5 +1,5 @@
 .footer {
-  background-color: rgb(233, 237, 243);
+  background-color: oklch(var(--b2));
   height: 100px;
   left: 0;
   bottom: 0;
@@ -23,7 +23,7 @@
 }
 
 .footer-text {
-  color: rgb(0, 0, 0);
+  color: var(--text-color);
   text-align: center;
   font-size: 14px;
   justify-content: space-evenly;
@@ -31,14 +31,14 @@
 
 @media (max-width: 600px) {
   .footer-text {
-    color: rgb(0, 0, 0);
+    color: var(--text-color);
     text-align: center;
     font-size: 12px;
     justify-content: space-evenly;
   }
 
   .footer {
-    background-color: rgb(233, 237, 243);
+    /* background-color: rgb(233, 237, 243); */
     height: 90px;
     left: 0;
     bottom: 0;
@@ -50,4 +50,3 @@
     justify-content: space-evenly;
   }
 }
-

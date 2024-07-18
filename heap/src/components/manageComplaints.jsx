@@ -11,7 +11,7 @@ class ManageComplaints extends Component {
     this.state = {
       items: [],
       images: {}, // To store the images for each complaint
-      loading: true // To manage the loading state
+      loading: true, // To manage the loading state
     };
   }
 
@@ -20,7 +20,7 @@ class ManageComplaints extends Component {
       const res = await ComplaintService.getAllComplaints();
       this.setState({ items: res.data.complaints, loading: false });
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
       this.setState({ loading: false });
     }
   };
@@ -34,12 +34,12 @@ class ManageComplaints extends Component {
     try {
       await ComplaintService.resolveComplaint(id);
       alert("Complaint " + id + " resolved");
-      
+
       // Update the state to mark the complaint as resolved
-      this.setState(prevState => ({
-        items: prevState.items.map(item =>
-          item.id === id ? { ...item, status: 'resolved' } : item
-        )
+      this.setState((prevState) => ({
+        items: prevState.items.map((item) =>
+          item.id === id ? { ...item, status: "resolved" } : item
+        ),
       }));
     } catch (error) {
       console.error("Failed to resolve complaint", error);
@@ -56,34 +56,41 @@ class ManageComplaints extends Component {
     return (
       <div className="wrapper">
         <h1 className="title">Complaints</h1>
-        <p>Here you can find information about different complaints.</p>
-        <br />
-        <div>
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className="card card-compact w-30 bg-base-100 shadow-xl"
-            >
-              <figure>
-                <img
-                  src={images[item.id] || "https://wewin.com/wp-content/uploads/2023/06/Complaint2-01-1024x577-1.webp"}
-                  alt={item.title}
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">{item.title}</h2>
-                <p>{item.description}</p>
-                <button
-                  className="btn btn-primary"
-                  onClick={(event) => this.complaintResolve(event, item.id)}
-                  disabled={item.status === 'resolved'} // Disable button if resolved
+        {items.length === 0 ? (
+          <p>There are no complaints currently.</p>
+        ) : (
+          <>
+            <div>
+              {items.map((item) => (
+                <div
+                  key={item.id}
+                  className="card card-compact w-30 bg-base-100 shadow-xl"
                 >
-                  {item.status === 'resolved' ? "Resolved" : "Resolve"}
-                </button>
-              </div>
+                  <figure>
+                    <img
+                      src={
+                        images[item.id] ||
+                        "https://wewin.com/wp-content/uploads/2023/06/Complaint2-01-1024x577-1.webp"
+                      }
+                      alt={item.title}
+                    />
+                  </figure>
+                  <div className="card-body">
+                    <h2 className="card-title">{item.title}</h2>
+                    <p>{item.description}</p>
+                    <button
+                      className="btn btn-primary"
+                      onClick={(event) => this.complaintResolve(event, item.id)}
+                      disabled={item.status === "resolved"} // Disable button if resolved
+                    >
+                      {item.status === "resolved" ? "Resolved" : "Resolve"}
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
       </div>
     );
   }

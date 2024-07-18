@@ -154,73 +154,75 @@ class ManageRewards extends Component {
             Create new reward
           </button>
         </div>
-
-        <div className="data-table">
-          <div className="overflow-x-auto">
-            <table className="table">
-              {/* head */}
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Points Needed</th>
-                  <th>Count</th>
-                  <th>Upload Barcodes</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {items.map((item) => (
-                  <tr key={item.id}>
-                    <td>
-                      <div className="flex items-center gap-3">
-                        <div>
-                          <div className="font-bold">
-                            <Link to={`/manage-rewards/${item.id}`}>
-                              {item.name}
-                            </Link>
+        {items.length === 0 ? (
+          <p>There are no rewards currently.</p>
+        ) : (
+          <div className="data-table">
+            <div className="overflow-x-auto">
+              <table className="table">
+                {/* head */}
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Points Needed</th>
+                    <th>Count</th>
+                    <th>Upload Barcodes</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {items.map((item) => (
+                    <tr key={item.id}>
+                      <td>
+                        <div className="flex items-center gap-3">
+                          <div>
+                            <div className="font-bold">
+                              <Link to={`/manage-rewards/${item.id}`}>
+                                {item.name}
+                              </Link>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                    <td>{item.pointsNeeded}</td>
-                    <td>{item.count}</td>
-                    <td className="upload-container">
-                      <input
-                        type="file"
-                        ref={`fileInput-${item.id}`}
-                        style={{ display: "none" }}
-                        onChange={(event) =>
-                          this.handleFileChange(event, item.id)
-                        }
-                      />
-                      <button
-                        className="btn"
-                        onClick={(event) => this.uploadReward(event, item.id)}
-                      >
-                        Upload
-                      </button>
-                    </td>
-                    <td className="manage-button-container">
-                      <button
-                        className="btn"
-                        onClick={(event) => this.editReward(event, item.id)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="btn btn-danger"
-                        onClick={(event) =>
-                          this.deleteReward(event, item.email)
-                        }
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-              {/* foot */}
-              {/* <tfoot>
+                      </td>
+                      <td>{item.pointsNeeded}</td>
+                      <td>{item.count}</td>
+                      <td className="upload-container">
+                        <input
+                          type="file"
+                          ref={`fileInput-${item.id}`}
+                          style={{ display: "none" }}
+                          onChange={(event) =>
+                            this.handleFileChange(event, item.id)
+                          }
+                        />
+                        <button
+                          className="btn"
+                          onClick={(event) => this.uploadReward(event, item.id)}
+                        >
+                          Upload
+                        </button>
+                      </td>
+                      <td className="manage-button-container">
+                        <button
+                          className="btn"
+                          onClick={(event) => this.editReward(event, item.id)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={(event) =>
+                            this.deleteReward(event, item.email)
+                          }
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+                {/* foot */}
+                {/* <tfoot>
                 <tr>
                   <th>Name</th>
                   <th>Points Needed</th>
@@ -229,9 +231,10 @@ class ManageRewards extends Component {
                   <th>Actions</th>
                 </tr>
               </tfoot> */}
-            </table>
+              </table>
+            </div>
           </div>
-        </div>
+        )}
 
         {modalVisible && (
           <dialog className="modal modal-bottom sm:modal-middle" open>

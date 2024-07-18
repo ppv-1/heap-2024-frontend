@@ -22,7 +22,7 @@
 }
 
 .breadcrumbs-container > .breadcrumbs > ul > li {
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 /* * {
@@ -55,11 +55,27 @@
   align-items: flex-start;
 }
 
+.details-container .content-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 100px; /* Adjust gap as needed */
+  grid-column: 1 / -1; /* Make it span across all columns */
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.details-container .left-details,
+.details-container .right-details {
+  display: flex;
+  flex-direction: column;
+}
+
 .details-container .left-container {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
+  flex: 1;
 }
 
 .details-container .right-container,
@@ -68,6 +84,11 @@
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
+}
+
+.details-container .left-details > h1,
+.details-container .right-details > h1 {
+  margin: 0;
 }
 
 .opp-carousel {
@@ -85,7 +106,7 @@
 
 div > p,
 div > ul > li {
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 div > a {
@@ -126,8 +147,6 @@ div > a:hover {
 } */
 
 .right-details {
-  margin: 20px;
-  padding: auto;
   justify-content: end;
 }
 
