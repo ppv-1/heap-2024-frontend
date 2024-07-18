@@ -7,7 +7,7 @@ class ToggleThemeComponent extends Component {
     super(props);
 
     const theme = localStorage.getItem("theme") || "light";
-    this.state = { theme, isChecked: theme === "retro" };
+    this.state = { theme, isChecked: theme === "dim" };
 
     this.handleToggle = this.handleToggle.bind(this);
   }
@@ -27,7 +27,7 @@ class ToggleThemeComponent extends Component {
   }
 
   handleToggle(e) {
-    const theme = e.target.checked ? "retro" : "light";
+    const theme = e.target.checked ? "dim" : "light";
     this.setState({
       theme,
       isChecked: e.target.checked,

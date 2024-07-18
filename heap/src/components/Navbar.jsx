@@ -64,18 +64,14 @@ const Navbar = () => {
                 <>
                   <li>
                     <Link to="/opportunities">
-                      <p>
-                        Discover <br />
-                        Opportunities
-                      </p>
+                      Discover <br />
+                      Opportunities
                     </Link>
                   </li>
                   <li>
                     <Link to="/organisations">
-                      <p>
-                        Our <br />
-                        Organisations
-                      </p>
+                      Our <br />
+                      Organisations
                     </Link>
                   </li>
                   <li>
@@ -92,18 +88,14 @@ const Navbar = () => {
                 <>
                   <li>
                     <Link to="/opportunities">
-                      <p>
-                        Discover <br />
-                        Opportunities
-                      </p>
+                      Discover <br />
+                      Opportunities
                     </Link>
                   </li>
                   <li>
                     <Link to="/organisations">
-                      <p>
-                        Our <br />
-                        Organisations
-                      </p>
+                      Our <br />
+                      Organisations
                     </Link>
                   </li>
                   <li>
@@ -129,18 +121,14 @@ const Navbar = () => {
               <>
                 <li>
                   <Link to="/opportunities">
-                    <p>
-                      Discover <br />
-                      Opportunities
-                    </p>
+                    Discover <br />
+                    Opportunities
                   </Link>
                 </li>
                 <li>
                   <Link to="/organisations">
-                    <p>
-                      Our <br />
-                      Organisations
-                    </p>
+                    Our <br />
+                    Organisations
                   </Link>
                 </li>
               </>
@@ -152,18 +140,14 @@ const Navbar = () => {
             <>
               <li>
                 <Link to="/opportunities">
-                  <p>
-                    Discover <br />
-                    Opportunities
-                  </p>
+                  Discover <br />
+                  Opportunities
                 </Link>
               </li>
               <li>
                 <Link to="/organisations">
-                  <p>
-                    Our <br />
-                    Organisations
-                  </p>
+                  Our <br />
+                  Organisations
                 </Link>
               </li>
               <li>
@@ -174,18 +158,14 @@ const Navbar = () => {
             <>
               <li>
                 <Link to="/opportunities">
-                  <p>
-                    Discover <br />
-                    Opportunities
-                  </p>
+                  Discover <br />
+                  Opportunities
                 </Link>
               </li>
               <li>
                 <Link to="/organisations">
-                  <p>
-                    Our <br />
-                    Organisations
-                  </p>
+                  Our <br />
+                  Organisations
                 </Link>
               </li>
             </>
@@ -249,10 +229,16 @@ const Navbar = () => {
             ) : userType === "V" ? (
               <>
                 <li>
-                  <Link to="/redeemed-rewards">View <br/>Redeemed Rewards</Link>
+                  <Link to="/redeemed-rewards">
+                    View <br />
+                    Redeemed Rewards
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/registered-event">View <br/>Registered Events</Link>
+                  <Link to="/registered-event">
+                    View <br />
+                    Registered Events
+                  </Link>
                 </li>
                 <li>
                   <Link to="/user-profile">Profile</Link>

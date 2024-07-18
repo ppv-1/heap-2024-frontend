@@ -45,6 +45,7 @@ class ManageOrgs extends Component {
     });
     setTimeout(() => {
       this.setState({ showAlert: false });
+      window.location.reload();
     }, 3000);
   };
 

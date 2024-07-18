@@ -7,10 +7,6 @@
   color: oklch(var(--nc));
 }
 
-* {
-  color: oklch(var(--n));
-}
-
 .title {
   height: min-content;
   align-self: stretch;
@@ -31,6 +27,10 @@
 form {
   width: 50%;
   margin-top: 20px;
+}
+
+form > p, form > label, form > label > P, .link {
+  color: oklch(var(--nc));
 }
 
 input[type="text"],
@@ -103,5 +103,9 @@ a {
   button.btn-wide {
     padding: 5px 10px !important;
     margin: 1vh !important;
+  }
+
+  .link {
+    text-decoration: underline;
   }
 }

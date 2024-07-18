@@ -215,10 +215,7 @@ class OpportunitiesComponent extends Component {
                 className="drawer-toggle"
               />
               <div className="drawer-content">
-                <label
-                  htmlFor="my-drawer-4"
-                  className="drawer-button btn"
-                >
+                <label htmlFor="my-drawer-4" className="drawer-button btn">
                   Filters
                 </label>
               </div>
@@ -366,7 +363,11 @@ class OpportunitiesComponent extends Component {
                     </div>
                     <br />
                     <div className="cause-badges">
-                      <div className="badge badge-accent">{item.causes}</div>
+                      {item.causes.map((cause, index) => (
+                        <div key={index} className="badge badge-accent">
+                          {causes.find((c) => c.value === cause)?.label}
+                        </div>
+                      ))}
                     </div>
                   </div>
                   {/* <h1>{item.id}</h1> */}

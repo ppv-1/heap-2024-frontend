@@ -220,7 +220,7 @@ class ManageRewards extends Component {
                 ))}
               </tbody>
               {/* foot */}
-              <tfoot>
+              {/* <tfoot>
                 <tr>
                   <th>Name</th>
                   <th>Points Needed</th>
@@ -228,7 +228,7 @@ class ManageRewards extends Component {
                   <th>Upload Barcodes</th>
                   <th>Actions</th>
                 </tr>
-              </tfoot>
+              </tfoot> */}
             </table>
           </div>
         </div>

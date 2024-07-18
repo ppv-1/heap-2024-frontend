@@ -62,7 +62,13 @@ a {
   border: 0px;
 }
 
-th, tbody {
+th {
+  font-size: 20px;
+  color: oklch(var(--nc));
+}
+
+tbody, td, a {
+  color: oklch(var(--nc));
   font-size: 16px;
 }
 
@@ -88,5 +94,13 @@ th, tbody {
 
   .font-bold {
     text-decoration: underline;
+  }
+
+  th {
+    font-size: 16px;
+  }
+  
+  tbody, td, a {
+    font-size: 12px;
   }
 }

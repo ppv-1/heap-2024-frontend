@@ -4,9 +4,11 @@
   left: 0;
   bottom: 0;
   /* position: fixed; */
+  /* position: sticky; */
   z-index: 2;
   justify-items: center;
   align-items: center;
+  margin-top: 20%;
 }
 
 .footer-logo {
@@ -44,6 +46,8 @@
     z-index: 2;
     justify-items: center;
     align-items: center;
+    margin-top: 200%;
+    justify-content: space-evenly;
   }
 }
 

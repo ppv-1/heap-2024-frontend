@@ -183,7 +183,7 @@ class ManageVols extends Component {
                 ))}
               </tbody>
               {/* foot */}
-              <tfoot>
+              {/* <tfoot>
                 <tr>
                   <th>Name</th>
                   <th>Gender</th>
@@ -191,7 +191,7 @@ class ManageVols extends Component {
                   <th>Complaint Count</th>
                   <th>Actions</th>
                 </tr>
-              </tfoot>
+              </tfoot> */}
             </table>
           </div>
         </div>

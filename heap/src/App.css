@@ -41,7 +41,7 @@
 /* For large screens (desktops) */
 @media (min-width: 1025px) {
   #root {
-    max-width: 3000px; 
+    max-width: 3000px;
   }
 
   .toast {
@@ -138,21 +138,21 @@
   text-align: center;
 }
 
-
-
 .toast > .alert {
   padding: auto;
 }
-
-
 
 .breadcrumbs {
   padding: 0 0;
 }
 
-.modal, .modal-box {
+.modal,
+.modal-box,
+.modal-box > h3,
+.modal-box > P {
   justify-content: center;
   align-items: center;
+  color: oklch(var(--nc));
 }
 
 .wrapper {

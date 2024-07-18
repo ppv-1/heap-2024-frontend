@@ -1,0 +1,3 @@
+.toast, span {
+  color: oklch(var(--nc));
+}

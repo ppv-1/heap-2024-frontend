@@ -3,6 +3,7 @@ import "./css/Organisations.css";
 import withNavigateandLocation from "./withNavigateandLocation";
 import OrgService from "../services/OrgService";
 import SearchInputComponent from "./searchInput";
+import orgDefault from "../images/orgDefault.png";
 
 class OrganisationsComponent extends Component {
   constructor(props) {
@@ -70,7 +71,11 @@ class OrganisationsComponent extends Component {
               className="card card-compact w-30 bg-base-100 shadow-xl"
             >
               <figure>
-                <img src={item.pfp_filepath} alt={item.fullName} />
+                {item.orgImage ? (
+                  <img src={item.orgImage} alt={item.fullName} />
+                ) : (
+                  <img src={orgDefault} alt="Default Image" />
+                )}
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{item.fullName}</h2>

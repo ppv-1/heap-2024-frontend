@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./footer";
+import "./css/Layout.css";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -9,9 +10,11 @@ const Layout = ({ children }) => {
   return (
     <>
       <Navbar key={location.pathname} />
-      <div className="content">{children}</div>
-      
-      <Outlet />
+      <div>
+        {children}
+        <Outlet />
+      </div>
+
       <Footer />
     </>
   );

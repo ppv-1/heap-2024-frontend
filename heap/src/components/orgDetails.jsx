@@ -68,23 +68,24 @@ class OrgDetails extends Component {
         </div>
 
         <div className="details-container">
+          <div className="top">
+            <h1 className="title">{organisation.fullName}</h1>
+            <a href={organisation.website}>{organisation.website}</a>
+          </div>
           <div className="left-container">
             <div className="left-details">
-              <h1 className="title">{organisation.fullName}</h1>
-              <br />
-              <img src={organisation.pfp_filepath} alt="Logo"/>
-              <br />
-              <p>Description: {organisation.description}</p>
-              <p>Location: {organisation.location}</p>
-              <p>Website: {organisation.website}</p>
+            <h1 className="title">Description</h1>
+              <p>{organisation.description}</p>
+              <h1 className="title">Location</h1>
+              <p>{organisation.location}</p>
             </div>
           </div>
           <div className="right-container">
             <div className="right-details">
-              <h1 className="title">Contact No.</h1>
-              <p>Contact No.{organisation.contactNo}</p>
+              <h1 className="title">Contact Number</h1>
+              <p>{organisation.contactNo}</p>
               <h1 className="title">Email</h1>
-              <p>Email: {organisation.email}</p>
+              <p>{organisation.email}</p>
             </div>
           </div>
         </div>

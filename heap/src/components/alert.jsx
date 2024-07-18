@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./css/Alert.css";
 // import withNavigateandLocation from "./withNavigateandLocation";
 
 class AlertComponent extends Component {

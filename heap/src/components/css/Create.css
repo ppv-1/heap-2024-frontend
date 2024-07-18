@@ -1,12 +1,13 @@
-* {
-  color: oklch(var(--n));
-}
-
 .content {
   margin: 0 auto;
   align-items: center;
   justify-content: center;
   width: 50%;
+}
+
+.content > h1,
+.card-body > h2 {
+  color: oklch(var(--nc));
 }
 
 .title {
@@ -58,6 +59,11 @@ select {
   border-width: 2px;
   border-radius: 16px;
   border-color: rgb(64, 64, 64);
+  color: oklch(var(--nc));
+}
+
+.select, option {
+  color: oklch(var(--nc));
 }
 
 /* Small button */
@@ -110,4 +116,8 @@ form > label {
 form > label > p {
   font-size: 24px;
   font-weight: 600;
+}
+
+.content-wrapper {
+  max-height: calc(81vh - 200px);
 }
