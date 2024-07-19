@@ -3,6 +3,7 @@ import "./css/OpportunityDetails.css";
 import { useParams } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
 import OrgService from "../services/OrgService";
+import orgDefault from "../images/orgDefault.png";
 
 class OrgDetails extends Component {
   constructor(props) {
@@ -52,7 +53,8 @@ class OrgDetails extends Component {
     }
 
     return (
-      <div className="wrapper">
+      <>
+        <div className="wrapper" style={{height:"30px"}}>
         <div className="breadcrumbs-container">
           <div className="breadcrumbs text-sm">
             <ul>
@@ -66,11 +68,13 @@ class OrgDetails extends Component {
             </ul>
           </div>
         </div>
+        </div>
 
         <div className="details-container">
           <div className="top">
             <h1 className="title">{organisation.fullName}</h1>
-            <a href={organisation.website}>{organisation.website}</a>
+            {organisation.website && <a href={organisation.website}>{organisation.fullName}'s Website</a>}
+            <img src={orgDefault} alt="Org Image" className="orgImage"/>
           </div>
           <div className="content-container">
             <div className="left-container">
@@ -91,7 +95,8 @@ class OrgDetails extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </>
+      
     );
   }
 }

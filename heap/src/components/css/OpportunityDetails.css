@@ -8,12 +8,11 @@
 }
 
 .breadcrumbs-container {
-  justify-items: start;
-  width: 100%;
-  height: 50px;
-  overflow: hidden;
   display: flex;
   align-items: center;
+  width: 100%;
+  overflow: hidden;
+  height: auto;
 }
 
 .breadcrumbs {
@@ -37,6 +36,7 @@
   font-weight: 700;
   font-size: 40px;
   text-decoration: none;
+  margin-top: 0px;
 }
 
 .details-container {
@@ -87,8 +87,19 @@
 }
 
 .details-container .left-details > h1,
+.details-container .opp-right-details > h1,
 .details-container .right-details > h1 {
   margin: 0;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.details-container .left-details > ul li {
+  margin-bottom: 16px;
+}
+
+.details-container .left-details > ul {
+  margin-bottom: 16px;
 }
 
 .opp-carousel {
@@ -111,16 +122,23 @@ div > ul > li {
 
 div > a {
   font-weight: 500;
+  margin-bottom: 16px;
 }
 
 div > a:hover {
   color: oklch(var(--p));
 }
 
-.left-details,
+div > .orgImage {
+  max-height: 400px;
+  width: 100%;
+  border-radius: 16px;
+}
+
+/* .left-details,
 .opp-right-details {
   margin-top: 0;
-}
+} */
 
 /* .left-container {
   margin-left: 0;
@@ -128,11 +146,13 @@ div > a:hover {
 } */
 
 .left-details p,
-.opp-right-details p {
+.opp-right-details p,
+.left-details ul li,
+.right-details p {
   margin-bottom: 16px;
 }
 
-.left-details p:last-child,
+.left-details ul li:last-child,
 .opp-right-details p:last-child {
   margin-bottom: 0;
 }
@@ -156,7 +176,6 @@ div > a:hover {
 }
 
 .card {
-  width: 100% !important;
   padding: 0;
   margin: 0;
   max-height: 500px;
@@ -195,25 +214,38 @@ p {
 }
 
 @media (max-width: 600px) {
-  /* .details-container > *,
-  .left-container {
-    width: 100%;
-    max-width: 100%;
-  } */
+  .wrapper {
+    width: 95%;
+  }
+
+  .opps-content {
+    margin: 0 auto;
+  }
 
   .details-container {
-    grid-template-columns: 1fr; 
-    grid-template-rows: auto auto auto; 
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    padding: 0;
   }
 
   .details-container .top {
-    grid-column: 1 / 2; 
+    grid-column: 1 / -1;
+    width: 100%;
+    justify-content: center;
   }
 
   .details-container .left-container,
   .details-container .opp-right-container,
   .details-container .right-container {
-    width: 100%; 
+    width: inherit;
+    grid-column: 1 / -1;
+  }
+
+  .details-container .content-container {
+    display: grid;
+    grid-column: 1;
+    column-gap: 0px;
+    row-gap: 16px;
   }
 }
 

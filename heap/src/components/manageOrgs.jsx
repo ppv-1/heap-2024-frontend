@@ -217,14 +217,14 @@ class ManageOrgs extends Component {
                 ))}
               </tbody>
               {/* foot */}
-              <tfoot>
+              {/* <tfoot>
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Verfication Status</th>
                   <th>Actions</th>
                 </tr>
-              </tfoot>
+              </tfoot> */}
             </table>
           </div>
         </div>

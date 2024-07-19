@@ -193,45 +193,47 @@ class Opportunity extends Component {
               ))}
             </div>
           </div>
-          <div className="left-container">
-            <div className="left-details">
-              <h1 className="title">Description</h1>
-              <p>{opportunity.description}</p>
-              <h1 className="title">Causes</h1>
-              <ul>
-                {causesLabels.map((cause, index) => (
-                  <li key={index}>{cause}</li>
-                ))}
-              </ul>
-              <h1 className="title">Skills</h1>
-              <ul>
-                {skillsLabels.map((skill, index) => (
-                  <li key={index}>{skill}</li>
-                ))}
-              </ul>
-              <br />
-              <br />
+          <div className="content-container">
+            <div className="left-container">
+              <div className="left-details">
+                <h1 className="title">Description</h1>
+                <p>{opportunity.description}</p>
+                <h1 className="title">Causes</h1>
+                <ul>
+                  {causesLabels.map((cause, index) => (
+                    <li key={index}>{cause}</li>
+                  ))}
+                </ul>
+                <h1 className="title">Skills</h1>
+                <ul>
+                  {skillsLabels.map((skill, index) => (
+                    <li key={index}>{skill}</li>
+                  ))}
+                </ul>
+                <br />
+                <br />
+              </div>
             </div>
-          </div>
-          <div className="opp-right-container">
-            <div className="opp-right-details">
-              <h1 className="title">Location</h1>
-              <p>{opportunity.location}</p>
-              <h1 className="title">Date and time</h1>
-              <p>
-                {new Date(opportunity.date).toLocaleDateString("en-US", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </p>
-              <p>Start: {formatTime(opportunity.startTime)}</p>
-              <p>End: {formatTime(opportunity.endTime)}</p>
-              <div className="button-container">
-                <button className="btn" onClick={this.registerEvent}>
-                  I want to volunteer
-                </button>
+            <div className="opp-right-container">
+              <div className="opp-right-details">
+                <h1 className="title">Location</h1>
+                <p>{opportunity.location}</p>
+                <h1 className="title">Date and time</h1>
+                <p>
+                  {new Date(opportunity.date).toLocaleDateString("en-US", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+                <p>Start: {formatTime(opportunity.startTime)}</p>
+                <p>End: {formatTime(opportunity.endTime)}</p>
+                <div className="button-container">
+                  <button className="btn" onClick={this.registerEvent}>
+                    I want to volunteer
+                  </button>
+                </div>
               </div>
             </div>
           </div>

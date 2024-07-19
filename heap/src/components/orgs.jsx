@@ -68,11 +68,11 @@ class OrganisationsComponent extends Component {
           {filteredItems.map((item) => (
             <div
               key={item.id}
-              className="card card-compact w-30 bg-base-100 shadow-xl"
+              className="card card-compact bg-base-100 shadow-xl"
             >
               <figure>
-                {item.orgImage ? (
-                  <img src={item.orgImage} alt={item.fullName} />
+                {item.pfp_filepath ? (
+                  <img src={item.pfp_filepath} alt={item.fullName} />
                 ) : (
                   <img src={orgDefault} alt="Default Image" />
                 )}

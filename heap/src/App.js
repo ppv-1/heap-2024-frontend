@@ -44,6 +44,7 @@ import ManageRewardsDetails from "./components/manageRewardDetails";
 import ManageOrgDetails from "./components/manageOrgDetails";
 import ManageVolDetails from "./components/manageVolDetails";
 import ErrorBoundary from "./components/errorBoundary";
+import ManageComplaintsDetails from "./components/manageComplaintsDetails";
 
 export default function App() {
   return (
@@ -106,6 +107,11 @@ export default function App() {
                 exact
                 path="/manage-complaints"
                 element={<ManageComplaints />}
+              />
+              <Route
+                exact
+                path="/manage-complaint/:id"
+                element={<ManageComplaintsDetails />}
               />
               <Route
                 exact

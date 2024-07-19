@@ -3,12 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   max-width: 100%;
-}
+} */
 
 :root {
   --text-color-light: oklch(var(--n));
@@ -35,7 +35,7 @@ body {
 /* For small screens (mobile devices) */
 @media (max-width: 600px) {
   #root {
-    max-width: 100%;
+    max-width: 100vw;
   }
 
   .toast {
@@ -135,6 +135,10 @@ body {
   cursor: pointer;
 }
 
+.btn:hover {
+  color: oklch(var(--p));
+}
+
 .btn-sm {
   padding: 6px 10px;
   vertical-align: middle;
@@ -174,4 +178,8 @@ body {
 
 .wrapper {
   margin-bottom: 50%;
+}
+
+thead > tr > th {
+  color: oklch(var(--s));
 }

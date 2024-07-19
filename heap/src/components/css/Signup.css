@@ -46,11 +46,6 @@ form {
   height: 100vh;
 }
 
-.card {
-  margin: 2%;
-  height: max-content;
-}
-
 div > figure > img {
   height: 130px;
   width: 350px;

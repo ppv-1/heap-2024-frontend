@@ -133,7 +133,7 @@ class RegisteredEvent extends Component {
                     <h2 className="card-title">{item.name}</h2>
                     <div className="card-actions justify-end">
                       <button
-                        className="btn btn-primary"
+                        className="btn"
                         onClick={(event) =>
                           this.unregisterSubmit(event, item.id)
                         }

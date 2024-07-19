@@ -14,4 +14,23 @@
   text-decoration: none;
 }
 
+.vol-listings {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
 
+.vol-listings > .card {
+  margin: 10px 20px;
+  width: 200px;
+}
+
+.vol-listings .card {
+  width: 200px;
+}
+
+@media (max-width: 600px) {
+  .vol-listings {
+    justify-content: center;
+  }
+}

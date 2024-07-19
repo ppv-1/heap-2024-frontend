@@ -75,7 +75,7 @@ class HomeComponent extends Component {
 
     return (
       <>
-        <div className="content">
+        <div className="home-content justify-center items-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -89,7 +89,7 @@ class HomeComponent extends Component {
                 restDelta: 0.001,
               },
             }}
-            className="top"
+            className="top flex justify-center items-center"
           >
             <img src={homePic} alt="Homepage Image" className="image"></img>
           </motion.div>
@@ -183,7 +183,7 @@ class HomeComponent extends Component {
                       src={plant}
                       alt="Plant"
                     />
-                    Environment & Water
+                    Environment <br/>& Water
                   </a>
                 </div>
               </div>

@@ -54,6 +54,9 @@ const Navbar = () => {
                     <Link to="/rewards">Rewards</Link>
                   </li>
                   <li>
+                    <Link to="/create-complaint">Feedback</Link>
+                  </li>
+                  <li>
                     <Link to="/create-opportunity">Create Event</Link>
                   </li>
                   <li>
@@ -76,6 +79,9 @@ const Navbar = () => {
                   </li>
                   <li>
                     <Link to="/rewards">Rewards</Link>
+                  </li>
+                  <li>
+                    <Link to="/create-complaint">Feedback</Link>
                   </li>
                   <li>
                     <Link to="/redeemed-rewards">View Redeemed Rewards</Link>
@@ -102,7 +108,7 @@ const Navbar = () => {
                     <Link to="/rewards">Rewards</Link>
                   </li>
                   <li>
-                    <Link to="/manage-complaints">Manage Complaints </Link>
+                    <Link to="/manage-complaints">Manage Feedback</Link>
                   </li>
                   <li>
                     <Link to="/manage-vols">Manage Volunteers </Link>
@@ -152,6 +158,9 @@ const Navbar = () => {
               </li>
               <li>
                 <Link to="/rewards">Rewards</Link>
+              </li>
+              <li>
+                <Link to="/create-complaint">Feedback</Link>
               </li>
             </>
           ) : (
@@ -250,7 +259,7 @@ const Navbar = () => {
             ) : userType === "A" ? (
               <>
                 <li>
-                  <Link to="/manage-complaints">Manage Complaints </Link>
+                  <Link to="/manage-complaints">Manage Feedback </Link>
                 </li>
                 <li>
                   <Link to="/manage-vols">Manage Volunteers </Link>

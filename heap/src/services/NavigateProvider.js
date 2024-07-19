@@ -4,8 +4,14 @@ import { ProtectedAPI } from './ProtectedAPI'; // Adjust the import path accordi
 
 const NavigateContext = createContext();
 
+
+
 export const NavigateProvider = ({ children }) => {
   const navigate = useNavigate();
+
+  // const handleNavigation = () => {
+  //   Navigate('/login', state = { showErrorAlert: true });
+  // };
 
   useEffect(() => {
     const interceptor = ProtectedAPI.interceptors.response.use(
@@ -14,6 +20,7 @@ export const NavigateProvider = ({ children }) => {
         if (error.response && error.response.status === 401) {
           console.log(error.response);
           localStorage.removeItem("token");
+          // handleNavigation();
         }
         return Promise.reject(error);
       }

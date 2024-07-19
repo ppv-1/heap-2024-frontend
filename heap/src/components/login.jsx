@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
 import AuthService from "../services/AuthService";
 import { ProtectedAPI } from "../services/ProtectedAPI";
+import OrgService from "../services/OrgService";
 
 class Login extends Component {
   constructor(props) {
@@ -29,54 +30,74 @@ class Login extends Component {
       email: this.state.username,
       password: this.state.password,
     };
-    console.log(credentials);
-    AuthService.loginUser(credentials).then((res) => {
-      if (res.data) {
-        console.log("success");
-        console.log(res.data);
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("userType", res.data.userType);
-        ProtectedAPI.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${localStorage.getItem("token")}`;
-        // navigate('/organisations');
-        // return redirect('/organisations');
-        // console.log(res.data.userType);
-        // this.props.navigate("/user-profile");
-        if (res.data.userType === "V") {
-          console.log(res.data.userType);
-          this.props.navigate("/user-profile", {
-            state: { showLoginAlert: true },
-          });
-        } else if (res.data.userType === "O") {
-          console.log(res.data.userType);
-          this.props.navigate("/org-profile", {
-            state: { showLoginAlert: true },
-          });
-        } else if (res.data.userType === "A") {
-          console.log(res.data.userType);
-          this.props.navigate("/", { state: { showLoginAlert: true } });
-        }
-        // this.props.navigate("/user-profile");
-      } else {
-        console.log("failure");
-        console.log(res.data);
-        this.setState({ errorMessage: "Incorrect email or password. Please try again." });
-      }
-      // console.log(res.data);
-    })
-    .catch((error) => {
-      console.error("Error logging in:", error);
-
-      if (error.response) {
-        console.log("Server responded with error status:", error.response.status);
-        if (error.response.status === 403) {
-          this.setState({ errorMessage: "Incorrect email or password. Please try again." });
+    console.log("cred=" + credentials.email);
+    AuthService.loginUser(credentials)
+      .then((res) => {
+        if (res.data) {
+          console.log("success");
+          console.log(res.data);
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("userType", res.data.userType);
+          ProtectedAPI.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${localStorage.getItem("token")}`;
+          // navigate('/organisations');
+          // return redirect('/organisations');
+          // console.log(res.data.userType);
+          // this.props.navigate("/user-profile");
+          if (res.data.userType === "V") {
+            console.log(res.data.userType);
+            this.props.navigate("/user-profile", {
+              state: { showLoginAlert: true },
+            });
+          } else if (res.data.userType === "O") {
+            console.log(res.data.userType);
+            this.props.navigate("/org-profile", {
+              state: { showLoginAlert: true },
+            });
+          } else if (res.data.userType === "A") {
+            console.log(res.data.userType);
+            this.props.navigate("/", { state: { showLoginAlert: true } });
+          }
+          // this.props.navigate("/user-profile");
         } else {
-          this.setState({ errorMessage: "An error occurred. Please try again later." });
+          console.log("failure");
+          console.log(res.data);
+          this.setState({
+            errorMessage: "Incorrect email or password. Please try again.",
+          });
         }
-      }
-    });
+        // console.log(res.data);
+      })
+      .catch((error) => {
+        console.error("Error logging in:", error);
+
+        if (error.response) {
+          console.log(
+            "Server responded with error status:",
+            error.response.status
+          );
+          if (error.response.status === 403) {
+            this.setState({
+              errorMessage: "Incorrect email or password. Please try again.",
+            });
+          } 
+          // else if (
+          //   error.response.status === 403 &&
+          //   OrgService.getOrg(credentials.email)
+          // ) {
+          //   console.log("org=" + OrgService.getOrg(credentials.email));
+          //   this.setState({
+          //     errorMessage: "Your organisation has not been verified by admin.",
+          //   });
+          // }
+           else {
+            this.setState({
+              errorMessage: "An error occurred. Please try again later.",
+            });
+          }
+        }
+      });
   };
 
   changeUsernameHandler = (event) => {
@@ -94,7 +115,6 @@ class Login extends Component {
         <div className="content">
           <h1 className="title">LOGIN</h1>
           <form>
-            
             <label>
               <p>Email</p>
               <input
@@ -113,7 +133,7 @@ class Login extends Component {
                 onChange={this.changePasswordHandler}
               />
             </label>
-            
+
             <div className="forgot-password">
               <a className="link link-hover" href="/forget-password">
                 Forgot password
