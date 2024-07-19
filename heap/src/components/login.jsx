@@ -15,6 +15,7 @@ class Login extends Component {
       password: "",
       showLoginAlert: false,
       errorMessage: "",
+      showAlert: false,
     };
     this.changeUsernameHandler = this.changeUsernameHandler.bind(this);
     this.changePasswordHandler = this.changePasswordHandler.bind(this);
@@ -89,6 +90,12 @@ class Login extends Component {
 
   render() {
     const { errorMessage } = this.state;
+    console.log(this.state);
+    if (localStorage.getItem("Unauthorised")) {
+      alert("idk");
+      localStorage.removeItem("Unauthorised");
+
+    }
     return (
       <>
         <div className="content">

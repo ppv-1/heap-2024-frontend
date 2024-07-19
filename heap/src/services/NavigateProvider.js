@@ -1,8 +1,15 @@
 import React, { createContext, useContext, useEffect } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate, Navigate, useHistory } from 'react-router-dom';
 import { ProtectedAPI } from './ProtectedAPI'; // Adjust the import path accordingly
 
 const NavigateContext = createContext();
+
+const handleNavigation = () => {
+  Navigate('/login', { state : { showErrorAlert: true } });
+};
+
+var history;
+// const history = useHistory();
 
 export const NavigateProvider = ({ children }) => {
   const navigate = useNavigate();
@@ -11,14 +18,24 @@ export const NavigateProvider = ({ children }) => {
     const interceptor = ProtectedAPI.interceptors.response.use(
       (response) => response,
       (error) => {
-        if (error.response && error.response.status === 401) {
+        if (error.response && error.response.status === 412) {
           console.log(error.response);
           localStorage.removeItem("token");
+          // window.location.href = '/login';
+          // this.props.navigate("/login", {
+          //   state: { showCreateAlert: true },
+          // });    
+          // handleNavigation();
+          const state = { showAlert: true };
+          localStorage.setItem("Unauthorised", true);
+          // window.history.pushState(state, "", "/login");
+          // window.location.reload();
+          window.location.href = '/login';
         }
         return Promise.reject(error);
       }
     );
-    
+
     return () => {
       ProtectedAPI.interceptors.response.eject(interceptor);
     };

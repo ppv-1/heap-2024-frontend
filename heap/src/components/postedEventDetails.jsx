@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
 import OppService from "../services/OppService";
 import OrgService from "../services/OrgService";
-import MediaService from "../services/MediaService";
 
 class PostedEventDetails extends Component {
   constructor(props) {
@@ -30,27 +29,10 @@ class PostedEventDetails extends Component {
       const res = await OppService.getOpp(id);
       const org = await OrgService.getOrg(res.data.organisation);
       const participants = await OppService.getEventParticipants(id);
-      
+
       console.log(res.status);
       console.log(res.data);
       console.log("participants =>" + participants.data);
-     
-
-      // Convert object values to an array of objects
-      
-      //   const imageURLs = imagePathsArray.map(photo => {
-      //     if (photo.data) {
-      //       const byteCharacters = atob(photo.data);
-      //       const byteNumbers = new Array(byteCharacters.length);
-      //       for (let i = 0; i < byteCharacters.length; i++) {
-      //         byteNumbers[i] = byteCharacters.charCodeAt(i);
-      //       }
-      //       const byteArray = new Uint8Array(byteNumbers);
-      //       const blob = new Blob([byteArray], { type: 'image/png' });
-      //       return URL.createObjectURL(blob);
-      //     }
-      //     return null;
-      //   });
 
       this.setState({
         opportunity: res.data,
@@ -60,7 +42,6 @@ class PostedEventDetails extends Component {
         attendance: [],
         images: res.data.photosFilepaths,
       });
-
     } catch (error) {
       console.error("Failed to fetch opportunity", error);
     }
@@ -73,10 +54,10 @@ class PostedEventDetails extends Component {
   markAttendance(participant) {
     this.setState((prevState) => {
       const isAttending = prevState.attendance.some(
-        (att) => att.id === participant.id
+        (att) => att.email === participant.email
       );
       const newAttendance = isAttending
-        ? prevState.attendance.filter((att) => att.id !== participant.id)
+        ? prevState.attendance.filter((att) => att.email !== participant.email)
         : [...prevState.attendance, participant];
 
       return { attendance: newAttendance };
@@ -84,16 +65,9 @@ class PostedEventDetails extends Component {
   }
 
   submitAttendance() {
-    console.log(
-      "id => " +
-        this.state.opportunity.id +
-        "  attendance => " +
-        this.state.attendance
-    );
-    OppService.setEventAttendance(
-      this.state.opportunity.id,
-      this.state.attendance
-    );
+    const { opportunity, attendance } = this.state;
+    console.log("id => " + opportunity.id + "  attendance => " + attendance);
+    OppService.setEventAttendance(opportunity.id, attendance);
   }
 
   render() {
@@ -106,20 +80,6 @@ class PostedEventDetails extends Component {
       images,
     } = this.state;
     console.log(this.state);
-
-    // console.log("!!!!!!!!!!");
-    // console.log("images type = " + typeof this.state.images);
-    // console.log("images content = ", this.state.images);
-    // {
-    //   images.map((image, index) => {
-    //     console.log("!!!!!!!!!!");
-    //     console.log("image=" + image.data);
-    //     console.log("index=" + index);
-    //   });
-    // }
-
-    console.log("!!!!!!!!!!");
-    
 
     if (loading) {
       return (
@@ -169,26 +129,20 @@ class PostedEventDetails extends Component {
                     key={item.id}
                     className="card card-compact w-30 bg-base-100 shadow-xl"
                   >
-                    <figure>
-                      <img
-                        src="https://static.wixstatic.com/media/7ab21d_0065f074991045f19085036583d803c7~mv2.png/v1/fill/w_365,h_174,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/SICS%20Logo.png"
-                        alt={item.name}
-                      />
-                    </figure>
                     <div className="card-body">
                       <h2 className="card-title">{item.fullName}</h2>
-                      <h1>{item.id}</h1>
+                      <h1>{item.email}</h1>
                       <p>Volunteer</p>
                       <div className="card-actions justify-end">
                         <button
                           className={`btn ${
-                            attendance.some((att) => att.id === item.id)
+                            attendance.some((att) => att.email === item.email)
                               ? "btn-success"
                               : "btn"
                           }`}
                           onClick={() => this.markAttendance(item)}
                         >
-                          {attendance.some((att) => att.id === item.id)
+                          {attendance.some((att) => att.email === item.email)
                             ? "Attendance Marked"
                             : "Mark Attendance"}
                         </button>
@@ -214,29 +168,6 @@ class PostedEventDetails extends Component {
                     </div>
                   </div>
                 ))}
-
-                {/* {images.map((image, index) => {
-                  return (
-                    <div
-                      key={index} // Ensure a unique key for each image
-                      className="card card-compact w-30 bg-base-100 shadow-xl"
-                    >
-                      <figure>
-                        {image.data ? (
-                          <img
-                            src={`data:image/png;base64,${image.data}`}
-                            alt={`Image ${index}`}
-                          />
-                        ) : (
-                          <p>No Image Available</p>
-                        )}
-                      </figure>
-                      <div className="card-body">
-                        <p>Image {index + 1}</p>
-                      </div>
-                    </div>
-                  );
-                })} */}
               </ul>
             </div>
           </div>

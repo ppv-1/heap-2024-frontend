@@ -116,7 +116,12 @@ class Opportunity extends Component {
     const { opportunity } = this.state;
     const eventName = opportunity.name;
     console.log("eventName=" + eventName);
-    await VolunteerService.registerEvent(eventId);
+    try{
+      await VolunteerService.registerEvent(eventId);
+    } catch(error){
+      console.error("failed to register", error);
+    }
+    
     // alert("You have successfully registered for this event");
     this.props.navigate("/registered-event", {
       state: { showRegAlert: true, registeredEventName: eventName },

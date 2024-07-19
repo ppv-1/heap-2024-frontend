@@ -91,7 +91,7 @@ class OpportunitiesComponent extends Component {
     //   window.location.reload()
     // }
     console.log("start");
-    console.log(JSON.stringify(res.data));
+    console.log(JSON.stringify(res.data));  
     console.log(res.data + typeof res.data);
     console.log(res.data.events);
     console.log("end");
@@ -350,7 +350,7 @@ class OpportunitiesComponent extends Component {
               >
                 <figure>
                   <img
-                    src="https://static.wixstatic.com/media/7ab21d_0065f074991045f19085036583d803c7~mv2.png/v1/fill/w_365,h_174,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/SICS%20Logo.png"
+                    src={item.photosFilepaths[0]}
                     alt={item.name}
                   />
                 </figure>
@@ -358,7 +358,7 @@ class OpportunitiesComponent extends Component {
                   <div className="card-title">
                     <h2 className="card-title">{item.name}</h2>
                     <div className="badge badge-accent">
-                      {item.neededManpowerCount - item.currentManpowerCount}{" "}
+                      {item.neededManpowerCount}{" "}
                       Spots left
                     </div>
                     <br />
