@@ -8,15 +8,18 @@ const Layout = ({ children }) => {
   const location = useLocation();
 
   return (
-    <>
-      <Navbar key={location.pathname} />
-      <div className="main-body">
-        {children}
-        <Outlet />
-      </div>
-        <div className="footer-space"></div>
-      <Footer />
-    </>
+      <>
+          <Navbar key={location.pathname}/>
+          <div className="navbar-space"></div>
+          <div className="main-body">
+
+              {children}
+              <Outlet/>
+
+          </div>
+          <div className="footer-space"></div>
+          <Footer/>
+      </>
   );
 };
 

@@ -13,7 +13,7 @@
   cursor: pointer;
   height: 100px;
   z-index: 10;
-  margin-bottom: 2%;
+  /*margin-bottom: 2%;*/
 }
 
 .navbar-start > .dropdown {
@@ -140,4 +140,11 @@
     text-align: center;
     color: var(--text-color);
   }
+}
+
+.navbar-space {
+  z-index: 2;
+  margin-bottom: 10px;
+  height: 100px;
+  margin-top: -100px;
 }
