@@ -10,11 +10,11 @@ const Layout = ({ children }) => {
   return (
     <>
       <Navbar key={location.pathname} />
-      <div className="main-body">
+      <div>
         {children}
         <Outlet />
       </div>
-
+        <div className="footer-space"></div>
       <Footer />
     </>
   );
