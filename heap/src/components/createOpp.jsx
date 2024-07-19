@@ -59,6 +59,8 @@ const skills = [
 
 ];
 
+const MAX_FILES = 5;
+
 class CreateOppComponent extends Component {
   constructor(props) {
     super(props);
@@ -80,6 +82,7 @@ class CreateOppComponent extends Component {
       errorMessage1: "",
       errorMessage2: "",
       errorMessage3: "",
+      errorMessage4: "",
     };
 
     this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -245,6 +248,13 @@ class CreateOppComponent extends Component {
 
   changeGalleryImagesHandler = (event) => {
     const files = Array.from(event.target.files);
+
+    if (files.length > MAX_FILES) {
+      this.setState( {errorMessage4: `You can upload a maximum of ${MAX_FILES} files.`})
+      event.target.value = null;
+      return;
+    }
+
     this.setState({
       eventMedia: files
     });
@@ -281,7 +291,7 @@ class CreateOppComponent extends Component {
   render() {
     console.log(this.state);
     const isComplete = this.isFormComplete();
-    const { errorMessage1, errorMessage2, errorMessage3 } = this.state;
+    const { errorMessage1, errorMessage2, errorMessage3, errorMessage4 } = this.state;
     return (
       <>
         <div className="content">
@@ -424,6 +434,7 @@ class CreateOppComponent extends Component {
                 onChange={this.changeGalleryImagesHandler}
               />
             </label>
+            <span className="error-message">{errorMessage4}</span>
             <div className="button-container">
               <button
                 className="btn btn-wide"

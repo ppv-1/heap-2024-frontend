@@ -4,7 +4,7 @@ import OppService from "../services/OppService";
 import withNavigateandLocation from "./withNavigateandLocation";
 import SearchInputComponent from "./searchInput";
 import { MultiSelect } from "react-multi-select-component";
-import MediaService from "../services/MediaService";
+import Pagination from "./pagination";
 
 const causes = [
   { label: "Animal Welfare", value: "animalWelfare" },
@@ -64,9 +64,6 @@ class OpportunitiesComponent extends Component {
     let searchParams = new URLSearchParams(props.location.search);
     let causeQuery = searchParams.get("cause");
 
-    console.log("!!!!!!!!!!!");
-    console.log("causeQ=" + causeQuery);
-
     this.state = {
       items: [],
       searchTerm: "",
@@ -76,6 +73,8 @@ class OpportunitiesComponent extends Component {
       location: "all",
       skill: [],
       placeholderText: "Search for opportunities by name or organisation",
+      currentPage: 1,
+      postsPerPage: 1,
     };
   }
 
@@ -86,16 +85,6 @@ class OpportunitiesComponent extends Component {
 
   fetchData = async () => {
     const res = await OppService.getAllOpps();
-    // if (res.data.code !== 200) {
-    //   this.props.navigate("/login");
-    //   window.location.reload()
-    // }
-    console.log("start");
-    console.log(JSON.stringify(res.data));
-    console.log(res.data + typeof res.data);
-    console.log(res.data.events);
-    console.log("end");
-
     this.setState({ items: res.data.events });
   };
 
@@ -123,52 +112,33 @@ class OpportunitiesComponent extends Component {
     this.setState({ skill: selected });
   };
 
+  handlePageChange = (pageNumber) => {
+    this.setState({ currentPage: pageNumber });
+  };
+
   async componentDidMount() {
     await this.fetchData();
   }
 
   render() {
-    let { items, searchTerm, sortType, cause, type, location, skill } =
-      this.state;
+    let { items, searchTerm, sortType, cause, type, location, skill, currentPage, postsPerPage } = this.state;
 
-    console.log("cause.state=" + cause);
     let filteredItems = items
       ? items.filter((item) => {
           const itemName = item.name ? item.name.toLowerCase() : "";
-          const itemOrganization = item.organization
-            ? item.organization.toLowerCase()
-            : "";
-
+          const itemOrganization = item.organization ? item.organization.toLowerCase() : "";
           const itemLocation = item.location ? item.location.toLowerCase() : "";
           let itemCauses = item.causes || [];
           const itemType = item.type ? item.type.toLowerCase() : "";
           let itemSkills = item.skills || [];
 
-          const searchMatch =
-            itemName.includes(searchTerm.toLowerCase()) ||
-            itemOrganization.includes(searchTerm.toLowerCase());
-
-          const locationMatch =
-            location === "all" || itemLocation.includes(location);
-
-          const causesMatch =
-            cause.length === 0 ||
-            cause.some((c) => itemCauses.includes(c.value)) ||
-            cause.some((c) => itemCauses.includes(c.valueOf()));
-
+          const searchMatch = itemName.includes(searchTerm.toLowerCase()) || itemOrganization.includes(searchTerm.toLowerCase());
+          const locationMatch = location === "all" || itemLocation.includes(location);
+          const causesMatch = cause.length === 0 || cause.some((c) => itemCauses.includes(c.value)) || cause.some((c) => itemCauses.includes(c.valueOf()));
           const typeMatch = type === "all" || itemType.includes(type);
+          const skillsMatch = skill.length === 0 || skill.some((s) => itemSkills.includes(s.value));
 
-          const skillsMatch =
-            skill.length === 0 ||
-            skill.some((s) => itemSkills.includes(s.value));
-
-          return (
-            searchMatch &&
-            locationMatch &&
-            causesMatch &&
-            typeMatch &&
-            skillsMatch
-          );
+          return searchMatch && locationMatch && causesMatch && typeMatch && skillsMatch;
         })
       : [];
 
@@ -185,16 +155,13 @@ class OpportunitiesComponent extends Component {
       return 0;
     });
 
+    // Get current items
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentItems = sortedItems.slice(indexOfFirstPost, indexOfLastPost);
+
     return (
       <div className="wrapper">
-        {/* <div className="text-sm breadcrumbs">
-          <ul>
-            <li>
-              <a href="/">Home</a>
-            </li>
-          </ul>
-        </div> */}
-
         <h1 className="title">Events</h1>
         <p>Here you can find various opportunities.</p>
 
@@ -343,23 +310,19 @@ class OpportunitiesComponent extends Component {
           </div>
 
           <ul className="event-listings">
-            {sortedItems.map((item) => (
+            {currentItems.map((item) => (
               <div
                 key={item.id}
                 className="card card-compact w-30 bg-base-100 shadow-xl"
               >
                 <figure>
-                  <img
-                    src="https://static.wixstatic.com/media/7ab21d_0065f074991045f19085036583d803c7~mv2.png/v1/fill/w_365,h_174,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/SICS%20Logo.png"
-                    alt={item.name}
-                  />
+                  <img src={item.photosFilepaths[0]} alt={item.name} />
                 </figure>
                 <div className="card-body">
                   <div className="card-title">
                     <h2 className="card-title">{item.name}</h2>
                     <div className="badge badge-accent">
-                      {item.neededManpowerCount - item.currentManpowerCount}{" "}
-                      Spots left
+                      {item.neededManpowerCount} Spots left
                     </div>
                     <br />
                     <div className="cause-badges">
@@ -370,7 +333,6 @@ class OpportunitiesComponent extends Component {
                       ))}
                     </div>
                   </div>
-                  {/* <h1>{item.id}</h1> */}
 
                   <div className="card-actions justify-end">
                     <button
@@ -384,6 +346,12 @@ class OpportunitiesComponent extends Component {
               </div>
             ))}
           </ul>
+
+          <Pagination
+            postsPerPage={postsPerPage}
+            length={filteredItems.length}
+            paginate={this.handlePageChange}
+          />
         </div>
       </div>
     );
