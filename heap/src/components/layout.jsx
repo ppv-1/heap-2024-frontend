@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Navbar key={location.pathname} />
-      <div>
+      <div className="main-body">
         {children}
         <Outlet />
       </div>
