@@ -35,6 +35,7 @@
 
 .card-title {
   color: var(--text-color);
+  flex-wrap: wrap;
 }
 
 .card:hover {
@@ -68,7 +69,8 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-
+  margin-top: 5%;
+  row-gap: 20px;
 }
 
 .right-wrapper {
@@ -153,6 +155,7 @@
     max-width: 100vw;
     width: 100%;
     margin: 0 auto;
+    height: fit-content;
   }
 
   .title {
@@ -197,6 +200,7 @@
 
   .event-listings {
     justify-content: center;
+    margin-top: 20px;
   }
 
   .event-listings > .card {

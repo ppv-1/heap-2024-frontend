@@ -39,6 +39,11 @@ form {
   text-decoration: none;
 }
 
+.card {
+  height: 250px;
+  margin: auto;
+}
+
 .content-wrapper {
   display: flex;
   justify-content: space-between;
@@ -105,7 +110,6 @@ button.btn {
 }
 
 @media (max-width: 600px) {
-
   .title {
     font-size: 30px;
   }

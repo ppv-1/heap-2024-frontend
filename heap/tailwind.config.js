@@ -19,6 +19,7 @@ module.exports = {
     "./src/components/manageRewards.jsx",
     "./src/components/manageOrgs.jsx",
     "./src/components/postedEvent.jsx",
+    "./src/components/pagination.jsx",
   ],
   theme: {
     extend: {

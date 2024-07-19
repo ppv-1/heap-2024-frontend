@@ -74,7 +74,7 @@ class OpportunitiesComponent extends Component {
       skill: [],
       placeholderText: "Search for opportunities by name or organisation",
       currentPage: 1,
-      postsPerPage: 1,
+      postsPerPage: 8,
     };
   }
 
@@ -121,24 +121,50 @@ class OpportunitiesComponent extends Component {
   }
 
   render() {
-    let { items, searchTerm, sortType, cause, type, location, skill, currentPage, postsPerPage } = this.state;
+    let {
+      items,
+      searchTerm,
+      sortType,
+      cause,
+      type,
+      location,
+      skill,
+      currentPage,
+      postsPerPage,
+    } = this.state;
 
     let filteredItems = items
       ? items.filter((item) => {
           const itemName = item.name ? item.name.toLowerCase() : "";
-          const itemOrganization = item.organization ? item.organization.toLowerCase() : "";
+          const itemOrganization = item.organization
+            ? item.organization.toLowerCase()
+            : "";
           const itemLocation = item.location ? item.location.toLowerCase() : "";
           let itemCauses = item.causes || [];
           const itemType = item.type ? item.type.toLowerCase() : "";
           let itemSkills = item.skills || [];
 
-          const searchMatch = itemName.includes(searchTerm.toLowerCase()) || itemOrganization.includes(searchTerm.toLowerCase());
-          const locationMatch = location === "all" || itemLocation.includes(location);
-          const causesMatch = cause.length === 0 || cause.some((c) => itemCauses.includes(c.value)) || cause.some((c) => itemCauses.includes(c.valueOf()));
+          const searchMatch =
+            itemName.includes(searchTerm.toLowerCase()) ||
+            itemOrganization.includes(searchTerm.toLowerCase());
+          const locationMatch =
+            location === "all" || itemLocation.includes(location);
+          const causesMatch =
+            cause.length === 0 ||
+            cause.some((c) => itemCauses.includes(c.value)) ||
+            cause.some((c) => itemCauses.includes(c.valueOf()));
           const typeMatch = type === "all" || itemType.includes(type);
-          const skillsMatch = skill.length === 0 || skill.some((s) => itemSkills.includes(s.value));
+          const skillsMatch =
+            skill.length === 0 ||
+            skill.some((s) => itemSkills.includes(s.value));
 
-          return searchMatch && locationMatch && causesMatch && typeMatch && skillsMatch;
+          return (
+            searchMatch &&
+            locationMatch &&
+            causesMatch &&
+            typeMatch &&
+            skillsMatch
+          );
         })
       : [];
 
