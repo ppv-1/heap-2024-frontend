@@ -48,6 +48,7 @@
 
 .cause-badges {
   display: flex;
+  gap: 10px;
 }
 
 .opps-content {
@@ -65,16 +66,20 @@
   border-radius: 4px;
 }
 
-.event-listings {
+.event-listings, .posted-event-listings {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin-top: 5%;
   row-gap: 20px;
+  z-index: 5;
+}
+
+.posted-event-listings .card-compact {
+  height: 400px;
 }
 
 .right-wrapper {
-  z-index: 9;
+  z-index: 30;
 }
 
 .right-wrapper > .drawer > .drawer-content {
@@ -93,10 +98,12 @@
 .drawerr-content {
   height: 130vh;
   padding: auto;
+  z-index: 30;
 }
 
 .drawer-side {
   margin-top: 100px;
+  z-index: 30;
 }
 
 .drawer-button {
@@ -150,7 +157,6 @@
 }
 
 @media (max-width: 600px) {
-
   .wrapper {
     max-width: 100vw;
     width: 100%;
@@ -198,12 +204,20 @@
     z-index: 10;
   }
 
-  .event-listings {
+  .event-listings, .posted-event-listings {
     justify-content: center;
     margin-top: 20px;
   }
 
   .event-listings > .card {
     z-index: 5;
+  }
+}
+
+@media (min-width: 1025px) {
+  .event-listings, .posted-event-listings {
+    justify-content: flex-start;
+    margin-top: 20px;
+    max-height: 1000px;
   }
 }

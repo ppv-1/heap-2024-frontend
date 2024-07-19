@@ -353,7 +353,7 @@ class OpportunitiesComponent extends Component {
                     <br />
                     <div className="cause-badges">
                       {item.causes.map((cause, index) => (
-                        <div key={index} className="badge badge-accent">
+                        <div key={index} className="badge badge-neutral">
                           {causes.find((c) => c.value === cause)?.label}
                         </div>
                       ))}

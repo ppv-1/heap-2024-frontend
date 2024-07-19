@@ -16,10 +16,12 @@ class PostedEventDetails extends Component {
       participants: [],
       attendance: [],
       images: [],
+      selectAll: false,
     };
 
     this.markAttendance = this.markAttendance.bind(this);
     this.submitAttendance = this.submitAttendance.bind(this);
+    this.toggleSelectAll = this.toggleSelectAll.bind(this);
   }
 
   fetchData = async () => {
@@ -27,7 +29,7 @@ class PostedEventDetails extends Component {
 
     try {
       const res = await OppService.getOpp(id);
-      const org = await OrgService.getOrg(res.data.organisation);
+      const org = await OrgService.getOrg(res.data.organisation_id);
       const participants = await OppService.getEventParticipants(id);
 
       console.log(res.status);
@@ -64,6 +66,18 @@ class PostedEventDetails extends Component {
     });
   }
 
+  toggleSelectAll() {
+    this.setState((prevState) => {
+      const newSelectAll = !prevState.selectAll;
+      const newAttendance = newSelectAll ? [...prevState.participants] : [];
+
+      return {
+        selectAll: newSelectAll,
+        attendance: newAttendance,
+      };
+    });
+  }
+
   submitAttendance() {
     const { opportunity, attendance } = this.state;
     console.log("id => " + opportunity.id + "  attendance => " + attendance);
@@ -78,6 +92,7 @@ class PostedEventDetails extends Component {
       participants,
       attendance,
       images,
+      selectAll,
     } = this.state;
     console.log(this.state);
 
@@ -106,25 +121,94 @@ class PostedEventDetails extends Component {
                 <a href="/">Home</a>
               </li>
               <li>
-                <a href="/opportunities">Volunteer</a>
+                <a href="/posted-event">Posted Events</a>
               </li>
               <li>{opportunity.name}</li>
             </ul>
           </div>
         </div>
         <div className="details-container">
+          {/* <div className="posted-content-container"> */}
+          <div className="top">
+            <h1 className="title">{opportunity.name}</h1>
+          </div>
           <div className="left-container">
-            <h1 className="title">
-              {opportunity.name} @ {orgName}
-            </h1>
-
-            <br />
             <div className="left-details">
-              <p>Description: {opportunity.description}</p>
-              <p>Manpower needed: {opportunity.neededManpowerCount}</p>
-              <p>Type: {opportunity.type}</p>
-              <ul className="event-listings">
-                {participants.map((item) => (
+              <h1 className="title2">Organised by</h1>
+              <p>{orgName}</p>
+              <h1 className="title2">Description</h1>
+              <p>{opportunity.description}</p>
+            </div>
+          </div>
+          <div className="right-container">
+            <div className="right-details">
+              <h1 className="title2">Manpower needed</h1>
+              <p>{opportunity.neededManpowerCount}</p>
+              <h1 className="title2">Type</h1>
+              <p>{opportunity.type}</p>
+            </div>
+          </div>
+
+          <div className="data-table">
+            <div className="overflow-x auto">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>
+                      <label>
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          checked={selectAll}
+                          onChange={this.toggleSelectAll}
+                        />
+                      </label>
+                    </th>
+                    <th>Volunteer</th>
+                    <th>Attendance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {participants.map((item) => (
+                    <tr>
+                      <th>
+                        <label>
+                          <input
+                            type="checkbox"
+                            className="checkbox"
+                            checked={attendance.some(
+                              (att) => att.email === item.email
+                            )}
+                            onChange={() => this.markAttendance(item)}
+                          />
+                        </label>
+                      </th>
+                      <td>{item.fullName}</td>
+                      <td className="attendance-button-col">
+                        <button
+                          className={`btn ${
+                            attendance.some((att) => att.email === item.email)
+                              ? "btn-success"
+                              : "btn"
+                          }`}
+                          onClick={() => this.markAttendance(item)}
+                        >
+                          {attendance.some((att) => att.email === item.email)
+                            ? "Attendance Marked"
+                            : "Mark Attendance"}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button className="btn btn-neutral" onClick={this.submitAttendance}>
+            Submit Attendance
+          </button>
+          {/* <ul className="event-listings"> */}
+          {/* {participants.map((item) => (
                   <div
                     key={item.id}
                     className="card card-compact w-30 bg-base-100 shadow-xl"
@@ -149,9 +233,9 @@ class PostedEventDetails extends Component {
                       </div>
                     </div>
                   </div>
-                ))}
+                ))} */}
 
-                {images.map((url, index) => (
+          {/* {images.map((url, index) => (
                   <div
                     key={index} // Ensure a unique key for each image
                     className="card card-compact w-30 bg-base-100 shadow-xl"
@@ -167,11 +251,9 @@ class PostedEventDetails extends Component {
                       <p>Image {index + 1}</p>
                     </div>
                   </div>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className="right-container">
+                ))} */}
+          {/* </ul> */}
+          {/* <div className="right-container">
             <div className="right-details">
               <div className="card w-150 bg-base-100 shadow-xl">
                 <div className="card-body">
@@ -190,9 +272,10 @@ class PostedEventDetails extends Component {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </div> */}
+        </div>{" "}
       </div>
+      // </div>
     );
   }
 }

@@ -8,7 +8,7 @@
   z-index: 2;
   justify-items: center;
   align-items: center;
-  margin-top: 20%;
+  margin-top: calc(100vh - 100px);
 }
 
 .footer-logo {
@@ -46,7 +46,7 @@
     z-index: 2;
     justify-items: center;
     align-items: center;
-    margin-top: 200%;
+    margin-top: 100%;
     justify-content: space-evenly;
   }
 }

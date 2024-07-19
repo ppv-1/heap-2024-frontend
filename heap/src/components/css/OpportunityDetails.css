@@ -39,6 +39,16 @@
   margin-top: 0px;
 }
 
+.title2 {
+  height: min-content;
+  align-self: stretch;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  text-decoration: none;
+  margin-top: 0px;
+}
+
 .details-container {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two equal columns */
@@ -55,7 +65,8 @@
   align-items: flex-start;
 }
 
-.details-container .content-container {
+.details-container .content-container,
+.details-container .posted-event-container {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two equal columns */
   gap: 100px; /* Adjust gap as needed */
@@ -79,7 +90,8 @@
 }
 
 .details-container .right-container,
-.details-container .opp-right-container {
+.details-container .opp-right-container,
+.details-container .posted-event-container .right-container {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -88,14 +100,38 @@
 
 .details-container .left-details > h1,
 .details-container .opp-right-details > h1,
-.details-container .right-details > h1 {
+.details-container .right-details > h1,
+.details-container .left-container > h1,
+.details-container .right-container .right-details > h1 {
   margin: 0;
   margin-bottom: 20px;
   font-weight: 500;
 }
 
+.data-table {
+  grid-column: 1 / -1;
+}
+
+.overflow-x {
+  overflow-x: auto;
+}
+
 .details-container .left-details > ul li {
   margin-bottom: 16px;
+}
+
+.attendance-button-col {
+  width: 400px;
+}
+
+th {
+  font-size: 20px;
+  color: var(--text-color);
+}
+
+tbody, td, a {
+  color: var(--text-color);
+  font-size: 16px;
 }
 
 .details-container .left-details > ul {
@@ -198,7 +234,7 @@ div > .orgImage {
 }
 
 p {
-  font-size: 16px;
+  font-size: 20px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -241,7 +277,8 @@ p {
     grid-column: 1 / -1;
   }
 
-  .details-container .content-container {
+  .details-container .content-container,
+  .details-container, .posted-event-container {
     display: grid;
     grid-column: 1;
     column-gap: 0px;
