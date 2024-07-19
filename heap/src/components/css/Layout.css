@@ -11,9 +11,20 @@ html, body {
     flex-direction: column;
   }
   
-  .footer {
-    background-color: oklch(var(--b2));
-    text-align: center;
-    padding: 10px;
-    width: 100%;
+  /*.footer {*/
+  /*  background-color: oklch(var(--b2));*/
+  /*  text-align: center;*/
+  /*  padding: 10px;*/
+  /*  width: 100%;*/
+  /*}*/
+
+  .main-body {
+      /*margin-bottom: 50px;*/
+      /*height: 100vh;*/
+      display: block;
+      position: relative;
+      height: auto;
+      min-height: 100vh !important;
+      z-index: 1;
+
   }
