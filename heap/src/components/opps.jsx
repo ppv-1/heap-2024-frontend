@@ -85,21 +85,10 @@ class OpportunitiesComponent extends Component {
       skill: [],
       placeholderText: "Search for opportunities by name or organisation",
       currentPage: 1,
-      postsPerPage:  this.getPostsPerPage(),
+      postsPerPage:  6,
       theme: theme,
     };
   }
-
-  getPostsPerPage = () => {
-    let width = window.innerWidth;
-    if (width < 600) {
-      return 4;
-    } else if (width < 1025) {
-      return 6;
-    } else {
-      return 8;
-    }
-  };
 
   volunteerSubmit = (event, id) => {
     event.preventDefault();
@@ -361,7 +350,7 @@ class OpportunitiesComponent extends Component {
             </div>
           </div>
 
-          <div className="wrapper">
+          {/*<div className="wrapper">*/}
             <ul className="event-listings">
               {currentItems.map((item) => (
                   <div
@@ -371,14 +360,15 @@ class OpportunitiesComponent extends Component {
                     <figure>
                       <img src={item.photosFilepaths[0]} alt={item.name}/>
                     </figure>
-                    <div className="card-body">
-                      <div className="card-title">
-                        <h2 className="card-title">{item.name}</h2>
-                        <div className="badge badge-accent">
-                          {item.neededManpowerCount} Spots left
+                    <div className="card-body flex flex-col justify-between">
+                      <div className="card-title mb-4">
+                        <h2 className="card-title w-full">{item.name}</h2>
+                        <div className="flex justify-start w-full mb-2">
+                          <div className="badge badge-accent">
+                            {item.neededManpowerCount} Spots left
+                          </div>
                         </div>
-                        <br/>
-                        <div className="cause-badges">
+                        <div className="cause-badges flex flex-wrap gap-2">
                           {item.causes.map((cause, index) => (
                               <div key={index} className="badge badge-neutral">
                                 {causes.find((c) => c.value === cause)?.label}
@@ -387,7 +377,7 @@ class OpportunitiesComponent extends Component {
                         </div>
                       </div>
 
-                      <div className="card-actions justify-end">
+                      <div className="card-actions flex justify-end mt-4">
                         <button
                             className="btn"
                             onClick={(event) => this.volunteerSubmit(event, item.id)}
@@ -399,16 +389,16 @@ class OpportunitiesComponent extends Component {
                   </div>
               ))}
             </ul>
-          </div>
-
-
-          <Pagination
-              postsPerPage={postsPerPage}
-              length={filteredItems.length}
-              paginate={this.handlePageChange}
-          />
         </div>
+
+
+        <Pagination
+            postsPerPage={postsPerPage}
+            length={filteredItems.length}
+            paginate={this.handlePageChange}
+        />
       </div>
+        // </div>
     );
   }
 }

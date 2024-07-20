@@ -1,4 +1,5 @@
 <a id="readme-top"></a>
+
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -29,6 +30,12 @@ We hope to create a platform where people can find volunteering and donation opp
 
 ### Built With
 
+* [![React.js][React.js-logo]][React.js-url]
+* [![Axios][Axios-logo]][Axios-url]
+* [![Tailwind CSS][Tailwind-logo]][tailwind-url]
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 * [![React.js][React.js-logo]][React.js-url]
 * [![Axios][Axios-logo]][Axios-url]
@@ -118,6 +125,8 @@ We hope to create a platform where people can find volunteering and donation opp
 Project Link: https://github.com/g5-heapheaphooray/frontend
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [React.js-logo]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB

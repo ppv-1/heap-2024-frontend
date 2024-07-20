@@ -218,6 +218,17 @@
   }
 }
 
+@media (min-width: 601px) and (max-width: 1024px) {
+  .event-listings, .posted-event-listings {
+    justify-content: flex-start;
+    margin-top: 20px;
+  }
+
+  .searchbar-container {
+    width: 90%;
+  }
+}
+
 @media (min-width: 1025px) {
   .event-listings, .posted-event-listings {
     justify-content: flex-start;
