@@ -229,7 +229,7 @@ class ManageOrgs extends Component {
                       <button
                         className="btn btn-danger"
                         onClick={(event) =>
-                          this.deleteVolHandler(event, item.email)
+                          this.deleteOrgHandler(event, item.email)
                         }
                       >
                         Delete

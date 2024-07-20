@@ -77,25 +77,25 @@ class ManageComplaints extends Component {
     const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
 
     return (
-        <div className="wrapper">
-          <h1 className="title">Feedback</h1>
-          {items.length === 0 ? (
-              <p>There are no complaints currently.</p>
-          ) : (
-              <>
-                <div className="data-table">
-                  <div className="overflow-x-auto">
-                    <table className="table">
-                      {/* head */}
-                      <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>User ID</th>
-                        <th>Status</th>
-                      </tr>
-                      </thead>
-                      <tbody>
+      <div className="wrapper">
+        <h1 className="title">Feedback</h1>
+        {items.length === 0 ? (
+          <p>There are no complaints currently.</p>
+        ) : (
+          <>
+            <div className="data-table">
+              <div className="overflow-x-auto">
+                <table className="table">
+                  {/* head */}
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Title</th>
+                      <th>User ID</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
                       {currentItems.map((item) => (
                           <tr key={item.id}>
                             <td>
@@ -115,9 +115,9 @@ class ManageComplaints extends Component {
                                   onClick={(event) =>
                                       this.complaintResolve(event, item.id)
                                   }
-                                  disabled={item.status === "resolved"} // Disable button if resolved
+                                  disabled={item.status === "Resolved"} // Disable button if resolved
                               >
-                                {item.status === "resolved"
+                                {item.status === "Resolved"
                                     ? "Resolved"
                                     : "Resolve"}
                               </button>

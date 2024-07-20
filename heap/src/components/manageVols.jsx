@@ -194,6 +194,11 @@ class ManageVols extends Component {
                 ))}
               </tbody>
             </table>
+            <Pagination
+              postsPerPage={this.state.postsPerPage}
+              length={items.length}
+              paginate={this.handlePageChange}
+            />
           </div>
         </div>
 

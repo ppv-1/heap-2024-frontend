@@ -61,7 +61,7 @@ class CreateComplaint extends Component {
   };
 
   changeComplaineeHandler = (event) => {
-    this.setState({ email: event.target.value});
+    this.setState({ complainee: event.target.value});
   }
 
 
@@ -110,11 +110,11 @@ class CreateComplaint extends Component {
               />
             </label>
             <label>
-              <p>Complainee (Optional)</p>
+              <p>Complainee's email (Optional)</p>
               <input
                   type="text"
                   required
-                  value={this.state.title}
+                  value={this.state.complainee}
                   onChange={this.changeComplaineeHandler}
               />
             </label>

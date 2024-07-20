@@ -5,6 +5,7 @@ import UserService from "../services/UserService";
 import "./css/Opportunities.css";
 import OrgService from "../services/OrgService";
 import AlertComponent from "./alert";
+import Pagination from "./pagination";
 
 class PostedEvent extends Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class PostedEvent extends Component {
       itemName: "",
       showEditAlert: false,
       showDeleteAlert: false,
+      currentPage: 1,
+      postsPerPage: 10, 
     };
   }
 
@@ -73,8 +76,16 @@ class PostedEvent extends Component {
     }
   }
 
+  handlePageChange = (pageNumber) => {
+    this.setState({ currentPage: pageNumber });
+  };
+
   render() {
-    let items = this.state.items;
+    let {items, currentPage, postsPerPage } = this.state;
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentItems = items.slice(indexOfFirstPost, indexOfLastPost);
 
     return (
       <div className="wrapper">
@@ -92,7 +103,7 @@ class PostedEvent extends Component {
         <br />
 
         <div className="posted-event-listings">
-          {items.map((item) => (
+          {currentItems.map((item) => (
             <div className="card card-compact w-30 bg-base-100 shadow-xl">
               <figure>
                 <img src={item.photosFilepaths[0]} alt={item.name}/>
@@ -146,6 +157,11 @@ class PostedEvent extends Component {
             message={`${this.state.itemName} deleted successfully.`}
           />
         </div>
+        <Pagination
+          postsPerPage={this.state.postsPerPage}
+          length={items.length}
+          paginate={this.handlePageChange}
+        />
       </div>
     );
   }

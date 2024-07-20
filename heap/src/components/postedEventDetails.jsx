@@ -84,8 +84,18 @@ class PostedEventDetails extends Component {
   submitAttendance() {
     const { opportunity, attendance } = this.state;
     console.log("id => " + opportunity.id + "  attendance => " + attendance);
-    OppService.setEventAttendance(opportunity.id, attendance);
+    try{
+      OppService.setEventAttendance(opportunity.id, attendance);
+      this.props.navigate("/posted-event");
+    } catch(error){
+      console.error("failed to sent attendance", error);
+    }
+    
   }
+
+  handlePageChange = (pageNumber) => {
+    this.setState({ currentPage: pageNumber });
+  };
 
   render() {
     const {
@@ -158,6 +168,9 @@ class PostedEventDetails extends Component {
               <p>{opportunity.type}</p>
             </div>
           </div>
+          <button className="btn btn-neutral" onClick={this.submitAttendance} disabled={opportunity.attendance}>
+            Submit Attendance
+          </button>
 
           <div className="data-table">
             <div className="overflow-x auto">
@@ -233,9 +246,7 @@ class PostedEventDetails extends Component {
               />
             </div>
           </div>
-          <button className="btn btn-neutral" onClick={this.submitAttendance}>
-            Submit Attendance
-          </button>
+          
 
         </div>
         {" "}
