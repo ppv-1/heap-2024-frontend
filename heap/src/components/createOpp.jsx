@@ -29,7 +29,6 @@ const causes = [
   { label: "Sports", value: "sports" },
   { label: "Women & Girls", value: "women" },
   { label: "Youth", value: "youth" },
-
 ];
 
 const skills = [
@@ -56,14 +55,27 @@ const skills = [
   { label: "Videography", value: "videography" },
   { label: "Web Design", value: "webDesign" },
   { label: "Others", value: "other" },
-
 ];
 
 const MAX_FILES = 5;
 
+const getTheme = () => {
+  const storedTheme = localStorage.getItem('theme');
+  if (storedTheme) {
+    return storedTheme;
+  }
+
+  const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  return systemPrefersDark ? 'dim' : 'light';
+};
+
 class CreateOppComponent extends Component {
   constructor(props) {
     super(props);
+
+    let theme = getTheme();
+
+    console.log("state theme=" + theme);
 
     this.state = {
       name: "",
@@ -77,12 +89,13 @@ class CreateOppComponent extends Component {
       location: "",
       address: "",
       description: "",
-      eventMedia: [], 
+      eventMedia: [],
       eventCoverMedia: null,
       errorMessage1: "",
       errorMessage2: "",
       errorMessage3: "",
       errorMessage4: "",
+      theme: theme,
     };
 
     this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -91,13 +104,15 @@ class CreateOppComponent extends Component {
     this.changeEndTimeHandler = this.changeEndTimeHandler.bind(this);
     this.changeCausesHandler = this.changeCausesHandler.bind(this);
     this.changeLocationHandler = this.changeLocationHandler.bind(this);
-    this.changeManpowerCountHandler = this.changeManpowerCountHandler.bind(this);
+    this.changeManpowerCountHandler =
+      this.changeManpowerCountHandler.bind(this);
     this.changeSkillsHandler = this.changeSkillsHandler.bind(this);
     this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
     this.changeTypeHandler = this.changeTypeHandler.bind(this);
     this.changeAddressHandler = this.changeAddressHandler.bind(this);
     this.changeCoverImageHandler = this.changeCoverImageHandler.bind(this);
-    this.changeGalleryImagesHandler = this.changeGalleryImagesHandler.bind(this);
+    this.changeGalleryImagesHandler =
+      this.changeGalleryImagesHandler.bind(this);
     this.createOpp = this.createOpp.bind(this);
   }
 
@@ -131,12 +146,14 @@ class CreateOppComponent extends Component {
       const res = await OppService.createOpp(opp);
       console.log(res);
       console.log(formData);
-      await MediaService.uploadEventPhotos(res.data.id, formData).then((res) => {
-        this.props.navigate("/posted-event", {
-          state: { showCreateAlert: true, itemName: opp.name },
-        });
-        console.log(res.status);
-      });
+      await MediaService.uploadEventPhotos(res.data.id, formData).then(
+        (res) => {
+          this.props.navigate("/posted-event", {
+            state: { showCreateAlert: true, itemName: opp.name },
+          });
+          console.log(res.status);
+        }
+      );
       // clear form fields?
       this.setState({
         name: "",
@@ -151,12 +168,11 @@ class CreateOppComponent extends Component {
         address: "",
         description: "",
         eventMedia: [],
-        eventCoverMedia: null
+        eventCoverMedia: null,
       });
-    } catch(error){
+    } catch (error) {
       console.error("failed to create event", error);
     }
-    
   };
 
   changeNameHandler = (event) => {
@@ -173,9 +189,11 @@ class CreateOppComponent extends Component {
 
   validateDate = (date = null) => {
     if (validator.isAfter(date)) {
-      this.setState({ errorMessage1: ""});
+      this.setState({ errorMessage1: "" });
     } else {
-      this.setState({ errorMessage1: "Please choose a future date. This date is invalid."});
+      this.setState({
+        errorMessage1: "Please choose a future date. This date is invalid.",
+      });
     }
   };
 
@@ -188,10 +206,12 @@ class CreateOppComponent extends Component {
   };
 
   validateStartTime = (startTime = null) => {
-    if (startTime < '06:00' || startTime > '22:00') {
-      this.setState({ errorMessage2: "Please select a time between 6am and 10pm."});
+    if (startTime < "06:00" || startTime > "22:00") {
+      this.setState({
+        errorMessage2: "Please select a time between 6am and 10pm.",
+      });
     } else {
-      this.setState({ errorMessage2: ""});
+      this.setState({ errorMessage2: "" });
     }
   };
 
@@ -204,10 +224,12 @@ class CreateOppComponent extends Component {
   };
 
   validateEndTime = (endTime = null) => {
-    if (endTime < '06:00' || endTime > '22:00') {
-      this.setState({ errorMessage3: "Please select a time between 6am and 10pm."});
+    if (endTime < "06:00" || endTime > "22:00") {
+      this.setState({
+        errorMessage3: "Please select a time between 6am and 10pm.",
+      });
     } else {
-      this.setState({ errorMessage3: ""});
+      this.setState({ errorMessage3: "" });
     }
   };
 
@@ -241,22 +263,22 @@ class CreateOppComponent extends Component {
 
   changeCoverImageHandler = (event) => {
     const file = event.target.files[0];
-    this.setState(
-      {eventCoverMedia: file}
-    );
+    this.setState({ eventCoverMedia: file });
   };
 
   changeGalleryImagesHandler = (event) => {
     const files = Array.from(event.target.files);
 
     if (files.length > MAX_FILES) {
-      this.setState( {errorMessage4: `You can upload a maximum of ${MAX_FILES} files.`})
+      this.setState({
+        errorMessage4: `You can upload a maximum of ${MAX_FILES} files.`,
+      });
       event.target.value = null;
       return;
     }
 
     this.setState({
-      eventMedia: files
+      eventMedia: files,
     });
   };
 
@@ -290,8 +312,14 @@ class CreateOppComponent extends Component {
 
   render() {
     console.log(this.state);
+    const isDarkMode = this.state.theme === "dim";
+    const multiSelectClassName = isDarkMode ? "dark" : "";
+    console.log("isdarkmode=" + isDarkMode);
+    console.log("multiSelectClassName=" + multiSelectClassName);
+
     const isComplete = this.isFormComplete();
-    const { errorMessage1, errorMessage2, errorMessage3, errorMessage4 } = this.state;
+    const { errorMessage1, errorMessage2, errorMessage3, errorMessage4 } =
+      this.state;
     return (
       <>
         <div className="content">
@@ -322,7 +350,8 @@ class CreateOppComponent extends Component {
               <p>Start Time</p>
               <input
                 type="time"
-                min="06:00" max="22:00"
+                min="06:00"
+                max="22:00"
                 required
                 value={this.state.startTime}
                 onChange={this.changeStartTimeHandler}
@@ -333,7 +362,8 @@ class CreateOppComponent extends Component {
               <p>End Time</p>
               <input
                 type="time"
-                min="06:00" max="22:00"
+                min="06:00"
+                max="22:00"
                 required
                 value={this.state.endTime}
                 onChange={this.changeEndTimeHandler}
@@ -348,6 +378,7 @@ class CreateOppComponent extends Component {
                 onChange={this.changeCausesHandler}
                 labelledBy="causes"
                 hasSelectAll={false}
+                className={multiSelectClassName}
               />
             </label>
             <label>
@@ -367,12 +398,13 @@ class CreateOppComponent extends Component {
                 onChange={this.changeSkillsHandler}
                 labelledBy="skills"
                 hasSelectAll={false}
+                className={multiSelectClassName}
               />
             </label>
             <label>
               <p>Type</p>
               <select
-                className="select select-bordered w-full"
+                className={`select select-bordered w-full custom-select ${multiSelectClassName}`}
                 onChange={this.changeTypeHandler}
               >
                 <option disabled selected>
@@ -387,7 +419,7 @@ class CreateOppComponent extends Component {
             <label>
               <p>Location</p>
               <select
-                className="select select-bordered w-full"
+                className={`select select-bordered w-full custom-select ${multiSelectClassName}`}
                 onChange={this.changeLocationHandler}
               >
                 <option disabled selected>
@@ -419,16 +451,16 @@ class CreateOppComponent extends Component {
               <p>Cover Image</p>
               <input
                 type="file"
-                className="file-input file-input-bordered w-full max-w-xs"
+                className="file-input file-input-bordered w-full"
                 accept="image/*"
                 onChange={this.changeCoverImageHandler}
               />
             </label>
             <label>
-              <p>Gallery</p>
+              <p>Gallery (maximum of 5 images)</p>
               <input
                 type="file"
-                className="file-input file-input-bordered w-full max-w-xs"
+                className="file-input file-input-bordered w-full"
                 multiple
                 accept="image/*"
                 onChange={this.changeGalleryImagesHandler}

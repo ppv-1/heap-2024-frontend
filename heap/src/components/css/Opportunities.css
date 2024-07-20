@@ -76,6 +76,7 @@
 
 .posted-event-listings .card-compact {
   height: 400px;
+  margin: auto 10px;
 }
 
 .right-wrapper {

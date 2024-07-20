@@ -25,6 +25,7 @@ module.exports = {
     extend: {
       colors: {
         'gray': "#d1d5db",
+        'bg-color-dark': '#121212',
       },
     },
   },
