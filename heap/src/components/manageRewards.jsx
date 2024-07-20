@@ -224,7 +224,7 @@ class ManageRewards extends Component {
                         <button
                           className="btn btn-danger"
                           onClick={(event) =>
-                            this.deleteReward(event, item.email)
+                            this.deleteReward(event, item.id)
                           }
                         >
                           Delete

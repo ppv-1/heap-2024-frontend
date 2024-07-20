@@ -94,7 +94,7 @@ class ManageComplaints extends Component {
                             onClick={(event) =>
                               this.complaintResolve(event, item.id)
                             }
-                            disabled={item.status === "resolved"} // Disable button if resolved
+                            disabled={item.status === "Resolved"} // Disable button if resolved
                           >
                             {item.status === "resolved"
                               ? "Resolved"
