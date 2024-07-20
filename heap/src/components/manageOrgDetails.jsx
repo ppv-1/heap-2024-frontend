@@ -3,6 +3,7 @@ import "./css/OpportunityDetails.css";
 import { useParams } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
 import OrgService from "../services/OrgService";
+import { Link } from "react-router-dom";
 
 class ManageOrgDetails extends Component {
   constructor(props) {
@@ -92,17 +93,23 @@ class ManageOrgDetails extends Component {
                 </tr>
               </thead>
               <tbody>
-              {orgEvents.map((event) => (
-                <tr key={event.id}>
-                  <td>{event.name}</td>
-                  <td>{new Date(event.date).toLocaleDateString("en-US", {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}</td>
-                </tr>
-              ))}
+                {orgEvents.map((event) => (
+                  <tr key={event.id}>
+                    <td>
+                      <Link to={`/opportunities/${event.id}`}>
+                        {event.name}
+                      </Link>
+                    </td>
+                    <td>
+                      {new Date(event.date).toLocaleDateString("en-US", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
