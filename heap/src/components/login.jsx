@@ -28,11 +28,11 @@ class Login extends Component {
     if (localStorage.getItem("Unauthorised")) {
       this.setState({ showUnauthorisedAlert: true }, () => {
         console.log("showUnauthorisedAlert set to true");
-        // setTimeout(() => {
-        //   this.setState({ showErrorAlert: false }, () => {
-        //     console.log("showErrorAlert set to false");
-        //   });
-        // }, 3000);
+        setTimeout(() => {
+          this.setState({ showUnauthorisedAlert: false }, () => {
+            console.log("showErrorAlert set to false");
+          });
+        }, 3000);
       });
     }
     localStorage.removeItem("Unauthorised");

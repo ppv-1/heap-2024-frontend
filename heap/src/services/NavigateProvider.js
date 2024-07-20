@@ -30,11 +30,12 @@ export const NavigateProvider = ({ children }) => {
           //   state: { showCreateAlert: true },
           // });    
           // handleNavigation();
-          const state = { showErrorAlert: true };
+          // const state = { showErrorAlert: true };
           localStorage.setItem("Unauthorised", true);
           // window.history.pushState(state, "", "/login");
           // window.location.reload();
-          window.location.href = '/login';
+          // window.location.href = '/login';
+          navigate('/login', { state: { showUnauthorisedAlert: true } });
         }
         return Promise.reject(error);
       }
