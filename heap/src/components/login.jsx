@@ -6,6 +6,7 @@ import withNavigateandLocation from "./withNavigateandLocation";
 import AuthService from "../services/AuthService";
 import { ProtectedAPI } from "../services/ProtectedAPI";
 import OrgService from "../services/OrgService";
+import AlertComponent from "./alert";
 
 class Login extends Component {
   constructor(props) {
@@ -16,14 +17,26 @@ class Login extends Component {
       password: "",
       showLoginAlert: false,
       errorMessage: "",
-      showAlert: false,
+      showUnauthorisedAlert: false,
     };
     this.changeUsernameHandler = this.changeUsernameHandler.bind(this);
     this.changePasswordHandler = this.changePasswordHandler.bind(this);
     this.loginSubmit = this.loginSubmit.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    if (localStorage.getItem("Unauthorised")) {
+      this.setState({ showUnauthorisedAlert: true }, () => {
+        console.log("showUnauthorisedAlert set to true");
+        // setTimeout(() => {
+        //   this.setState({ showErrorAlert: false }, () => {
+        //     console.log("showErrorAlert set to false");
+        //   });
+        // }, 3000);
+      });
+    }
+    localStorage.removeItem("Unauthorised");
+  }
 
   loginSubmit = (event) => {
     event.preventDefault();
@@ -82,7 +95,7 @@ class Login extends Component {
             this.setState({
               errorMessage: "Incorrect email or password. Please try again.",
             });
-          } 
+          }
           // else if (
           //   error.response.status === 403 &&
           //   OrgService.getOrg(credentials.email)
@@ -92,7 +105,7 @@ class Login extends Component {
           //     errorMessage: "Your organisation has not been verified by admin.",
           //   });
           // }
-           else {
+          else {
             this.setState({
               errorMessage: "An error occurred. Please try again later.",
             });
@@ -110,15 +123,20 @@ class Login extends Component {
   };
 
   render() {
-    const { errorMessage } = this.state;
+    const { errorMessage, showUnauthorisedAlert } = this.state;
     console.log(this.state);
-    if (localStorage.getItem("Unauthorised")) {
-      alert("idk");
-      localStorage.removeItem("Unauthorised");
+    console.log("showUnauthorisedAlert at render:", showUnauthorisedAlert);
 
-    }
     return (
       <>
+        <div className="fixed bottom-4 right-4 z-50">
+          <AlertComponent
+            showAlert={this.state.showUnauthorisedAlert}
+            alertType="warning"
+            alertMessage="An error occurred. Please login or sign up."
+          />
+        </div>
+
         <div className="content">
           <h1 className="title">LOGIN</h1>
           <form>
