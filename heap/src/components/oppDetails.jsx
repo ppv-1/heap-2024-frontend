@@ -76,6 +76,7 @@ class Opportunity extends Component {
       loading: true,
       orgName: null,
       images: [],
+      orgId: null,
     };
 
     this.registerEvent = this.registerEvent.bind(this);
@@ -89,6 +90,7 @@ class Opportunity extends Component {
       const org = await OrgService.getOrg(res.data.organisation_id);
       // const orgResponse = await OrgService.getOrg(res.data.organisation);
       // console.log("orgResponse =", orgResponse);
+      console.log("!!!!!!!!");
       console.log(org.data);
       this.setState({ loading: false });
       // const imageRes = await MediaService.getEventPhotos(id);
@@ -99,6 +101,7 @@ class Opportunity extends Component {
         loading: false,
         orgName: org.data.fullName,
         images: res.data.photosFilepaths, // Assuming imageRes.data is an array of base64 strings
+        orgId: org.data.email,
       });
       console.log("!!!!!!!");
       console.log("this.state.org=" + this.state.orgName);
@@ -134,7 +137,7 @@ class Opportunity extends Component {
   };
 
   render() {
-    const { opportunity, loading, images, orgName } = this.state;
+    const { opportunity, loading, images, orgName, orgId } = this.state;
     console.log(this.state);
     console.log("!!!!!!!!!!!!!!!!!!!!!!!");
     console.log("org=" + orgName);
@@ -185,7 +188,7 @@ class Opportunity extends Component {
         <div className="details-container">
           <div className="top">
             <h1 className="title">{opportunity.name}</h1>
-            <a href={`/organisations/${orgName}`}>{orgName}</a>
+            <a href={`/organisations/${orgId}`}>{orgName}'s Details</a>
             <div className="carousel opp-carousel">
               {images.map((image, index) => (
                 <div

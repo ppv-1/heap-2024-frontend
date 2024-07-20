@@ -22,7 +22,7 @@ class AdminService {
     }
 
     async getVolunteer(id) {
-        return await ProtectedAPI.get(`/get-volunteer/${id}`);
+        return await ProtectedAPI.get(`/admin/get-volunteer/${id}`);
     }
 
     async getAllOrganisations() {

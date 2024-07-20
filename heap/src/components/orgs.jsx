@@ -4,6 +4,12 @@ import withNavigateandLocation from "./withNavigateandLocation";
 import OrgService from "../services/OrgService";
 import SearchInputComponent from "./searchInput";
 import orgDefault from "../images/orgDefault.png";
+import Pagination from "./pagination";
+
+const extractNumber = (str) => {
+  const match = str.match(/\d+/);
+  return match ? parseInt(match[0], 10) : 0;
+};
 
 class OrganisationsComponent extends Component {
   constructor(props) {
@@ -13,6 +19,8 @@ class OrganisationsComponent extends Component {
       items: [],
       searchTerm: "",
       placeholderText: "Search for organisations",
+      currentPage: 1,
+      postsPerPage: 10,
     };
   }
   fetchData = async () => {
@@ -30,13 +38,17 @@ class OrganisationsComponent extends Component {
     this.setState({ searchTerm: term });
   };
 
+  handlePageChange = (pageNumber) => {
+    this.setState({ currentPage: pageNumber });
+  };
+
   organisationSubmit = (event, id) => {
     event.preventDefault();
     this.props.navigate(`/organisations/${id}`);
   };
 
   render() {
-    let { items, searchTerm } = this.state;
+    let { items, searchTerm, currentPage, postsPerPage } = this.state;
     let filteredItems = items
       ? items.filter((item) => {
           const itemOrganization = item.organization
@@ -45,6 +57,14 @@ class OrganisationsComponent extends Component {
           return itemOrganization.includes(searchTerm.toLowerCase());
         })
       : [];
+
+    const sortedItems = filteredItems.sort(
+      (a, b) => extractNumber(a.fullName) - extractNumber(b.fullName)
+    );
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentItems = sortedItems.slice(indexOfFirstPost, indexOfLastPost);
     return (
       <div className="wrapper">
         {/* <div className="text-sm breadcrumbs">
@@ -65,7 +85,7 @@ class OrganisationsComponent extends Component {
         </div>
         <br />
         <div className="vol-listings">
-          {filteredItems.map((item) => (
+          {currentItems.map((item) => (
             <div
               key={item.id}
               className="card card-compact bg-base-100 shadow-xl"
@@ -92,6 +112,11 @@ class OrganisationsComponent extends Component {
             </div>
           ))}
         </div>
+        <Pagination
+          postsPerPage={this.state.postsPerPage}
+          length={filteredItems.length}
+          paginate={this.handlePageChange}
+        />
       </div>
     );
   }

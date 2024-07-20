@@ -51,14 +51,32 @@ class ManageComplaintsDetails extends Component {
               <li>
                 <a href="/manage-complaints">Manage Feedback</a>
               </li>
-              <li>{complaint.id}</li>
+              <li>{complaint.title}</li>
             </ul>
           </div>
         </div>
         <h1 className="title">{complaint.title}</h1>
-        <p>ID:{complaint.id}</p>
-        <p>user ID:{complaint.userId}</p>
-        <p>Desc:{complaint.description}</p>
+        <div className="data-table">
+          <div className="overflow-x auto">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Complaint ID</th>
+                  <th>User ID</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <td>{complaint.id}</td>
+                <td>{complaint.userId}</td>
+                <td>{complaint.description}</td>
+                <td>{complaint.status}</td>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <img src={complaint.photosFilepaths} alt="complaint image"/>
       </div>
     );
   }

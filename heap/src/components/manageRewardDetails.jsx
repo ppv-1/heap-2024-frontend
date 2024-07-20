@@ -28,7 +28,11 @@ class ManageRewardsDetails extends Component {
       console.log("!!!!!!!!!!!");
       console.log(barcodesRes.status);
       console.log(barcodesRes.data);
-      this.setState({ reward: res.data, loading: false, barcodes: barcodesRes.data.rewards });
+      this.setState({
+        reward: res.data,
+        loading: false,
+        barcodes: barcodesRes.data.rewards,
+      });
     } catch (error) {
       console.error("Failed to fetch reward", error);
     }
@@ -62,9 +66,12 @@ class ManageRewardsDetails extends Component {
           </div>
         </div>
         <h1 className="title">{reward.name}</h1>
-        <h2>Description: {reward.description}</h2>
-        <h2>Count: {reward.count}</h2>
-        <h2>rewardId: {reward.id}</h2>
+        <div className="info">
+          <h2>Description: {reward.description}</h2>
+          <h2>Reward ID: {reward.id}</h2>
+          <h2>Type: {reward.type}</h2>
+          <h2>Number of unredeemed barcodes: {reward.count}</h2>
+        </div>
         <div className="data-table">
           <div className="overflow-x auto">
             <table className="table">
@@ -84,17 +91,16 @@ class ManageRewardsDetails extends Component {
                     <td>{barcode.redeemed ? "Redeemed" : "Unredeemed"}</td>
                     <td>{barcode.expiryDate}</td>
                   </tr>
-                    
                 ))}
               </tbody>
-              <tfoot>
+              {/* <tfoot>
                 <tr>
                 <th>Reward</th>
                   <th>Barcode</th>
                   <th>Redemption status</th>
                   <th>Expiry Date</th>
                 </tr>
-              </tfoot>
+              </tfoot> */}
             </table>
           </div>
         </div>
