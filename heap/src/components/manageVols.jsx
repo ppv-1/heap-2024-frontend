@@ -4,6 +4,7 @@ import withNavigateandLocation from "./withNavigateandLocation";
 import AdminService from "../services/AdminService";
 import AlertComponent from "./alert";
 import { Link } from "react-router-dom";
+import Pagination from "./pagination";
 
 class ManageVols extends Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class ManageVols extends Component {
       selectedVol: null,
       showAlert: false,
       alertMessage: "",
+      currentPage: 1,
+      itemsPerPage: 10,
     };
   }
   fetchData = async () => {
@@ -113,10 +116,18 @@ class ManageVols extends Component {
     );
   };
 
+  paginate = (pageNumber) => {
+    this.setState({ currentPage: pageNumber });
+  };
+
   render() {
-    let { items, modalVisible, modalType, selectedVol } = this.state;
+    let { items, modalVisible, modalType, selectedVol, currentPage, itemsPerPage } = this.state;
     console.log("!!!!!!!!!");
     console.log("this.state.items=" + this.state.items);
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
     return (
       <div className="wrapper">
         <h1 className="title">Manage Volunteers</h1>
@@ -134,7 +145,7 @@ class ManageVols extends Component {
                 </tr>
               </thead>
               <tbody>
-                {items.map((item) => (
+                {currentItems.map((item) => (
                   <tr key={item.id}>
                     <td>
                       <div className="flex items-center gap-3">
@@ -182,19 +193,15 @@ class ManageVols extends Component {
                   </tr>
                 ))}
               </tbody>
-              {/* foot */}
-              {/* <tfoot>
-                <tr>
-                  <th>Name</th>
-                  <th>Gender</th>
-                  <th>Email</th>
-                  <th>Complaint Count</th>
-                  <th>Actions</th>
-                </tr>
-              </tfoot> */}
             </table>
           </div>
         </div>
+
+        <Pagination
+            postsPerPage={itemsPerPage}
+            length={items.length}
+            paginate={this.paginate}
+        />
 
         {modalVisible && (
           <dialog className="modal modal-bottom sm:modal-middle" open>

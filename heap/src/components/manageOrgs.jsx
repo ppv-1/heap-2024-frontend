@@ -5,6 +5,12 @@ import OrgService from "../services/OrgService";
 import AdminService from "../services/AdminService";
 import AlertComponent from "./alert";
 import { Link } from "react-router-dom";
+import Pagination from "./pagination";
+
+const extractNumber = (str) => {
+  const match = str.match(/\d+/);
+  return match ? parseInt(match[0], 10) : 0;
+};
 
 class ManageOrgs extends Component {
   constructor(props) {
@@ -17,6 +23,8 @@ class ManageOrgs extends Component {
       selectedOrg: null,
       showAlert: false,
       alertMessage: "",
+      currentPage: 1,
+      itemsPerPage: 10,
     };
   }
   fetchData = async () => {
@@ -137,8 +145,22 @@ class ManageOrgs extends Component {
     );
   };
 
+  paginate = (pageNumber) => {
+    this.setState({ currentPage: pageNumber });
+  };
+
   render() {
-    let { items, modalVisible, modalType, selectedOrg } = this.state;
+    let { items, modalVisible, modalType, selectedOrg,  currentPage,
+      itemsPerPage } = this.state;
+
+    const sortedItems = items.sort(
+        (a, b) => extractNumber(a.fullName) - extractNumber(b.fullName)
+    );
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = sortedItems.slice(indexOfFirstItem, indexOfLastItem);
+
     return (
       <div className="wrapper">
         <h1 className="title">Manage Organisations</h1>
@@ -155,7 +177,7 @@ class ManageOrgs extends Component {
                 </tr>
               </thead>
               <tbody>
-                {items.map((item) => (
+                {currentItems.map((item) => (
                   <tr key={item.id}>
                     <td>
                       <div className="flex items-center gap-3">
@@ -216,18 +238,15 @@ class ManageOrgs extends Component {
                   </tr>
                 ))}
               </tbody>
-              {/* foot */}
-              {/* <tfoot>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Verfication Status</th>
-                  <th>Actions</th>
-                </tr>
-              </tfoot> */}
             </table>
           </div>
         </div>
+
+        <Pagination
+            postsPerPage={itemsPerPage}
+            length={items.length}
+            paginate={this.paginate}
+        />
 
         {modalVisible && (
           <dialog className="modal modal-bottom sm:modal-middle" open>

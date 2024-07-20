@@ -163,54 +163,68 @@ class PostedEventDetails extends Component {
             <div className="overflow-x auto">
               <table className="table">
                 <thead>
-                  <tr>
-                    <th>
-                      <label>
-                        <input
+                <tr>
+                  <th>
+                    <label>
+                      <input
                           type="checkbox"
                           className="checkbox"
                           checked={selectAll}
                           onChange={this.toggleSelectAll}
-                        />
-                      </label>
-                    </th>
-                    <th>Volunteer</th>
-                    <th>Attendance</th>
-                  </tr>
+                      />
+                    </label>
+                  </th>
+                  <th>Volunteer</th>
+                  <th>Attendance</th>
+                </tr>
                 </thead>
                 <tbody>
-                  {currentParticipants.map((item) => (
+                {currentParticipants.map((item) => (
                     <tr>
                       <th>
                         <label>
                           <input
-                            type="checkbox"
-                            className="checkbox"
-                            checked={attendance.some(
-                              (att) => att.email === item.email
-                            )}
-                            onChange={() => this.markAttendance(item)}
+                              type="checkbox"
+                              className="checkbox"
+                              checked={attendance.some(
+                                  (att) => att.email === item.email
+                              )}
+                              onChange={() => this.markAttendance(item)}
                           />
                         </label>
                       </th>
                       <td>{item.fullName}</td>
                       <td className="attendance-button-col">
                         <button
-                          className={`btn ${
-                            attendance.some((att) => att.email === item.email)
-                              ? "btn-success"
-                              : "btn"
-                          }`}
-                          onClick={() => this.markAttendance(item)}
+                            className={`btn ${
+                                attendance.some((att) => att.email === item.email)
+                                    ? "btn-success"
+                                    : "btn"
+                            }`}
+                            onClick={() => this.markAttendance(item)}
                         >
                           {attendance.some((att) => att.email === item.email)
-                            ? "Attendance Marked"
-                            : "Mark Attendance"}
+                              ? "Attendance Marked"
+                              : "Mark Attendance"}
                         </button>
                       </td>
                     </tr>
-                  ))}
+                ))}
                 </tbody>
+                <tfoot>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>
+                    <button
+                        className="btn btn-neutral"
+                        onClick={this.submitAttendance}
+                    >
+                      Submit Attendance
+                    </button>
+                  </th>
+                </tr>
+                </tfoot>
               </table>
               <Pagination
                   postsPerPage={postsPerPage}
@@ -223,7 +237,8 @@ class PostedEventDetails extends Component {
             Submit Attendance
           </button>
 
-        </div>{" "}
+        </div>
+        {" "}
       </div>
     );
   }

@@ -68,7 +68,7 @@ class ChangePassword extends Component {
     if (password !== confirmPassword) {
       this.setState({ errorMessage2: "Passwords do not match" });
     } else {
-      this.setState({ errorMessage2: "Is Strong Password" });
+      this.setState({ errorMessage2: "" });
     }
   };
 
@@ -88,6 +88,11 @@ class ChangePassword extends Component {
 
   changePasswordHandler = (event) => {
     this.setState({ currentPassword: event.target.value });
+  };
+
+  cancel = async (e) => {
+    e.preventDefault();
+    this.props.navigate("/user-profile");
   };
 
   render() {
@@ -126,12 +131,13 @@ class ChangePassword extends Component {
             <span className="error-message">{errorMessage2}</span>
             <div className="button-container">
               <button
-                className="btn btn-wide"
-                disabled={errorMessage2 !== "Is Strong Password" || this.state.confirmPassword === ""}
-                onClick={this.handleChangePasswordClick}
+                  className="btn btn-wide"
+                  disabled={errorMessage2 !== "Is Strong Password" || this.state.confirmPassword === ""}
+                  onClick={this.handleChangePasswordClick}
               >
                 Change Password
               </button>
+              <button className="btn" onClick={this.cancel}>Cancel</button>
             </div>
           </form>
         </div>

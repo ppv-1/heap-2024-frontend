@@ -13,7 +13,6 @@ class EditProfile extends Component {
       fullName: "",
       contactNo: "",
       email: "",
-      gender: "",
       profilePicture: null,
       fileErrorMessage: "", // State to store error message for file size
       showEditAlert: false,
@@ -23,7 +22,6 @@ class EditProfile extends Component {
     this.changeFullNameHandler = this.changeFullNameHandler.bind(this);
     this.changeContactNoHandler = this.changeContactNoHandler.bind(this);
     this.changeEmailHandler = this.changeEmailHandler.bind(this);
-    this.changeGenderHandler = this.changeGenderHandler.bind(this);
     this.changeProfilePictureHandler =
       this.changeProfilePictureHandler.bind(this);
     this.editProfile = this.editProfile.bind(this);
@@ -36,7 +34,6 @@ class EditProfile extends Component {
         fullName: res.data.fullName,
         contactNo: res.data.contactNo,
         email: res.data.email,
-        gender: res.data.gender,
       });
     } catch (error) {
       console.error("failed to fetch user", error);
@@ -77,22 +74,6 @@ class EditProfile extends Component {
     }
   };
 
-  changeGenderHandler = (event) => {
-    const selectedGender = event.target.value;
-    let genderChar;
-
-    if (selectedGender === "male") {
-      genderChar = "M";
-    } else if (selectedGender === "female") {
-      genderChar = "F";
-    } else if (selectedGender === "non-binary") {
-      genderChar = "N";
-    } else {
-      genderChar = "O";
-    }
-    this.setState({ gender: genderChar });
-  };
-
   changeProfilePictureHandler = (event) => {
     const file = event.target.files[0];
     const maxSize = 1 * 1024 * 1024; // 1MB in bytes
@@ -113,7 +94,6 @@ class EditProfile extends Component {
       fullName: this.state.fullName,
       password: null,
       contactNo: this.state.contactNo,
-      gender: this.state.gender,
       dob: null,
     };
     const formData = new FormData();
@@ -149,22 +129,6 @@ class EditProfile extends Component {
                 value={this.state.fullName}
                 onChange={this.changeFullNameHandler}
               />
-            </label>
-            <label>
-              <p>Gender</p>
-              <select
-                className="select select-bordered w-full"
-                required
-                value={this.state.gender}
-                onChange={this.changeGenderHandler}
-              >
-                <option disabled selected>
-                  Select type
-                </option>
-                <option value={"male"}>Male</option>
-                <option value={"female"}>Female</option>
-                <option value={"non-binary"}>Non-binary</option>
-              </select>
             </label>
             <label>
               <p>Contact No</p>

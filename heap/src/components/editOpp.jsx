@@ -112,7 +112,6 @@ class EditOpp extends Component {
         description: this.state.description,
         type: this.state.type,
         address: this.state.address,
-        type: res.data.type,
       });
     } catch (error) {
       console.error("Failed to fetch opportunity", error);

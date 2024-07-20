@@ -51,8 +51,8 @@ class OrganisationsComponent extends Component {
     let { items, searchTerm, currentPage, postsPerPage } = this.state;
     let filteredItems = items
       ? items.filter((item) => {
-          const itemOrganization = item.organization
-            ? item.organization.toLowerCase()
+          const itemOrganization = item.fullName
+            ? item.fullName.toLowerCase()
             : "";
           return itemOrganization.includes(searchTerm.toLowerCase());
         })
