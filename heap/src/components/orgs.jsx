@@ -7,8 +7,8 @@ import orgDefault from "../images/orgDefault.png";
 import Pagination from "./pagination";
 
 const extractNumber = (str) => {
-    const match = str.match(/\d+/);
-    return match ? parseInt(match[0], 10) : 0;
+  const match = str.match(/\d+/);
+  return match ? parseInt(match[0], 10) : 0;
 };
 
 class OrganisationsComponent extends Component {
@@ -19,8 +19,8 @@ class OrganisationsComponent extends Component {
       items: [],
       searchTerm: "",
       placeholderText: "Search for organisations",
-        currentPage:1,
-        postsPerPage: 10,
+      currentPage: 1,
+      postsPerPage: 10,
     };
   }
   fetchData = async () => {
@@ -38,9 +38,9 @@ class OrganisationsComponent extends Component {
     this.setState({ searchTerm: term });
   };
 
-    handlePageChange = (pageNumber) => {
-        this.setState({ currentPage: pageNumber });
-    };
+  handlePageChange = (pageNumber) => {
+    this.setState({ currentPage: pageNumber });
+  };
 
   organisationSubmit = (event, id) => {
     event.preventDefault();
@@ -48,7 +48,7 @@ class OrganisationsComponent extends Component {
   };
 
   render() {
-      let { items, searchTerm, currentPage, postsPerPage } = this.state;
+    let { items, searchTerm, currentPage, postsPerPage } = this.state;
     let filteredItems = items
       ? items.filter((item) => {
           const itemOrganization = item.organization
@@ -58,13 +58,13 @@ class OrganisationsComponent extends Component {
         })
       : [];
 
-      const sortedItems = filteredItems.sort(
-          (a, b) => extractNumber(a.fullName) - extractNumber(b.fullName)
-      );
+    const sortedItems = filteredItems.sort(
+      (a, b) => extractNumber(a.fullName) - extractNumber(b.fullName)
+    );
 
-      const indexOfLastPost = currentPage * postsPerPage;
-      const indexOfFirstPost = indexOfLastPost - postsPerPage;
-      const currentItems = sortedItems.slice(indexOfFirstPost, indexOfLastPost);
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentItems = sortedItems.slice(indexOfFirstPost, indexOfLastPost);
     return (
       <div className="wrapper">
         {/* <div className="text-sm breadcrumbs">
@@ -112,12 +112,11 @@ class OrganisationsComponent extends Component {
             </div>
           ))}
         </div>
-
-          <Pagination
-              postsPerPage={postsPerPage}
-              length={filteredItems.length}
-              paginate={this.handlePageChange}
-          />
+        <Pagination
+          postsPerPage={this.state.postsPerPage}
+          length={filteredItems.length}
+          paginate={this.handlePageChange}
+        />
       </div>
     );
   }

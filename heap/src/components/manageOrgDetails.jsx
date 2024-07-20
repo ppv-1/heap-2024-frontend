@@ -11,6 +11,7 @@ class ManageOrgDetails extends Component {
     this.state = {
       organisation: null,
       loading: true,
+      orgEvents: null,
     };
   }
 
@@ -19,9 +20,16 @@ class ManageOrgDetails extends Component {
 
     try {
       const res = await OrgService.getOrg(id);
+      const events = await OrgService.getOrgEvents(id);
       console.log(res.status);
       console.log(res.data);
-      this.setState({ organisation: res.data, loading: false });
+      console.log("events!!!!!!!!");
+      console.log(events.data.events);
+      this.setState({
+        organisation: res.data,
+        loading: false,
+        orgEvents: events.data.events,
+      });
     } catch (error) {
       console.error("Failed to fetch organisation", error);
     }
@@ -32,7 +40,7 @@ class ManageOrgDetails extends Component {
   }
 
   render() {
-    const { organisation, loading } = this.state;
+    const { organisation, loading, orgEvents } = this.state;
     console.log(this.state);
 
     if (loading) {
@@ -55,34 +63,47 @@ class ManageOrgDetails extends Component {
           </div>
         </div>
         <h1 className="title">{organisation.fullName}</h1>
-        <div className="container">
-          <p>Email: {organisation.email}</p>
-          <p>Contact Number: {organisation.contactNo}</p>
-          <p>Location: {organisation.location}</p>
-          <p>Website: {organisation.website}</p>
-          <p>Description: {organisation.description}</p>
-          <p>Complaint Count: {organisation.complainCount}</p>
-          <p>Profile Picture:</p>
+        <div className="org-details-container">
+          <div className="left-container">
+            <div className="info">
+              <h2>Email: {organisation.email}</h2>
+              <h2>Contact Number: {organisation.contactNo}</h2>
+              <h2>Location: {organisation.location}</h2>
+              <h2>Website: {organisation.website}</h2>
+              <h2>Description: {organisation.description}</h2>
+              <h2>Complaint Count: {organisation.complainCount}</h2>
+            </div>
+          </div>
+          <div className="right-container">
+            <div className="avatar">
+              <div className="w-36 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
+                <img src={organisation.pfp_filepath} alt="avatar" />
+              </div>
+            </div>
+          </div>
         </div>
         <div className="data-table">
           <div className="overflow-x auto">
             <table className="table">
               <thead>
                 <tr>
-                  <th>Events?</th>
-                  <th>idk</th>
+                  <th>Event Name</th>
+                  <th>Date</th>
                 </tr>
               </thead>
               <tbody>
-                <td>i</td>
-                <td>2</td>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th>Organisation</th>
-                  <th>idk</th>
+              {orgEvents.map((event) => (
+                <tr key={event.id}>
+                  <td>{event.name}</td>
+                  <td>{new Date(event.date).toLocaleDateString("en-US", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}</td>
                 </tr>
-              </tfoot>
+              ))}
+              </tbody>
             </table>
           </div>
         </div>

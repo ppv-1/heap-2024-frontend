@@ -185,10 +185,10 @@ class Opportunity extends Component {
             </div>
           </div>
 
-          <div className="details-container">
-            <div className="top">
-              <h1 className="title">{opportunity.name}</h1>
-              <a href={`/organisations/${orgId}`}>{orgName}'s Details</a>
+        <div className="details-container">
+          <div className="top">
+            <h1 className="title">{opportunity.name}</h1>
+            <a href={`/organisations/${orgId}`}>{orgName}'s Details</a>
             <div className="carousel opp-carousel">
               {images.map((image, index) => (
                 <div

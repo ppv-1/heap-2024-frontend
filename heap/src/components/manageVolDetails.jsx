@@ -42,47 +42,47 @@ class ManageVolDetails extends Component {
     }
 
     return (
-        <div className="wrapper">
-          <div className="breadcrumbs-container">
-            <div className="breadcrumbs text-sm">
-              <ul>
-                <li>
-                  <a href="/">Home</a>
-                </li>
-                <li>
-                  <a href="/manage-vols">Manage Volunteers</a>
-                </li>
-                <li>{volunteer.fullName}</li>
-              </ul>
-            </div>
+      <div className="wrapper">
+        <div className="breadcrumbs-container">
+          <div className="breadcrumbs text-sm">
+            <ul>
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="/manage-vols">Manage Volunteers</a>
+              </li>
+              <li>{volunteer.fullName}</li>
+            </ul>
           </div>
-          <h1 className="title">{volunteer.fullName}</h1>
-          <div className="avatar">
-            <div className="w-36 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
-              <img src={volunteer.pfp_filepath} alt="avatar" />
+        </div>
+        <h1 className="title">{volunteer.fullName}</h1>
+        <div className="avatar">
+              <div className="w-36 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
+                <img src={volunteer.pfp_filepath} alt="avatar" />
+              </div>
             </div>
-          </div>
-          <div className="data-table">
-            <div className="overflow-x auto">
-              <table className="table">
-                <thead>
+        <div className="data-table">
+          <div className="overflow-x auto">
+            <table className="table">
+              <thead>
                 <tr>
                   <th>Contact Number</th>
                   <th>Email</th>
                   <th>Gender</th>
                   <th>Points</th>
                 </tr>
-                </thead>
-                <tbody>
+              </thead>
+              <tbody>
                 <td>{volunteer.contactNo}</td>
                 <td>{volunteer.email}</td>
                 <td>{volunteer.gender}</td>
                 <td>{volunteer.points}</td>
-                </tbody>
-              </table>
-            </div>
+              </tbody>
+            </table>
           </div>
         </div>
+      </div>
     );
   }
 }

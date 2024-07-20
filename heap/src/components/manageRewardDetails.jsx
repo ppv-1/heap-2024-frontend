@@ -28,7 +28,11 @@ class ManageRewardsDetails extends Component {
       console.log("!!!!!!!!!!!");
       console.log(barcodesRes.status);
       console.log(barcodesRes.data);
-      this.setState({ reward: res.data, loading: false, barcodes: barcodesRes.data.rewards });
+      this.setState({
+        reward: res.data,
+        loading: false,
+        barcodes: barcodesRes.data.rewards,
+      });
     } catch (error) {
       console.error("Failed to fetch reward", error);
     }
@@ -61,17 +65,18 @@ class ManageRewardsDetails extends Component {
               </ul>
             </div>
           </div>
-          <h1 className="title">{reward.name}</h1>
-          <div className="info">
-            <h2>Description: {reward.description}</h2>
-            <h2>Reward ID: {reward.id}</h2>
-            <h2>Type: {reward.type}</h2>
-            <h2>Number of unredeemed barcodes: {reward.count}</h2>
-          </div>
-          <div className="data-table">
-            <div className="overflow-x auto">
-              <table className="table">
-                <thead>
+        </div>
+        <h1 className="title">{reward.name}</h1>
+        <div className="info">
+          <h2>Description: {reward.description}</h2>
+          <h2>Reward ID: {reward.id}</h2>
+          <h2>Type: {reward.type}</h2>
+          <h2>Number of unredeemed barcodes: {reward.count}</h2>
+        </div>
+        <div className="data-table">
+          <div className="overflow-x auto">
+            <table className="table">
+              <thead>
                 <tr>
                   <th>Reward</th>
                   <th>Barcode</th>
@@ -81,17 +86,23 @@ class ManageRewardsDetails extends Component {
                 </thead>
                 <tbody>
                 {barcodes.map((barcode) => (
-                    <tr key={barcode.reward_barcode_id}>
-                      <td>{barcode.reward_barcode_id}</td>
-                      <td>{barcode.barcode}</td>
-                      <td>{barcode.redeemed ? "Redeemed" : "Unredeemed"}</td>
-                      <td>{barcode.expiryDate}</td>
-                    </tr>
-
+                  <tr key={barcode.reward_barcode_id}>
+                    <td>{barcode.reward_barcode_id}</td>
+                    <td>{barcode.barcode}</td>
+                    <td>{barcode.redeemed ? "Redeemed" : "Unredeemed"}</td>
+                    <td>{barcode.expiryDate}</td>
+                  </tr>
                 ))}
-                </tbody>
-              </table>
-            </div>
+              </tbody>
+              {/* <tfoot>
+                <tr>
+                <th>Reward</th>
+                  <th>Barcode</th>
+                  <th>Redemption status</th>
+                  <th>Expiry Date</th>
+                </tr>
+              </tfoot> */}
+            </table>
           </div>
         </div>
     );

@@ -49,7 +49,7 @@
   margin-top: 0px;
 }
 
-.details-container {
+.details-container, .org-details-container {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two equal columns */
   grid-template-rows: auto 1fr; /* Auto height for the top row and equal height for the rest */
@@ -272,7 +272,7 @@ p {
     margin: 0 auto;
   }
 
-  .details-container {
+  .details-container, .org-details-container {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
     padding: 0;
@@ -286,7 +286,9 @@ p {
 
   .details-container .left-container,
   .details-container .opp-right-container,
-  .details-container .right-container {
+  .details-container .right-container,
+  .org-details-container .left-container,
+  .org-details-container .right-container {
     width: inherit;
     grid-column: 1 / -1;
   }

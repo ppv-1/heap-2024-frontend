@@ -71,6 +71,7 @@ class OpportunitiesComponent extends Component {
   constructor(props) {
     super(props);
 
+    let theme = getTheme();
     let searchParams = new URLSearchParams(props.location.search);
     let causeQuery = searchParams.get("cause");
     let theme = getTheme();
