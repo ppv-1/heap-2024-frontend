@@ -203,7 +203,7 @@ class OpportunitiesComponent extends Component {
 
     return (
       <div className="wrapper">
-        <h1 className="title">Events</h1>
+        <h1 className="title">Opportunities</h1>
         {/*<p>Here you can find various opportunities.</p>*/}
 
         <div className="opps-content">
@@ -350,48 +350,51 @@ class OpportunitiesComponent extends Component {
             </div>
           </div>
 
-          <ul className="event-listings">
-            {currentItems.map((item) => (
-              <div
-                key={item.id}
-                className="card card-compact w-30 bg-base-100 shadow-xl"
-              >
-                <figure>
-                  <img src={item.photosFilepaths[0]} alt={item.name} />
-                </figure>
-                <div className="card-body">
-                  <div className="card-title">
-                    <h2 className="card-title">{item.name}</h2>
-                    <div className="badge badge-accent">
-                      {item.neededManpowerCount} Spots left
-                    </div>
-                    <br />
-                    <div className="cause-badges">
-                      {item.causes.map((cause, index) => (
-                        <div key={index} className="badge badge-neutral">
-                          {causes.find((c) => c.value === cause)?.label}
+          <div className="wrapper">
+            <ul className="event-listings">
+              {currentItems.map((item) => (
+                  <div
+                      key={item.id}
+                      className="card card-compact w-30 bg-base-100 shadow-xl"
+                  >
+                    <figure>
+                      <img src={item.photosFilepaths[0]} alt={item.name}/>
+                    </figure>
+                    <div className="card-body">
+                      <div className="card-title">
+                        <h2 className="card-title">{item.name}</h2>
+                        <div className="badge badge-accent">
+                          {item.neededManpowerCount} Spots left
                         </div>
-                      ))}
+                        <br/>
+                        <div className="cause-badges">
+                          {item.causes.map((cause, index) => (
+                              <div key={index} className="badge badge-neutral">
+                                {causes.find((c) => c.value === cause)?.label}
+                              </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="card-actions justify-end">
+                        <button
+                            className="btn"
+                            onClick={(event) => this.volunteerSubmit(event, item.id)}
+                        >
+                          Volunteer Now
+                        </button>
+                      </div>
                     </div>
                   </div>
+              ))}
+            </ul>
+          </div>
 
-                  <div className="card-actions justify-end">
-                    <button
-                      className="btn"
-                      onClick={(event) => this.volunteerSubmit(event, item.id)}
-                    >
-                      Volunteer Now
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </ul>
 
           <Pagination
-            postsPerPage={postsPerPage}
-            length={filteredItems.length}
-            paginate={this.handlePageChange}
+              postsPerPage={postsPerPage}
+              length={filteredItems.length}
+              paginate={this.handlePageChange}
           />
         </div>
       </div>

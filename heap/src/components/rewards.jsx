@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./css/Opportunities.css";
 import withNavigateandLocation from "./withNavigateandLocation";
 import RewardService from "../services/RewardService";
+import Pagination from "./pagination";
 import MediaService from "../services/MediaService";
 
 class Rewards extends Component {
@@ -12,6 +13,8 @@ class Rewards extends Component {
       items: [],
       images: {}, // To store the images for each reward
       loading: true, // To manage the loading state
+      currentPage: 1,
+      postsPerPage: 8,
     };
   }
 
@@ -43,11 +46,15 @@ class Rewards extends Component {
   };
 
   render() {
-    const { items, images, loading } = this.state;
+    const { items, images, loading,  currentPage, postsPerPage, } = this.state;
 
     if (loading) {
       return <div>Loading...</div>; // Show a loading indicator while fetching data
     }
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentItems = items.slice(indexOfFirstPost, indexOfLastPost);
 
     return (
       <div className="wrapper">
@@ -62,7 +69,7 @@ class Rewards extends Component {
         <p>Here you can find information about different rewards.</p>
         <br />
         <div className="event-listings">
-          {items.map((item) => (
+          {currentItems.map((item) => (
             <div
               key={item.id}
               className="card card-compact w-30 bg-base-100 shadow-xl"
@@ -95,6 +102,11 @@ class Rewards extends Component {
             </div>
           ))}
         </div>
+        <Pagination
+            postsPerPage={postsPerPage}
+            length={currentItems.length}
+            paginate={this.handlePageChange}
+        />
       </div>
     );
   }
