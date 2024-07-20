@@ -173,7 +173,9 @@ class Opportunity extends Component {
     const opportunityDate = new Date(opportunity.date);
     const isPast = currentDate > opportunityDate;
 
-    const imagesToShow = images.slice(1);
+    console.log(images);
+    const imagesToShow = images.slice(0);
+    console.log(imagesToShow);
 
     return (
         <div className="wrapper">

@@ -16,6 +16,7 @@ class RegisteredEvent extends Component {
       selectedEvent: null,
       registeredEventName: "",
       deregisteredEventName: "",
+      deregAlertMessage: "",
     };
   }
 
@@ -38,10 +39,11 @@ class RegisteredEvent extends Component {
     this.setState({
       modalVisible: false,
       deregisteredEventName: this.state.selectedEvent
-        ? this.state.selectedEvent.name
-        : "",
+          ? this.state.selectedEvent.name
+          : "",
       selectedEvent: null,
       showDeregAlert: true,
+      deregAlertMessage: ""
     });
     setTimeout(() => {
       this.setState({ showDeregAlert: false, deregisteredEventName: "" });
@@ -54,6 +56,9 @@ class RegisteredEvent extends Component {
     const { selectedEvent } = this.state;
     if (selectedEvent) {
       await VolunteerService.unregisterEvent(selectedEvent.id);
+      this.setState({
+        deregAlertMessage: `${selectedEvent.name} deregistered successfully.`
+      });
       this.closeModal();
     }
   };
@@ -90,7 +95,7 @@ class RegisteredEvent extends Component {
       selectedEvent,
       modalVisible,
       registeredEventName,
-      deregisteredEventName,
+      deregAlertMessage
     } = this.state;
 
     const sortedItems = items.sort((a, b) => {
@@ -113,8 +118,7 @@ class RegisteredEvent extends Component {
                 <div className="card card-compact w-30 bg-base-100 shadow-xl">
                   <figure>
                     <img
-                      src=""
-                      alt={item.name}
+                        src={item.photosFilepaths[0]} alt={item.name}
                     />
                   </figure>
                   <div className="card-body">
@@ -171,7 +175,7 @@ class RegisteredEvent extends Component {
           <AlertComponent
             showAlert={this.state.showDeregAlert}
             alertType="success"
-            alertMessage={`Deregistered from ${deregisteredEventName}.`}
+            alertMessage={deregAlertMessage}
           />
         </div>
       </div>

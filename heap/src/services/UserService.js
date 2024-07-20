@@ -2,7 +2,7 @@ import { ProtectedAPI } from './ProtectedAPI';
 
 class UserService {
     async changePassword(credentials) {
-        return await ProtectedAPI.get(`/user/change-password`, credentials);
+        return await ProtectedAPI.post(`/user/change-password`, credentials);
     }
 
     async getProfile() {

@@ -143,15 +143,15 @@ class HomeComponent extends Component {
                 </div>
                 <div className="carousel-item">
                   <div className="cause">
-                    <a href="/opportunities?cause=arts">
-                      <img
-                          className="mask mask-circle"
-                          // src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.jpg"
-                          src={painting}
-                          alt="Painting"
-                      />
-                      Arts
-                    </a>
+                      <a href="/opportunities?cause=arts">
+                        <img
+                            className="mask mask-circle"
+                            // src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.jpg"
+                            src={painting}
+                            alt="Painting"
+                        />
+                        Arts
+                      </a>
                   </div>
                 </div>
                 <div className="carousel-item">

@@ -252,7 +252,7 @@ body {
 .modal-box > P {
   justify-content: center;
   align-items: center;
-  color: oklch(var(--nc));
+  color: var(--text-color);
 }
 
 .wrapper {

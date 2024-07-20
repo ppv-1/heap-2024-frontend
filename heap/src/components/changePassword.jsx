@@ -75,8 +75,9 @@ class ChangePassword extends Component {
   handleChangePasswordClick = (event) => {
     event.preventDefault();
     const { state } = this.props.location;
-    let data = {email: state.email, currentPassword: this.state.currentPassword, newPassword: this.state.password};
+    let data = {oldPassword: this.state.currentPassword, newPassword: this.state.password};
     UserService.changePassword(data).then((res) => {
+      console.log(res.data);
       if (res.data) {
         console.log(res.data);
         this.props.navigate("/user-profile", {state: res.data});
@@ -96,10 +97,7 @@ class ChangePassword extends Component {
   };
 
   render() {
-    // const { state } = this.props.location;
-    // console.log(state);
     const { password, confirmPassword, errorMessage1,  errorMessage2} = this.state;
-    console.log(this.state);
     return (
       <>
         <div className="content">
@@ -132,7 +130,6 @@ class ChangePassword extends Component {
             <div className="button-container">
               <button
                   className="btn btn-wide"
-                  disabled={errorMessage2 !== "Is Strong Password" || this.state.confirmPassword === ""}
                   onClick={this.handleChangePasswordClick}
               >
                 Change Password

@@ -80,6 +80,7 @@ class OpportunitiesComponent extends Component {
       searchTerm: "",
       sortType: "nameAsc",
       cause: causeQuery ? [causeQuery] : [],
+      cause2: [],
       type: "all",
       location: "all",
       skill: [],
@@ -95,9 +96,25 @@ class OpportunitiesComponent extends Component {
     this.props.navigate(`/opportunities/${id}`);
   };
 
+  handleNavigation = (cause) => {
+    this.props.navigate("/opportunities", { state: { cause } });
+  };
+
   fetchData = async () => {
     const res = await OppService.getAllOpps();
     this.setState({ items: res.data.events });
+    console.log("causes");
+    console.log(causes);
+    console.log("this.state.cause");
+    console.log(this.state.cause);
+    console.log(causes.find((c) => c.value === this.state.cause[0])?.label);
+    const selectedCauses = this.state.cause.map((cause_in) => ({
+      label: causes.find((c) => c.value === cause_in)?.label || cause_in,
+      value: cause_in,
+    }
+    ));
+    console.log(selectedCauses);
+    this.setState({cause2: selectedCauses});
   };
 
   handleSearchChange = (term) => {
@@ -109,7 +126,11 @@ class OpportunitiesComponent extends Component {
   };
 
   handleCauseChange = (selected) => {
-    this.setState({ cause: selected });
+    let causesss = this.state.cause.concat(this.state.cause2, selected);
+    causesss = [...new Set(causesss)];
+    // this.setState({cause: causesss});
+    // this.setState({cause2: []});
+    this.setState({ cause: selected, cause2: [] });
   };
 
   handleTypeChange = (type) => {
@@ -130,6 +151,9 @@ class OpportunitiesComponent extends Component {
 
   async componentDidMount() {
     await this.fetchData();
+    // let searchParams = new URLSearchParams(props.location.search);
+    // let causeQuery = searchParams.get("cause");
+    // this.setState({cause: causeQuery ? [causeQuery] : []})
   }
 
   render() {
@@ -144,6 +168,7 @@ class OpportunitiesComponent extends Component {
       currentPage,
       postsPerPage,
     } = this.state;
+    console.log(this.state);
 
     const isDarkMode = this.state.theme === "dim";
     const multiSelectClassName = isDarkMode ? "dark" : "";
@@ -155,7 +180,7 @@ class OpportunitiesComponent extends Component {
             ? item.organization.toLowerCase()
             : "";
           const itemLocation = item.location ? item.location.toLowerCase() : "";
-          let itemCauses = item.causes || [];
+          let itemCauses = item.causes || this.state.cause || [];
           const itemType = item.type ? item.type.toLowerCase() : "";
           let itemSkills = item.skills || [];
 
@@ -200,6 +225,11 @@ class OpportunitiesComponent extends Component {
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentItems = sortedItems.slice(indexOfFirstPost, indexOfLastPost);
+
+    let causesss = this.state.cause2.concat(this.state.cause);
+    causesss = [...new Set(causesss)];
+    // this.setState({cause: causesss});
+    // this.setState({cause2: []});
 
     return (
       <div className="wrapper">
@@ -275,7 +305,7 @@ class OpportunitiesComponent extends Component {
                     <p>Causes</p>
                     <MultiSelect
                         options={causes}
-                        value={this.state.cause}
+                        value={causesss}
                         onChange={this.handleCauseChange}
                         labelledBy="Select related causes"
                         disableSearch="true"

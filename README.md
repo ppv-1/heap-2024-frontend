@@ -83,7 +83,7 @@ We hope to create a platform where people can find volunteering and donation opp
 
 ![image info](./readmeImages/step4-2.png)
 
-5. Go to the repository folder and find `server-real.crt`. Use that as the certificate.
+5. Go to the repository folder and find `frontend-cert.crt`. Use that as the certificate.
 
 ![image info](./readmeImages/step5.png)
 
@@ -105,7 +105,9 @@ We hope to create a platform where people can find volunteering and donation opp
 
 ![image info](./readmeImages/step9-2.png)
 
-10. Open the webpage <a href="https://101.44.162.159:3000">here</a>
+10. Repeat steps 2-9 but for `backend-cert.crt` as well.
+
+11. Open the webpage <a href="https://101.44.162.159:3000">here</a>
 
 
 

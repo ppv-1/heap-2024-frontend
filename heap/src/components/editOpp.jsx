@@ -4,6 +4,7 @@ import withNavigateandLocation from "./withNavigateandLocation";
 import "./css/Create.css";
 import OppService from "../services/OppService";
 import { MultiSelect } from "react-multi-select-component";
+import validator from "validator";
 
 const causes = [
   { label: "Animal Welfare", value: "animalWelfare" },
@@ -56,9 +57,21 @@ const skills = [
   { label: "Others", value: "other" },
 ];
 
+const getTheme = () => {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+        return storedTheme;
+    }
+
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    return systemPrefersDark ? 'dim' : 'light';
+};
+
 class EditOpp extends Component {
   constructor(props) {
     super(props);
+
+    let theme = getTheme();
 
     this.state = {
       id: "",
@@ -66,14 +79,19 @@ class EditOpp extends Component {
       date: "",
       startTime: "",
       endTime: "",
-      causes: "",
+      causes: [],
       manpowerCount: "",
-      skills: "",
+      skills: [],
       type: "",
       location: "",
       address: "",
       description: "",
       showEditAlert: false,
+      errorMessage1: "",
+      errorMessage2: "",
+      errorMessage3: "",
+      errorMessage4: "",
+      theme: theme,
     };
 
     this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -99,19 +117,29 @@ class EditOpp extends Component {
       console.log(res.status);
       console.log(res.data);
       console.log(res.data.manpowerCount + typeof res.data.manpowerCount);
+      const selectedSkills = res.data.skills.map((skill) => ({
+        value: skill,
+        label: skills.find((s) => s.value === skill)?.label || skill
+      }));
+
+      const selectedCauses = res.data.causes.map((cause) => ({
+        value: cause,
+        label: causes.find((c) => c.value === cause)?.label || cause
+      }));
+
       this.setState({
         id: res.data.id,
         name: res.data.name,
         date: res.data.date,
         startTime: res.data.startTime,
         endTime: res.data.endTime,
-        causes: res.data.causes,
-        location: this.state.location,
-        manpowerCount: this.state.manpowerCount,
-        skills: this.state.skills,
-        description: this.state.description,
-        type: this.state.type,
-        address: this.state.address,
+        causes: selectedCauses,
+        location: res.data.location,
+        manpowerCount: res.data.neededManpowerCount,
+        skills: selectedSkills,
+        description: res.data.description,
+        type: res.data.type,
+        address: res.data.address,
       });
     } catch (error) {
       console.error("Failed to fetch opportunity", error);
@@ -123,20 +151,61 @@ class EditOpp extends Component {
   };
 
   changeDateHandler = (event) => {
-    this.setState({ date: event.target.value });
+    // this.setState({ date: event.target.value });
+    const date = event.target.value;
+    this.setState({ date }, () => {
+      this.validateDate(date);
+    });
+  };
+
+  validateDate = (date = null) => {
+    if (validator.isAfter(date)) {
+      this.setState({ errorMessage1: "" });
+    } else {
+      this.setState({
+        errorMessage1: "Please choose a future date. This date is invalid.",
+      });
+    }
   };
 
   changeStartTimeHandler = (event) => {
-    this.setState({ startTime: event.target.value });
+    // this.setState({ startTime: event.target.value });
+    const startTime = event.target.value;
+    this.setState({ startTime }, () => {
+      this.validateStartTime(startTime);
+    });
+  };
+
+  validateStartTime = (startTime = null) => {
+    if (startTime < "06:00" || startTime > "22:00") {
+      this.setState({
+        errorMessage2: "Please select a time between 6am and 10pm.",
+      });
+    } else {
+      this.setState({ errorMessage2: "" });
+    }
   };
 
   changeEndTimeHandler = (event) => {
-    this.setState({ endTime: event.target.value });
+    // this.setState({ endTime: event.target.value });
+    const endTime = event.target.value;
+    this.setState({ endTime }, () => {
+      this.validateEndTime(endTime);
+    });
+  };
+
+  validateEndTime = (endTime = null) => {
+    if (endTime < "06:00" || endTime > "22:00") {
+      this.setState({
+        errorMessage3: "Please select a time between 6am and 10pm.",
+      });
+    } else {
+      this.setState({ errorMessage3: "" });
+    }
   };
 
   changeCausesHandler = (selected) => {
-    const causesString = selected.join(",");
-    this.setState({ causes: causesString });
+    this.setState({ causes: selected });
   };
 
   changeLocationHandler = (event) => {
@@ -152,8 +221,7 @@ class EditOpp extends Component {
   };
 
   changeSkillsHandler = (selected) => {
-    const skillsString = selected.join(",");
-    this.setState({ skills: skillsString });
+    this.setState({ skills: selected });
   };
 
   changeDescriptionHandler = (event) => {
@@ -192,6 +260,10 @@ class EditOpp extends Component {
 
   render() {
     // const { state } = this.props.location;
+    const isDarkMode = this.state.theme === "dim";
+    const multiSelectClassName = isDarkMode ? "dark" : "";
+    const { errorMessage1, errorMessage2, errorMessage3 } =
+        this.state;
     console.log(this.state);
     console.log(this.state.user);
     return (
@@ -203,126 +275,134 @@ class EditOpp extends Component {
             <label>
               <p>Name</p>
               <input
-                type="text"
-                required
-                value={this.state.name}
-                onChange={this.changeNameHandler}
+                  type="text"
+                  required
+                  value={this.state.name}
+                  onChange={this.changeNameHandler}
               />
             </label>
             <label>
               <p>Date</p>
               <input
-                type="date"
-                required
-                value={this.state.date}
-                onChange={this.changeDateHandler}
+                  type="date"
+                  required
+                  value={this.state.date}
+                  onChange={this.changeDateHandler}
               />
             </label>
+            <span className="error-message">{errorMessage1}</span>
             <label>
               <p>Start Time</p>
               <input
-                type="time"
-                required
-                value={this.state.startTime}
-                onChange={this.changeStartTimeHandler}
+                  type="time"
+                  required
+                  value={this.state.startTime}
+                  onChange={this.changeStartTimeHandler}
               />
             </label>
+            <span className="error-message">{errorMessage2}</span>
             <label>
               <p>End Time</p>
               <input
-                type="time"
-                required
-                value={this.state.endTime}
-                onChange={this.changeEndTimeHandler}
+                  type="time"
+                  required
+                  value={this.state.endTime}
+                  onChange={this.changeEndTimeHandler}
               />
             </label>
+            <span className="error-message">{errorMessage3}</span>
             <label htmlFor="causes">
               <p>Causes</p>
               <MultiSelect
-                options={causes}
-                value={this.state.causes}
-                onChange={this.changeCausesHandler}
-                labelledBy="Select related causes"
-                className="table"
+                  options={causes}
+                  value={this.state.causes}
+                  onChange={this.changeCausesHandler}
+                  labelledBy="causes"
+                  hasSelectAll={false}
+                  className={multiSelectClassName}
               />
             </label>
             <label>
               <p>Manpower Required</p>
               <input
-                required
-                type="number"
-                value={this.state.manpowerCount}
-                onChange={this.changeManpowerCountHandler}
+                  required
+                  type="number"
+                  value={this.state.manpowerCount}
+                  onChange={this.changeManpowerCountHandler}
               />
             </label>
             <label htmlFor="skills">
               <p>Relevant skills</p>
               <MultiSelect
-                options={skills}
-                value={this.state.skills}
-                onChange={this.changeSkillsHandler}
-                labelledBy="Select related skills"
-                className="table"
+                  options={skills}
+                  value={this.state.skills}
+                  onChange={this.changeSkillsHandler}
+                  labelledBy="skills"
+                  hasSelectAll={false}
+                  className={multiSelectClassName}
               />
             </label>
             <label>
               <p>Type</p>
               <select
-                className="select select-bordered w-full"
-                onChange={this.changeTypeHandler}
+                  className={`select select-bordered w-full custom-select ${multiSelectClassName}`}
+                  value={this.state.type}
+                  onChange={this.changeTypeHandler}
               >
                 <option disabled selected>
                   Select type
                 </option>
-                <option>Ad-hoc</option>
-                <option>Short-term (3-6 months)</option>
-                <option>Long-term ({">"}6 months)</option>
+                <option value={"all"}>All</option>
+                <option value={"ad-hoc"}>Ad-hoc</option>
+                <option value={"short"}>Short-term (3-6 months)</option>
+                <option value={"long"}>Long-term ({">"}6 months)</option>
               </select>
             </label>
             <label>
               <p>Location</p>
               <select
-                className="select select-bordered w-full"
-                onChange={this.changeLocationHandler}
+                  className={`select select-bordered w-full custom-select ${multiSelectClassName}`}
+                  value={this.state.location}
+                  onChange={this.changeLocationHandler}
               >
                 <option disabled selected>
                   Select location
                 </option>
-                <option>Online</option>
-                <option>On-site</option>
-                <option>All of the above</option>
+                <option value={"all"}>All</option>
+                <option value={"online"}>Online</option>
+                <option value={"on-site"}>On-site</option>
               </select>
             </label>
             <label>
               <p>Address</p>
               <input
-                required
-                type="text"
-                value={this.state.address}
-                onChange={this.changeAddressHandler}
+                  required
+                  type="text"
+                  value={this.state.address}
+                  onChange={this.changeAddressHandler}
               />
             </label>
             <label>
               <p>Description</p>
               <textarea
-                required
-                value={this.state.description}
-                onChange={this.changeDescriptionHandler}
+                  required
+                  value={this.state.description}
+                  onChange={this.changeDescriptionHandler}
               />
             </label>
             <label>
               <p>Cover Image</p>
               <input
-                type="file"
-                className="file-input file-input-bordered w-full max-w-xs"
+                  type="file"
+                  className="file-input file-input-bordered w-full max-w-xs"
               />
             </label>
             <label>
               <p>Gallery</p>
               <input
-                type="file"
-                className="file-input file-input-bordered w-full max-w-xs"
-                multiple
+                  type="file"
+                  className="file-input file-input-bordered w-full max-w-xs"
+                  multiple
               />
             </label>
             <div className="button-container">

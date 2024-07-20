@@ -23,6 +23,8 @@ class ManageRewards extends Component {
       barcodeAlertMessage: "",
       currentPage: 1,
       postsPerPage: 10,
+      showEditAlert: false,
+      editedReward: "",
     };
   }
 
@@ -109,6 +111,18 @@ class ManageRewards extends Component {
 
   async componentDidMount() {
     await this.fetchData();
+
+    if (this.props.location.state && this.props.location.state.showEditAlert) {
+      this.setState(
+          { showEditAlert: true, editedReward: this.props.location.state.editedReward },
+          () => {
+            console.log("showEditAlert=", this.state.showEditAlert);
+          }
+      );
+      setTimeout(() => {
+        this.setState({ showEditAlert: false, editedReward: "" });
+      }, 3000);
+    }
   }
 
   showModal = (selectedReward) => {
@@ -159,125 +173,133 @@ class ManageRewards extends Component {
     const currentItems = items.slice(indexOfFirstPost, indexOfLastPost);
 
     return (
-      <div className="wrapper">
-        <h1 className="title">Rewards</h1>
-        <div className="reward-button-container">
-          <button className="btn" onClick={this.createRewardHandler}>
-            Create new reward
-          </button>
-        </div>
-        {items.length === 0 ? (
-          <p>There are no rewards currently.</p>
-        ) : (
-          <div className="data-table">
-            <div className="overflow-x-auto">
-              <table className="table">
-                {/* head */}
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Points Needed</th>
-                    <th>Count</th>
-                    <th>Upload Barcodes</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {items.map((item) => (
-                    <tr key={item.id}>
-                      <td>
-                        <div className="flex items-center gap-3">
-                          <div>
-                            <div className="font-bold">
-                              <Link to={`/manage-rewards/${item.id}`}>
-                                {item.name}
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>{item.pointsNeeded}</td>
-                      <td>{item.count}</td>
-                      <td className="upload-container">
-                        <input
-                          type="file"
-                          ref={`fileInput-${item.id}`}
-                          style={{ display: "none" }}
-                          onChange={(event) =>
-                            this.handleFileChange(event, item.id)
-                          }
-                        />
-                        <button
-                          className="btn"
-                          onClick={(event) => this.uploadReward(event, item.id)}
-                        >
-                          Upload
-                        </button>
-                      </td>
-                      <td className="manage-button-container">
-                        <button
-                          className="btn"
-                          onClick={(event) => this.editReward(event, item.id)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="btn btn-danger"
-                          onClick={(event) =>
-                            this.deleteReward(event, item.id)
-                          }
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <Pagination
-                postsPerPage={this.state.postsPerPage}
-                length={items.length}
-                paginate={this.handlePageChange}
-              />
-            </div>
+        <div className="wrapper">
+          <h1 className="title">Rewards</h1>
+          <div className="reward-button-container">
+            <button className="btn" onClick={this.createRewardHandler}>
+              Create new reward
+            </button>
           </div>
-        )}
-
-        {modalVisible && (
-          <dialog className="modal modal-bottom sm:modal-middle" open>
-            <div className="modal-box">
-              <h3 className="font-bold text-lg">
-                Are you sure you want to delete {selectedReward?.name}?
-              </h3>
-              <p className="py-4">Please confirm your choice.</p>
-              <div className="modal-action">
-                <button className="btn" onClick={this.handleConfirm}>
-                  Confirm
-                </button>
-                <button className="btn" onClick={this.closeModal}>
-                  Cancel
-                </button>
+          {items.length === 0 ? (
+              <p>There are no rewards currently.</p>
+          ) : (
+              <div className="data-table">
+                <div className="overflow-x-auto">
+                  <table className="table">
+                    {/* head */}
+                    <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Points Needed</th>
+                      <th>Count</th>
+                      <th>Upload Barcodes</th>
+                      <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {items.map((item) => (
+                        <tr key={item.id}>
+                          <td>
+                            <div className="flex items-center gap-3">
+                              <div>
+                                <div className="font-bold">
+                                  <Link to={`/manage-rewards/${item.id}`}>
+                                    {item.name}
+                                  </Link>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>{item.pointsNeeded}</td>
+                          <td>{item.count}</td>
+                          <td className="upload-container">
+                            <input
+                                type="file"
+                                ref={`fileInput-${item.id}`}
+                                style={{display: "none"}}
+                                onChange={(event) =>
+                                    this.handleFileChange(event, item.id)
+                                }
+                            />
+                            <button
+                                className="btn"
+                                onClick={(event) => this.uploadReward(event, item.id)}
+                            >
+                              Upload
+                            </button>
+                          </td>
+                          <td className="manage-button-container">
+                            <button
+                                className="btn"
+                                onClick={(event) => this.editReward(event, item.id)}
+                            >
+                              Edit
+                            </button>
+                            <button
+                                className="btn btn-danger"
+                                onClick={(event) =>
+                                    this.deleteReward(event, item.id)
+                                }
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                  </table>
+                  <Pagination
+                      postsPerPage={this.state.postsPerPage}
+                      length={items.length}
+                      paginate={this.handlePageChange}
+                  />
+                </div>
               </div>
-            </div>
-          </dialog>
-        )}
+          )}
 
-        <div className="fixed bottom-4 right-4 z-50">
-          <AlertComponent
-            showAlert={this.state.showDelAlert}
-            alertType="success"
-            alertMessage={this.state.alertMessage}
-          />
-        </div>
+          <div className="fixed bottom-4 right-4 z-50">
+            <AlertComponent
+                showAlert={this.state.showEditAlert}
+                alertType="success"
+                alertMessage={`${this.state.editedReward} edited successfully.`}
+            />
+          </div>
 
-        <div className="fixed bottom-4 right-4 z-50">
-          <AlertComponent
-            showAlert={this.state.showBarcodeAlert}
-            alertType="success"
-            alertMessage={this.state.barcodeAlertMessage}
-          />
+          {modalVisible && (
+              <dialog className="modal modal-bottom sm:modal-middle" open>
+                <div className="modal-box">
+                  <h3 className="font-bold text-lg">
+                    Are you sure you want to delete {selectedReward?.name}?
+                  </h3>
+                  <p className="py-4">Please confirm your choice.</p>
+                  <div className="modal-action">
+                    <button className="btn" onClick={this.handleConfirm}>
+                      Confirm
+                    </button>
+                    <button className="btn" onClick={this.closeModal}>
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </dialog>
+          )}
+
+          <div className="fixed bottom-4 right-4 z-50">
+            <AlertComponent
+                showAlert={this.state.showDelAlert}
+                alertType="success"
+                alertMessage={this.state.alertMessage}
+            />
+          </div>
+
+          <div className="fixed bottom-4 right-4 z-50">
+            <AlertComponent
+                showAlert={this.state.showBarcodeAlert}
+                alertType="success"
+                alertMessage={this.state.barcodeAlertMessage}
+            />
+          </div>
         </div>
-      </div>
     );
   }
 }

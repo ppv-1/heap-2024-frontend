@@ -14,15 +14,15 @@ class EditReward extends Component{
             pointsNeeded: "",
             type: "",
             description: "",
-            count: "",
             rewardMedia: null,
+            showEditAlert: false,
+            editedReward: null,
         }
         this.changeNameHandler = this.changeNameHandler.bind(this);
         this.changePointsNeededHandler = this.changePointsNeededHandler.bind(this);
         this.changeRewardMediaHandler = this.changeRewardMediaHandler.bind(this);
         this.changeTypeHandler = this.changeTypeHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
-        this.changeCountHandler = this.changeCountHandler.bind(this);
     }
 
     async componentDidMount(){
@@ -37,7 +37,6 @@ class EditReward extends Component{
                 pointsNeeded: res.data.pointsNeeded,
                 type: res.data.type,
                 description: res.data.description,
-                count: res.data.count,
             });
            
         } catch(error){
@@ -60,10 +59,6 @@ class EditReward extends Component{
         this.setState({description: event.target.value});
     }
 
-    changeCountHandler = (event) => {
-        this.setState({ count: event.target.value });
-      };
-
     changeRewardMediaHandler= (event) => {
         this.setState({rewardMedia: event.target.files[0]});
     }
@@ -79,19 +74,29 @@ class EditReward extends Component{
             pointsNeeded: this.state.pointsNeeded,
             type: this.state.type,
             description: this.state.description,
-            count: this.state.count,
             
         };
         console.log('reward => ' + JSON.stringify(reward));
-        const res = await RewardService.updateReward(this.state.id, reward);
-        console.log(res);
-        if (this.state.rewardMedia != null){
-            MediaService.uploadRewardPhoto(res.data.id, formData).then((res) => {
-                console.log(res);
-            });
+        try {
+            const res = await RewardService.updateReward(this.state.id, reward);
+            console.log(res);
+            if (this.state.rewardMedia != null){
+                MediaService.uploadRewardPhoto(res.data.id, formData).then((res) => {
+                    console.log(res);
+                });
+            }
+            this.props.navigate("/manage-rewards", { state: { showEditAlert: true, editedReward: this.state.name } });
+        } catch(error){
+            console.error("failed to edit reward", error);
         }
+
         
-    }
+    };
+
+    cancel = async (e) => {
+        e.preventDefault();
+        this.props.navigate("/manage-rewards");
+    };
 
     render() {
 
@@ -152,20 +157,12 @@ class EditReward extends Component{
                                 onChange={this.changeDescriptionHandler}
                             />
                         </label>
-                        <label>
-                            <p>Count</p>
-                            <input
-                                required
-                                type="number"
-                                value={this.state.count}
-                                onChange={this.changeCountHandler}
-                            />
-                        </label>
 
                         <div className="button-container">
                             <button className="btn btn-wide" onClick={this.editReward}>
                                 Save
                             </button>
+                            <button className="btn" onClick={this.cancel}>Cancel</button>
                         </div>
                     </form>
                 </div>

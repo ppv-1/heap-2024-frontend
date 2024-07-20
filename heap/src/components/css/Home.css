@@ -73,6 +73,7 @@
   width: 1060px;
   margin-bottom: 40px;
   height: 300px;
+  scrollbar-width: thin;
 }
 
 .carousel-item {
