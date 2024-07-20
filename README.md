@@ -52,11 +52,12 @@ We hope to create a platform where people can find volunteering and donation opp
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+
 * npm
   ```sh
   npm install npm@latest -g
   ```
+* Backend launched. Refer to <a href="https://github.com/g5-heapheaphooray/backEnd">Backend</a>
 
 ### Installation
 
@@ -68,9 +69,9 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    npm install
    ```
-3. Launch backend
-   ```sh
-   mvn spring-boot:run
+3. Change into project directory
+    ```sh
+   cd heap
    ```
 4. Launch frontend
     ```sh
