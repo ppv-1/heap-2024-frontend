@@ -5,6 +5,7 @@ import RewardService from "../services/RewardService";
 import MediaService from "../services/MediaService";
 import { Link } from "react-router-dom";
 import AlertComponent from "./alert";
+import Pagination from "./pagination";
 
 class ManageRewards extends Component {
   constructor(props) {
@@ -20,6 +21,8 @@ class ManageRewards extends Component {
       alertMessage: "",
       showBarcodeAlert: false,
       barcodeAlertMessage: "",
+      currentPage: 1,
+      postsPerPage: 10,
     };
   }
 
@@ -132,6 +135,10 @@ class ManageRewards extends Component {
     this.closeModal();
   };
 
+  handlePageChange = (pageNumber) => {
+    this.setState({ currentPage: pageNumber });
+  };
+
   render() {
     const {
       items,
@@ -140,11 +147,16 @@ class ManageRewards extends Component {
       modalVisible,
       selectedReward,
       barcodeAlertMessage,
+      currentPage, 
+      postsPerPage,
     } = this.state;
 
     if (loading) {
       return <div>Loading...</div>; // Show a loading indicator while fetching data
     }
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentItems = items.slice(indexOfFirstPost, indexOfLastPost);
 
     return (
       <div className="wrapper">
@@ -221,17 +233,12 @@ class ManageRewards extends Component {
                     </tr>
                   ))}
                 </tbody>
-                {/* foot */}
-                {/* <tfoot>
-                <tr>
-                  <th>Name</th>
-                  <th>Points Needed</th>
-                  <th>Count</th>
-                  <th>Upload Barcodes</th>
-                  <th>Actions</th>
-                </tr>
-              </tfoot> */}
               </table>
+              <Pagination
+                postsPerPage={this.state.postsPerPage}
+                length={items.length}
+                paginate={this.handlePageChange}
+              />
             </div>
           </div>
         )}

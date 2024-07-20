@@ -87,6 +87,10 @@ class PostedEventDetails extends Component {
     OppService.setEventAttendance(opportunity.id, attendance);
   }
 
+  handlePageChange = (pageNumber) => {
+    this.setState({ currentPage: pageNumber });
+  };
+
   render() {
     const {
       opportunity,
@@ -158,6 +162,9 @@ class PostedEventDetails extends Component {
               <p>{opportunity.type}</p>
             </div>
           </div>
+          <button className="btn btn-neutral" onClick={this.submitAttendance}>
+            Submit Attendance
+          </button>
 
           <div className="data-table">
             <div className="overflow-x auto">
@@ -219,9 +226,7 @@ class PostedEventDetails extends Component {
               />
             </div>
           </div>
-          <button className="btn btn-neutral" onClick={this.submitAttendance}>
-            Submit Attendance
-          </button>
+          
 
         </div>{" "}
       </div>
