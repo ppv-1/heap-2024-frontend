@@ -53,7 +53,7 @@ class ManageRewards extends Component {
         this.setState({
           showBarcodeAlert: true,
           barcodeAlertMessage:
-            "An error occurred while uploading the barcodes.",
+              "An error occurred while uploading the barcodes.",
         });
         setTimeout(() => {
           this.setState({ showBarcodeAlert: false });
@@ -78,13 +78,38 @@ class ManageRewards extends Component {
   //   }
   // };
 
+  // deleteReward = async (event, id) => {
+  //   event.preventDefault();
+  //   this.setState((prevState) => ({
+  //     items: prevState.items.filter((item) => item.id !== id),
+  //     alertMessage: `Reward ${id} deleted successfully.`,
+  //   }));
+  //   await RewardService.deleteRewards(id);
+  // };
+
   deleteReward = async (event, id) => {
     event.preventDefault();
-    this.setState((prevState) => ({
-      items: prevState.items.filter((item) => item.id !== id),
-      alertMessage: `Reward ${id} deleted successfully.`,
-    }));
-    await RewardService.deleteRewards(id);
+    this.setState({ modalVisible: true, selectedReward: id });
+  };
+
+  handleConfirm = async () => {
+    const { selectedReward } = this.state;
+    if (selectedReward) {
+      try {
+        await RewardService.deleteRewards(selectedReward);
+        this.setState((prevState) => ({
+          items: prevState.items.filter((item) => item.id !== selectedReward),
+          showDelAlert: true,
+          alertMessage: `Reward deleted successfully.`,
+        }));
+        setTimeout(() => {
+          this.setState({ showDelAlert: false, alertMessage: '' });
+        }, 3000);
+      } catch (error) {
+        console.error('Error deleting reward:', error);
+      }
+    }
+    this.closeModal();
   };
 
   createRewardHandler = (event) => {
@@ -130,23 +155,7 @@ class ManageRewards extends Component {
   };
 
   closeModal = () => {
-    this.setState({
-      modalVisible: false,
-      selectedReward: null,
-      showDelAlert: true,
-    });
-    setTimeout(() => {
-      this.setState({ showDelAlert: false });
-    }, 3000);
-  };
-
-  handleConfirm = async (e) => {
-    e.preventDefault();
-    const { selectedReward } = this.state;
-    if (selectedReward) {
-      await this.deleteReward(selectedReward.id);
-    }
-    this.closeModal();
+    this.setState({ modalVisible: false, selectedReward: null });
   };
 
   handlePageChange = (pageNumber) => {
@@ -156,12 +165,10 @@ class ManageRewards extends Component {
   render() {
     const {
       items,
-      images,
       loading,
       modalVisible,
       selectedReward,
-      barcodeAlertMessage,
-      currentPage, 
+      currentPage,
       postsPerPage,
     } = this.state;
 
@@ -197,7 +204,7 @@ class ManageRewards extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {items.map((item) => (
+                    {currentItems .map((item) => (
                         <tr key={item.id}>
                           <td>
                             <div className="flex items-center gap-3">

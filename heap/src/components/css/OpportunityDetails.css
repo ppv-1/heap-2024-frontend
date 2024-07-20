@@ -144,6 +144,7 @@ tr td a:hover {
 
 .opp-carousel {
   border-radius: 16px;
+  width: 95%;
 }
 
 .opp-carousel-item {

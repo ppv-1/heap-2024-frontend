@@ -19,7 +19,11 @@ class ManageComplaints extends Component {
       itemsPerPage: 10,
       showResolveAlert: false,
       showRejectedAlert: false,
+      showDeleteAlert: false,
       itemName: "",
+      modalVisible: false,
+      selectedComplaint: null,
+      delMsg: "",
     };
   }
 
@@ -33,6 +37,31 @@ class ManageComplaints extends Component {
       this.setState({ loading: false });
     }
   };
+
+  showModal = (selectedComplaint) => {
+    this.setState({ modalVisible:true, selectedComplaint, itemName: selectedComplaint.title});
+  };
+
+  closeModal = () => {
+    this.setState({
+      modalVisible: false,
+      selectedComplaint: null,
+      showDeleteAlert: true,
+      itemName: "",
+      delMsg: ""
+    });
+    setTimeout(() => {
+      this.setState({ showDeleteAlert: false});
+      window.location.reload();
+    }, 3000);
+  };
+
+  handleConfirm = async (e) => {
+    e.preventDefault();
+    const {selectedComplaint} = this.state;
+    await this.complaintDelete(selectedComplaint.id);
+    this.closeModal();
+  }
 
   async componentDidMount() {
     await this.fetchData();
@@ -86,12 +115,27 @@ class ManageComplaints extends Component {
     }
   };
 
+  complaintDelete = async (id) => {
+    try {
+      await ComplaintService.deleteComplaint(id);
+      const { selectedComplaint } = this.state;
+      this.setState({ items: this.state.items.filter((item) => item.id !== id), delMsg: `${selectedComplaint.title} deleted.` });
+    } catch (error) {
+      console.error("Failed to delete complaint", error);
+    }
+  };
+
+  delComplaintHandler = async (event, id) => {
+    event.preventDefault();
+    this.showModal(this.state.items.find((item) => item.id === id));
+  };
+
   paginate = (pageNumber) => {
     this.setState({ currentPage: pageNumber });
   };
 
   render() {
-    const { items, images, loading, currentPage, itemsPerPage } = this.state;
+    const { items, images, loading, currentPage, itemsPerPage, modalVisible, selectedComplaint, delMsg } = this.state;
 
     if (loading) {
       return <div>Loading...</div>; // Show a loading indicator while fetching data
@@ -160,6 +204,15 @@ class ManageComplaints extends Component {
                                     : "Reject"}
                               </button>
                             </td>
+                            <td>
+                              <button
+                                  className="btn"
+                                  onClick={(event) =>
+                                      this.delComplaintHandler(event, item.id)}
+                              >
+                                Delete
+                              </button>
+                            </td>
                           </tr>
                       ))}
                       </tbody>
@@ -187,6 +240,31 @@ class ManageComplaints extends Component {
                 alertMessage={`${this.state.itemName} rejected.`}
             />
           </div>
+          <div className="fixed bottom-4 right-4 z-50">
+            <AlertComponent
+                showAlert={this.state.showDeleteAlert}
+                alertType="success"
+                alertMessage={delMsg}
+            />
+          </div>
+          {modalVisible && (
+              <dialog className="modal modal-bottom sm:modal-middle" open>
+                <div className="modal-box">
+                  <h3 className="font-bold text-lg">
+                    Are you sure you want to delete {selectedComplaint?.title}?
+                  </h3>
+                  <p className="py-4">Please confirm your choice.</p>
+                  <div className="modal-action">
+                    <button className="btn" onClick={this.handleConfirm}>
+                      Confirm
+                    </button>
+                    <button className="btn" onClick={this.closeModal}>
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </dialog>
+          )}
         </div>
     );
   }

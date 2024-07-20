@@ -128,8 +128,6 @@ class OpportunitiesComponent extends Component {
   handleCauseChange = (selected) => {
     let causesss = this.state.cause.concat(this.state.cause2, selected);
     causesss = [...new Set(causesss)];
-    // this.setState({cause: causesss});
-    // this.setState({cause2: []});
     this.setState({ cause: selected, cause2: [] });
   };
 
@@ -382,42 +380,54 @@ class OpportunitiesComponent extends Component {
 
           {/*<div className="wrapper">*/}
             <ul className="event-listings">
-              {currentItems.map((item) => (
-                  <div
-                      key={item.id}
-                      className="card card-compact w-30 bg-base-100 shadow-xl"
-                  >
-                    <figure>
-                      <img src={item.photosFilepaths[0]} alt={item.name}/>
-                    </figure>
-                    <div className="card-body flex flex-col justify-between">
-                      <div className="card-title mb-4">
-                        <h2 className="card-title w-full">{item.name}</h2>
-                        <div className="flex justify-start w-full mb-2">
-                          <div className="badge badge-accent">
-                            {item.neededManpowerCount} Spots left
+              {currentItems.map((item) => {
+                const itemDate = new Date(item.date);
+                const currentDate = new Date();
+                const isPast = itemDate < currentDate;
+
+                return (
+                    <div
+                        key={item.id}
+                        className="card card-compact w-30 bg-base-100 shadow-xl"
+                    >
+                      <figure>
+                        <img src={item.photosFilepaths[0]} alt={item.name} />
+                      </figure>
+                      <div className="card-body flex flex-col justify-between">
+                        <div className="card-title mb-4">
+                          <h2 className="card-title w-full">{item.name}</h2>
+                          <div className="flex justify-start w-full mb-2 gap-2">
+                            <div className="badge badge-accent">
+                              {item.neededManpowerCount} Spots Left
+                            </div>
+                            <div className="badge badge-accent">
+                              {isPast ? "Past Event" : "Upcoming Event"}
+                            </div>
+                          </div>
+                          <div className="cause-badges flex flex-wrap gap-2">
+                            {item.causes.map((cause, index) => (
+                                <div key={index} className="badge badge-neutral">
+                                  {causes.find((c) => c.value === cause)?.label}
+                                </div>
+                            ))}
                           </div>
                         </div>
-                        <div className="cause-badges flex flex-wrap gap-2">
-                          {item.causes.map((cause, index) => (
-                              <div key={index} className="badge badge-neutral">
-                                {causes.find((c) => c.value === cause)?.label}
-                              </div>
-                          ))}
+
+                        <div className="card-actions flex justify-end mt-4">
+                          <button
+                              className="btn"
+                              onClick={(event) =>
+                                  this.volunteerSubmit(event, item.id)
+                              }
+                              // disabled={new Date(item.date) < new Date()}
+                          >
+                            Volunteer Now
+                          </button>
                         </div>
                       </div>
-
-                      <div className="card-actions flex justify-end mt-4">
-                        <button
-                            className="btn"
-                            onClick={(event) => this.volunteerSubmit(event, item.id)}
-                        >
-                          Volunteer Now
-                        </button>
-                      </div>
                     </div>
-                  </div>
-              ))}
+                );
+              })}
             </ul>
         </div>
 

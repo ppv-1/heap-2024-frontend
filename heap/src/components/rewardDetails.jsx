@@ -103,68 +103,67 @@ class RewardDetails extends Component {
     // };
 
     return (
-      <div className="wrapper">
-        <div className="breadcrumbs-container">
-          <div className="breadcrumbs text-sm">
-            <ul>
-              <li>
-                <a href="/">Home</a>
-              </li>
-              <li>
-                <a href="/rewards">Rewards</a>
-              </li>
-              <li>{reward.name}</li>
-            </ul>
-          </div>
-        </div>
-        <div className="details-container">
-          <div className="left-container">
-            <div className="left-details">
-              <h1 className="title">{reward.name}</h1>
-              <br />
-              <p>Description: {reward.description}</p>
-              <p>Barcode Serial No: {reward.barcodeSerialNo}</p>
-              <QRCode value={reward.barcodeSerialNo} />
+        <div className="wrapper">
+          <div className="breadcrumbs-container">
+            <div className="breadcrumbs text-sm">
+              <ul>
+                <li>
+                  <a href="/">Home</a>
+                </li>
+                <li>
+                  <a href="/rewards">Rewards</a>
+                </li>
+                <li>{reward.name}</li>
+              </ul>
             </div>
           </div>
-          <div className="right-container">
-            <div className="right-details">
-              <h1 className="title">Type</h1>
-              <p>Type: {reward.type}</p>
-              <h1 className="title">Points Needed</h1>
-              <p>Points Needed: {reward.pointsNeeded}</p>
-
-              <div className="button-container">
-                <button
-                  className="btn btn-wide"
-                  onClick={(event) => this.redeemReward(event, reward.id)}
-                  disabled={this.isRewardFullyRedeemed()}
-                >
-                  Redeem
-                </button>
+          <div className="details-container">
+            <div className="content-container">
+              <div className="left-container">
+                <div className="left-details">
+                  <h1 className="title">{reward.name}</h1>
+                  <h1>Description</h1>
+                  <p>{reward.description}</p>
+                  <h1>Type</h1>
+                  <p>{reward.type}</p>
+                </div>
+              </div>
+              <div className="right-container">
+                <div className="right-details">
+                  <h1 className="title">Points Needed</h1>
+                  <p>Points Needed: {reward.pointsNeeded}</p>
+                  <div className="button-container">
+                    <button
+                        className="btn btn-wide"
+                        onClick={(event) => this.redeemReward(event, reward.id)}
+                        disabled={this.isRewardFullyRedeemed()}
+                    >
+                      Redeem
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+          <div className="fixed bottom-4 right-4 z-50">
+            <AlertComponent
+                showAlert={showFailAlert}
+                alertType="error"
+                alertMessage={failAlertMessage}
+            />
+          </div>
+          <div className="fixed bottom-4 right-4 z-50">
+            <AlertComponent
+                showAlert={showRedeemAlert}
+                alertType="success"
+                alertMessage={redeemAlertMessage}
+            />
+          </div>
         </div>
-        <div className="fixed bottom-4 right-4 z-50">
-          <AlertComponent
-            showAlert={showFailAlert}
-            alertType="error"
-            alertMessage={failAlertMessage}
-          />
-        </div>
-        <div className="fixed bottom-4 right-4 z-50">
-          <AlertComponent
-            showAlert={showRedeemAlert}
-            alertType="success"
-            alertMessage={redeemAlertMessage}
-          />
-        </div>
-      </div>
     );
   }
 }
 
 export default withNavigateandLocation((props) => (
-  <RewardDetails {...props} params={useParams()} />
+    <RewardDetails {...props} params={useParams()}/>
 ));

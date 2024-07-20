@@ -64,13 +64,13 @@ class ManageVols extends Component {
 
   blacklistVol = async (id) => {
     await AdminService.blacklistUser(id);
-    this.updateVolList(id);
+    this.updateVolList(id, true);
     this.setState({ alertMessage: `${id} blacklisted successfully.` });
   };
 
   whitelistVol = async (id) => {
     await AdminService.whitelistUser(id);
-    this.updateVolList(id);
+    this.updateVolList(id, false);
     this.setState({ alertMessage: `${id} whitelisted successfully.` });
   };
 
@@ -82,10 +82,13 @@ class ManageVols extends Component {
     });
   };
 
-  updateVolList = (id) => {
+  updateVolList = (id, isLocked = null) => {
     let updatedItems = this.state.items.map((item) => {
       if (item.email === id) {
-        item.locked = !item.locked;
+        if(isLocked !== null){
+          item.blacklisted = isLocked;
+        }
+
       }
       return item;
     });
@@ -162,7 +165,7 @@ class ManageVols extends Component {
                     <td>{item.email}</td>
                     <td>{item.complainCount}</td>
                     <td className="manage-button-container">
-                      {item.locked ? (
+                      {item.blacklisted ? (
                         <button
                           className="btn"
                           onClick={(event) =>

@@ -210,6 +210,10 @@ class CreateOppComponent extends Component {
       this.setState({
         errorMessage2: "Please select a time between 6am and 10pm.",
       });
+    } else if (this.state.endTime && startTime > this.state.endTime) {
+      this.setState({
+        errorMessage2: "Please select an start time before the end time.",
+      });
     } else {
       this.setState({ errorMessage2: "" });
     }
@@ -227,6 +231,10 @@ class CreateOppComponent extends Component {
     if (endTime < "06:00" || endTime > "22:00") {
       this.setState({
         errorMessage3: "Please select a time between 6am and 10pm.",
+      });
+    } else if (endTime < this.state.startTime) {
+      this.setState({
+        errorMessage3: "Please select an end time after the start time.",
       });
     } else {
       this.setState({ errorMessage3: "" });

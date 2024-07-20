@@ -5,9 +5,23 @@ import "./css/Signup.css";
 import AuthService from "../services/AuthService";
 import validator from "validator";
 
+const getTheme = () => {
+  const storedTheme = localStorage.getItem("theme");
+  if (storedTheme) {
+    return storedTheme;
+  }
+
+  const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+  ).matches;
+  return systemPrefersDark ? "dim" : "light";
+};
+
 class RegisterVolunteer extends Component {
   constructor(props) {
     super(props);
+
+    let theme = getTheme();
 
     this.state = {
       name: "",
@@ -20,6 +34,7 @@ class RegisterVolunteer extends Component {
       errorMessage2: "",
       errorMessage3: "",
       errorMessage4: "",
+      theme: theme,
     };
 
     this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -153,6 +168,8 @@ class RegisterVolunteer extends Component {
 
   render() {
     const { errorMessage1, errorMessage2, errorMessage3, errorMessage4 } = this.state;
+    const isDarkMode = this.state.theme === "dim";
+    const multiSelectClassName = isDarkMode ? "dark" : "";
     return (
       <>
         <div className="content">
@@ -170,7 +187,7 @@ class RegisterVolunteer extends Component {
             <label>
               <p>Gender</p>
               <select
-                className="select select-bordered w-full"
+                  className={`select select-bordered w-full custom-select ${multiSelectClassName}`}
                 onChange={this.changeGenderHandler}
               >
                 <option disabled selected>
