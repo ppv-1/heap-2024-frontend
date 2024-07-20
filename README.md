@@ -35,13 +35,6 @@ We hope to create a platform where people can find volunteering and donation opp
 * [![Tailwind CSS][Tailwind-logo]][tailwind-url]
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-* [![React.js][React.js-logo]][React.js-url]
-* [![Axios][Axios-logo]][Axios-url]
-* [![Tailwind CSS][Tailwind-logo]][tailwind-url]
-
-
 <!-- GETTING STARTED -->
 # Getting Started
 
