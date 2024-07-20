@@ -49,6 +49,7 @@
 .cause-badges {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .opps-content {
@@ -72,6 +73,7 @@
   flex-wrap: wrap;
   row-gap: 20px;
   z-index: 5;
+  justify-content: flex-start;
 }
 
 .posted-event-listings .card-compact {

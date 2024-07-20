@@ -247,6 +247,8 @@ p {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: calc(18vh - 100px);
+  gap: 20px;
+  align-content: flex-start;
 }
 
 @media (max-width: 600px) {
