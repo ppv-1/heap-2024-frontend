@@ -108,10 +108,9 @@ class HomeComponent extends Component {
                 className="top-title"
             >
               <h1 className="title">
-                Small Actions, <br/>
-                Big Changes
+                Volunteer Today, Impact Tomorrow
               </h1>
-              <p>idk what catchphrase LMAO</p>
+              <p>Your Journey to Giving Back Starts Here</p>
             </motion.div>
             <motion.div
                 className="causes"
