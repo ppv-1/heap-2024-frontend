@@ -85,10 +85,21 @@ class OpportunitiesComponent extends Component {
       skill: [],
       placeholderText: "Search for opportunities by name or organisation",
       currentPage: 1,
-      postsPerPage: 8,
+      postsPerPage:  this.getPostsPerPage(),
       theme: theme,
     };
   }
+
+  getPostsPerPage = () => {
+    let width = window.innerWidth;
+    if (width < 600) {
+      return 4;
+    } else if (width < 1025) {
+      return 6;
+    } else {
+      return 8;
+    }
+  };
 
   volunteerSubmit = (event, id) => {
     event.preventDefault();
