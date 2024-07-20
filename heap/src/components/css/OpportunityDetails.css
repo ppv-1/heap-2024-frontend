@@ -134,6 +134,10 @@ tbody, td, a {
   font-size: 16px;
 }
 
+tr td a:hover {
+  color: oklch(var(--p));
+}
+
 .details-container .left-details > ul {
   margin-bottom: 16px;
 }
