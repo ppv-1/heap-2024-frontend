@@ -25,6 +25,11 @@ class RegisteredEvent extends Component {
     this.showModal(selectedEvent);
   };
 
+  detailsOpp = (event, id) => {
+    event.preventDefault();
+    this.props.navigate(`/opportunities/${id}`);
+  };
+
   showModal = (selectedEvent) => {
     this.setState({ modalVisible: true, selectedEvent });
   };
@@ -103,6 +108,10 @@ class RegisteredEvent extends Component {
       deregisteredEventName,
     } = this.state;
 
+    const sortedItems = items.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+
     return (
       <div className="wrapper">
         {/* <div className="text-sm breadcrumbs">
@@ -114,14 +123,14 @@ class RegisteredEvent extends Component {
         </div> */}
 
         <h1 className="title">Registered Events</h1>
-        {items.length === 0 ? (
+        {sortedItems.length === 0 ? (
           <p>You have not signed up for any opportunities.</p>
         ) : (
           <>
             <p>These are the volunteer opportunities you are signed up for.</p>
             <br />
             <div className="event-listings">
-              {items.map((item) => (
+              {sortedItems.map((item) => (
                 <div className="card card-compact w-30 bg-base-100 shadow-xl">
                   <figure>
                     <img
@@ -133,10 +142,16 @@ class RegisteredEvent extends Component {
                     <h2 className="card-title">{item.name}</h2>
                     <div className="card-actions justify-end">
                       <button
-                        className="btn"
-                        onClick={(event) =>
-                          this.unregisterSubmit(event, item.id)
-                        }
+                          className="btn"
+                          onClick={(event) => this.detailsOpp(event, item.id)}
+                      >
+                        Details
+                      </button>
+                      <button
+                          className="btn"
+                          onClick={(event) =>
+                              this.unregisterSubmit(event, item.id)
+                          }
                       >
                         Unregister
                       </button>
@@ -149,7 +164,7 @@ class RegisteredEvent extends Component {
         )}
         <div className="fixed bottom-4 right-4 z-50">
           <AlertComponent
-            showAlert={this.state.showRegAlert}
+              showAlert={this.state.showRegAlert}
             alertType="success"
             alertMessage={`Registered for ${registeredEventName}.`}
           />

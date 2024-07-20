@@ -169,6 +169,12 @@ class Opportunity extends Component {
         (skillValue) => skills.find((skill) => skill.value === skillValue)?.label
     );
 
+    const currentDate = new Date();
+    const opportunityDate = new Date(opportunity.date);
+    const isPast = currentDate > opportunityDate;
+
+    const imagesToShow = images.slice(1);
+
     return (
         <div className="wrapper">
           <div className="breadcrumbs-container">
@@ -190,13 +196,13 @@ class Opportunity extends Component {
             <h1 className="title">{opportunity.name}</h1>
             <a href={`/organisations/${orgId}`}>{orgName}'s Details</a>
             <div className="carousel opp-carousel">
-              {images.map((image, index) => (
+              {imagesToShow.map((image, index) => (
                 <div
                   key={index}
                   id={`slide${index + 1}`}
                   className="carousel-item opp-carousel-item"
                 >
-                  <img src={image} className="w-full" />
+                  <img src={image} alt={`Image ${index + 1}`} className="w-full" />
                 </div>
               ))}
             </div>
@@ -238,7 +244,7 @@ class Opportunity extends Component {
                 <p>Start: {formatTime(opportunity.startTime)}</p>
                 <p>End: {formatTime(opportunity.endTime)}</p>
                 <div className="button-container">
-                  <button className="btn" onClick={this.registerEvent}>
+                  <button className="btn" onClick={this.registerEvent} disabled={isPast}>
                     I want to volunteer
                   </button>
                 </div>

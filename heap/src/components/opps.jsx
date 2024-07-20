@@ -71,7 +71,6 @@ class OpportunitiesComponent extends Component {
   constructor(props) {
     super(props);
 
-    let theme = getTheme();
     let searchParams = new URLSearchParams(props.location.search);
     let causeQuery = searchParams.get("cause");
     let theme = getTheme();
@@ -189,9 +188,9 @@ class OpportunitiesComponent extends Component {
         return a.name.localeCompare(b.name);
       } else if (sortType === "nameDesc") {
         return b.name.localeCompare(a.name);
-      } else if (sortType === "latest") {
+      } else if (sortType === "oldest") {
         return new Date(b.date) - new Date(a.date);
-      } else if (sortType === "reg-ending-soon") {
+      } else if (sortType === "newest") {
         return new Date(a.date) - new Date(b.date);
       }
       return 0;
@@ -205,7 +204,7 @@ class OpportunitiesComponent extends Component {
     return (
       <div className="wrapper">
         <h1 className="title">Events</h1>
-        <p>Here you can find various opportunities.</p>
+        {/*<p>Here you can find various opportunities.</p>*/}
 
         <div className="opps-content">
           <div className="searchbar-container">
@@ -254,33 +253,33 @@ class OpportunitiesComponent extends Component {
                           </a>
                         </li>
                         <li>
-                          <a onClick={() => this.handleSortChange("latest")}>
-                            Latest
+                          <a onClick={() => this.handleSortChange("oldest")}>
+                            Date: Newest to Oldest
                           </a>
                         </li>
                         <li>
                           <a
-                            onClick={() =>
-                              this.handleSortChange("reg-ending-soon")
-                            }
+                              onClick={() =>
+                                  this.handleSortChange("newest")
+                              }
                           >
-                            Registration ending soon
+                            Date: Oldest to Newest
                           </a>
                         </li>
                       </ul>
                     </details>
                   </li>
-                  <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
+                  <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50"/>
                   <li>
                     <h2>Filters</h2>
                     <p>Causes</p>
                     <MultiSelect
-                      options={causes}
-                      value={this.state.cause}
-                      onChange={this.handleCauseChange}
-                      labelledBy="Select related causes"
-                      disableSearch="true"
-                      className={`multiselect ${multiSelectClassName}`}
+                        options={causes}
+                        value={this.state.cause}
+                        onChange={this.handleCauseChange}
+                        labelledBy="Select related causes"
+                        disableSearch="true"
+                        className={`multiselect ${multiSelectClassName}`}
                     />
                     <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
                     <p>Opportunity Type</p>

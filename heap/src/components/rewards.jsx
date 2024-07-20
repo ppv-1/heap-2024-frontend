@@ -82,7 +82,7 @@ class Rewards extends Component {
                     {item.pointsNeeded} Points
                   </div>
                   {item.count <= 0 && (
-                    <div className="badge badge-accent">Fully Redeemed</div>
+                    <div className="badge badge-neutral">Fully Redeemed</div>
                   )}
                 </div>
                 <button

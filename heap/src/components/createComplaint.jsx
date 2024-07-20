@@ -5,6 +5,8 @@ import OppService from "../services/OppService";
 import ComplaintService from "../services/ComplaintService";
 import MediaService from "../services/MediaService";
 
+const MAX_FILES = 5;
+
 class CreateComplaint extends Component {
   constructor(props) {
     super(props);

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
 import RewardService from "../services/RewardService";
 import QRCode from "qrcode.react";
+import Pagination from "./pagination";
 
 class ManageRewardsDetails extends Component {
   constructor(props) {
@@ -13,6 +14,8 @@ class ManageRewardsDetails extends Component {
       reward: null,
       loading: true,
       barcodes: [],
+      currentPage: 1,
+      postsPerPage: 10,
     };
   }
 
@@ -43,12 +46,16 @@ class ManageRewardsDetails extends Component {
   }
 
   render() {
-    const { reward, loading, barcodes } = this.state;
+    const { reward, loading, barcodes, currentPage, postsPerPage } = this.state;
     console.log(this.state);
 
     if (loading) {
       return <div>Loading...</div>;
     }
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentBarcodes = barcodes.slice(indexOfFirstPost, indexOfLastPost);
 
     return (
         <div className="wrapper">
@@ -63,7 +70,6 @@ class ManageRewardsDetails extends Component {
                 </li>
                 <li>{reward.name}</li>
               </ul>
-            </div>
           </div>
         </div>
         <h1 className="title">{reward.name}</h1>
@@ -85,7 +91,7 @@ class ManageRewardsDetails extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                {barcodes.map((barcode) => (
+                {currentBarcodes.map((barcode) => (
                   <tr key={barcode.reward_barcode_id}>
                     <td>{barcode.reward_barcode_id}</td>
                     <td>{barcode.barcode}</td>
@@ -94,16 +100,14 @@ class ManageRewardsDetails extends Component {
                   </tr>
                 ))}
               </tbody>
-              {/* <tfoot>
-                <tr>
-                <th>Reward</th>
-                  <th>Barcode</th>
-                  <th>Redemption status</th>
-                  <th>Expiry Date</th>
-                </tr>
-              </tfoot> */}
             </table>
+            <Pagination
+                postsPerPage={postsPerPage}
+                length={barcodes.length}
+                paginate={this.handlePageChange}
+            />
           </div>
+        </div>
         </div>
     );
   }

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import withNavigateandLocation from "./withNavigateandLocation";
 import OppService from "../services/OppService";
 import OrgService from "../services/OrgService";
+import Pagination from "./pagination";
 
 class PostedEventDetails extends Component {
   constructor(props) {
@@ -17,6 +18,8 @@ class PostedEventDetails extends Component {
       attendance: [],
       images: [],
       selectAll: false,
+      currentPage: 1,
+      postsPerPage: 10,
     };
 
     this.markAttendance = this.markAttendance.bind(this);
@@ -93,6 +96,8 @@ class PostedEventDetails extends Component {
       attendance,
       images,
       selectAll,
+      currentPage,
+      postsPerPage
     } = this.state;
     console.log(this.state);
 
@@ -111,6 +116,11 @@ class PostedEventDetails extends Component {
         </div>
       );
     }
+
+    // Get current participants
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentParticipants = participants.slice(indexOfFirstPost, indexOfLastPost);
 
     return (
       <div className="wrapper">
@@ -169,7 +179,7 @@ class PostedEventDetails extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {participants.map((item) => (
+                  {currentParticipants.map((item) => (
                     <tr>
                       <th>
                         <label>
@@ -202,80 +212,19 @@ class PostedEventDetails extends Component {
                   ))}
                 </tbody>
               </table>
+              <Pagination
+                  postsPerPage={postsPerPage}
+                  length={participants.length}
+                  paginate={this.handlePageChange}
+              />
             </div>
           </div>
           <button className="btn btn-neutral" onClick={this.submitAttendance}>
             Submit Attendance
           </button>
-          {/* <ul className="event-listings"> */}
-          {/* {participants.map((item) => (
-                  <div
-                    key={item.id}
-                    className="card card-compact w-30 bg-base-100 shadow-xl"
-                  >
-                    <div className="card-body">
-                      <h2 className="card-title">{item.fullName}</h2>
-                      <h1>{item.email}</h1>
-                      <p>Volunteer</p>
-                      <div className="card-actions justify-end">
-                        <button
-                          className={`btn ${
-                            attendance.some((att) => att.email === item.email)
-                              ? "btn-success"
-                              : "btn"
-                          }`}
-                          onClick={() => this.markAttendance(item)}
-                        >
-                          {attendance.some((att) => att.email === item.email)
-                            ? "Attendance Marked"
-                            : "Mark Attendance"}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))} */}
 
-          {/* {images.map((url, index) => (
-                  <div
-                    key={index} // Ensure a unique key for each image
-                    className="card card-compact w-30 bg-base-100 shadow-xl"
-                  >
-                    <figure>
-                      {url ? (
-                        <img src={url} alt={`Image ${index}`} />
-                      ) : (
-                        <p>No Image Available</p>
-                      )}
-                    </figure>
-                    <div className="card-body">
-                      <p>Image {index + 1}</p>
-                    </div>
-                  </div>
-                ))} */}
-          {/* </ul> */}
-          {/* <div className="right-container">
-            <div className="right-details">
-              <div className="card w-150 bg-base-100 shadow-xl">
-                <div className="card-body">
-                  <h1>Location</h1>
-                  <p>{opportunity.location}</p>
-                  <h1>Date and time</h1>
-                  <p>Date: {opportunity.date}</p>
-                  <p>Start: {opportunity.startTime}</p>
-                  <p>End: {opportunity.endTime}</p>
-                  <button
-                    className="btn btn-neutral"
-                    onClick={this.submitAttendance}
-                  >
-                    Submit Attendance
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>{" "}
       </div>
-      // </div>
     );
   }
 }
