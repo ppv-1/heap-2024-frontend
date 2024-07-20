@@ -47,62 +47,57 @@ class ManageRewardsDetails extends Component {
     }
 
     return (
-      <div className="wrapper">
-        <div className="breadcrumbs-container">
-          <div className="breadcrumbs text-sm">
-            <ul>
-              <li>
-                <a href="/">Home</a>
-              </li>
-              <li>
-                <a href="/manage-rewards">Manage Rewards</a>
-              </li>
-              <li>{reward.name}</li>
-            </ul>
+        <div className="wrapper">
+          <div className="breadcrumbs-container">
+            <div className="breadcrumbs text-sm">
+              <ul>
+                <li>
+                  <a href="/">Home</a>
+                </li>
+                <li>
+                  <a href="/manage-rewards">Manage Rewards</a>
+                </li>
+                <li>{reward.name}</li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <h1 className="title">{reward.name}</h1>
-        <h2>Description: {reward.description}</h2>
-        <h2>Count: {reward.count}</h2>
-        <h2>rewardId: {reward.id}</h2>
-        <div className="data-table">
-          <div className="overflow-x auto">
-            <table className="table">
-              <thead>
+          <h1 className="title">{reward.name}</h1>
+          <div className="info">
+            <h2>Description: {reward.description}</h2>
+            <h2>Reward ID: {reward.id}</h2>
+            <h2>Type: {reward.type}</h2>
+            <h2>Number of unredeemed barcodes: {reward.count}</h2>
+          </div>
+          <div className="data-table">
+            <div className="overflow-x auto">
+              <table className="table">
+                <thead>
                 <tr>
                   <th>Reward</th>
                   <th>Barcode</th>
                   <th>Redemption status</th>
                   <th>Expiry Date</th>
                 </tr>
-              </thead>
-              <tbody>
+                </thead>
+                <tbody>
                 {barcodes.map((barcode) => (
-                  <tr key={barcode.reward_barcode_id}>
-                    <td>{barcode.reward_barcode_id}</td>
-                    <td>{barcode.barcode}</td>
-                    <td>{barcode.redeemed ? "Redeemed" : "Unredeemed"}</td>
-                    <td>{barcode.expiryDate}</td>
-                  </tr>
-                    
+                    <tr key={barcode.reward_barcode_id}>
+                      <td>{barcode.reward_barcode_id}</td>
+                      <td>{barcode.barcode}</td>
+                      <td>{barcode.redeemed ? "Redeemed" : "Unredeemed"}</td>
+                      <td>{barcode.expiryDate}</td>
+                    </tr>
+
                 ))}
-              </tbody>
-              <tfoot>
-                <tr>
-                <th>Reward</th>
-                  <th>Barcode</th>
-                  <th>Redemption status</th>
-                  <th>Expiry Date</th>
-                </tr>
-              </tfoot>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
     );
   }
 }
 
 export default withNavigateandLocation((props) => (
-  <ManageRewardsDetails {...props} params={useParams()} />
+    <ManageRewardsDetails {...props} params={useParams()}/>
 ));

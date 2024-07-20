@@ -3,6 +3,7 @@ import withNavigateandLocation from "./withNavigateandLocation";
 import "./css/Create.css";
 import OppService from "../services/OppService";
 import ComplaintService from "../services/ComplaintService";
+import MediaService from "../services/MediaService";
 
 class CreateComplaint extends Component {
   constructor(props) {
@@ -10,12 +11,16 @@ class CreateComplaint extends Component {
 
     this.state = {
       title: "",
+      complainee: "",
       description: "",
-      status: "pending"
+      complaintMedia:[],
+      status: "pending",
     };
 
     this.changeTitleHandler = this.changeTitleHandler.bind(this);
+    this.changeComplaineeHandler = this.changeComplaineeHandler.bind(this);
     this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
+    this.changeComplaintMediaHandler = this.change
     this.createComplaint = this.createComplaint.bind(this);
   }
 
@@ -25,13 +30,25 @@ class CreateComplaint extends Component {
     console.log(state);
     let complaint = {
       title: this.state.title,
+      complainee: this.state.complainee,
       description: this.state.description,
       status: this.state.status,
     };
     console.log("complaint => " + JSON.stringify(complaint));
+    const formData = new FormData();
+    this.state.complaintMedia.forEach((file, index) => {
+      formData.append(`complaintPhotos`, file);
+    });
     try {
-        await ComplaintService.createComplaint(complaint);
-        alert("Your complaint has been sent to the admin.");
+        const res = await ComplaintService.createComplaint(complaint);
+        await MediaService.uploadComplaintPhotos(res.data.id, formData).then(
+            (res) => {
+              this.props.navigate("/", {
+                state: { showCreateAlert: true, itemName: res.data.title},
+              });
+              console.log(res.status);
+            }
+        )
     }catch (error) {
         console.error("Failed to send complaint", error);
     }
@@ -41,9 +58,29 @@ class CreateComplaint extends Component {
     this.setState({ title: event.target.value });
   };
 
+  changeComplaineeHandler = (event) => {
+    this.setState({ email: event.target.value});
+  }
+
 
   changeDescriptionHandler = (event) => {
     this.setState({ description: event.target.value });
+  };
+
+  changeComplaintMediaHandler = (event) => {
+    const files = Array.from(event.target.files);
+
+    if (files.length > MAX_FILES) {
+      this.setState({
+        errorMessage4: `You can upload a maximum of ${MAX_FILES} files.`,
+      });
+      event.target.value = null;
+      return;
+    }
+
+    this.setState({
+      complaintMedia: files,
+    });
   };
 
   cancel = async (e) => {
@@ -64,27 +101,39 @@ class CreateComplaint extends Component {
             <label>
               <p>Title</p>
               <input
-                type="text"
-                required
-                value={this.state.title}
-                onChange={this.changeTitleHandler}
+                  type="text"
+                  required
+                  value={this.state.title}
+                  onChange={this.changeTitleHandler}
+              />
+            </label>
+            <label>
+              <p>Complainee (Optional)</p>
+              <input
+                  type="text"
+                  required
+                  value={this.state.title}
+                  onChange={this.changeComplaineeHandler}
               />
             </label>
             <label>
               <p>Description</p>
               <textarea
-                required
-                value={this.state.description}
-                onChange={this.changeDescriptionHandler}
+                  required
+                  value={this.state.description}
+                  onChange={this.changeDescriptionHandler}
               />
             </label>
-            {/* <label>
-              <p>Relevant Image</p>
+            <label>
+              <p>Relevant Images (maximum of 5 images)</p>
               <input
                 type="file"
                 className="file-input file-input-bordered w-full max-w-xs"
+                multiple
+                accept="image/*"
+                onChange={this.changeComplaintMediaHandler}
               />
-            </label> */}
+            </label>
             <div className="button-container">
               <button className="btn btn-wide" onClick={this.createComplaint}>
                 Create Complaint

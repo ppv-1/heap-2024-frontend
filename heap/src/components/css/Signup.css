@@ -39,7 +39,7 @@ form {
   text-decoration: none;
 }
 
-.card {
+.content-wrapper .card {
   height: 250px;
 }
 

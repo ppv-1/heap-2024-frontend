@@ -14,6 +14,10 @@ class MediaService{
         return await ProtectedAPI.post(`/media/event-photos/upload/${eventId}`, images, {'Content-Type': 'multipart/form-data'} );
     }
 
+    async uploadComplaintPhotos(complaintId, images){
+        return await ProtectedAPI.post(`/media/complaint/complaint-image/upload/${complaintId}`, images, {'Content-Type': 'multipart/form-data'} );
+    }
+
 }
 
 export default new MediaService()

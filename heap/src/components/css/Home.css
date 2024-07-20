@@ -145,6 +145,7 @@
 
   .carousel {
     width: 80%;
+    height: auto;
     margin-bottom: 40px;
   }
 

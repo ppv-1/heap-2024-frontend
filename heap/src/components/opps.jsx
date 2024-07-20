@@ -57,12 +57,23 @@ const skills = [
   { label: "Others", value: "other" },
 ];
 
+const getTheme = () => {
+  const storedTheme = localStorage.getItem('theme');
+  if (storedTheme) {
+    return storedTheme;
+  }
+
+  const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  return systemPrefersDark ? 'dim' : 'light';
+};
+
 class OpportunitiesComponent extends Component {
   constructor(props) {
     super(props);
 
     let searchParams = new URLSearchParams(props.location.search);
     let causeQuery = searchParams.get("cause");
+    let theme = getTheme();
 
     this.state = {
       items: [],
@@ -75,6 +86,7 @@ class OpportunitiesComponent extends Component {
       placeholderText: "Search for opportunities by name or organisation",
       currentPage: 1,
       postsPerPage: 8,
+      theme: theme,
     };
   }
 
@@ -132,6 +144,9 @@ class OpportunitiesComponent extends Component {
       currentPage,
       postsPerPage,
     } = this.state;
+
+    const isDarkMode = this.state.theme === "dim";
+    const multiSelectClassName = isDarkMode ? "dark" : "";
 
     let filteredItems = items
       ? items.filter((item) => {
@@ -264,7 +279,7 @@ class OpportunitiesComponent extends Component {
                       onChange={this.handleCauseChange}
                       labelledBy="Select related causes"
                       disableSearch="true"
-                      className="multiselect"
+                      className={`multiselect ${multiSelectClassName}`}
                     />
                     <hr className="my-3 h-0.5 border-t-0 bg-gray opacity-100 dark:opacity-50" />
                     <p>Opportunity Type</p>
@@ -327,7 +342,7 @@ class OpportunitiesComponent extends Component {
                       onChange={this.handleSkillChange}
                       labelledBy="Select related skills"
                       disableSearch="true"
-                      className="multiselect"
+                      className={`multiselect ${multiSelectClassName}`}
                     />
                   </li>
                 </ul>

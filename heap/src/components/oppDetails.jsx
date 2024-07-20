@@ -76,6 +76,7 @@ class Opportunity extends Component {
       loading: true,
       orgName: null,
       images: [],
+      orgId: null,
     };
 
     this.registerEvent = this.registerEvent.bind(this);
@@ -89,6 +90,7 @@ class Opportunity extends Component {
       const org = await OrgService.getOrg(res.data.organisation_id);
       // const orgResponse = await OrgService.getOrg(res.data.organisation);
       // console.log("orgResponse =", orgResponse);
+      console.log("!!!!!!!!");
       console.log(org.data);
       this.setState({ loading: false });
       // const imageRes = await MediaService.getEventPhotos(id);
@@ -99,6 +101,7 @@ class Opportunity extends Component {
         loading: false,
         orgName: org.data.fullName,
         images: res.data.photosFilepaths, // Assuming imageRes.data is an array of base64 strings
+        orgId: org.data.email,
       });
       console.log("!!!!!!!");
       console.log("this.state.org=" + this.state.orgName);
@@ -121,7 +124,7 @@ class Opportunity extends Component {
     } catch(error){
       console.error("failed to register", error);
     }
-    
+
     // alert("You have successfully registered for this event");
     this.props.navigate("/registered-event", {
       state: { showRegAlert: true, registeredEventName: eventName },
@@ -134,7 +137,7 @@ class Opportunity extends Component {
   };
 
   render() {
-    const { opportunity, loading, images, orgName } = this.state;
+    const { opportunity, loading, images, orgName, orgId } = this.state;
     console.log(this.state);
     console.log("!!!!!!!!!!!!!!!!!!!!!!!");
     console.log("org=" + orgName);
@@ -144,48 +147,48 @@ class Opportunity extends Component {
 
     if (loading) {
       return (
-        <div className="wrapper">
-          <h1>Loading...</h1>
-        </div>
+          <div className="wrapper">
+            <h1>Loading...</h1>
+          </div>
       );
     }
 
     if (!opportunity) {
       return (
-        <div className="wrapper">
-          <h1>Opportunity not found.</h1>
-        </div>
+          <div className="wrapper">
+            <h1>Opportunity not found.</h1>
+          </div>
       );
     }
 
     const causesLabels = opportunity.causes.map(
-      (causeValue) => causes.find((cause) => cause.value === causeValue)?.label
+        (causeValue) => causes.find((cause) => cause.value === causeValue)?.label
     );
 
     const skillsLabels = opportunity.skills.map(
-      (skillValue) => skills.find((skill) => skill.value === skillValue)?.label
+        (skillValue) => skills.find((skill) => skill.value === skillValue)?.label
     );
 
     return (
-      <div className="wrapper">
-        <div className="breadcrumbs-container">
-          <div className="breadcrumbs text-sm">
-            <ul>
-              <li>
-                <a href="/">Home</a>
-              </li>
-              <li>
-                <a href="/opportunities">Volunteer</a>
-              </li>
-              <li>{opportunity.name}</li>
-            </ul>
+        <div className="wrapper">
+          <div className="breadcrumbs-container">
+            <div className="breadcrumbs text-sm">
+              <ul>
+                <li>
+                  <a href="/">Home</a>
+                </li>
+                <li>
+                  <a href="/opportunities">Volunteer</a>
+                </li>
+                <li>{opportunity.name}</li>
+              </ul>
+            </div>
           </div>
-        </div>
 
-        <div className="details-container">
-          <div className="top">
-            <h1 className="title">{opportunity.name}</h1>
-            <a href={`/organisations/${orgName}`}>{orgName}</a>
+          <div className="details-container">
+            <div className="top">
+              <h1 className="title">{opportunity.name}</h1>
+              <a href={`/organisations/${orgId}`}>{orgName}'s Details</a>
             <div className="carousel opp-carousel">
               {images.map((image, index) => (
                 <div

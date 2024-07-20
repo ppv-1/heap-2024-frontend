@@ -238,6 +238,18 @@ p {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.info h2 {
+  font-size: 20px;
+}
+
+.info h2:not(:first-of-type) {
+  margin-top: 5px;
+}
+
+.info h2:not(:last-of-type) {
+  margin-bottom: 5px;
+}
+
 .btn {
   margin-top: 10px;
 }
