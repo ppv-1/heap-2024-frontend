@@ -283,6 +283,7 @@ We hope to create a platform where people can find volunteering and donation opp
     <li>Verify Organisation</li>
     <ul>
         <li>When an organisation first register an account, their account would be unverified and the admin needs to verify their account before they are allowed to login.</li>
+<li>After verification, the organisation will receive an email to inform them that their account has been verified and they can proceed to login.</li>
     </ul>
   </ul>
 
