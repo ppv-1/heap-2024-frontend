@@ -225,15 +225,6 @@ class ManageOrgs extends Component {
                           Blacklist
                         </button>
                       )}
-
-                      <button
-                        className="btn btn-danger"
-                        onClick={(event) =>
-                          this.deleteOrgHandler(event, item.email)
-                        }
-                      >
-                        Delete
-                      </button>
                     </td>
                   </tr>
                 ))}

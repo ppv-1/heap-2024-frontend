@@ -254,7 +254,7 @@ We hope to create a platform where people can find volunteering and donation opp
   <ul>
     <li>Resolve/Reject Feedback</li>
     <ul>
-        <li>Resolve: Feedback made was valid. Complainee's complaint count would increase. Once a user's complaint count exceeds 3, the user's account will be locked.</li>
+        <li>Resolve: Feedback made was valid. Complainee's complaint count will increase. Once a user's complaint count exceeds 3, the user's account will be locked.</li>
         <li>Reject: Feedback made was invalid. Complainee's complaint count would not be affected.</li>
     </ul>
     <li>Delete Feedback</li>
