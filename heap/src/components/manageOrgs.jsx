@@ -67,7 +67,7 @@ class ManageOrgs extends Component {
       await this.blacklistOrg(selectedOrg.email);
     } else if (modalType === "whitelist") {
       await this.whitelistOrg(selectedOrg.email);
-    } else if (modalType === "delete") {
+    }else if (modalType === "delete") {
       await this.deleteOrg(selectedOrg.email);
     }
 
@@ -255,7 +255,7 @@ class ManageOrgs extends Component {
                 Are you sure you want to {modalType === "verify" && "verify"}
                 {modalType === "blacklist" && "blacklist"}
                 {modalType === "whitelist" && "whitelist"}
-                {modalType === "delete" && "delete"} {selectedOrg?.fullName}?
+                 {selectedOrg?.fullName}?
               </h3>
               <p className="py-4">Please confirm your choice.</p>
               <div className="modal-action">
